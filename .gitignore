@@ -151,3 +151,5 @@ cython_debug/
 
 .ruff_cache
 /AlgorithmicStrategy/AlkaidOrderBook.py
+/.idea/
+/.vscode/
