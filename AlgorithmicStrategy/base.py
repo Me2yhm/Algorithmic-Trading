@@ -1,5 +1,10 @@
 from abc import ABC, abstractmethod
+
 from pandas import DataFrame
+
+
+class OrderBook(ABC):
+    pass
 
 
 class AlgorithmicStrategy(ABC):
@@ -11,13 +16,14 @@ class AlgorithmicStrategy(ABC):
     possession: 调仓记录
     """
 
-    orderbook: "orderbook"  # orderbook类, 还没定义
+    # orderbook类, 还没定义
+    orderbook: OrderBook
     timeStamp: int
     deal: DataFrame
     possession: DataFrame
 
     @abstractmethod
-    def TWAP_stratgy() -> dict:
+    def TWAP_stratgy(self) -> dict:
         """
         TWAP策略,返回一个signal字典, 包含{股票代码, 买入还是卖出["B"/"S"], 价格, volume}
         传入参数: lines:tick/order的一条数据, volume: 需要下单的总量
@@ -25,21 +31,21 @@ class AlgorithmicStrategy(ABC):
         """
 
     @abstractmethod
-    def VWAP_stratgy() -> dict:
+    def VWAP_stratgy(self) -> dict:
         """
         TWAP策略,返回一个signal字典, 包含{股票代码, 买入还是卖出["B"/"S"], 价格, volume}
         传入参数: lines:tick/order的一条数据, volume: 需要下单的总量
         """
 
     @abstractmethod
-    def momentum_stratgy() -> dict:
+    def momentum_stratgy(self) -> dict:
         """
         动量策略,返回胜率、赔率、换手率。其余返回参数待定
         传入参数:  lines:tick/order的一条数据
         """
 
     @abstractmethod
-    def snapshot_stratgy() -> dict:
+    def snapshot_stratgy(self) -> dict:
         """
         盘口策略, 返回策略结果, 需要l2snapshot数据
         """

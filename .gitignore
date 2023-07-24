@@ -1,3 +1,4 @@
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -149,3 +150,4 @@ dmypy.json
 cython_debug/
 
 .ruff_cache
+/AlgorithmicStrategy/AlkaidOrderBook.py
