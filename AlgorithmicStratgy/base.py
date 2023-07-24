@@ -5,13 +5,13 @@ from pandas import DataFrame
 class algorithmicStratgy(ABC):
     """
     抽象基类, 定义算法交易类的接口, 有如下属性
-    oderbook: oderbook类, 可以撮合盘口, 记录盘口状态
+    orderbook: orderbook类, 可以撮合盘口, 记录盘口状态
     timeStamp: 记录当前时间戳
     deal: 成交记录
     possession: 调仓记录
     """
 
-    oderbook: "oderbook"  # oderbook类, 还没定义
+    orderbook: "orderbook"  # orderbook类, 还没定义
     timeStamp: int
     deal: DataFrame
     possession: DataFrame
