@@ -5,14 +5,14 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description='Arguments for the strategy')
-    parser.add_argument('-s', '--seed', type=int, default=2333, help='random seed')
+    parser = ArgumentParser(description='Arguments for the strategy', add_help=True)
+    parser.add_argument('-s', '--seed', type=int, default=2333, help='set random seed')
     parser.add_argument('-e', '--epoch', type=int, default=10)
     parser.add_argument('--dataset', type=str, default='./DATA/ML')
     parser.add_argument('--model-save', type=str, default='./MODEL_SAVE')
     args = parser.parse_args()
 
-    logger.info("Starting")
+    logger.info("Starting".center(40, '='))
 
     dataset_path: Path = Path(args.dataset)
     assert dataset_path.exists(), 'Dataset path does not exist!'
