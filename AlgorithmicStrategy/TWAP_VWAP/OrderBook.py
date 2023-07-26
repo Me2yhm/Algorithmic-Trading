@@ -1,10 +1,7 @@
-from __future__ import annotations
 from abc import ABCMeta, abstractmethod
-import sys
-import os
+from pathlib import Path
+import pandas as pd
 
-sys.path.insert(0, '../')
-from base import AlgorithmicStrategy  # type: ignore
 
 
 class DataStream(metaclass=ABCMeta):
@@ -18,41 +15,19 @@ class DataStream(metaclass=ABCMeta):
 
 
 class TickStream(DataStream):
-    def __init__(self, path: os.PathLike | str):
-        self.path: os.PathLike = path
+    def __init__(self, data_folder: str):
+        self.data_folder: Path = Path(data_folder)
         self.current: int = 0
-        self.limit: int = 10
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self.current >= self.limit:
-            raise StopIteration
-        result = self.current
-        self.current = self.current + 1
-        return result
-
-
-class TradeStrategy(AlgorithmicStrategy):
-    def __init__(self):
         pass
 
-    def TWAP_stratgy(self):
-        pass
 
-    def VWAP_stratgy(self):
-        pass
-
-    def momentum_stratgy(self):
-        pass
-
-    def snapshot_stratgy(self):
-        pass
 
 
 if __name__ == "__main__":
-    trader = TradeStrategy()
-    tick = TickStream("./")
-    for i in tick:
-        print(i)
+    tick = TickStream("./DATA/TICK_DATA")
+
