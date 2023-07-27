@@ -17,7 +17,7 @@ class DataStream:
 
     # noinspection PyTypeChecker
     def __init__(self, data_folder: PathType, delimiter: str = ",", **kwargs):
-        self.ticker_column = kwargs.get("ticker_columns", "SecurityID")
+        self.ticker_column: str = kwargs.get("ticker_columns", "SecurityID")
         self.date_columns: tuple = ("TransactTime", "TradeTime")
         self.current_file: TextIO = None
         self.current_reader: Iterator[list[str]] = None

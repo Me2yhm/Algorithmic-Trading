@@ -24,7 +24,7 @@ if __name__ == '__main__':
         model_save_path.mkdir()
 
     device = t.device("cuda:0" if t.cuda.is_available() else "cpu")
-    logger.info("Set device: {}({})".format(device.type, device.index))
+    logger.info(f"Set device: {device}")
 
     setup_seed(args.seed)
     logger.info("Set seed: {}".format(args.seed))
