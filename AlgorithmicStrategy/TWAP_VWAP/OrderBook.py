@@ -13,12 +13,12 @@ PathType = Union[str, Path, PathLike]
 
 class DataStream:
     __slots__ = "current_file", "current_reader", "delimiter", "data_folder", \
-        "data_files", "columns", "rest_data_files", "date_columns", "ticker_column"
+        "data_files", "columns", "rest_data_files", "date_column", "ticker_column"
 
     # noinspection PyTypeChecker
     def __init__(self, data_folder: PathType, delimiter: str = ",", **kwargs):
         self.ticker_column: str = kwargs.get("ticker_columns", "SecurityID")
-        self.date_columns: tuple = ("TransactTime", "TradeTime")
+        self.date_column: tuple = kwargs.get("date_column", "TradeTime")
         self.current_file: TextIO = None
         self.current_reader: Iterator[list[str]] = None
         self.delimiter: str = delimiter
@@ -39,6 +39,9 @@ class DataStream:
                 self.current_file, delimiter=self.delimiter)
             if self.columns is None:
                 self.columns = next(self.current_reader)
+                # if "TransactTime" in self.columns:
+                #     idx = self.columns.index("TransactTime")
+                #     self.columns[idx] = "TradeTime"
             else:
                 assert self.columns == next(self.current_reader)
         else:
@@ -63,7 +66,7 @@ class DataStream:
         assert len(data) == len(self.columns)
         res = []
         for i, j in zip(self.columns, data):
-            if i in self.date_columns:
+            if i == self.date_column:
                 res.append(datetime.strptime(j, "%Y%m%d%H%M%S%f"))
             elif i == self.ticker_column:
                 res.append(j)
@@ -86,6 +89,15 @@ class DataStream:
                 self._open_next_file()
 
         raise StopIteration
+
+    def fresh(self, num: int = 1) -> Union[list[dict], dict]:
+        if num == 1:
+            return next(self)
+        else:
+            res = []
+            for i in range(num):
+                res.append(next(self))
+            return res
 
     def __iter__(self):
         return self
@@ -114,9 +126,19 @@ class OrderBook:
         self.tick: DataStream = tick_api
         self.order: DataStream = order_api
 
+    def update(self, until: TimeType = None):
+        tick_now = self.tick.fresh()
+        order_now = self.order.fresh()
+        tick_time = tick_now[tick.date_column]
+        order_time = order_now[order.date_column]
+        if order_time > until and tick_time > until:
+            return
+
+
+
 
 if __name__ == "__main__":
-    tick = DataStream("./DATA/TICK_DATA")
-    print(next(tick))
-    order = DataStream("./DATA/ORDER_DATA")
-    print(next(order))
+    tick = DataStream("./DATA/TICK_DATA", date_column="TradeTime")
+    print(tick.fresh())
+    order = DataStream("./DATA/ORDER_DATA", date_column="TransactTime")
+    print(order.fresh())

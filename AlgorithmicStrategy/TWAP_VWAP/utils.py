@@ -4,7 +4,7 @@ from torch import nn, optim
 import random
 from log import logger
 import matplotlib.pyplot as plt
-from typing import Union, Sequence
+from typing import Sequence
 
 plt.style.use("seaborn-pastel")
 
