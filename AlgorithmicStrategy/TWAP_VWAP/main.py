@@ -3,6 +3,8 @@ from utils import setup_seed
 import torch as t
 from argparse import ArgumentParser
 from pathlib import Path
+import warnings
+warnings.filterwarnings('ignore')
 
 if __name__ == '__main__':
     parser = ArgumentParser(description='Arguments for the strategy', add_help=True)
