@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 import torch as t
 from torch import nn, optim
@@ -53,9 +55,10 @@ def plotter(x: Sequence, y: Sequence = None, ylabel: str = '', xlabel: str = "ep
     plt.xlabel(xlabel, fontdict=fontdict)
     plt.grid(True, alpha=0.7)
     plt.legend(loc='best', fontsize=fontdict['fontsize'])
-    plt.show()
+    if kwargs.get('show', True):
+        plt.show()
     if path := kwargs.get("path", ""):
-        plt.savefig(path, dpi=200)
+        plt.savefig(Path(__file__).parent / path, dpi=200)
 
 
 def categorical(
@@ -89,5 +92,5 @@ def categorical(
 
 
 if __name__ == "__main__":
-    # plotter(range(8), ylabel="acc")
+    plotter(range(8), ylabel="acc", show=False, path="./PICS/test.png")
     print(categorical([1, 2, 3, 8]))

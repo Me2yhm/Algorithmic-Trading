@@ -1,12 +1,10 @@
-from datetime import datetime, date
-from collections import OrderedDict
-from pathlib import Path
-from os import PathLike
 import csv
-import numpy as np
-import pandas as pd
+from collections import OrderedDict
+from datetime import datetime, date
+from os import PathLike
+from pathlib import Path
 from typing import TypedDict, Union, TextIO, Iterator
-import os
+import pandas as pd
 
 TimeType = Union[datetime, date, pd.Timestamp]
 PathType = Union[str, Path, PathLike]
@@ -27,7 +25,7 @@ class DataStream:
 
     # noinspection PyTypeChecker
     def __init__(self, data_folder: PathType, delimiter: str = ",", **kwargs):
-        self.ticker_column: str = kwargs.get("ticker_columns", "SecurityID")
+        self.ticker_column: str = kwargs.get("ticker_colum", "SecurityID")
         self.date_column: tuple = kwargs.get("date_column", "TradeTime")
         self.current_file: TextIO = None
         self.current_reader: Iterator[list[str]] = None
@@ -45,7 +43,9 @@ class DataStream:
         if self.rest_data_files:
             file_path = self.rest_data_files.pop(0)
             self.current_file = open(file_path, "r", newline="")
-            self.current_reader = csv.reader(self.current_file, delimiter=self.delimiter)
+            self.current_reader = csv.reader(
+                self.current_file, delimiter=self.delimiter
+            )
             if self.columns is None:
                 self.columns = next(self.current_reader)
                 # if "TransactTime" in self.columns:
@@ -144,10 +144,9 @@ class OrderBook:
 
 
 if __name__ == "__main__":
-    tick_path = os.path.join(os.path.dirname(__file__), "./DATA/TICK_DATA")
-    print(tick_path)
+    tick_path = Path(__file__).parent / "DATA/TICK_DATA"
     tick = DataStream(tick_path, date_column="TradeTime")
     print(tick.fresh())
-    order_path = os.path.join(os.path.dirname(__file__), "./DATA/ORDER_DATA")
+    order_path = Path(__file__).parent / "DATA/ORDER_DATA"
     order = DataStream(order_path, date_column="TransactTime")
     print(order.fresh())
