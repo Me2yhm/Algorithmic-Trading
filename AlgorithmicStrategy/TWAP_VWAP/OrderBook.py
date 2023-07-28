@@ -6,14 +6,24 @@ import csv
 import numpy as np
 import pandas as pd
 from typing import TypedDict, Union, TextIO, Iterator
+import os
 
 TimeType = Union[datetime, date, pd.Timestamp]
 PathType = Union[str, Path, PathLike]
 
 
 class DataStream:
-    __slots__ = "current_file", "current_reader", "delimiter", "data_folder", \
-        "data_files", "columns", "rest_data_files", "date_column", "ticker_column"
+    __slots__ = (
+        "current_file",
+        "current_reader",
+        "delimiter",
+        "data_folder",
+        "data_files",
+        "columns",
+        "rest_data_files",
+        "date_column",
+        "ticker_column",
+    )
 
     # noinspection PyTypeChecker
     def __init__(self, data_folder: PathType, delimiter: str = ",", **kwargs):
@@ -34,9 +44,8 @@ class DataStream:
 
         if self.rest_data_files:
             file_path = self.rest_data_files.pop(0)
-            self.current_file = open(file_path, 'r', newline='')
-            self.current_reader = csv.reader(
-                self.current_file, delimiter=self.delimiter)
+            self.current_file = open(file_path, "r", newline="")
+            self.current_reader = csv.reader(self.current_file, delimiter=self.delimiter)
             if self.columns is None:
                 self.columns = next(self.current_reader)
                 # if "TransactTime" in self.columns:
@@ -53,7 +62,7 @@ class DataStream:
 
     @staticmethod
     def isfloat(txt):
-        s = txt.split('.')
+        s = txt.split(".")
         if len(s) > 2:
             return False
         else:
@@ -119,7 +128,6 @@ class SnapShot(TypedDict):
 
 
 class OrderBook:
-
     def __init__(self, tick_api: DataStream, order_api: DataStream):
         self.snapshots: OrderedDict[TimeType, SnapShot] = OrderedDict()
         self.last_snapshot = None
@@ -135,10 +143,11 @@ class OrderBook:
             return
 
 
-
-
 if __name__ == "__main__":
-    tick = DataStream("./DATA/TICK_DATA", date_column="TradeTime")
+    tick_path = os.path.join(os.path.dirname(__file__), "./DATA/TICK_DATA")
+    print(tick_path)
+    tick = DataStream(tick_path, date_column="TradeTime")
     print(tick.fresh())
-    order = DataStream("./DATA/ORDER_DATA", date_column="TransactTime")
+    order_path = os.path.join(os.path.dirname(__file__), "./DATA/ORDER_DATA")
+    order = DataStream(order_path, date_column="TransactTime")
     print(order.fresh())
