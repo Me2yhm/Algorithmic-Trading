@@ -9,7 +9,7 @@ class PreNorm(nn.Module):
     进行预归一化，fn在下文中指代Attention，因此该作用为进行归一化后施加注意力
     """
 
-    def __init__(self, dim: int, fn: Callable):
+    def __init__(self, dim: int, fn: Callable[[Tensor], Tensor]):
         super().__init__()
         self.norm: nn.Module = nn.LayerNorm(dim)
         self.fn: Callable[[Tensor], Tensor] = fn
@@ -55,7 +55,18 @@ class Attention(nn.Module):
         # rearrange: 进行维度转换， 此处为将原最后一维拆分后再将维度翻转
         q, k, v = map(lambda t: rearrange(t, "b n (h d) -> b h n d", h=h), qkv)
 
-        # 爱因斯坦求和
+        """
+        爱因斯坦求和
+        res = zeros([b_num, h_num, i_num, j_num])
+        for b in range(b_num):
+            for h in range(h_num):
+                for i in range(i_num):
+                    for j in range(j_num):
+                        tmp = 0
+                        for d in range(d_num):
+                             tmp += q[b,h,i,d] * k[b,h,j,d]
+                        res[b, h, i, j] = tmp
+        """
         dots = einsum("b h i d, b h j d -> b h i j", q, k) * self.scale
 
         attn = self.attend(dots)
