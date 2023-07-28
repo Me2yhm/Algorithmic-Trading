@@ -26,30 +26,29 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(real.equal(test), True)
 
     def test_rearrange(self):
-
         tensor = t.randn(3, 4, 5)
-        rearranged_tensor = rearrange(tensor, 'a b c -> b a c')
+        rearranged_tensor = rearrange(tensor, "a b c -> b a c")
         permuted_tensor = tensor.permute(1, 0, 2)
         self.assertEqual(permuted_tensor.equal(rearranged_tensor), True)
 
     def test_rearrange_2(self):
         images = t.randn((32, 30, 40, 3))
         self.assertEqual(
-            t.tensor(
-                rearrange(images, 'b h w c -> (b h) w c').shape
-            ).equal(t.tensor([960, 40, 3])),
-            True
+            t.tensor(rearrange(images, "b h w c -> (b h) w c").shape).equal(
+                t.tensor([960, 40, 3])
+            ),
+            True,
         )
 
     def test_rearrange_3(self):
         images = t.randn((32, 60, 50))
         self.assertEqual(
-            t.tensor(
-                rearrange(images, 'b n (h d) -> b h n d', h=2).shape
-            ).equal(t.tensor([32, 2, 60, 25])),
-            True
+            t.tensor(rearrange(images, "b n (h d) -> b h n d", h=2).shape).equal(
+                t.tensor([32, 2, 60, 25])
+            ),
+            True,
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

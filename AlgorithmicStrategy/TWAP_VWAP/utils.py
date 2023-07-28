@@ -20,17 +20,13 @@ def setup_seed(seed: int):
 
 
 def save_model(
-        model: nn.Module,
-        optimizer: optim,
-        epoch: int,
-        loss: float,
-        path: str,
-        **kwargs):
+    model: nn.Module, optimizer: optim, epoch: int, loss: float, path: str, **kwargs
+):
     save_dict = {
         "epoch": epoch,
         "model_state_dict": model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'loss': loss,
+        "optimizer_state_dict": optimizer.state_dict(),
+        "loss": loss,
     }
     save_dict.update(kwargs)
     t.save(save_dict, path)
@@ -45,8 +41,10 @@ def save_model(
     """
 
 
-def plotter(x: Sequence, y: Sequence = None, ylabel: str = '', xlabel: str = "epochs", **kwargs):
-    fontdict = kwargs.get('fontdict', {'fontsize': 20})
+def plotter(
+    x: Sequence, y: Sequence = None, ylabel: str = "", xlabel: str = "epochs", **kwargs
+):
+    fontdict = kwargs.get("fontdict", {"fontsize": 20})
     plt.figure(figsize=(8, 6))
     if y is None:
         y = range(len(x))
@@ -54,16 +52,16 @@ def plotter(x: Sequence, y: Sequence = None, ylabel: str = '', xlabel: str = "ep
     plt.ylabel(ylabel, fontdict=fontdict)
     plt.xlabel(xlabel, fontdict=fontdict)
     plt.grid(True, alpha=0.7)
-    plt.legend(loc='best', fontsize=fontdict['fontsize'])
-    if kwargs.get('show', True):
+    plt.legend(loc="best", fontsize=fontdict["fontsize"])
+    if kwargs.get("show", True):
         plt.show()
     if path := kwargs.get("path", ""):
         plt.savefig(Path(__file__).parent / path, dpi=200)
 
 
 def categorical(
-        labels: Union[np.ndarray, t.Tensor, list],
-        classes: Union[np.ndarray, t.Tensor, list, int] = None
+    labels: Union[np.ndarray, t.Tensor, list],
+    classes: Union[np.ndarray, t.Tensor, list, int] = None,
 ):
     """
     :param labels: class vector to be converted into a matrix
@@ -78,11 +76,10 @@ def categorical(
     if isinstance(classes, int):
         num_categories = classes
     else:
-        num_categories = max(classes)+1
+        num_categories = max(classes) + 1
 
     if isinstance(labels, list):
         labels = np.array(labels, dtype=np.int64)
-
 
     # Convert the labels to a one-hot encoded tensor
     one_hot_labels = t.zeros(len(labels), num_categories)
