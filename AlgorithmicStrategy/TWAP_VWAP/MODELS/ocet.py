@@ -1,7 +1,8 @@
-import torch
+from typing import Callable
+
+import torch as t
 from einops import rearrange
 from torch import einsum, nn, Tensor
-from typing import Callable
 
 
 class PreNorm(nn.Module):
@@ -14,8 +15,8 @@ class PreNorm(nn.Module):
         self.norm: nn.Module = nn.LayerNorm(dim)
         self.fn: Callable[[Tensor], Tensor] = fn
 
-    def forward(self, x, **kwargs) -> Tensor:
-        return self.fn(self.norm(x), **kwargs)
+    def forward(self, x) -> Tensor:
+        return self.fn(self.norm(x))
 
 
 class FeedForward(nn.Module):
@@ -34,7 +35,7 @@ class FeedForward(nn.Module):
 
 
 class Attention(nn.Module):
-    def __init__(self, dim: int, heads: int = 8, dim_head=64, dropout=0.0, **kwargs):
+    def __init__(self, dim: int, heads: int = 8, dim_head=64, dropout=0.0):
         super().__init__()
         inner_dim = dim_head * heads
         project_out = not (heads == 1 and dim_head == dim)
@@ -53,7 +54,7 @@ class Attention(nn.Module):
         # 在给定维度(轴)上将输入张量进行分块, 此处为在最后一维上分成三部分
         qkv = self.to_qkv(x).chunk(3, dim=-1)
         # rearrange: 进行维度转换， 此处为将原最后一维拆分后再将维度翻转
-        q, k, v = map(lambda t: rearrange(t, "b n (h d) -> b h n d", h=h), qkv)
+        q, k, v = map(lambda tensor: rearrange(tensor, "b n (h d) -> b h n d", h=h), qkv)
 
         """
         爱因斯坦求和
@@ -126,9 +127,7 @@ class OCET(nn.Module):
             nn.Conv2d(
                 in_channels=1,
                 out_channels=1,
-                kernel_size=(
-                    4,
-                    1),
+                kernel_size=(4, 1),
                 padding="same"),
             nn.Sigmoid())
 
@@ -152,7 +151,8 @@ class OCET(nn.Module):
         res = x + self.oce(x)
 
         res = self.conv1(res)
-        res = torch.squeeze(res)
+        # 默认去除所有维度为1的dimension
+        res = t.squeeze(res)
 
         res = self.transformer(res)
         # get the cls token

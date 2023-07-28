@@ -1,4 +1,4 @@
-from log import logger
+from log import logger, eval_log, train_log
 from utils import setup_seed
 import torch as t
 from argparse import ArgumentParser
@@ -28,3 +28,7 @@ if __name__ == '__main__':
 
     setup_seed(args.seed)
     logger.info("Set seed: {}".format(args.seed))
+
+    train_log(epoch=1, epochs=args.epoch, step=1, steps=20, loss=1.5, acc=0.65)
+    train_log(epoch=1, epochs=args.epoch, step=10, steps=20, loss=1.5, acc=0.65)
+    eval_log(epoch=1, acc=0.53)
