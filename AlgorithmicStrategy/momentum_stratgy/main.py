@@ -5,12 +5,13 @@ from AlgorithmicStrategy.base import AlgorithmicStrategy
 class modelType(ABC):
     """
     模型的抽象基类，用于实现指标更新或者模型增量训练
+
     """
 
     @abstractmethod
-    def model_update():
+    def model_update(tick):
         """
-        数据增量地传进来，每传进来一条数据，模型计算一次指标或者训练一次模型
+        模型接受一个tick参数(目前还不确定是什么数据类型)，根据tick数据返回模型计算结果
         """
 
 
@@ -29,7 +30,7 @@ class momentumStratgy(AlgorithmicStrategy):
         """
         pass
 
-    def model_update(model) -> None:
+    def model_update(self, model: modelType) -> None:
         """
         盘口更新过后，根据更新过的数据增量地更新指标或者训练模型
         """
