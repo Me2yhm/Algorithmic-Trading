@@ -27,7 +27,7 @@ class FeedForward(nn.Module):
             nn.GELU(),  # Applies the Gaussian Error Linear Units function
             nn.Dropout(dropout),
             nn.Linear(hidden_dim, dim),
-            nn.Dropout(dropout)
+            nn.Dropout(dropout),
         )
 
     def forward(self, x) -> Tensor:
@@ -41,20 +41,25 @@ class Attention(nn.Module):
         project_out = not (heads == 1 and dim_head == dim)
 
         self.heads = heads
-        self.scale = dim_head ** -0.5
+        self.scale = dim_head**-0.5
 
         self.attend = nn.Softmax(dim=-1)
         self.to_qkv = nn.Linear(dim, inner_dim * 3, bias=False)
 
-        self.to_out = nn.Sequential(nn.Linear(inner_dim, dim), nn.Dropout(
-            dropout)) if project_out else nn.Identity()
+        self.to_out = (
+            nn.Sequential(nn.Linear(inner_dim, dim), nn.Dropout(dropout))
+            if project_out
+            else nn.Identity()
+        )
 
     def forward(self, x: Tensor):
         b, n, _, h = *x.shape, self.heads
         # 在给定维度(轴)上将输入张量进行分块, 此处为在最后一维上分成三部分
         qkv = self.to_qkv(x).chunk(3, dim=-1)
         # rearrange: 进行维度转换， 此处为将原最后一维拆分后再将维度翻转
-        q, k, v = map(lambda tensor: rearrange(tensor, "b n (h d) -> b h n d", h=h), qkv)
+        q, k, v = map(
+            lambda tensor: rearrange(tensor, "b n (h d) -> b h n d", h=h), qkv
+        )
 
         """
         爱因斯坦求和
@@ -88,17 +93,13 @@ class Transformer(nn.Module):
                         PreNorm(
                             dim,
                             Attention(
-                                dim,
-                                heads=heads,
-                                dim_head=dim_head,
-                                dropout=dropout)),
-                        PreNorm(
-                            dim,
-                            FeedForward(
-                                dim,
-                                mlp_dim,
-                                dropout=dropout)),
-                    ]))
+                                dim, heads=heads, dim_head=dim_head, dropout=dropout
+                            ),
+                        ),
+                        PreNorm(dim, FeedForward(dim, mlp_dim, dropout=dropout)),
+                    ]
+                )
+            )
 
     def forward(self, x):
         for attn, ff in self.layers:
@@ -109,27 +110,26 @@ class Transformer(nn.Module):
 
 class OCET(nn.Module):
     def __init__(
-            self,
-            #  / 用来指明函数形参必须使用指定位置参数，不能使用关键字参数的形式
-            #  * 用来指明必须使用关键字参数
-            *,
-            num_classes: int,
-            dim: int,
-            depth: int,
-            heads: int,
-            dim_head: int,
-            mlp_dim: int,
-            dropout: float = 0.0,
+        self,
+        #  / 用来指明函数形参必须使用指定位置参数，不能使用关键字参数的形式
+        #  * 用来指明必须使用关键字参数
+        *,
+        num_classes: int,
+        dim: int,
+        depth: int,
+        heads: int,
+        dim_head: int,
+        mlp_dim: int,
+        dropout: float = 0.0,
     ):
         super().__init__()
 
         self.oce = nn.Sequential(
             nn.Conv2d(
-                in_channels=1,
-                out_channels=1,
-                kernel_size=(4, 1),
-                padding="same"),
-            nn.Sigmoid())
+                in_channels=1, out_channels=1, kernel_size=(4, 1), padding="same"
+            ),
+            nn.Sigmoid(),
+        )
 
         self.conv1 = nn.Sequential(
             nn.Conv2d(in_channels=1, out_channels=2, kernel_size=(1, 2), stride=(1, 2)),
@@ -143,8 +143,7 @@ class OCET(nn.Module):
             nn.BatchNorm2d(40),
         )
 
-        self.transformer = Transformer(
-            dim, depth, heads, dim_head, mlp_dim, dropout)
+        self.transformer = Transformer(dim, depth, heads, dim_head, mlp_dim, dropout)
         self.fc = nn.Linear(dim, num_classes)
 
     def forward(self, x: Tensor) -> Tensor:
