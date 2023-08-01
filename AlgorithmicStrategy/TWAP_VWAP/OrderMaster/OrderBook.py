@@ -72,26 +72,65 @@ class OrderBook:
         for data in datas:
             if data["oid"] != 0 or data["ptype"] != 0:
                 self.oid_map[data["oid"]] = LifeTime(
-                    oid=data['oid'],
-                    price=data['price'],
-                    volume=data['volume'],
-                    birth=data['time'],
-                    rest=data['volume']
+                    oid=data["oid"],
+                    price=data["price"],
+                    volume=data["volume"],
+                    birth=data["time"],
+                    rest=data["volume"],
+                    AS= "bid" if data["flag"] == 1 else "ask"
                 )
                 self._update_from_order(data)
             else:
-                tmp_oid_idx = "oidb" if data['flag'] in [1, 3] else "oids"
-                assert data[tmp_oid_idx] in self.oid_map, data
-                if data["price"] == 0.0:
-                    data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
-                self._update_from_tick(data)
+                if self.data_api.ticker.endswith(".SZ"):
+                    if data["flag"] == 3:
+                        assert data["oidb"] in self.oid_map, data
+                        self.oid_map[data["oidb"]]["rest"] = 0
+                        self.oid_map[data["oidb"]]["death"] = data["time"]
+                        self.oid_map[data["oidb"]]["life"] = (
+                            self.oid_map[data["oidb"]]["birth"] - data["time"]
+                        )
+                    elif data["flag"] == 4:
+                        assert data["oids"] in self.oid_map, data
+                        self.oid_map[data["oids"]]["rest"] = 0
+                        self.oid_map[data["oids"]]["death"] = data["time"]
+                        self.oid_map[data["oids"]]["life"] = (
+                            self.oid_map[data["oids"]]["birth"] - data["time"]
+                        )
+                    else:
+                        assert data["oidb"] in self.oid_map, data
+                        tmp_val = self.oid_map[data["oidb"]]["volume"] - data["volume"]
+                        if tmp_val != 0:
+                            self.oid_map[data["oidb"]]["rest"] = tmp_val
+                        elif tmp_val == 0:
+                            self.oid_map[data["oidb"]]["rest"] = 0
+                            self.oid_map[data["oidb"]]["death"] = data["time"]
+                            self.oid_map[data["oidb"]]["life"] = (
+                                    self.oid_map[data["oidb"]]["birth"] - data["time"]
+                            )
+
+                        assert data["oids"] in self.oid_map, data
+                        tmp_val = self.oid_map[data["oids"]]["volume"] - data["volume"]
+                        if tmp_val != 0:
+                            self.oid_map[data["oids"]]["rest"] = tmp_val
+                        elif tmp_val == 0:
+                            self.oid_map[data["oids"]]["rest"] = 0
+                            self.oid_map[data["oids"]]["death"] = data["time"]
+                            self.oid_map[data["oids"]]["life"] = (
+                                    self.oid_map[data["oids"]]["birth"] - data["time"]
+                            )
+
+                    tmp_oid_idx = "oidb" if data["flag"] in [1, 3] else "oids"
+                    if data["price"] == 0.0:
+                        data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
+                    self.oid_map[tmp_oid_idx] = LifeTime()
+                    self._update_from_tick(data)
 
     @staticmethod
     def _order_change(
-            snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
+        snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
     ):
         snap[AS][data["price"]] = (
-                snap[AS].get(data["price"], 0) + direction * data["volume"]
+            snap[AS].get(data["price"], 0) + direction * data["volume"]
         )
         if snap[AS][data["price"]] == 0:
             del snap[AS][data["price"]]
@@ -156,7 +195,7 @@ class OrderBook:
             AS: Literal["bid", "ask"] = "bid" if data["flag"] == 1 else "ask"  # type: ignore
             direction: Literal[1, -1] = 1 if data["flag"] in [1, 2] else -1  # type: ignore
             # TODO:
-            if data['price'] == 0.0:
+            if data["price"] == 0.0:
                 pass
             else:
                 self._order_change(snap, AS, direction, data)
@@ -171,14 +210,14 @@ class OrderBook:
     def _update_from_tick(self, data: OT):
         snap: SnapShot = self.last_snapshot.copy()
         snap["timestamp"]: int = data[self.data_api.date_column]
-        assert data['price'] != 0.0, data
+        assert data["price"] != 0.0, data
         if self.data_api.ticker.endswith("SZ"):
-            if data['flag'] in [1, 2]:
+            if data["flag"] in [1, 2]:
                 self._tick_change(snap, data)
-            elif data['flag'] == 3:
+            elif data["flag"] == 3:
                 self._order_change(snap, "bid", -1, data)
-            elif data['flag'] == 4:
-                self._order_change(snap, 'ask', -1, data)
+            elif data["flag"] == 4:
+                self._order_change(snap, "ask", -1, data)
         elif self.data_api.ticker.endswith("SH"):
             pass
         else:
@@ -213,5 +252,3 @@ if __name__ == "__main__":
     print(near["bid"])
     print(near["ask"])
     print(ob.oid_map[1712])
-    # lt = LifeTime(oid=122)
-    # print(lt["oid"])
