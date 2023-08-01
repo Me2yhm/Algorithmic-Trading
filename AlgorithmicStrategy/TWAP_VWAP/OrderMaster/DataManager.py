@@ -1,13 +1,23 @@
 import csv
-from collections import OrderedDict
 from datetime import datetime, date
 from os import PathLike
 from pathlib import Path
 from typing import TypedDict, Union, TextIO, Iterator
 import pandas as pd
 
-TimeType = Union[datetime, date, pd.Timestamp]
+TimeType = Union[datetime, date, pd.Timestamp, str, int]
 PathType = Union[str, Path, PathLike]
+
+
+class OT(TypedDict, total=False):
+    time: int
+    oid: int
+    oidb: int
+    oids: int
+    price: float
+    volume: int
+    flag: int
+    ptype: int
 
 
 class DataStream:
@@ -20,13 +30,17 @@ class DataStream:
         "columns",
         "rest_data_files",
         "date_column",
-        "ticker_column",
+        "ticker",
+        "file_date",
+        "file_date_num",
     )
 
     # noinspection PyTypeChecker
     def __init__(self, data_folder: PathType, delimiter: str = ",", **kwargs):
-        self.ticker_column: str = kwargs.get("ticker_colum", "SecurityID")
-        self.date_column: tuple = kwargs.get("date_column", "TradeTime")
+        self.ticker: str = data_folder.parents[1].name
+        self.date_column: str = kwargs.get("date_column", "time")
+        self.file_date: TimeType = None
+        self.file_date_num: int = None
         self.current_file: TextIO = None
         self.current_reader: Iterator[list[str]] = None
         self.delimiter: str = delimiter
@@ -36,21 +50,27 @@ class DataStream:
         self.columns: list[str] = None
         self._open_next_file()
 
+    def isCALL(self, timestamp: int):
+        return (
+            timestamp < self.file_date_num + 93000000
+            or self.file_date_num + 145700000 < timestamp
+        )
+
     def _open_next_file(self):
         if self.current_file is not None:
             self.current_file.close()
 
         if self.rest_data_files:
             file_path = self.rest_data_files.pop(0)
+            self.file_date = datetime.strptime(file_path.stem, "%Y-%m-%d")
+            self.file_date_num = int(self.file_date.strftime("%Y%m%d%H%M%S")) * 1000
+
             self.current_file = open(file_path, "r", newline="")
             self.current_reader = csv.reader(
                 self.current_file, delimiter=self.delimiter
             )
             if self.columns is None:
                 self.columns = next(self.current_reader)
-                # if "TransactTime" in self.columns:
-                #     idx = self.columns.index("TransactTime")
-                #     self.columns[idx] = "TradeTime"
             else:
                 assert self.columns == next(self.current_reader)
         else:
@@ -71,23 +91,23 @@ class DataStream:
                     return False
             return True
 
-    def _format(self, data: list[str]) -> dict[str, object]:
+    def _format(self, data: list[str]) -> OT:
         assert len(data) == len(self.columns)
-        res = []
+        res = OT()
         for i, j in zip(self.columns, data):
-            if i == self.date_column:
-                res.append(datetime.strptime(j, "%Y%m%d%H%M%S%f"))
-            elif i == self.ticker_column:
-                res.append(j)
-            elif j.isdigit():
-                res.append(int(j))
+            if j.isdigit():
+                tmp = int(j) + self.file_date_num if i == self.date_column else int(j)
+                res[i] = tmp
             elif self.isfloat(j):
-                res.append(round(float(j), 3))
+                res[i] = round(float(j), 3)
             else:
-                res.append(j)
-        return dict(zip(self.columns, res))
+                res[i] = j
+        return res
 
-    def __next__(self):
+    def __iter__(self):
+        return self
+
+    def __next__(self) -> OT:
         if self.rest_data_files and self.current_file is None:
             self._open_next_file()
         while self.current_reader is not None:
@@ -108,9 +128,6 @@ class DataStream:
                 res.append(next(self))
             return res
 
-    def __iter__(self):
-        return self
-
     def close(self):
         if self.current_file is not None:
             self.current_file.close()
@@ -119,34 +136,3 @@ class DataStream:
 
     def __del__(self):
         self.close()
-
-
-class SnapShot(TypedDict):
-    timestamp: TimeType
-    A: OrderedDict[float, tuple[float, float]]
-    S: OrderedDict[float, tuple[float, float]]
-
-
-class OrderBook:
-    def __init__(self, tick_api: DataStream, order_api: DataStream):
-        self.snapshots: OrderedDict[TimeType, SnapShot] = OrderedDict()
-        self.last_snapshot = None
-        self.tick: DataStream = tick_api
-        self.order: DataStream = order_api
-
-    def update(self, until: TimeType = None):
-        tick_now = self.tick.fresh()
-        order_now = self.order.fresh()
-        tick_time = tick_now[tick.date_column]
-        order_time = order_now[order.date_column]
-        if order_time > until and tick_time > until:
-            return
-
-
-if __name__ == "__main__":
-    tick_path = Path(__file__).parent / "DATA/TICK_DATA"
-    tick = DataStream(tick_path, date_column="TradeTime")
-    print(tick.fresh())
-    order_path = Path(__file__).parent / "DATA/ORDER_DATA"
-    order = DataStream(order_path, date_column="TransactTime")
-    print(order.fresh())
