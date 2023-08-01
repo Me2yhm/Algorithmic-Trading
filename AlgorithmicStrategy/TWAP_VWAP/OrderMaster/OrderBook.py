@@ -5,7 +5,7 @@ from typing import TypedDict, Literal, Union
 import numpy as np
 import pandas as pd
 
-from DataManager import DataStream, TimeType, OT
+from DataManager import DataStream, TimeType, OT, DataSet
 
 
 class LifeTime(TypedDict, total=False):
@@ -97,10 +97,13 @@ class OrderBook:
                         self._cal_log_oid(data, key="oidb")
                         self._cal_log_oid(data, key="oids")
 
-
                     tmp_oid_idx = "oidb" if data["flag"] in [1, 3] else "oids"
                     if data["price"] == 0.0:
-                        data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
+                        if data[tmp_oid_idx] in self.oid_map:
+                            data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
+                        else:
+                            continue
+                    assert data["price"] != 0.0, data
                     self._update_from_tick(data)
 
                 elif self.data_api.ticker.endswith(".SH"):
@@ -111,6 +114,11 @@ class OrderBook:
                     else:
                         self._cal_log_oid(data, key='oidb')
                         self._cal_log_oid(data, key='oids')
+                    if data["price"] == 0.0:
+                        if data[tmp_oid_idx] in self.oid_map:
+                            data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
+                        else:
+                            continue
                     self._update_from_tick(data)
 
 
@@ -227,7 +235,7 @@ class OrderBook:
     def _update_from_tick(self, data: OT):
         snap: SnapShot = self.last_snapshot.copy()
         snap["timestamp"]: int = data[self.data_api.date_column]
-        assert data["price"] != 0.0, data
+        # assert data["price"] != 0.0, data
         if self.data_api.ticker.endswith("SZ"):
             if data["flag"] in [1, 2]:
                 direction = []
@@ -235,7 +243,6 @@ class OrderBook:
                     direction.append("ask")
                 if data['oidb'] not in self.skip_order:
                     direction.append("bid")
-
                 self._tick_change(snap, data, direction=direction)
             elif data["flag"] == 3:
                 self._order_change(snap, "bid", -1, data)
@@ -270,14 +277,15 @@ class OrderBook:
 
 if __name__ == "__main__":
     current_dir = Path(__file__).parent
-    data_dir = Path(__file__).parent / "../../datas/600000.SH/tick/gta"
-    # data_dir = Path(__file__).parent / "../../datas/000001.SZ/tick/gta"
-    tick = DataStream(data_dir, date_column="time")
+    # data_api = Path(__file__).parent / "../../datas/600000.SH/tick/gta"
+    # data_api = Path(__file__).parent / "../../datas/000001.SZ/tick/gta"
+    data_api = Path(__file__).parent / "../../datas/000001.SZ/tick/gta/2023-05-08.csv"
+    tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
+
     ob = OrderBook(data_api=tick)
     timestamp = 20230508093103000
-    ob.update(until=timestamp)
+    ob.update(until=None)
     near = ob.search_snapshot(timestamp)
     print(near["timestamp"])
     print(near["bid"])
     print(near["ask"])
-    print(ob.oid_map[172879])
