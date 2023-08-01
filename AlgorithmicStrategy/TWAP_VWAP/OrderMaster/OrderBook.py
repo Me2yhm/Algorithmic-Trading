@@ -3,7 +3,6 @@ from collections import OrderedDict
 from pathlib import Path
 from typing import TypedDict, Literal, Union
 import numpy as np
-import pandas as pd
 
 from DataManager import DataStream, TimeType, OT, DataSet
 
@@ -39,7 +38,7 @@ class OrderBook:
     def __init__(self, data_api: DataStream):
         self.snapshots: OrderedDict[TimeType, SnapShot] = OrderedDict()
         self.last_snapshot: SnapShot = None
-        self.data_api: DataStream = data_api
+        self.data_api: Union[DataStream, DataSet] = data_api
         self.oid_map: dict[int, LifeTime] = dict()
         self.data_cache: list[OT] = []
         self.skip_order: list[int] = []
@@ -121,6 +120,7 @@ class OrderBook:
                     else:
                         self._cal_log_oid(data, key="oidb")
                         self._cal_log_oid(data, key="oids")
+                    tmp_oid_idx = "oidb" if data["flag"] in [1, 3] else "oids"
                     if data["price"] == 0.0:
                         if data[tmp_oid_idx] in self.oid_map:
                             data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
@@ -282,9 +282,7 @@ class OrderBook:
 
 if __name__ == "__main__":
     current_dir = Path(__file__).parent
-    # data_api = Path(__file__).parent / "../../datas/600000.SH/tick/gta"
-    # data_api = Path(__file__).parent / "../../datas/000001.SZ/tick/gta"
-    data_api = Path(__file__).parent / "../../datas/000001.SZ/tick/gta/2023-05-08.csv"
+    data_api = Path(__file__).parent / "../../datas/000001.SZ/tick/gtja/2023-03-01.csv"
     tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
 
     ob = OrderBook(data_api=tick)
