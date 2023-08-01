@@ -90,50 +90,13 @@ class OrderBook:
                 if self.data_api.ticker.endswith(".SZ"):
                     if data['flag'] == 3:
                         # 异常订单：000001.SZ, 2746350，从未有人发起
-                        try:
-                            self.oid_map[data["oidb"]]["rest"] = 0
-                            self.oid_map[data["oidb"]]["death"] = data["time"]
-                            self.oid_map[data["oidb"]]["life"] = (
-                                    data["time"] - self.oid_map[data["oidb"]]["birth"]
-                            )
-                        except KeyError:
-                            return
-
+                        self._log_oid(data, key="oidb")
                     elif data["flag"] == 4:
-                        try:
-                            self.oid_map[data["oids"]]["rest"] = 0
-                            self.oid_map[data["oids"]]["death"] = data["time"]
-                            self.oid_map[data["oids"]]["life"] = (
-                                    data["time"] - self.oid_map[data["oids"]]["birth"]
-                            )
-                        except KeyError:
-                            return
+                        self._log_oid(data, key="oids")
                     else:
-                        try:
-                            tmp_val = self.oid_map[data["oidb"]]["volume"] - data["volume"]
-                            if tmp_val != 0:
-                                self.oid_map[data["oidb"]]["rest"] = tmp_val
-                            elif tmp_val == 0:
-                                self.oid_map[data["oidb"]]["rest"] = 0
-                                self.oid_map[data["oidb"]]["death"] = data["time"]
-                                self.oid_map[data["oidb"]]["life"] = (
-                                        data["time"] - self.oid_map[data["oidb"]]["birth"]
-                                )
-                        except KeyError:
-                            pass
+                        self._cal_log_oid(data, key="oidb")
+                        self._cal_log_oid(data, key="oids")
 
-                        try:
-                            tmp_val = self.oid_map[data["oids"]]["volume"] - data["volume"]
-                            if tmp_val != 0:
-                                self.oid_map[data["oids"]]["rest"] = tmp_val
-                            elif tmp_val == 0:
-                                self.oid_map[data["oids"]]["rest"] = 0
-                                self.oid_map[data["oids"]]["death"] = data["time"]
-                                self.oid_map[data["oids"]]["life"] = (
-                                        data["time"] - self.oid_map[data["oids"]]["birth"]
-                                )
-                        except KeyError:
-                            pass
 
                     tmp_oid_idx = "oidb" if data["flag"] in [1, 3] else "oids"
                     if data["price"] == 0.0:
@@ -142,63 +105,39 @@ class OrderBook:
 
                 elif self.data_api.ticker.endswith(".SH"):
                     if data["flag"] == 2:
-                        try:
-                            tmp_val = self.oid_map[data["oidb"]]["volume"] - data["volume"]
-                            if tmp_val != 0:
-                                self.oid_map[data["oidb"]]["rest"] = tmp_val
-                            elif tmp_val == 0:
-                                self.oid_map[data["oidb"]]["rest"] = 0
-                                self.oid_map[data["oidb"]]["death"] = data["time"]
-                                self.oid_map[data["oidb"]]["life"] = (
-                                        data["time"] - self.oid_map[data["oidb"]]["birth"]
-                                )
-                        except KeyError:
-                            pass
+                        self._cal_log_oid(data, key='oidb')
                     elif data["flag"] == 1:
-                        try:
-                            tmp_val = self.oid_map[data["oids"]]["volume"] - data["volume"]
-                            if tmp_val != 0:
-                                self.oid_map[data["oids"]]["rest"] = tmp_val
-                            elif tmp_val == 0:
-                                self.oid_map[data["oids"]]["rest"] = 0
-                                self.oid_map[data["oids"]]["death"] = data["time"]
-                                self.oid_map[data["oids"]]["life"] = (
-                                        data["time"] - self.oid_map[data["oids"]]["birth"]
-                                )
-                        except KeyError:
-                            pass
+                        self._cal_log_oid(data, key='oids')
                     else:
-                        try:
-                            tmp_val = self.oid_map[data["oidb"]]["volume"] - data["volume"]
-                            if tmp_val != 0:
-                                self.oid_map[data["oidb"]]["rest"] = tmp_val
-                            elif tmp_val == 0:
-                                self.oid_map[data["oidb"]]["rest"] = 0
-                                self.oid_map[data["oidb"]]["death"] = data["time"]
-                                self.oid_map[data["oidb"]]["life"] = (
-                                        data["time"] - self.oid_map[data["oidb"]]["birth"]
-                                )
-                        except KeyError:
-                            pass
-
-                        try:
-                            tmp_val = self.oid_map[data["oids"]]["volume"] - data["volume"]
-                            if tmp_val != 0:
-                                self.oid_map[data["oids"]]["rest"] = tmp_val
-                            elif tmp_val == 0:
-                                self.oid_map[data["oids"]]["rest"] = 0
-                                self.oid_map[data["oids"]]["death"] = data["time"]
-                                self.oid_map[data["oids"]]["life"] = (
-                                        data["time"] - self.oid_map[data["oids"]]["birth"]
-                                )
-                        except KeyError:
-                            pass
-                    # tmp_oid_idx = "oidb" if data["flag"] in [1, 3] else "oids"
-                    # if data["price"] == 0.0:
-                    #     data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
-                    # assert data['flag'] != 0, data
+                        self._cal_log_oid(data, key='oidb')
+                        self._cal_log_oid(data, key='oids')
                     self._update_from_tick(data)
 
+
+    def _cal_log_oid(self, data:OT, key:str):
+        try:
+            tmp_val = self.oid_map[data[key]]["volume"] - data["volume"]
+            if tmp_val != 0:
+                self.oid_map[data[key]]["rest"] = tmp_val
+            elif tmp_val == 0:
+                self.oid_map[data[key]]["rest"] = 0
+                self.oid_map[data[key]]["death"] = data["time"]
+                self.oid_map[data[key]]["life"] = (
+                        data["time"] - self.oid_map[data[key]]["birth"]
+                )
+        except KeyError:
+            pass
+
+
+    def _log_oid(self, data:OT, key:str):
+        try:
+            self.oid_map[data[key]]["rest"] = 0
+            self.oid_map[data[key]]["death"] = data["time"]
+            self.oid_map[data[key]]["life"] = (
+                    data["time"] - self.oid_map[data[key]]["birth"]
+            )
+        except KeyError:
+            return
 
     @staticmethod
     def _order_change(
