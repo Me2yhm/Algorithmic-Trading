@@ -22,7 +22,6 @@ class OT(TypedDict, total=False):
 
 
 class DataBase:
-
     def __iter__(self):
         return self
 
@@ -67,8 +66,12 @@ class DataStream(DataBase):
     )
 
     # noinspection PyTypeChecker
-    def __init__(self, data_folder: PathType, ticker: str, delimiter: str = ",", **kwargs):
-        assert ticker.endswith('.SH') or ticker.endswith('.SZ'), f"ticker {ticker} is not right"
+    def __init__(
+        self, data_folder: PathType, ticker: str, delimiter: str = ",", **kwargs
+    ):
+        assert ticker.endswith(".SH") or ticker.endswith(
+            ".SZ"
+        ), f"ticker {ticker} is not right"
         self.ticker: str = ticker
         self.date_column: str = kwargs.get("date_column", "time")
         self.file_date: TimeType = None
@@ -84,8 +87,8 @@ class DataStream(DataBase):
 
     def isCALL(self, timestamp: int):
         return (
-                timestamp < self.file_date_num + 93000000
-                or self.file_date_num + 145700000 < timestamp
+            timestamp < self.file_date_num + 93000000
+            or self.file_date_num + 145700000 < timestamp
         )
 
     def _open_next_file(self):
@@ -161,9 +164,13 @@ class DataSet(DataBase):
     )
 
     # noinspection PyTypeChecker
-    def __init__(self, data_path: PathType, ticker: str, delimiter: str = ",", **kwargs):
+    def __init__(
+        self, data_path: PathType, ticker: str, delimiter: str = ",", **kwargs
+    ):
         self.file_path: PathType = Path(data_path)
-        assert ticker.endswith('.SH') or ticker.endswith('.SZ'), f"ticker {ticker} is not right"
+        assert ticker.endswith(".SH") or ticker.endswith(
+            ".SZ"
+        ), f"ticker {ticker} is not right"
         self.ticker: str = ticker
         self.date_column: str = kwargs.get("date_column", "time")
         self.file_date = datetime.strptime(self.file_path.stem, "%Y-%m-%d")
@@ -177,8 +184,8 @@ class DataSet(DataBase):
 
     def isCALL(self, timestamp: int):
         return (
-                timestamp < self.file_date_num + 93000000
-                or self.file_date_num + 145700000 < timestamp
+            timestamp < self.file_date_num + 93000000
+            or self.file_date_num + 145700000 < timestamp
         )
 
     def _open_next_file(self):
@@ -186,9 +193,7 @@ class DataSet(DataBase):
             self.current_file.close()
 
         self.current_file = open(self.file_path, "r", newline="")
-        self.current_reader = csv.reader(
-            self.current_file, delimiter=self.delimiter
-        )
+        self.current_reader = csv.reader(self.current_file, delimiter=self.delimiter)
         if self.columns is None:
             self.columns = next(self.current_reader)
         else:

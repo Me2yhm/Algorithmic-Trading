@@ -26,7 +26,14 @@ class SnapShot(TypedDict):
 
 
 class OrderBook:
-    __slots__ = "snapshots", "last_snapshot", "data_api", "oid_map", "data_cache", "skip_order"
+    __slots__ = (
+        "snapshots",
+        "last_snapshot",
+        "data_api",
+        "oid_map",
+        "data_cache",
+        "skip_order",
+    )
 
     # noinspection PyTypeChecker
     def __init__(self, data_api: DataStream):
@@ -88,7 +95,7 @@ class OrderBook:
                 self._update_from_order(data)
             else:
                 if self.data_api.ticker.endswith(".SZ"):
-                    if data['flag'] == 3:
+                    if data["flag"] == 3:
                         # 异常订单：000001.SZ, 2746350，从未有人发起
                         self._log_oid(data, key="oidb")
                     elif data["flag"] == 4:
@@ -108,12 +115,12 @@ class OrderBook:
 
                 elif self.data_api.ticker.endswith(".SH"):
                     if data["flag"] == 2:
-                        self._cal_log_oid(data, key='oidb')
+                        self._cal_log_oid(data, key="oidb")
                     elif data["flag"] == 1:
-                        self._cal_log_oid(data, key='oids')
+                        self._cal_log_oid(data, key="oids")
                     else:
-                        self._cal_log_oid(data, key='oidb')
-                        self._cal_log_oid(data, key='oids')
+                        self._cal_log_oid(data, key="oidb")
+                        self._cal_log_oid(data, key="oids")
                     if data["price"] == 0.0:
                         if data[tmp_oid_idx] in self.oid_map:
                             data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
@@ -121,8 +128,7 @@ class OrderBook:
                             continue
                     self._update_from_tick(data)
 
-
-    def _cal_log_oid(self, data:OT, key:str):
+    def _cal_log_oid(self, data: OT, key: str):
         try:
             tmp_val = self.oid_map[data[key]]["volume"] - data["volume"]
             if tmp_val != 0:
@@ -131,28 +137,27 @@ class OrderBook:
                 self.oid_map[data[key]]["rest"] = 0
                 self.oid_map[data[key]]["death"] = data["time"]
                 self.oid_map[data[key]]["life"] = (
-                        data["time"] - self.oid_map[data[key]]["birth"]
+                    data["time"] - self.oid_map[data[key]]["birth"]
                 )
         except KeyError:
             pass
 
-
-    def _log_oid(self, data:OT, key:str):
+    def _log_oid(self, data: OT, key: str):
         try:
             self.oid_map[data[key]]["rest"] = 0
             self.oid_map[data[key]]["death"] = data["time"]
             self.oid_map[data[key]]["life"] = (
-                    data["time"] - self.oid_map[data[key]]["birth"]
+                data["time"] - self.oid_map[data[key]]["birth"]
             )
         except KeyError:
             return
 
     @staticmethod
     def _order_change(
-            snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
+        snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
     ):
         snap[AS][data["price"]] = (
-                snap[AS].get(data["price"], 0) + direction * data["volume"]
+            snap[AS].get(data["price"], 0) + direction * data["volume"]
         )
         if snap[AS][data["price"]] == 0:
             del snap[AS][data["price"]]
@@ -222,7 +227,7 @@ class OrderBook:
         direction: Literal[1, -1] = 1 if data["flag"] in [1, 2] else -1  # type: ignore
         # assert data["price"] != 0.0, data
         if data["price"] == 0.0:
-            self.skip_order.append(data['oid'])
+            self.skip_order.append(data["oid"])
             return
         if self.data_api.ticker.endswith("SZ") or self.data_api.ticker.endswith("SH"):
             self._order_change(snap, AS, direction, data)
@@ -239,9 +244,9 @@ class OrderBook:
         if self.data_api.ticker.endswith("SZ"):
             if data["flag"] in [1, 2]:
                 direction = []
-                if data['oids'] not in self.skip_order:
+                if data["oids"] not in self.skip_order:
                     direction.append("ask")
-                if data['oidb'] not in self.skip_order:
+                if data["oidb"] not in self.skip_order:
                     direction.append("bid")
                 self._tick_change(snap, data, direction=direction)
             elif data["flag"] == 3:
@@ -250,9 +255,9 @@ class OrderBook:
                 self._order_change(snap, "ask", -1, data)
         elif self.data_api.ticker.endswith("SH"):
             if data["flag"] == 2:
-                self._tick_change(snap, data, direction=['bid'])
-            elif data['flag'] == 1:
-                self._tick_change(snap, data, direction=['ask'])
+                self._tick_change(snap, data, direction=["bid"])
+            elif data["flag"] == 1:
+                self._tick_change(snap, data, direction=["ask"])
             else:
                 self._tick_change(snap, data)
         else:
