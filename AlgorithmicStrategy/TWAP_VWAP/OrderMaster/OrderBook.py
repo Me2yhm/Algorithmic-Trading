@@ -35,7 +35,7 @@ class OrderBook:
     )
 
     # noinspection PyTypeChecker
-    def __init__(self, data_api: DataStream):
+    def __init__(self, data_api: Union[DataStream, DataSet]):
         self.snapshots: OrderedDict[TimeType, SnapShot] = OrderedDict()
         self.last_snapshot: SnapShot = None
         self.data_api: Union[DataStream, DataSet] = data_api
@@ -43,45 +43,57 @@ class OrderBook:
         self.data_cache: list[OT] = []
         self.skip_order: list[int] = []
 
+    def next_batch(self, until: int = None) -> list[OT]:
+
+
+        if self.data_cache:
+            # 如果缓存有数据，先处理缓存的数据
+            data = self.data_cache.pop(0)
+        else:
+            data = self.data_api.fresh()[0]
+        timestamp_this = data["time"]
+
+        if until is not None and timestamp_this > until:
+            self.data_cache.append(data)
+            return []
+
+        res = [data]
+        while True:
+            try:
+                next_data = self.data_api.fresh()
+            except StopIteration:
+                break
+            timestamp_next = next_data[0]["time"]
+
+            if timestamp_next != timestamp_this:
+                self.data_cache.extend(next_data)
+                break
+            else:
+                res.extend(next_data)
+
+        return res
+
     def update(self, until: int = None):
         while True:
             try:
-                if self.data_cache:
-                    # 如果缓存有数据，先处理缓存的数据
-                    data = self.data_cache.pop(0)
-                else:
-                    data = self.data_api.fresh()
-                timestamp_this = data["time"]
-                if until is not None and timestamp_this > until:
-                    self.data_cache.append(data)
-                    break
-
-                if self.last_snapshot is None:
-                    self.last_snapshot = SnapShot(
-                        timestamp=data[self.data_api.date_column],
-                        ask=OrderedDict(),
-                        bid=OrderedDict(),
-                    )
-                res = [data]
-                while True:
-                    try:
-                        next_data = self.data_api.fresh()
-                    except StopIteration:
-                        break
-                    timestamp_next = next_data["time"]
-                    if timestamp_next != timestamp_this:
-                        self.data_cache.append(next_data)
-                        break
-                    else:
-                        res.append(next_data)
-
+                res = self.next_batch(until=until)
                 self.single_update(res)
             except StopIteration:
                 break
 
-    def single_update(self, datas: list[OT]):
+    def single_update(self, datas: list[OT] = None):
+        if datas is None:
+            datas = self.next_batch()
         datas: list[OT] = sorted(datas, key=lambda x: x["oid"], reverse=True)
         for data in datas:
+
+            if self.last_snapshot is None:
+                self.last_snapshot = SnapShot(
+                    timestamp=data[self.data_api.date_column],
+                    ask=OrderedDict(),
+                    bid=OrderedDict(),
+                )
+
             if data["oid"] != 0 or data["ptype"] != 0:
                 self.oid_map[data["oid"]] = LifeTime(
                     oid=data["oid"],
@@ -93,7 +105,7 @@ class OrderBook:
                 )
                 self._update_from_order(data)
             else:
-                if self.data_api.ticker.endswith(".SZ"):
+                if self.data_api.ticker.endswith("SZ"):
                     if data["flag"] == 3:
                         # 异常订单：000001.SZ, 2746350，从未有人发起
                         self._log_oid(data, key="oidb")
@@ -112,7 +124,8 @@ class OrderBook:
                     assert data["price"] != 0.0, data
                     self._update_from_tick(data)
 
-                elif self.data_api.ticker.endswith(".SH"):
+                elif self.data_api.ticker.endswith("SH"):
+                    # data.flag may be 0,1,2
                     if data["flag"] == 2:
                         self._cal_log_oid(data, key="oidb")
                     elif data["flag"] == 1:
@@ -137,7 +150,7 @@ class OrderBook:
                 self.oid_map[data[key]]["rest"] = 0
                 self.oid_map[data[key]]["death"] = data["time"]
                 self.oid_map[data[key]]["life"] = (
-                    data["time"] - self.oid_map[data[key]]["birth"]
+                        data["time"] - self.oid_map[data[key]]["birth"]
                 )
         except KeyError:
             pass
@@ -147,17 +160,17 @@ class OrderBook:
             self.oid_map[data[key]]["rest"] = 0
             self.oid_map[data[key]]["death"] = data["time"]
             self.oid_map[data[key]]["life"] = (
-                data["time"] - self.oid_map[data[key]]["birth"]
+                    data["time"] - self.oid_map[data[key]]["birth"]
             )
         except KeyError:
             return
 
     @staticmethod
     def _order_change(
-        snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
+            snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
     ):
         snap[AS][data["price"]] = (
-            snap[AS].get(data["price"], 0) + direction * data["volume"]
+                snap[AS].get(data["price"], 0) + direction * data["volume"]
         )
         if snap[AS][data["price"]] == 0:
             del snap[AS][data["price"]]
@@ -286,9 +299,23 @@ if __name__ == "__main__":
     tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
 
     ob = OrderBook(data_api=tick)
-    timestamp = 20230508093103000
-    ob.update(until=None)
-    near = ob.search_snapshot(timestamp)
-    print(near["timestamp"])
-    print(near["bid"])
-    print(near["ask"])
+    ob.single_update()
+    print(ob.last_snapshot)
+    ob.single_update()
+    print(ob.last_snapshot)
+    ob.single_update()
+    print(ob.last_snapshot)
+
+    # datas = tick.fresh(10)
+    # ob.single_update(datas)
+    # print(ob.last_snapshot)
+    # datas = tick.fresh(1)
+    # ob.single_update(datas)
+    # print(ob.last_snapshot)
+
+    # timestamp = 20230508093103000
+    # ob.update(until=None)
+    # near = ob.search_snapshot(timestamp)
+    # print(near["timestamp"])
+    # print(near["bid"])
+    # print(near["ask"])

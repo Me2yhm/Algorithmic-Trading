@@ -40,14 +40,12 @@ class DataBase:
                     return False
             return True
 
-    def fresh(self, num: int = 1) -> Union[list[dict], dict]:
-        if num == 1:
-            return next(self)
-        else:
-            res = []
-            for i in range(num):
-                res.append(next(self))
-            return res
+    def fresh(self, num: int = 1) -> list[dict]:
+
+        res = []
+        for i in range(num):
+            res.append(next(self))
+        return res
 
 
 class DataStream(DataBase):
