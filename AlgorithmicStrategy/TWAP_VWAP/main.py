@@ -1,3 +1,7 @@
+import sys
+sys.path.insert(0, '../')
+from OrderMaster import OrderBook, DataSet
+
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
 import torch as t

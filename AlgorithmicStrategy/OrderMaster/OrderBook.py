@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import TypedDict, Literal, Union
 import numpy as np
 
-from DataManager import DataStream, TimeType, OT, DataSet
+from .DataManager import DataStream, TimeType, OT, DataSet
 
 
 class LifeTime(TypedDict, total=False):
@@ -288,41 +288,3 @@ class OrderBook:
     def search_snapshot(self, query_stamp: int):
         closest_time = self.search_closet_time(query_stamp)
         return self.snapshots[closest_time]
-
-
-if __name__ == "__main__":
-    current_dir = Path(__file__).parent
-    data_api = Path(__file__).parent / "../datas/000001.SZ/tick/gtja/2023-03-01.csv"
-    tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
-    ob = OrderBook(data_api=tick)
-
-    # example 1
-    # datas = tick.fresh()
-    # ob.single_update(datas)
-    # print(ob.last_snapshot)
-    # datas = tick.fresh()
-    # ob.single_update(datas)
-    # print(ob.last_snapshot)
-    # datas = tick.fresh()
-    # ob.single_update(datas)
-    # print(ob.last_snapshot)
-    # datas = tick.fresh()
-    # ob.single_update(datas)
-    # print(ob.last_snapshot)
-
-    # example 2
-    # ob.single_update()
-    # print(ob.last_snapshot)
-    # ob.single_update()
-    # print(ob.last_snapshot)
-    # ob.single_update()
-    # print(ob.last_snapshot)
-
-
-    # example 3
-    timestamp = 20230301093103000
-    ob.update(until=timestamp)
-    near = ob.search_snapshot(timestamp)
-    print(near["timestamp"])
-    print(near["bid"])
-    print(near["ask"])

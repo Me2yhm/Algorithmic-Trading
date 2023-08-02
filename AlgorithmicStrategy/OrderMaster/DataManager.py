@@ -41,7 +41,6 @@ class DataBase:
             return True
 
     def fresh(self, num: int = 1) -> list[dict]:
-
         res = []
         for i in range(num):
             res.append(next(self))
@@ -154,7 +153,7 @@ class DataSet(DataBase):
         "current_reader",
         "delimiter",
         "columns",
-        "rest_data_files",
+        "file_path",
         "date_column",
         "ticker",
         "file_date",
