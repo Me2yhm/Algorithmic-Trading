@@ -75,7 +75,10 @@ class OrderBook:
         while True:
             try:
                 res = self.next_batch(until=until)
-                self.single_update(res)
+                if res:
+                    self.single_update(res)
+                else:
+                    break
             except StopIteration:
                 break
 
@@ -276,10 +279,7 @@ class OrderBook:
     def search_closet_time(self, query_stamp: int):
         logged_timestamp: np.ndarray = np.array(list(self.snapshots.keys()))
         search_timestamp = logged_timestamp[logged_timestamp <= query_stamp]
-        time_difference = np.abs(search_timestamp - query_stamp)
-        closest_index = np.argmin(time_difference)
-        closest_time = search_timestamp[closest_index]
-        return closest_time
+        return search_timestamp[-1]
 
     @staticmethod
     def print_json(dict_like: dict):
@@ -292,23 +292,23 @@ class OrderBook:
 
 if __name__ == "__main__":
     current_dir = Path(__file__).parent
-    data_api = Path(__file__).parent / "../../datas/000001.SZ/tick/gtja/2023-03-01.csv"
+    data_api = Path(__file__).parent / "../datas/000001.SZ/tick/gtja/2023-03-01.csv"
     tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
     ob = OrderBook(data_api=tick)
 
     # example 1
-    datas = tick.fresh()
-    ob.single_update(datas)
-    print(ob.last_snapshot)
-    datas = tick.fresh()
-    ob.single_update(datas)
-    print(ob.last_snapshot)
-    datas = tick.fresh()
-    ob.single_update(datas)
-    print(ob.last_snapshot)
-    datas = tick.fresh()
-    ob.single_update(datas)
-    print(ob.last_snapshot)
+    # datas = tick.fresh()
+    # ob.single_update(datas)
+    # print(ob.last_snapshot)
+    # datas = tick.fresh()
+    # ob.single_update(datas)
+    # print(ob.last_snapshot)
+    # datas = tick.fresh()
+    # ob.single_update(datas)
+    # print(ob.last_snapshot)
+    # datas = tick.fresh()
+    # ob.single_update(datas)
+    # print(ob.last_snapshot)
 
     # example 2
     # ob.single_update()
@@ -320,9 +320,9 @@ if __name__ == "__main__":
 
 
     # example 3
-    # timestamp = 20230508093103000
-    # ob.update(until=timestamp)
-    # near = ob.search_snapshot(timestamp)
-    # print(near["timestamp"])
-    # print(near["bid"])
-    # print(near["ask"])
+    timestamp = 20230301093103000
+    ob.update(until=timestamp)
+    near = ob.search_snapshot(timestamp)
+    print(near["timestamp"])
+    print(near["bid"])
+    print(near["ask"])
