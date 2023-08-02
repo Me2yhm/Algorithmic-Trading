@@ -1,23 +1,52 @@
-import torch.nn as nn
+from torch import nn, Tensor
+import torch as t
+
 
 class MultiTaskLoss:
-    def __init__(self, alpha: float = 1.0, beta: float = 1.0, eta: float = 1.0, gamma: float = 1.0):
-        self.alpha = alpha
-        self.beta = beta
-        self.eta = eta
-        self.gamma = gamma
-        self.mse_loss = nn.MSELoss()
+    def __init__(
+        self,
+        alpha: float = 1.0,
+        beta: float = 1.0,
+        eta: float = 1.0,
+        gamma: float = 1.0,
+    ):
+        total_weights: float = sum([alpha, beta, gamma, gamma])
+        self.alpha: float = alpha / total_weights
+        self.beta: float = beta / total_weights
+        self.eta: float = eta / total_weights
+        self.gamma: float = gamma / total_weights
+        self.mse_loss: nn.Module = nn.MSELoss()
+        self.cross_loss: nn.Module = nn.CrossEntropyLoss()
 
-    def calculate_loss(self, pred_returns, pred_volume_percent, true_returns, true_volume_percent, VWAP_market, VWAP_ML):
+    def calculate_loss(
+        self,
+        pred_volume_percent: Tensor,
+        true_volume_percent: Tensor,
+        history_volume_percent: Tensor,
+        VWAP_market: Tensor,
+        VWAP_ML: Tensor,
+    ):
         # 定义每个任务的损失函数
-        returns_loss = self.mse_loss(pred_returns, true_returns)
-        volume_percent_loss = self.mse_loss(pred_volume_percent, true_volume_percent)
+        volume_percent_market_loss = self.mse_loss(
+            pred_volume_percent, true_volume_percent
+        )
+        volume_percent_history_loss = self.mse_loss(
+            pred_volume_percent, history_volume_percent
+        )
+
         vwap_loss = self.mse_loss(VWAP_market, VWAP_ML)
-        sum_volume_percent = torch.sum(pred_volume_percent, dim=1)
-        volume_percent_penalty = self.mse_loss(sum_volume_percent, torch.ones_like(sum_volume_percent))
+
+        sum_volume_percent = t.sum(pred_volume_percent, dim=1)
+        volume_percent_penalty = self.cross_loss(
+            sum_volume_percent, t.ones_like(sum_volume_percent)
+        )
 
         # 结合所有任务的损失，并加权求和
-        total_loss = self.alpha * returns_loss + self.beta * volume_percent_loss + self.eta * vwap_loss + self.gamma * volume_percent_penalty
+        total_loss = (
+            self.alpha * volume_percent_market_loss
+            + self.beta * volume_percent_history_loss
+            + self.eta * vwap_loss
+            + self.gamma * volume_percent_penalty
+        )
 
         return total_loss
-

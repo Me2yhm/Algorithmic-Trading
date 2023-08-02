@@ -1,7 +1,7 @@
 import json
 from collections import OrderedDict
-from pathlib import Path
 from typing import TypedDict, Literal, Union
+
 import numpy as np
 
 from .DataManager import DataStream, TimeType, OT, DataSet
@@ -150,7 +150,7 @@ class OrderBook:
                 self.oid_map[data[key]]["rest"] = 0
                 self.oid_map[data[key]]["death"] = data[self.data_api.date_column]
                 self.oid_map[data[key]]["life"] = (
-                    data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
+                        data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
                 )
         except KeyError:
             pass
@@ -160,17 +160,17 @@ class OrderBook:
             self.oid_map[data[key]]["rest"] = 0
             self.oid_map[data[key]]["death"] = data[self.data_api.date_column]
             self.oid_map[data[key]]["life"] = (
-                data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
+                    data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
             )
         except KeyError:
             return
 
     @staticmethod
     def _order_change(
-        snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
+            snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
     ):
         snap[AS][data["price"]] = (
-            snap[AS].get(data["price"], 0) + direction * data["volume"]
+                snap[AS].get(data["price"], 0) + direction * data["volume"]
         )
         if snap[AS][data["price"]] == 0:
             del snap[AS][data["price"]]

@@ -1,6 +1,7 @@
 import sys
-sys.path.insert(0, '../')
-from OrderMaster import OrderBook, DataSet
+
+sys.path.insert(0, "../")
+from OrderMaster import OrderBook, DataSet  # type: ignore
 
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
