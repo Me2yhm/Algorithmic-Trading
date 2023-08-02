@@ -1,5 +1,10 @@
 from abc import ABC, abstractmethod
+from pathlib import Path
 from AlgorithmicStrategy.base import AlgorithmicStrategy
+from ..TWAP_VWAP.OrderMaster.DataManager import OT, DataSet
+from ..TWAP_VWAP.OrderMaster.OrderBook import OrderBook
+from typing import List, Dict
+from pandas import DataFrame
 
 
 class modelType(ABC):
@@ -19,17 +24,28 @@ class momentumStratgy(AlgorithmicStrategy):
     """
     动量算法类, 有如下属性
     orderbook: orderbook类, 可以撮合盘口, 记录盘口状态
+    tick: 储存逐笔数据
     timeStamp: 记录当前时间戳
     deal: 成交记录
     possession: 调仓记录
-    index: 指标计算结构
+    model_indicator: 指标计算结果
     """
 
-    def update_oderbook(self) -> None:
+    orderbook: OrderBook
+    tick: List[Dict]
+    timeStamp: int
+    deal: List[Dict]
+    possession: List[Dict]
+    model_indicator: Dict[str, float]
+
+    def update_oderbook(self, symbol, datestr) -> None:
         """
         流式读取数据，更新盘口
         """
-        pass
+        data_api = (
+            Path(__file__).parent / f"../../datas/{symbol}/tick/gtja/{datestr}.csv"
+        )
+        tick = DataSet(data_api, date_column="time", ticker=symbol)
 
     def model_update(self, model: modelType) -> None:
         """
