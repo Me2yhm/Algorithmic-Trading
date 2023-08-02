@@ -9,7 +9,7 @@ class modelType(ABC):
     """
 
     @abstractmethod
-    def model_update(tick):
+    def model_update(tick) -> dict[str, float]:
         """
         模型接受一个tick参数(目前还不确定是什么数据类型)，根据tick数据返回模型计算结果
         """
@@ -22,6 +22,7 @@ class momentumStratgy(AlgorithmicStrategy):
     timeStamp: 记录当前时间戳
     deal: 成交记录
     possession: 调仓记录
+    index: 指标计算结构
     """
 
     def update_oderbook(self) -> None:

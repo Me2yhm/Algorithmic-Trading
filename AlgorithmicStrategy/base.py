@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from pandas import DataFrame
+from typing import Dict, List
 
 
 class OrderBook(ABC):
@@ -18,34 +19,35 @@ class AlgorithmicStrategy(ABC):
 
     # orderbook类, 还没定义
     orderbook: OrderBook
+    tick: List[Dict]
+    signal: List[Dict]
     timeStamp: int
     deal: DataFrame
     possession: DataFrame
 
     @abstractmethod
-    def TWAP_stratgy(self) -> dict:
+    def update_orderbook(self) -> dict:
         """
-        TWAP策略,返回一个signal字典, 包含{股票代码, 买入还是卖出["B"/"S"], 价格, volume}
-        传入参数: lines:tick/order的一条数据, volume: 需要下单的总量
+        更新orderbook和tick数据
 
         """
 
     @abstractmethod
-    def VWAP_stratgy(self) -> dict:
+    def model_update(self) -> None:
         """
-        TWAP策略,返回一个signal字典, 包含{股票代码, 买入还是卖出["B"/"S"], 价格, volume}
-        传入参数: lines:tick/order的一条数据, volume: 需要下单的总量
-        """
-
-    @abstractmethod
-    def momentum_stratgy(self) -> dict:
-        """
-        动量策略,返回胜率、赔率、换手率。其余返回参数待定
-        传入参数:  lines:tick/order的一条数据
+        更新模型，数据流式传入，对模型进行流式训练和更新
         """
 
     @abstractmethod
-    def snapshot_stratgy(self) -> dict:
+    def signal_update(self) -> Dict:
         """
-        盘口策略, 返回策略结果, 需要l2snapshot数据
+        模型更新之后，根据模型训练结果更新signal，
+        signal是一个元素为字典的列表，每个signal包含{股票代码, 买入还是卖出["B"/"S"], 价格, volume}
+        """
+
+    @abstractmethod
+    def stratgy_update(self) -> Dict:
+        """
+        根据更新过后的signal，更新成交记录和持仓记录，更新策略的评价结果
+        动量是胜率、赔率，VWAP是成交成本与实际VWAP的差
         """
