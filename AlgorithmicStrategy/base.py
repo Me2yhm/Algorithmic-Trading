@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from typing import Dict, List
-from TWAP_VWAP.OrderMaster.OrderBook import OrderBook
+from .OrderMaster.OrderBook import OrderBook
 
 
 class AlgorithmicStrategy(ABC):
