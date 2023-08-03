@@ -1,7 +1,8 @@
+import argparse
 import sys
 
-sys.path.insert(0, "../")
-from OrderMaster import OrderBook, DataSet  # type: ignore
+# sys.path.insert(0, "../")
+# from OrderMaster import OrderBook, DataSet  # type: ignore
 
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
@@ -9,12 +10,13 @@ import torch as t
 from argparse import ArgumentParser
 from pathlib import Path
 import warnings
+from AlgorithmicStrategy import OrderBook, DataSet
 
 warnings.filterwarnings("ignore")
 
 
 @logger.catch
-def main(opts):
+def main(opts: argparse.Namespace):
     logger.info("Starting".center(40, "="))
 
     dataset_path: Path = Path(__file__).parent / opts.dataset
@@ -46,5 +48,9 @@ if __name__ == "__main__":
     parser.add_argument("--dataset", type=str, default="./DATA/ML")
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
+
+    tick_path = Path.cwd() / "../datas/000001.SZ/tick/gtja/2023-03-01.csv"
+    tick = DataSet(data_path=tick_path, ticker='SZ')
+    logger.info(tick.fresh())
 
     main(args)

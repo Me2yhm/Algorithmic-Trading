@@ -165,8 +165,8 @@ class DataSet(DataBase):
         self, data_path: PathType, ticker: str, delimiter: str = ",", **kwargs
     ):
         self.file_path: PathType = Path(data_path)
-        assert ticker.endswith(".SH") or ticker.endswith(
-            ".SZ"
+        assert ticker.endswith("SH") or ticker.endswith(
+            "SZ"
         ), f"ticker {ticker} is not right"
         self.ticker: str = ticker
         self.date_column: str = kwargs.get("date_column", "time")
