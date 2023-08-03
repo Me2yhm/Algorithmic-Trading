@@ -64,3 +64,42 @@ print(tick.fresh())
 ### update
 
 更新到指定的时间戳。
+
+## 使用示例
+
+```python
+current_dir = Path(__file__).parent
+data_api = Path(__file__).parent / "../datas/000001.SZ/tick/gtja/2023-03-01.csv"
+tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
+ob = OrderBook(data_api=tick)
+
+# example 1
+# datas = tick.fresh()
+# ob.single_update(datas)
+# print(ob.last_snapshot)
+# datas = tick.fresh()
+# ob.single_update(datas)
+# print(ob.last_snapshot)
+# datas = tick.fresh()
+# ob.single_update(datas)
+# print(ob.last_snapshot)
+# datas = tick.fresh()
+# ob.single_update(datas)
+# print(ob.last_snapshot)
+
+# example 2
+# ob.single_update()
+# print(ob.last_snapshot)
+# ob.single_update()
+# print(ob.last_snapshot)
+# ob.single_update()
+# print(ob.last_snapshot)
+
+# example 3
+timestamp = 20230301093103000
+ob.update(until=timestamp)
+near = ob.search_snapshot(timestamp)
+print(near["timestamp"])
+print(near["bid"])
+print(near["ask"])
+```

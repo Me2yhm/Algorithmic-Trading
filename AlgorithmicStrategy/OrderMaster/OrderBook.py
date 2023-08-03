@@ -1,10 +1,10 @@
 import json
 from collections import OrderedDict
-from pathlib import Path
 from typing import TypedDict, Literal, Union
+
 import numpy as np
 
-from DataManager import DataStream, TimeType, OT, DataSet
+from .DataManager import DataStream, TimeType, OT, DataSet
 
 
 class LifeTime(TypedDict, total=False):
@@ -75,7 +75,10 @@ class OrderBook:
         while True:
             try:
                 res = self.next_batch(until=until)
-                self.single_update(res)
+                if res:
+                    self.single_update(res)
+                else:
+                    break
             except StopIteration:
                 break
 
@@ -147,7 +150,7 @@ class OrderBook:
                 self.oid_map[data[key]]["rest"] = 0
                 self.oid_map[data[key]]["death"] = data[self.data_api.date_column]
                 self.oid_map[data[key]]["life"] = (
-                    data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
+                        data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
                 )
         except KeyError:
             pass
@@ -157,17 +160,17 @@ class OrderBook:
             self.oid_map[data[key]]["rest"] = 0
             self.oid_map[data[key]]["death"] = data[self.data_api.date_column]
             self.oid_map[data[key]]["life"] = (
-                data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
+                    data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
             )
         except KeyError:
             return
 
     @staticmethod
     def _order_change(
-        snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
+            snap: SnapShot, AS: Literal["ask", "bid"], direction: Literal[1, -1], data: OT
     ):
         snap[AS][data["price"]] = (
-            snap[AS].get(data["price"], 0) + direction * data["volume"]
+                snap[AS].get(data["price"], 0) + direction * data["volume"]
         )
         if snap[AS][data["price"]] == 0:
             del snap[AS][data["price"]]
@@ -276,10 +279,7 @@ class OrderBook:
     def search_closet_time(self, query_stamp: int):
         logged_timestamp: np.ndarray = np.array(list(self.snapshots.keys()))
         search_timestamp = logged_timestamp[logged_timestamp <= query_stamp]
-        time_difference = np.abs(search_timestamp - query_stamp)
-        closest_index = np.argmin(time_difference)
-        closest_time = search_timestamp[closest_index]
-        return closest_time
+        return search_timestamp[-1]
 
     @staticmethod
     def print_json(dict_like: dict):
@@ -288,41 +288,3 @@ class OrderBook:
     def search_snapshot(self, query_stamp: int):
         closest_time = self.search_closet_time(query_stamp)
         return self.snapshots[closest_time]
-
-
-if __name__ == "__main__":
-    current_dir = Path(__file__).parent
-    data_api = Path(__file__).parent / "../../datas/000001.SZ/tick/gtja/2023-03-01.csv"
-    tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
-    ob = OrderBook(data_api=tick)
-
-    # example 1
-    datas = tick.fresh()
-    ob.single_update(datas)
-    print(ob.last_snapshot)
-    datas = tick.fresh()
-    ob.single_update(datas)
-    print(ob.last_snapshot)
-    datas = tick.fresh()
-    ob.single_update(datas)
-    print(ob.last_snapshot)
-    datas = tick.fresh()
-    ob.single_update(datas)
-    print(ob.last_snapshot)
-
-    # example 2
-    # ob.single_update()
-    # print(ob.last_snapshot)
-    # ob.single_update()
-    # print(ob.last_snapshot)
-    # ob.single_update()
-    # print(ob.last_snapshot)
-
-
-    # example 3
-    # timestamp = 20230508093103000
-    # ob.update(until=timestamp)
-    # near = ob.search_snapshot(timestamp)
-    # print(near["timestamp"])
-    # print(near["bid"])
-    # print(near["ask"])

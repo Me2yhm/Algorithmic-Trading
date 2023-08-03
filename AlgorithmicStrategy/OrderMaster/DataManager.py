@@ -41,7 +41,6 @@ class DataBase:
             return True
 
     def fresh(self, num: int = 1) -> list[dict]:
-
         res = []
         for i in range(num):
             res.append(next(self))
@@ -154,7 +153,7 @@ class DataSet(DataBase):
         "current_reader",
         "delimiter",
         "columns",
-        "rest_data_files",
+        "file_path",
         "date_column",
         "ticker",
         "file_date",
@@ -166,8 +165,8 @@ class DataSet(DataBase):
         self, data_path: PathType, ticker: str, delimiter: str = ",", **kwargs
     ):
         self.file_path: PathType = Path(data_path)
-        assert ticker.endswith(".SH") or ticker.endswith(
-            ".SZ"
+        assert ticker.endswith("SH") or ticker.endswith(
+            "SZ"
         ), f"ticker {ticker} is not right"
         self.ticker: str = ticker
         self.date_column: str = kwargs.get("date_column", "time")

@@ -1,5 +1,6 @@
 import time
 
+
 class TWAPTradingSystem:
     def __init__(self, total_volume, num_intervals, interval_duration=300):
         self.total_volume = total_volume
@@ -23,6 +24,7 @@ class TWAPTradingSystem:
 
             # 等待指定的时间间隔
             time.sleep(self.interval_duration)
+
 
 if __name__ == "__main__":
     total_trade_volume = 10000  # 总交易量
