@@ -1,16 +1,36 @@
+from abc import ABC, abstractmethod
+from typing import Dict, List
 import pandas as pd
 import numpy as np
 import csv
 
+class Tick():
+    """tick数据流式传入一tick的信息
+    """
+    
+    def __init__(self, one_tick):
+        """初始化
+            one_tick流式输入一tick
+            delta 一周期的时间
+        """
+        self.time = pd.to_datetime(one_tick[1], format='%Y%m%d%H%M%S%f')#这里可能必须转换成pd时间
+        self.price = float(one_tick[2])
+        self.volume = int(one_tick[3])
+        
+
 class Hurst():
+    """
+    计算hurst指数，输入收益率时间序列ret_series,返回hurst值
+    """
     def __init__(self,ret_series:pd.Series,k=6):
-        self.k = k #取几组来回归
+        self.k = k #将ret_series分成k组来回归
         self.ret_series = ret_series
     def calculate(self):
         RS = [0]*self.k
         for i in range(self.k):
-            subseries_list = np.array_split(self.ret_series.values, 2**i)
+            subseries_list = np.array_split(self.ret_series.index(), 2**i)
             RS[i] = 0
+            #计算每组的R/S值
             for s in range(2**i):
                 series = pd.Series(subseries_list[s], index=self.ret_series.index[:len(subseries_list[s])])
                 std = series.std()
@@ -19,14 +39,18 @@ class Hurst():
                 R = series_delta.max() - series_delta.min()
                 RS += R/std
             RS[i] = RS[i]/2**i
+        #对R/S值和k回归，取系数为hurst
         hurst = np.polyfit(np.log(len(RS)), np.log(RS), 1)[0]
         return hurst
     
 class Factor_turnover_based():
+    """
+    计算基于换手率排序的因子
+    """
     def __init__(self, ret_series, turnover_series):
         #self.risk  #风险
         self.ret_series = ret_series #收益率因子
-        self.turnover_series = turnover_series #信息分布
+        self.turnover_series = turnover_series 
     def calculate(self):
         df_turnover_ret = pd.concat([self.ret_series, self.turnover_series],axis=1)
         df_turnover_ret.columns = ['ret','turnover']
@@ -37,6 +61,9 @@ class Factor_turnover_based():
         return factor_1
 
 class Factor_information_based():
+    """
+    计算基于信息分布排序的因子
+    """
     def __init__(self, ret_series,info_series):
         #self.risk  #风险
         self.ret_series = ret_series #收益率因子
@@ -51,7 +78,10 @@ class Factor_information_based():
         return factor_2
     
 class Ret():
-    def __init__(self, time_now: pd.Timestamp , pricelist: pd.Series, m = pd.Timedelta(seconds=5) ):
+    """
+    计算收益率和收益率序列
+    """
+    def __init__(self, time_now: pd.Timestamp , pricelist: pd.Series, m = pd.Timedelta(seconds=10) ):
         self.m = m  # 算ret的时间间隔
         self.time_now = time_now
         self.pricelist = pricelist
@@ -60,9 +90,11 @@ class Ret():
         try:
             ret = self.pricelist[time] / self.pricelist[time_begin]
         except KeyError:
+            
             ret = None  
         return ret
-    def form_series(self, interval= pd.Timedelta(seconds = 1), l = 60):
+    def form_series(self, interval= pd.Timedelta(seconds = 20), l = 60):
+        #返回l个收益率，时间间隔为interval
         time_list = sorted([self.time_now - i * interval for i in range(l)])
         ret_list =  [self.calculate(t) for t in time_list]
         ret_series = pd.Series(ret_list, index = time_list)
@@ -70,52 +102,65 @@ class Ret():
         
            
 class Turnover():
-    def __init__(self, time_now: pd.Timestamp , tick: pd.Series, interval = pd.Timedelta(seconds=1)):
+    """
+    计算换手率和换手率序列
+    """
+    def __init__(self, time_now: pd.Timestamp , tickdict: dict, interval = pd.Timedelta(seconds=20)):
         self.interval = interval
         self.time_now = time_now
-        self.tick = tick
-    def form_series(self, l = 61, total_shares = None):
+        self.tickdict = tickdict
+    def form_series(self, l = 61, total_shares = 293.52):
+        #total_shares 为总发行股数*（10**8）
         time_list = sorted([self.time_now - i * self.interval for i in range(l)])
-        volume = pd.Series([0]*(l-1),index = time_list[1:])
+        volume = turnover_series = {}
         for i in range(len(time_list)-1):
+            volume_temp = 0
             start_time = time_list[i]
             end_time = time_list[i+1]
-            start_idx = self.tick.index.searchsorted(start_time)
-            end_idx = self.tick.index.searchsorted(end_time)
-            subset= self.tick.iloc[start_idx:end_idx]
-            volume.loc[time_list[i]] = subset.apply(lambda d: sum(d)).sum()
-        turnover_series = volume.apply(lambda x: x/total_shares)
+            tickdict_subset = {k: v for k, v in self.tickdict.items() if start_time < k <= end_time}
+            for v in tickdict_subset.values():
+                for tick in v:  
+                    volume_temp += tick.volume
+            volume[end_time] = volume_temp
+            turnover_series[end_time] = volume[end_time]/total_shares
         return turnover_series
 
 class Information():
-    def __init__(self, time_now: pd.Timestamp , tick: pd.Series, m = pd.Timedelta(milliseconds=500)):
+    """
+    计算信息分布和信息分布序列
+    """
+    def __init__(self, time_now: pd.Timestamp , tickdict: dict, m = pd.Timedelta(milliseconds=500)):
         self.m = m  # 算信息分布的时间长度
         self.time_now = time_now
-        self.tick = tick
+        self.tickdict = tickdict
     def calculate(self, time, s = 120):
         time_list = sorted([time - i * self.m for i in range(s)])
-        volume = pd.Series([0]*(s-1),index = time_list[1:]) #初始化
+        volume = {}
         for i in range(len(time_list)-1):
+            volume_temp = 0
             start_time = time_list[i]
             end_time = time_list[i+1]
-            start_idx = self.tick.index.searchsorted(start_time)
-            end_idx = self.tick.index.searchsorted(end_time)
-            subset= self.tick.iloc[start_idx:end_idx]
-            volume.loc[time_list[i]] = subset.apply(lambda d: sum(d)).sum()
-        volume_std = volume.std()
-        volume_mean = volume.mean() 
+            tickdict_subset = {k: v for k, v in self.tickdict.items() if start_time < k <= end_time}
+            for v in tickdict_subset.values():
+                for tick in v:  
+                    volume_temp += tick.volume
+            volume[end_time] = volume_temp
+        volume_array = np.array(list(volume.values()))
+        volume_std = np.std(volume_array)
+        volume_mean = np.mean(volume_array) 
         try:
             info = volume_std/volume_mean
         except KeyError:
             info = None
         return info
-    def form_series(self, interval= pd.Timedelta(seconds = 1), l = 60):
+    def form_series(self, interval= pd.Timedelta(seconds = 20), l = 60):
         time_list = sorted([self.time_now - i * interval for i in range(l)])
         info_list = [(time_list[i], self.calculate(time = time_list[i])) for i in range(len(time_list))]
         info_series = pd.Series(info_list, index = time_list)
         return info_series
     
 ############################################# 
+
 class modelType(ABC):
     """
     模型的抽象基类，用于实现指标更新或者模型增量训练
@@ -125,41 +170,20 @@ class modelType(ABC):
         """
         数据增量地传进来，每传进来一条数据，模型计算一次指标或者训练一次模型
         """
-class model_reverse(modelType):
-    def model_update(self,tick,orderbook):
-        """
-        基于更新的数据计算新的反转因子
-        """
-        #修改tick数据的格式 
-        time_now = tick.index[-1]
         
-        #从盘口信息得到price_list #卖一和买一的加权平均作为price
-        time_list = list(orderbook.snapshots.keys())
-        price_list = [0]*len(time_list)
-        for i in range(len(time_list)):
-            ask_1,volume_ask = next(iter(orderbook.snapshots.ask.items()))
-            bid_1,volume_bid = next(iter(orderbook.snapshots.bid.items()))
-            price_list[i] = ask_1*volume_ask/(volume_ask+volume_bid)+bid_1*volume_bid/(volume_bid+volume_ask)
-        price_list = pd.Series(price_list,index=time_list)
-        
-        ret_series = Ret(time_now,price_list).form_series()
-        turnover_series = Turnover(time_now,tick).form_series()
-        hurst = Hurst(ret_series).calculate() 
-        info_series = Information(time_now,tick).form_series()
-        factor_1 = Factor_turnover_based(ret_series, turnover_series).calculate() 
-        factor_2 = Factor_information_based(ret_series,info_series).calculate()
-        index_dict = {'hurst':hurst,'factor_turnover':factor_1,'factor_info':factor_2}
-        return index_dict        
 
 
-with open("D:\\玖奕\\拼盘口1\\拼盘口\\tick.csv", 'r') as file:
-    reader = csv.reader(file)
-    next(reader)
-    cols = ['code','time','price','volume','Amount','buyNo','sellNo','index','channel','flag','bizindex']
-    tick_df = pd.DataFrame(columns=cols)
-    for row in reader:
-        one_tick = pd.DataFrame([row],columns=cols)
-        one_tick['time'][0] = pd.to_datetime(one_tick['time'][0][:-1],format='%Y%m%d%H%M%S%f')
-        tick_df = pd.concat([tick_df,one_tick],ignore_index = True)
-    tick = tick_df.groupby('time')['volume'].apply(list)
+
+#直接用tick文件  形成tickdict  
+#tickdict = {}
+#with open("D:\\玖奕\\拼盘口1\\拼盘口\\tick.csv", 'r') as file:
+    # reader = csv.reader(file)
+    # next(reader)
+    # for row in reader:
+    #     one_tick = Tick(row)
+    #     if one_tick.time in tickdict.keys():
+    #         tickdict[one_tick.time].append(one_tick)
+    #     else:
+    #         tickdict[one_tick.time] = [one_tick]
+
        
