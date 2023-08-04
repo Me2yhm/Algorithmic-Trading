@@ -161,19 +161,6 @@ class Information():
     
 ############################################# 
 
-class modelType(ABC):
-    """
-    模型的抽象基类，用于实现指标更新或者模型增量训练
-    """
-    @abstractmethod
-    def model_update():
-        """
-        数据增量地传进来，每传进来一条数据，模型计算一次指标或者训练一次模型
-        """
-        
-
-
-
 #直接用tick文件  形成tickdict  
 #tickdict = {}
 #with open("D:\\玖奕\\拼盘口1\\拼盘口\\tick.csv", 'r') as file:
