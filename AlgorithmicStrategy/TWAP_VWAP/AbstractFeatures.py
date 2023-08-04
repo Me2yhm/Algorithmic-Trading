@@ -100,13 +100,13 @@ class Pastfeature:
     def get_all_previous(self, until):
         datas = self.get_datas(until=until)
         self.tick_volume = self.get_tick_volume(datas)
-        self.order_volume = self.get_order_num(datas)
+        self.order_num = self.get_order_num(datas)
         self.previous_close = self.get_previous_close(datas)
 
     def get_all(self, until):
         datas = self.get_datas(until=until)
         self.tick_volume = self.get_tick_volume(datas)
-        self.order_volume = self.get_order_num(datas)
+        self.order_num = self.get_order_num(datas)
 
     def update(self, until):
         self.get_all_previous(until=until - 1)
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
 
     test = Pastfeature(data_api=tick)
-    test.update(20230301100002820)
-    print(test.tick_volume, test.order_volume, test.previous_close, test.open, test.close, test.high, test.low)
+    test.update(20230301143308690)
+    print(test.tick_volume, test.order_num, test.previous_close, test.open, test.close, test.high, test.low)
     # test.update(20230301091500070)
     # print(test.tick_volume,test.order_volume)
