@@ -483,7 +483,7 @@ def show_total_order_num():
 
 if __name__ == "__main__":
     current_dir = Path(__file__).parent
-    data_api = current_dir.parent.parent / "datas/000001.SZ/tick/gtja/2023-05-08.csv"
+    data_api = current_dir.parent / "datas/000001.SZ/tick/gtja/2023-05-08.csv"
     tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
     ob = OrderBook(data_api=tick)
 
