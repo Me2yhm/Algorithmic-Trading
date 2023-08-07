@@ -167,7 +167,7 @@ class Pastfeature:
 
 if __name__ == "__main__":
     current_dir = Path(__file__).parent
-    data_api = Path(__file__).parent / "../datas/000001.SZ/tick/gtja/2023-03-01.csv"
+    data_api = Path(__file__).parent / "../datas/000001.SZ/tick/gtja/2023-07-03.csv"
     tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
 
     test = Pastfeature(data_api=tick)
@@ -175,7 +175,7 @@ if __name__ == "__main__":
     # print(test.tick_volume, test.order_num, test.previous_close, test.open, test.close, test.high, test.low)
     # test.update(20230301094636370)
     # print(test.tick_volume,test.order_volume)
-    test.get_period(3000, 20230301094636370, 20230301094656370)
+    test.get_period(3000, 20230703094636370, 20230703094656370)
     print(test.pf_list)
 
 
