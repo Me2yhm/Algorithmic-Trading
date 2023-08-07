@@ -1,6 +1,7 @@
 import pandas as pd
+from typing import Dict, List, TypedDict
 import numpy as np
-import csv
+
 
 class Tick():
     """tick数据流式传入一tick的信息
@@ -90,8 +91,7 @@ class Ret():
         time_begin = time - self.m
         try:
             ret = self.pricelist[time] / self.pricelist[time_begin]
-        except KeyError:
-            
+        except Exception as e:
             ret = None  
         return ret
     def form_series(self, interval= pd.Timedelta(seconds = 20), l = 60):
@@ -106,10 +106,13 @@ class Turnover():
     """
     计算换手率和换手率序列
     """
-    def __init__(self, time_now: pd.Timestamp , tickdict: dict, interval = pd.Timedelta(seconds=20)):
+    def __init__(self, time_now: pd.Timestamp , tickdict:Dict, interval = pd.Timedelta(seconds=20)):
         self.interval = interval
         self.time_now = time_now
-        self.tickdict = tickdict
+        #把tick字典的键str->pd.Timestamp
+        new_tickdict = {pd.to_datetime(k, format='%Y%m%d%H%M%S%f'): v for k, v in tickdict.items()}
+        self.tickdict = new_tickdict
+        
     def form_series(self, l = 61, total_shares = 293.52):
         #total_shares 为总发行股数*（10**8）
         #返回换手率序列
@@ -119,10 +122,14 @@ class Turnover():
             volume_temp = 0
             start_time = time_list[i]
             end_time = time_list[i+1]
+            #取出特定时间段的tick，计算volume
             tickdict_subset = {k: v for k, v in self.tickdict.items() if start_time < k <= end_time}
-            for v in tickdict_subset.values():
+            for v in tickdict_subset.values(): #v为包含同一时间tick的列表
                 for tick in v:  
-                    volume_temp += tick.volume
+                    if isinstance(tick.volume, (int, float)):
+                        volume_temp += tick.volume
+                    else:
+                        print("Tick volume is not an int:", tick.volume)
             volume[end_time] = volume_temp
             turnover_series[end_time] = volume[end_time]/total_shares
         return turnover_series
@@ -131,10 +138,12 @@ class Information():
     """
     计算信息分布和信息分布序列
     """
-    def __init__(self, time_now: pd.Timestamp , tickdict: dict, m = pd.Timedelta(milliseconds=500)):
+    def __init__(self, time_now: pd.Timestamp , tickdict: Dict, m = pd.Timedelta(milliseconds=500)):
         self.m = m  # 算信息分布的时间长度
         self.time_now = time_now
-        self.tickdict = tickdict
+         #把tick字典的键str->pd.Timestamp
+        new_tickdict = {pd.to_datetime(k, format='%Y%m%d%H%M%S%f'): v for k, v in tickdict.items()}
+        self.tickdict = new_tickdict
     def calculate(self, time, s = 120):
         #计算某一时刻信息分布
         time_list = sorted([time - i * self.m for i in range(s)])
@@ -145,15 +154,18 @@ class Information():
             end_time = time_list[i+1]
             tickdict_subset = {k: v for k, v in self.tickdict.items() if start_time < k <= end_time}
             for v in tickdict_subset.values():
-                for tick in v:  
-                    volume_temp += tick.volume
+                for tick in v:
+                    if isinstance(tick.volume, (int, float)):
+                        volume_temp += tick.volume
+                    else:
+                        print("Tick volume is not an int:", tick.volume)
             volume[end_time] = volume_temp
         volume_array = np.array(list(volume.values()))
         volume_std = np.std(volume_array)
         volume_mean = np.mean(volume_array) 
         try:
             info = volume_std/volume_mean
-        except KeyError:
+        except Exception as e:
             info = None
         return info
     def form_series(self, interval= pd.Timedelta(seconds = 20), l = 60):

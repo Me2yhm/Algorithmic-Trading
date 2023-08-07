@@ -12,9 +12,13 @@ class modelType(ABC):
         """
         模型接受一个tick参数(目前还不确定是什么数据类型)，根据tick数据返回模型计算结果
         """
+        pass 
+
         
-        
-class model_reverse(modelType):
+class Model_reverse(modelType):
+    """
+   反转因子模型
+    """
     def model_update(self,tickdict,orderbook):
         """
         基于更新的数据计算新的反转因子，返回一个因子字典

@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict
+from AlgorithmicStrategy.momentum_stratgy.modelType import modelType, Model_reverse
 from AlgorithmicStrategy.base import AlgorithmicStrategy, possession, signal
-from .modelType import modelType
+from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
 
 
 class momentumStratgy(AlgorithmicStrategy, ABC):
@@ -110,3 +111,14 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
 
         self.win_rate[self.date] = sum(self.win_times) / len(self.win_times)
         return self.win_rate[self.date]
+
+
+class reverse_strategy(momentumStratgy):
+    """
+    反转因子模型
+    """
+    def model_update(self, model: Model_reverse):
+        model.model_update(self.ticks,self.orderbook) #TODO:输入tick和orderbook
+        
+    def signal_update(self) -> dict:
+        if 
