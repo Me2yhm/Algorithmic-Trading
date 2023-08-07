@@ -143,6 +143,7 @@ class AlgorithmicStrategy(ABC):
                 else:
                     self.price_list[self.date][self.timeStamp] = self.current_price
 
+    # 存在一个问题, 当前的处理逻辑可能导致最后10ms的tick数据无法被撮合到盘口
     def update_orderbook(self, lines: List[OT]) -> bool:
         """
         更新orderbook和tick数据
@@ -161,12 +162,11 @@ class AlgorithmicStrategy(ABC):
         if self.new_timeStamp:  # 为了确保将同一timestamp下的所有数据传入再更新订单簿
             if self.lines == []:
                 self.lines.extend(lines)
-                return False
+                self.new_timeStamp = False
+                return
             self.orderbook.single_update(self.lines)
             self.lines = []
-            return True
         self.lines.extend(lines)
-        return False
 
     def get_close_price(self, timestamp: int, date: str | None = None):
         if date is None:
