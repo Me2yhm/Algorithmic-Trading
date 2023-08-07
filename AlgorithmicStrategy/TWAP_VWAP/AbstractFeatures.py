@@ -1,5 +1,6 @@
 from pathlib import Path
 import sys
+
 sys.path.append(str(Path(__file__).parent / "../OrderMaster"))
 from DataManager import DataSet, DataStream, OT
 from typing import Union
@@ -18,6 +19,7 @@ class Pastfeature:
         self.data_api: Union[DataStream, DataSet] = data_api
         self.data_cache: list[OT] = []
         self.data: list[OT] = []
+        self.pf_list : list = []
 
     def next_batch(self, until: int = None) -> list[OT]:
         if self.data_cache:
@@ -71,7 +73,7 @@ class Pastfeature:
     def get_order_num(self, datas):
         oid_list_non = []
         oid_list = []
-        order_num = 0.0
+        order_num = 0
         for data in datas:
             if data["oid"] != 0 or data["ptype"] != 0:
                 oid_list.append(data["oid"])
@@ -80,7 +82,7 @@ class Pastfeature:
         return order_num
 
     def get_previous_close(self, datas):
-        previous_close = 0.0
+        previous_close = 0.00
         for data in datas:
             if (data["oid"] == 0 or data["ptype"] == 0) and data["price"]:
                 previous_close = data["price"]
@@ -90,7 +92,7 @@ class Pastfeature:
         candle = []
         for data in datas:
             if (data["oid"] == 0 or data["ptype"] == 0) and data["price"]:
-                candle.append(data["price"])
+                candle.append(float(data["price"]))
         if candle:
             self.open = candle[0]
             self.close = candle[-1]
@@ -108,9 +110,59 @@ class Pastfeature:
         self.tick_volume = self.get_tick_volume(datas)
         self.order_num = self.get_order_num(datas)
 
+#获取单个时间戳的特征
     def update(self, until):
         self.get_all_previous(until=until - 1)
         self.get_all(until=until)
+
+#获取时间段内的特征
+    def get_period(self, time, start: int = None, stop: int = None):
+        #如果不给定时间就从开盘开始到收盘截至（连续竞价阶段）
+        if start is None:
+            start = 20230301092500000
+        if stop is None:
+            stop = 20230301145700000
+        previou_close_zero = 0.0
+        num = 0
+        pf_list = []
+        for i in range(start, stop, time):
+            candle_list = []
+            tick_volume = 0
+            order_num = 0
+            if i + time <= stop:
+                for t in range(i, i + time + 1):
+                    self.update(t)
+                    tick_volume += self.tick_volume
+                    order_num += self.order_num
+                    candle_list.extend([self.open, self.high, self.low, self.close])
+                    if num == 0:
+                        previou_close_zero = self.previous_close
+                        num += 1
+            else:
+                for t in range(i, stop):
+                        self.update(t)
+                        tick_volume += self.tick_volume
+                        order_num += self.order_num
+                        candle_list.extend([self.open, self.high, self.low, self.close])
+                        if num == 0:
+                            previou_close_zero = self.previous_close
+                            num += 1
+            if pf_list:
+                self.previous_close = pf_list[-1]
+            else:
+                self.previous_close = previou_close_zero
+            if candle_list:
+                self.open = candle_list[1]
+                self.close = candle_list[-1]
+                self.high = max(candle_list)
+                self.low = min(candle_list)
+            self.tick_volume = tick_volume
+            self.order_num = order_num
+            pf_list.extend([self.tick_volume,self.order_num,self.previous_close,self.open, self.high, self.low, self.close])
+        self.pf_list = pf_list
+
+            
+
 
 
 if __name__ == "__main__":
@@ -119,7 +171,11 @@ if __name__ == "__main__":
     tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
 
     test = Pastfeature(data_api=tick)
-    test.update(20230301111519155)
-    print(test.tick_volume, test.order_num, test.previous_close, test.open, test.close, test.high, test.low)
-    # test.update(20230301091500070)
+    # test.update(20230301095100700)
+    # print(test.tick_volume, test.order_num, test.previous_close, test.open, test.close, test.high, test.low)
+    # test.update(20230301094636370)
     # print(test.tick_volume,test.order_volume)
+    test.get_period(3000, 20230301094636370, 20230301094656370)
+    print(test.pf_list)
+
+
