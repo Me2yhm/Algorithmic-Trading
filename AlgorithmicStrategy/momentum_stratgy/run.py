@@ -28,6 +28,7 @@ def run(
             stratgy.stratgy_update()
         except StopIteration:
             break
+    # 确保最后一行tick数据也被更新
     if stratgy.new_timeStamp is False:
         stratgy.model_update(model=model)
         stratgy.signal_update()
