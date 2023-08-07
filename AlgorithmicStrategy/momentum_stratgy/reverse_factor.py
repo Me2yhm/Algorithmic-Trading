@@ -26,7 +26,7 @@ class Hurst():
     def calculate(self):
         RS = [0]*self.k
         for i in range(self.k):
-            subseries_list = np.array_split(self.ret_series.index(), 2**i)
+            subseries_list = np.array_split(self.ret_series.index, 2**i)
             RS[i] = 0
             #计算每组的R/S值
             for s in range(2**i):
@@ -50,6 +50,7 @@ class Factor_turnover_based():
         self.ret_series = ret_series #收益率因子
         self.turnover_series = turnover_series 
     def calculate(self):
+        #基于换手率排序，计算因子值
         df_turnover_ret = pd.concat([self.ret_series, self.turnover_series],axis=1)
         df_turnover_ret.columns = ['ret','turnover']
         df_sorted = df_turnover_ret.sort_values(by='turnover')
@@ -67,6 +68,7 @@ class Factor_information_based():
         self.ret_series = ret_series #收益率因子
         self.info_series = info_series #信息分布
     def calculate(self):
+        #基于信息分布排序，计算因子值
         df_info_ret = pd.concat([self.ret_series, self.info_series],axis=1)
         df_info_ret.columns = ['ret','info']
         df_sorted = df_info_ret.sort_values(by='info')
@@ -84,6 +86,7 @@ class Ret():
         self.time_now = time_now
         self.pricelist = pricelist
     def calculate(self, time):
+        #计算收益率
         time_begin = time - self.m
         try:
             ret = self.pricelist[time] / self.pricelist[time_begin]
@@ -92,7 +95,7 @@ class Ret():
             ret = None  
         return ret
     def form_series(self, interval= pd.Timedelta(seconds = 20), l = 60):
-        #返回l个收益率，时间间隔为interval
+        #返回收益率序列，时间间隔为interval
         time_list = sorted([self.time_now - i * interval for i in range(l)])
         ret_list =  [self.calculate(t) for t in time_list]
         ret_series = pd.Series(ret_list, index = time_list)
@@ -109,6 +112,7 @@ class Turnover():
         self.tickdict = tickdict
     def form_series(self, l = 61, total_shares = 293.52):
         #total_shares 为总发行股数*（10**8）
+        #返回换手率序列
         time_list = sorted([self.time_now - i * self.interval for i in range(l)])
         volume = turnover_series = {}
         for i in range(len(time_list)-1):
@@ -132,6 +136,7 @@ class Information():
         self.time_now = time_now
         self.tickdict = tickdict
     def calculate(self, time, s = 120):
+        #计算某一时刻信息分布
         time_list = sorted([time - i * self.m for i in range(s)])
         volume = {}
         for i in range(len(time_list)-1):
@@ -152,6 +157,7 @@ class Information():
             info = None
         return info
     def form_series(self, interval= pd.Timedelta(seconds = 20), l = 60):
+        #计算信息分布时间序列
         time_list = sorted([self.time_now - i * interval for i in range(l)])
         info_list = [(time_list[i], self.calculate(time = time_list[i])) for i in range(len(time_list))]
         info_series = pd.Series(info_list, index = time_list)
