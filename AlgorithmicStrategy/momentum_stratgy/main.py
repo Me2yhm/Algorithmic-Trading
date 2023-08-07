@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict
-from AlgorithmicStrategy.base import AlgorithmicStrategy, possession, signal
+from ..base import AlgorithmicStrategy, possession, signal
 from .modelType import modelType
 
 
