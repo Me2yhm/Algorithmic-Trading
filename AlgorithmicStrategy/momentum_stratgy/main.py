@@ -1,8 +1,13 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict
+<<<<<<< HEAD
 from AlgorithmicStrategy.momentum_stratgy.modelType import modelType, Model_reverse
 from AlgorithmicStrategy.base import AlgorithmicStrategy, possession, signal
 from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
+=======
+from ..base import AlgorithmicStrategy, possession, signal
+from .modelType import modelType
+>>>>>>> f71f43d6a1d1151657ec7e845850424868edd809
 
 
 class momentumStratgy(AlgorithmicStrategy, ABC):

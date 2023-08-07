@@ -32,7 +32,8 @@ class AlgorithmicStrategy(ABC):
     """
     抽象基类, 定义算法交易类的接口, 有如下属性
     orderbook: orderbook类, 可以撮合盘口, 记录盘口状态
-    timeStamp: 记录当前时间戳和上一秒时间戳
+    _timeStamp: 记录当前时间戳
+    _date: 记录当前日期
     deals: \记录每日成交记录,一个一个字典,键为日期,值为deal类组成的列表:{date:[deal]}
           \deal类似字典,与signal类似
     possession: \记录每日持仓记录,一个字典,键为日期,值为possession类:{date:possession}
@@ -49,13 +50,16 @@ class AlgorithmicStrategy(ABC):
     commission: 手续费, 券商收取, 默认按万分之1.5算
     stamp_duty: 印花税, 买入没有印花税, 卖出有, 为0.001
     transfer_fee: 过户费, 为0.00002, 买卖都有
+    current_price: 记录当前价格
+    price_list: 记录每日的价格序列
     """
 
     orderbook: OrderBook
     ticks: Dict[str, List[OT]]
     signals: Dict[str, List[signal]]
-    timeStamp: int
+    _timeStamp: int
     _date: str
+    new_timeStamp: bool
     newday: bool
     deals: Dict[str, List[deal]]
     possessions: Dict[str, possession]
@@ -64,16 +68,22 @@ class AlgorithmicStrategy(ABC):
     transfer_fee: float
     sell_cost: float
     buy_cost: float
+    current_price: float
+    price_list: Dict[str, Dict[int, float]]
+    lines: List[OT]
 
     def __init__(
         self,
+        orderbook: OrderBook,
         commision: float = 0.00015,
         stamp_duty: float = 0.001,
         transfer_fee: float = 0.00002,
+        pre_close: float = 0.0,
     ) -> None:
+        self.orderbook = orderbook
         self.ticks = {}
         self.signals = {}
-        self.timeStamp = 0
+        self._timeStamp = 0
         self.deals = {}
         self.possessions = {}
         self.commission = commision
@@ -82,7 +92,11 @@ class AlgorithmicStrategy(ABC):
         self.buy_cost = self.commission + self.transfer_fee
         self.sell_cost = self.commission + self.transfer_fee + self.stamp_duty
         self._date = ""
+        self.new_timeStamp = False
         self.newday = True
+        self.current_price = pre_close
+        self.price_list = {}
+        self.lines = []
 
     @property
     def date(self):
@@ -102,21 +116,74 @@ class AlgorithmicStrategy(ABC):
         else:
             self.newday = False
 
-    def update_orderbook(self, lines: List[OT]) -> None:
+    @property
+    def timeStamp(self):
+        """
+        获得当前日期
+        """
+        return self._timeStamp
+
+    @timeStamp.setter
+    def timeStamp(self, new_timeStamp):
+        """
+        允许对self.date赋值,且当日期更改之后,self.newday变为True
+        """
+        if new_timeStamp != self._date:
+            self.new_timeStamp = True
+            self._date = new_timeStamp
+        else:
+            self.new_timeStamp = False
+
+    def record_price(self, lines: List[OT]):
+        for line in lines:
+            if line["oid"] == 0 and (line["oidb"] != 0) and (line["oids"] != 0):
+                self.current_price = line["price"]
+                if self.newday:
+                    self.price_list[self.date] = {self.timeStamp: self.current_price}
+                else:
+                    self.price_list[self.date][self.timeStamp] = self.current_price
+
+    # 存在一个问题, 当前的处理逻辑可能导致最后10ms的tick数据无法被撮合到盘口
+    def update_orderbook(self, lines: List[OT]) -> bool:
         """
         更新orderbook和tick数据
         """
+        try:
+            assert all([line["time"] == lines[0]["time"] for line in lines])
+        except AssertionError:
+            raise ValueError("lines need the same timestamp")
         if self.newday:
             self.ticks[self.date] = lines
         else:
             self.ticks[self.date].extend(lines)
+        self.timeStamp = lines[-1]["time"]
+        self.date = get_date(self.timeStamp)
+        self.record_price(lines)
+        if self.new_timeStamp:  # 为了确保将同一timestamp下的所有数据传入再更新订单簿
+            if self.lines == []:
+                self.lines.extend(lines)
+                self.new_timeStamp = False
+                return
+            self.orderbook.single_update(self.lines)
+            self.lines = []
+        self.lines.extend(lines)
+
+    def get_close_price(self, timestamp: int, date: str | None = None):
+        if date is None:
+            date = self.date
+        price_dic = self.price_list[date]
+        time_list = list(price_dic.keys())
         try:
-            assert all([line["time"] == lines[0]["time"] for line in lines])
-            self.timeStamp = lines[-1]["time"]
-            self.date = get_date(self.timeStamp)
-            self.orderbook.single_update(lines)
-        except AssertionError:
-            raise ValueError("lines need the same timestamp")
+            for i in range(len(time_list)):
+                if time_list[i] <= timestamp and time_list[i + 1] >= timestamp:
+                    time = time_list[i]
+                    price = price_dic[time]
+                    return price
+        except IndexError:
+            time = time_list[-1]
+            price = price_dic[time]
+            print("input timestamp out of record, make sure it is the last price")
+            return price
 
     @abstractmethod
     def model_update(self) -> None:

@@ -23,12 +23,19 @@ class Model_reverse(modelType):
         """
         基于更新的数据计算新的反转因子，返回一个因子字典
         """
-        time_now = max(tickdict.keys())
+        new_tickdict = {pd.to_datetime(k, format='%Y%m%d%H%M%S%f'): v for k, v in tickdict.items()}
+        time_now = max(new_tickdict.keys())
         
-        
+        # 生成时间列表
+        backtrack_minutes = 30
+        interval_seconds = 3
+        backtrack_time = time_now - pd.Timedelta(minutes=backtrack_minutes)
+        time_list = sorted(pd.date_range(start=backtrack_time, end=time_now, freq=f"{interval_seconds}S").tolist())
         #TODO:从盘口信息得到price,作为计算ret的输入
-        # time_list = list(tickdict.keys())
-        # price_list = [0]*len(time_list)
+
+        price_list = [0]*len(time_list)
+        for i in range(len(time_list)):
+            
         # for i in range(len(time_list)):
         #     ask_1,volume_ask = next(iter(orderbook.snapshots.ask.items()))
         #     bid_1,volume_bid = next(iter(orderbook.snapshots.bid.items()))
@@ -36,7 +43,7 @@ class Model_reverse(modelType):
         # price_list = pd.Series(price_list,index=time_list)
         
         
-        ret_series = Ret(time_now,price_list).form_series()
+        ret_series = Ret(time_now,price_list,m = pd.Timedelta(seconds=10)).form_series()
         turnover_series = Turnover(time_now,tickdict).form_series()
         hurst = Hurst(ret_series).calculate() 
         info_series = Information(time_now,tickdict).form_series()
