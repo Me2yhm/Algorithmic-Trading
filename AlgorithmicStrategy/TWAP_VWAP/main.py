@@ -38,6 +38,12 @@ def main(opts: argparse.Namespace):
     plotter(range(8), ylabel="acc", show=False, path="./PICS/test.png")
 
 
+
+def show_total_order_number(ob: OrderBook):
+    logger.info(f"TOTAL BID NUMBER: {sum(ob.last_snapshot['bid_num'].values())}")
+    logger.info(f"TOTAL ASK NUMBER: {sum(ob.last_snapshot['ask_num'].values())}")
+
+
 if __name__ == "__main__":
     parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
@@ -46,13 +52,17 @@ if __name__ == "__main__":
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
-    tick_path = Path.cwd() / "../datas/000001.SZ/tick/gtja/2023-03-08.csv"
+    tick_path = Path.cwd() / "../datas/000001.SZ/tick/gtja/2023-07-03.csv"
     tick = DataSet(data_path=tick_path, ticker='SZ')
     ob = OrderBook(data_api=tick)
-    until = 2023_03_08_09_31_00_010
+
+
+    until = 2023_07_03_09_31_00_010
     ob.update(until=until)
-    logger.info(ob.last_snapshot['timestamp'])
-    logger.info(ob.last_snapshot['ask'])
-    logger.info(ob.last_snapshot['bid'])
-    logger.info(ob.data_cache[0])
+
+    show_total_order_number(ob)
+    # logger.info(ob.last_snapshot['timestamp'])
+    # logger.info(ob.last_snapshot['ask'])
+    # logger.info(ob.last_snapshot['bid'])
+    # logger.info(ob.data_cache[0])
     # main(args)

@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
-from typing import Dict, List, TypedDict
+from typing import Dict, List, TypedDict, Optional
 from .utils import get_date
-from .OrderMaster.OrderBook import OrderBook, OT
+from .OrderMaster.OrderBook import OrderBook, OrderTick
 
 
 class deal(TypedDict):
@@ -55,7 +55,7 @@ class AlgorithmicStrategy(ABC):
     """
 
     orderbook: OrderBook
-    ticks: Dict[str, List[OT]]
+    ticks: Dict[str, List[OrderTick]]
     signals: Dict[str, List[signal]]
     _timeStamp: int
     _date: str
@@ -70,15 +70,15 @@ class AlgorithmicStrategy(ABC):
     buy_cost: float
     current_price: float
     price_list: Dict[str, Dict[int, float]]
-    lines: List[OT]
+    lines: List[OrderTick]
 
     def __init__(
-        self,
-        orderbook: OrderBook,
-        commision: float = 0.00015,
-        stamp_duty: float = 0.001,
-        transfer_fee: float = 0.00002,
-        pre_close: float = 0.0,
+            self,
+            orderbook: OrderBook,
+            commision: float = 0.00015,
+            stamp_duty: float = 0.001,
+            transfer_fee: float = 0.00002,
+            pre_close: float = 0.0,
     ) -> None:
         self.orderbook = orderbook
         self.ticks = {}
@@ -134,7 +134,7 @@ class AlgorithmicStrategy(ABC):
         else:
             self.new_timeStamp = False
 
-    def record_price(self, lines: List[OT]):
+    def record_price(self, lines: List[OrderTick]):
         for line in lines:
             if line["oid"] == 0 and (line["oidb"] != 0) and (line["oids"] != 0):
                 self.current_price = line["price"]
@@ -144,7 +144,7 @@ class AlgorithmicStrategy(ABC):
                     self.price_list[self.date][self.timeStamp] = self.current_price
 
     # 存在一个问题, 当前的处理逻辑可能导致最后10ms的tick数据无法被撮合到盘口
-    def update_orderbook(self, lines: List[OT]) -> bool:
+    def update_orderbook(self, lines: List[OrderTick]) -> None:
         """
         更新orderbook和tick数据
         """
@@ -160,7 +160,7 @@ class AlgorithmicStrategy(ABC):
         self.date = get_date(self.timeStamp)
         self.record_price(lines)
         if self.new_timeStamp:  # 为了确保将同一timestamp下的所有数据传入再更新订单簿
-            if self.lines == []:
+            if not self.lines:
                 self.lines.extend(lines)
                 self.new_timeStamp = False
                 return
@@ -168,14 +168,14 @@ class AlgorithmicStrategy(ABC):
             self.lines = []
         self.lines.extend(lines)
 
-    def get_close_price(self, timestamp: int, date: str | None = None):
+    def get_close_price(self, timestamp: int, date: Optional[str] = None):
         if date is None:
             date = self.date
         price_dic = self.price_list[date]
         time_list = list(price_dic.keys())
         try:
             for i in range(len(time_list)):
-                if time_list[i] <= timestamp and time_list[i + 1] >= timestamp:
+                if time_list[i] <= timestamp <= time_list[i + 1]:
                     time = time_list[i]
                     price = price_dic[time]
                     return price
