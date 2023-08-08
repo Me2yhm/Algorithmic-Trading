@@ -15,7 +15,6 @@ class OrderBook:
         "last_snapshot",
         "data_api",
         "oid_map",
-        "data_cache",
         "skip_order",
     )
 
@@ -25,41 +24,13 @@ class OrderBook:
         self.last_snapshot: SnapShot = None
         self.data_api: Union[DataStream, DataSet] = data_api
         self.oid_map: dict[int, LifeTime] = dict()
-        self.data_cache: list[OrderTick] = []
         self.skip_order: list[int] = []
 
-    def next_batch(self, until: int = None) -> list[OrderTick]:
-        if self.data_cache:
-            # 如果缓存有数据，先处理缓存的数据
-            data = self.data_cache.pop(0)
-        else:
-            data = self.data_api.fresh()[0]
-        timestamp_this = data[self.data_api.date_column]
-
-        if until is not None and timestamp_this > until:
-            self.data_cache.append(data)
-            return []
-
-        res = [data]
-        while True:
-            try:
-                next_data = self.data_api.fresh()
-            except StopIteration:
-                break
-            timestamp_next = next_data[0][self.data_api.date_column]
-
-            if timestamp_next != timestamp_this:
-                self.data_cache.extend(next_data)
-                break
-            else:
-                res.extend(next_data)
-
-        return res
 
     def update(self, until: int = None):
         while True:
             try:
-                res = self.next_batch(until=until)
+                res = self.data_api.next_batch(until=until)
                 if res:
                     self.single_update(res)
                 else:
@@ -69,7 +40,7 @@ class OrderBook:
 
     def single_update(self, datas: list[OrderTick] = None):
         if datas is None:
-            datas = self.next_batch()
+            datas = self.data_api.next_batch()
         datas: list[OrderTick] = sorted(datas, key=lambda x: x["oid"], reverse=True)
         for data in datas:
             if self.last_snapshot is None:

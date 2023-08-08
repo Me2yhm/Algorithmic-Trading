@@ -52,15 +52,27 @@ if __name__ == "__main__":
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
-    tick_path = Path.cwd() / "../datas/000001.SZ/tick/gtja/2023-07-03.csv"
-    tick = DataSet(data_path=tick_path, ticker='SZ')
+
+
+    tick_path = Path.cwd() / "../datas/601012.SH/tick/gtja/2023-07-03.csv"
+    tick = DataSet(data_path=tick_path, ticker='SH')
     ob = OrderBook(data_api=tick)
 
+    # logger.info(tick.next_batch())
+    ob.single_update()
+    logger.info(ob.last_snapshot['timestamp'])
+    logger.info(ob.last_snapshot['ask'])
+    logger.info(ob.last_snapshot['bid'])
+    logger.info(ob.data_api.data_cache[0])
+    # logger.info(tick.fresh())
+    # logger.info(tick.fresh())
+    # logger.info(tick.fresh())
+    # logger.info(tick.fresh())
 
-    until = 2023_07_03_09_31_00_010
-    ob.update(until=until)
-
-    show_total_order_number(ob)
+    # until = 2023_07_03_09_31_00_010
+    # ob.update(until=until)
+    #
+    # show_total_order_number(ob)
     # logger.info(ob.last_snapshot['timestamp'])
     # logger.info(ob.last_snapshot['ask'])
     # logger.info(ob.last_snapshot['bid'])

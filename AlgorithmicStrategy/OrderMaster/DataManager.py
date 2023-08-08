@@ -45,6 +45,7 @@ class DataStream(DataBase):
         "ticker",
         "file_date",
         "file_date_num",
+        "data_cache"
     )
 
     # noinspection PyTypeChecker
@@ -65,6 +66,7 @@ class DataStream(DataBase):
         self.data_files: list[Path] = list(self.data_folder.glob("*.csv"))
         self.rest_data_files: list[Path] = self.data_files.copy()
         self.columns: list[str] = None
+        self.data_cache: list[OrderTick] = []
         self._open_next_file()
 
     def isCALL(self, timestamp: int):
@@ -102,7 +104,11 @@ class DataStream(DataBase):
         res = OrderTick()
         for i, j in zip(self.columns, data):
             if j.isdigit():
-                tmp = int(j) + self.file_date_num if i == self.date_column else int(j)
+                if i == self.date_column:
+                    j = j.ljust(8, "0")
+                    tmp = int(j) + self.file_date_num
+                else:
+                    tmp = int(j)
                 res[i] = tmp
             elif self.isfloat(j):
                 res[i] = round(float(j), 3)
@@ -131,6 +137,34 @@ class DataStream(DataBase):
     def __del__(self):
         self.close()
 
+    def next_batch(self, until: int = None) -> list[OrderTick]:
+        if self.data_cache:
+            # 如果缓存有数据，先处理缓存的数据
+            data = self.data_cache.pop(0)
+        else:
+            data = self.fresh()[0]
+        timestamp_this = data[self.date_column]
+
+        if until is not None and timestamp_this > until:
+            self.data_cache.append(data)
+            return []
+
+        res = [data]
+        while True:
+            try:
+                next_data = self.fresh()
+            except StopIteration:
+                break
+            timestamp_next = next_data[0][self.date_column]
+
+            if timestamp_next != timestamp_this:
+                self.data_cache.extend(next_data)
+                break
+            else:
+                res.extend(next_data)
+
+        return res
+
 
 class DataSet(DataBase):
     __slots__ = (
@@ -143,6 +177,7 @@ class DataSet(DataBase):
         "ticker",
         "file_date",
         "file_date_num",
+        "data_cache"
     )
 
     # noinspection PyTypeChecker
@@ -162,6 +197,7 @@ class DataSet(DataBase):
         self.current_reader: Iterator[list[str]] = None
         self.delimiter: str = delimiter
         self.columns: list[str] = None
+        self.data_cache: list[OrderTick] = []
         self._open_next_file()
 
     def isCALL(self, timestamp: int):
@@ -186,7 +222,11 @@ class DataSet(DataBase):
         res = OrderTick()
         for i, j in zip(self.columns, data):
             if j.isdigit():
-                tmp = int(j) + self.file_date_num if i == self.date_column else int(j)
+                if i == self.date_column:
+                    j = j.ljust(8, "0")
+                    tmp = int(j) + self.file_date_num
+                else:
+                    tmp = int(j)
                 res[i] = tmp
             elif self.isfloat(j):
                 res[i] = round(float(j), 3)
@@ -213,3 +253,31 @@ class DataSet(DataBase):
 
     def __del__(self):
         self.close()
+
+    def next_batch(self, until: int = None) -> list[OrderTick]:
+        if self.data_cache:
+            # 如果缓存有数据，先处理缓存的数据
+            data = self.data_cache.pop(0)
+        else:
+            data = self.fresh()[0]
+        timestamp_this = data[self.date_column]
+
+        if until is not None and timestamp_this > until:
+            self.data_cache.append(data)
+            return []
+
+        res = [data]
+        while True:
+            try:
+                next_data = self.fresh()
+            except StopIteration:
+                break
+            timestamp_next = next_data[0][self.date_column]
+
+            if timestamp_next != timestamp_this:
+                self.data_cache.extend(next_data)
+                break
+            else:
+                res.extend(next_data)
+
+        return res
