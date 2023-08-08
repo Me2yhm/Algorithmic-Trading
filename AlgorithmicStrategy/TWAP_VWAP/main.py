@@ -1,16 +1,13 @@
 import argparse
-import sys
-
-# sys.path.insert(0, "../")
-# from OrderMaster import OrderBook, DataSet  # type: ignore
-
-from log import logger, log_eval, log_train
-from utils import setup_seed, plotter
-import torch as t
+import warnings
 from argparse import ArgumentParser
 from pathlib import Path
-import warnings
-from AlgorithmicStrategy import OrderBook, DataSet
+
+import torch as t
+
+from AlgorithmicStrategy import DataSet, OrderBook
+from log import logger, log_eval, log_train
+from utils import setup_seed, plotter
 
 warnings.filterwarnings("ignore")
 
@@ -41,6 +38,12 @@ def main(opts: argparse.Namespace):
     plotter(range(8), ylabel="acc", show=False, path="./PICS/test.png")
 
 
+
+def show_total_order_number(ob: OrderBook):
+    logger.info(f"TOTAL BID NUMBER: {sum(ob.last_snapshot['bid_num'].values())}")
+    logger.info(f"TOTAL ASK NUMBER: {sum(ob.last_snapshot['ask_num'].values())}")
+
+
 if __name__ == "__main__":
     parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
@@ -49,8 +52,17 @@ if __name__ == "__main__":
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
-    tick_path = Path.cwd() / "../datas/000001.SZ/tick/gtja/2023-03-01.csv"
+    tick_path = Path.cwd() / "../datas/000001.SZ/tick/gtja/2023-07-03.csv"
     tick = DataSet(data_path=tick_path, ticker='SZ')
-    logger.info(tick.fresh())
+    ob = OrderBook(data_api=tick)
 
-    main(args)
+
+    until = 2023_07_03_09_31_00_010
+    ob.update(until=until)
+
+    show_total_order_number(ob)
+    # logger.info(ob.last_snapshot['timestamp'])
+    # logger.info(ob.last_snapshot['ask'])
+    # logger.info(ob.last_snapshot['bid'])
+    # logger.info(ob.data_cache[0])
+    # main(args)

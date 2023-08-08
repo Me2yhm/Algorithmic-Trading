@@ -110,3 +110,15 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
 
         self.win_rate[self.date] = sum(self.win_times) / len(self.win_times)
         return self.win_rate[self.date]
+
+
+class reverse_strategy(momentumStratgy):
+    """
+    反转因子模型
+    """
+
+    def model_update(self, model: Model_reverse):
+        model.model_update(self.ticks, self.orderbook)
+
+    def signal_update(self) -> dict:
+        pass

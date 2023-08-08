@@ -1,9 +1,24 @@
 import csv
-from abc import abstractmethod
-from datetime import datetime
+from datetime import datetime, date
+from os import PathLike
 from pathlib import Path
-from typing import TextIO, Iterator
-from .Schema import TimeType, PathType, OrderTick
+from typing import TypedDict, Union, TextIO, Iterator
+import pandas as pd
+from abc import abstractmethod
+
+TimeType = Union[datetime, date, pd.Timestamp, str, int]
+PathType = Union[str, Path, PathLike]
+
+
+class OT(TypedDict, total=False):
+    time: int
+    oid: int
+    oidb: int
+    oids: int
+    price: float
+    volume: int
+    flag: int
+    ptype: int
 
 
 class DataBase:
@@ -49,7 +64,7 @@ class DataStream(DataBase):
 
     # noinspection PyTypeChecker
     def __init__(
-            self, data_folder: PathType, ticker: str, delimiter: str = ",", **kwargs
+        self, data_folder: PathType, ticker: str, delimiter: str = ",", **kwargs
     ):
         assert ticker.endswith(".SH") or ticker.endswith(
             ".SZ"
@@ -69,8 +84,8 @@ class DataStream(DataBase):
 
     def isCALL(self, timestamp: int):
         return (
-                timestamp < self.file_date_num + 93000000
-                or self.file_date_num + 145700000 < timestamp
+            timestamp < self.file_date_num + 93000000
+            or self.file_date_num + 145700000 < timestamp
         )
 
     def _open_next_file(self):
@@ -97,9 +112,9 @@ class DataStream(DataBase):
     def _refresh_data_files(self):
         self.rest_data_files = self.data_files.copy()
 
-    def _format(self, data: list[str]) -> OrderTick:
+    def _format(self, data: list[str]) -> OT:
         assert len(data) == len(self.columns)
-        res = OrderTick()
+        res = OT()
         for i, j in zip(self.columns, data):
             if j.isdigit():
                 tmp = int(j) + self.file_date_num if i == self.date_column else int(j)
@@ -110,7 +125,7 @@ class DataStream(DataBase):
                 res[i] = j
         return res
 
-    def __next__(self) -> OrderTick:
+    def __next__(self) -> OT:
         if self.rest_data_files and self.current_file is None:
             self._open_next_file()
         while self.current_reader is not None:
@@ -147,7 +162,7 @@ class DataSet(DataBase):
 
     # noinspection PyTypeChecker
     def __init__(
-            self, data_path: PathType, ticker: str, delimiter: str = ",", **kwargs
+        self, data_path: PathType, ticker: str, delimiter: str = ",", **kwargs
     ):
         self.file_path: PathType = Path(data_path)
         assert ticker.endswith("SH") or ticker.endswith(
@@ -166,8 +181,8 @@ class DataSet(DataBase):
 
     def isCALL(self, timestamp: int):
         return (
-                timestamp < self.file_date_num + 93000000
-                or self.file_date_num + 145700000 < timestamp
+            timestamp < self.file_date_num + 93000000
+            or self.file_date_num + 145700000 < timestamp
         )
 
     def _open_next_file(self):
@@ -181,9 +196,9 @@ class DataSet(DataBase):
         else:
             assert self.columns == next(self.current_reader)
 
-    def _format(self, data: list[str]) -> OrderTick:
+    def _format(self, data: list[str]) -> OT:
         assert len(data) == len(self.columns)
-        res = OrderTick()
+        res = OT()
         for i, j in zip(self.columns, data):
             if j.isdigit():
                 tmp = int(j) + self.file_date_num if i == self.date_column else int(j)
@@ -194,7 +209,7 @@ class DataSet(DataBase):
                 res[i] = j
         return res
 
-    def __next__(self) -> OrderTick:
+    def __next__(self) -> OT:
         if self.file_path and self.current_file is None:
             self._open_next_file()
         while self.current_reader is not None:
