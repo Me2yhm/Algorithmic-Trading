@@ -9,14 +9,17 @@ from ..OrderMaster.OrderBook import OrderBook
 
 
 def run(
-    datestr: str, symbol: str, stratgy: Union[type, momentumStratgy], model: modelType
+    datestr: str,
+    symbol: str,
+    stratgy_type: Union[type[momentumStratgy], momentumStratgy],
+    model: modelType,
 ):
     tick_path = (
         Path(__file__).parent.parent / f"./datas/{symbol}/tick/gtja/{datestr}.csv"
     )
     data_api = DataSet(tick_path, date_column="time", ticker=symbol)
     orderbook = OrderBook(data_api)
-    stratgy(orderbook)
+    stratgy = stratgy_type(orderbook)
     while True:
         try:
             tick_data = data_api.fresh(1)

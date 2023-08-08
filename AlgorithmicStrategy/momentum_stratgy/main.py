@@ -1,10 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict,Union
-from AlgorithmicStrategy.momentum_stratgy.modelType import modelType, Model_reverse
-from AlgorithmicStrategy.base import AlgorithmicStrategy, possession, signal
+from typing import List, Dict, Union
 from ..base import AlgorithmicStrategy, possession, signal
-from .modelType import modelType
-
+from .modelType import modelType, Model_reverse
 
 
 class momentumStratgy(AlgorithmicStrategy, ABC):
@@ -36,7 +33,7 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
         self.odds = 0
 
     @abstractmethod
-    def model_update(self, model: modelType) -> None:
+    def model_update(self, model: Union[type[modelType], modelType]) -> None:
         """
         盘口更新过后, 根据更新过的数据增量地更新指标或者训练模型
         """
@@ -119,7 +116,9 @@ class reverse_strategy(momentumStratgy):
     """
     反转因子模型
     """
+
     def model_update(self, model: Model_reverse):
-        model.model_update(self.ticks,self.orderbook) 
+        model.model_update(self.ticks, self.orderbook)
+
     def signal_update(self) -> dict:
-        if 
+        pass
