@@ -1,13 +1,10 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict
-<<<<<<< HEAD
+from typing import List, Dict,Union
 from AlgorithmicStrategy.momentum_stratgy.modelType import modelType, Model_reverse
 from AlgorithmicStrategy.base import AlgorithmicStrategy, possession, signal
-from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
-=======
 from ..base import AlgorithmicStrategy, possession, signal
 from .modelType import modelType
->>>>>>> f71f43d6a1d1151657ec7e845850424868edd809
+
 
 
 class momentumStratgy(AlgorithmicStrategy, ABC):
@@ -123,7 +120,6 @@ class reverse_strategy(momentumStratgy):
     反转因子模型
     """
     def model_update(self, model: Model_reverse):
-        model.model_update(self.ticks,self.orderbook) #TODO:输入tick和orderbook
-        
+        model.model_update(self.ticks,self.orderbook) 
     def signal_update(self) -> dict:
         if 

@@ -19,30 +19,32 @@ class Model_reverse(modelType):
     """
    反转因子模型
     """
-    def model_update(self,tickdict,orderbook):
+    @classmethod
+    def model_update(cls,tickdict,orderbook):
         """
         基于更新的数据计算新的反转因子，返回一个因子字典
         """
+        #tick的key是str，需要改成pd.Timestamp
         new_tickdict = {pd.to_datetime(k, format='%Y%m%d%H%M%S%f'): v for k, v in tickdict.items()}
         time_now = max(new_tickdict.keys())
+        time_now_int = int(list(tickdict.keys())[-1])
         
         # 生成时间列表
-        backtrack_minutes = 30
-        interval_seconds = 3
-        backtrack_time = time_now - pd.Timedelta(minutes=backtrack_minutes)
-        time_list = sorted(pd.date_range(start=backtrack_time, end=time_now, freq=f"{interval_seconds}S").tolist())
-        #TODO:从盘口信息得到price,作为计算ret的输入
-
+        backtrack_minutes = pd.Timedelta(minutes=30)
+        interval = pd.Timedelta(seconds=3)
+        backtrack_time = time_now - backtrack_minutes
+        time_list = sorted(pd.date_range(start=backtrack_time, end=time_now, freq=interval).tolist())
+        
+        #从盘口信息得到price,作为计算ret的输入
+        #TODO：tick时间和snapshot不同步
         price_list = [0]*len(time_list)
         for i in range(len(time_list)):
-            
-        # for i in range(len(time_list)):
-        #     ask_1,volume_ask = next(iter(orderbook.snapshots.ask.items()))
-        #     bid_1,volume_bid = next(iter(orderbook.snapshots.bid.items()))
-        #     price_list[i] = ask_1*volume_ask/(volume_ask+volume_bid)+bid_1*volume_bid/(volume_bid+volume_ask)
-        # price_list = pd.Series(price_list,index=time_list)
+            ask_1,volume_ask = list(orderbook.snapshots.values())[-i].ask.popitem()
+            bid_1,volume_bid = list(orderbook.snapshots.values())[-i].bid.popitem()
+            price_list[i] = ask_1*volume_ask/(volume_ask+volume_bid)+bid_1*volume_bid/(volume_bid+volume_ask)
+        price_list = pd.Series(price_list,index=time_list)
         
-        
+        #更新各个指标
         ret_series = Ret(time_now,price_list,m = pd.Timedelta(seconds=10)).form_series()
         turnover_series = Turnover(time_now,tickdict).form_series()
         hurst = Hurst(ret_series).calculate() 
