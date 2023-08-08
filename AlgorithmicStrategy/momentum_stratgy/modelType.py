@@ -19,16 +19,14 @@ class Model_reverse(modelType):
     """
    反转因子模型
     """
-    @classmethod
-    def model_update(cls,tickdict,orderbook):
+    def model_update(self,tickdict,orderbook):
         """
         基于更新的数据计算新的反转因子，返回一个因子字典
         """
         #tick的key是str，需要改成pd.Timestamp
-        new_tickdict = {pd.to_datetime(k, format='%Y%m%d%H%M%S%f'): v for k, v in tickdict.items()}
+        new_tickdict = {pd.Timestamp(pd.to_datetime(k, format='%Y%m%d%H%M%S%f')): v for k, v in tickdict.items()}
         time_now = max(new_tickdict.keys())
         time_now_int = int(list(tickdict.keys())[-1])
-        
         # 生成时间列表
         backtrack_minutes = pd.Timedelta(minutes=30)
         interval = pd.Timedelta(seconds=3)
@@ -51,6 +49,6 @@ class Model_reverse(modelType):
         info_series = Information(time_now,tickdict).form_series()
         factor_1 = Factor_turnover_based(ret_series, turnover_series).calculate() 
         factor_2 = Factor_information_based(ret_series,info_series).calculate()
-        index_dict = {'hurst':hurst,'factor_turnover':factor_1,'factor_info':factor_2}
+        index_dict = {'time':time_now,'hurst':hurst,'factor_turnover':factor_1,'factor_info':factor_2}
         return index_dict        
 
