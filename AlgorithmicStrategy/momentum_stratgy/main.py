@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
 from ..base import AlgorithmicStrategy, possession, signal
-from .modelType import modelType
+from .modelType import modelType, Model_reverse
 
 
 class momentumStratgy(AlgorithmicStrategy, ABC):
