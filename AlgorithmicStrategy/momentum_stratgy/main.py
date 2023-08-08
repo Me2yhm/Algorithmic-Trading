@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Union
 from ..base import AlgorithmicStrategy, possession, signal
 from .modelType import modelType, Model_reverse
+from ..OrderMaster.OrderBook import OrderBook
 
 
 class momentumStratgy(AlgorithmicStrategy, ABC):
@@ -25,8 +26,15 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
     win_rate = Dict[str, float]
     odds: float
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(
+        self,
+        orderbook: OrderBook,
+        commision: float = 0.00015,
+        stamp_duty: float = 0.001,
+        transfer_fee: float = 0.00002,
+        pre_close: float = 0.0,
+    ) -> None:
+        super().__init__(orderbook, commision, stamp_duty, transfer_fee, pre_close)
         self.model_indicator = []
         self.win_times = {}
         self.win_rate = {}
