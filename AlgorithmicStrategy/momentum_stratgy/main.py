@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict
+from typing import List, Dict, Union
 from ..base import AlgorithmicStrategy, possession, signal
 from .modelType import modelType
 
@@ -33,7 +33,7 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
         self.odds = 0
 
     @abstractmethod
-    def model_update(self, model: modelType) -> None:
+    def model_update(self, model: Union[type[modelType], modelType]) -> None:
         """
         盘口更新过后, 根据更新过的数据增量地更新指标或者训练模型
         """
