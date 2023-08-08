@@ -1,9 +1,16 @@
+from abc import ABC, abstractmethod
 from typing import List, Dict
+<<<<<<< HEAD
+from AlgorithmicStrategy.momentum_stratgy.modelType import modelType, Model_reverse
 from AlgorithmicStrategy.base import AlgorithmicStrategy, possession, signal
+from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
+=======
+from ..base import AlgorithmicStrategy, possession, signal
 from .modelType import modelType
+>>>>>>> f71f43d6a1d1151657ec7e845850424868edd809
 
 
-class momentumStratgy(AlgorithmicStrategy):
+class momentumStratgy(AlgorithmicStrategy, ABC):
     """
     动量算法类, 有如下属性
     orderbook: orderbook类, 可以撮合盘口, 记录盘口状态
@@ -31,12 +38,14 @@ class momentumStratgy(AlgorithmicStrategy):
         self.win_rate = {}
         self.odds = 0
 
+    @abstractmethod
     def model_update(self, model: modelType) -> None:
         """
         盘口更新过后, 根据更新过的数据增量地更新指标或者训练模型
         """
         pass
 
+    @abstractmethod
     def signal_update(self) -> dict:
         """
         调用model_update函数, 根据函数结果返回信号
@@ -107,3 +116,14 @@ class momentumStratgy(AlgorithmicStrategy):
 
         self.win_rate[self.date] = sum(self.win_times) / len(self.win_times)
         return self.win_rate[self.date]
+
+
+class reverse_strategy(momentumStratgy):
+    """
+    反转因子模型
+    """
+    def model_update(self, model: Model_reverse):
+        model.model_update(self.ticks,self.orderbook) #TODO:输入tick和orderbook
+        
+    def signal_update(self) -> dict:
+        if 

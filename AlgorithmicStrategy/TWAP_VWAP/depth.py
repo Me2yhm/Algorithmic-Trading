@@ -16,8 +16,10 @@ class OrderDepthCalculator:
         self.total_volume = self.calculate_total_volume()
 
     def get_n_depth(self) -> List[float]:
-        ask_volumes = list(self.snapshot['ask'].values())[:self.n]
+        ask_volumes = list(self.snapshot['ask'].values())[:self.n][::-1]
         bid_volumes = list(self.snapshot['bid'].values())[:self.n]
+        ask_volumes = [0.0] * (self.n - len(ask_volumes)) + ask_volumes
+        bid_volumes += [0.0] * (self.n - len(bid_volumes))
         return ask_volumes + bid_volumes
 
     @staticmethod
@@ -32,7 +34,7 @@ class OrderDepthCalculator:
         total_weight = 0.0
 
         for idx, volume in enumerate(self.n_depth):
-            distance_to_optimal = abs(idx)
+            distance_to_optimal = abs(idx-n+1)
 
             # 计算指数衰减权重
             weight = OrderDepthCalculator.exponential_decay_weight(distance_to_optimal, decay_rate)
@@ -43,12 +45,13 @@ class OrderDepthCalculator:
         if total_weight == 0.0:
             return 0.0
 
+        # 计算加权平均订单深度
         weighted_average_depth = weighted_sum / total_weight
 
         return weighted_average_depth
 
 # 测试
-n = 5 #盘口挡位
+n = 10 #盘口挡位
 decay_rates = [2]#衰减率
 snapshot = SnapShot(
     timestamp=1630373400,
