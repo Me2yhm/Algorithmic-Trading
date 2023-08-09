@@ -130,7 +130,7 @@ class AlgorithmicStrategy(ABC):
         """
         if new_timeStamp != self._date:
             self.new_timeStamp = True
-            self._date = new_timeStamp
+            self._timeStamp = new_timeStamp
         else:
             self.new_timeStamp = False
 
