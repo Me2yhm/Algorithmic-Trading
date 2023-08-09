@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
-from reverse_factor import *
-
+from .reverse_factor import *
+from ..OrderMaster.OrderBook import OrderBook
 class modelType(ABC):
     """
     模型的抽象基类，用于实现指标更新或者模型增量训练
@@ -19,14 +19,18 @@ class Model_reverse(modelType):
     """
    反转因子模型
     """
-    def model_update(self,tickdict,orderbook):
+    def model_update(self,tickdict,orderbook:OrderBook):
         """
         基于更新的数据计算新的反转因子，返回一个因子字典
         """
-        #tick的key是str，需要改成pd.Timestamp
-        new_tickdict = {pd.Timestamp(pd.to_datetime(k, format='%Y%m%d%H%M%S%f')): v for k, v in tickdict.items()}
-        time_now = max(new_tickdict.keys())
-        time_now_int = int(list(tickdict.keys())[-1])
+        #tick.time修改为pd.Timestamp格式
+        date_today = max(tickdict.keys()) #str
+        tick_list_today = tickdict[date_today]
+        tick_now = tick_list_today[-1]
+        time_str = str(tick_now['time'])
+        #time_str 年/月/日/小时/分钟/秒/毫秒
+        time_now = pd.Timestamp(pd.to_datetime(time_str, format='%Y%m%d%H%M%S%f'))
+        
         # 生成时间列表
         backtrack_minutes = pd.Timedelta(minutes=30)
         interval = pd.Timedelta(seconds=3)
@@ -35,10 +39,11 @@ class Model_reverse(modelType):
         
         #从盘口信息得到price,作为计算ret的输入
         #TODO：tick时间和snapshot不同步
-        price_list = [0]*len(time_list)
+        price_list = [0.0]*len(time_list)
         for i in range(len(time_list)):
-            ask_1,volume_ask = list(orderbook.snapshots.values())[-i].ask.popitem()
-            bid_1,volume_bid = list(orderbook.snapshots.values())[-i].bid.popitem()
+            time_int = int(time_list[i].strftime('%Y%m%d%H%M%S%f'))
+            ask_1,volume_ask = orderbook.snapshots[time_int]['ask']
+            bid_1,volume_bid = orderbook.snapshots[time_int]['bid']
             price_list[i] = ask_1*volume_ask/(volume_ask+volume_bid)+bid_1*volume_bid/(volume_bid+volume_ask)
         price_list = pd.Series(price_list,index=time_list)
         

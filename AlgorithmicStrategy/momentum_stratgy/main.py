@@ -124,9 +124,7 @@ class reverse_strategy(momentumStratgy):
     """
     反转因子模型
     """
-
     def model_update(self, model: Model_reverse):
-        model.model_update(self.ticks, self.orderbook)
-
-    def signal_update(self) -> dict:
-        pass
+        return model.model_update(self.ticks,self.orderbook) 
+    # def signal_update(self,index_dict) -> dict:
+    #     if index_dict['hurst'] 

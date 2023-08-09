@@ -1,9 +1,8 @@
 from pathlib import Path
 from typing import Union
 
-from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
-from .main import momentumStratgy
-from .modelType import modelType
+from .main import momentumStratgy, reverse_strategy
+from .modelType import modelType, Model_reverse
 from ..OrderMaster.DataManager import DataStream, DataSet
 from ..OrderMaster.OrderBook import OrderBook
 
@@ -26,18 +25,23 @@ def run(
             stratgy.update_orderbook(tick_data)
             if stratgy.new_timeStamp is False:
                 continue
-            stratgy.model_update(model=model)
-            stratgy.signal_update()
-            stratgy.stratgy_update()
+            print(stratgy.model_update(model=model))
+            # stratgy.signal_update()
+            # stratgy.stratgy_update()
         except StopIteration:
             break
     # 确保最后一行tick数据也被更新
     if stratgy.new_timeStamp is False:
         stratgy.model_update(model=model)
-        stratgy.signal_update()
-        stratgy.stratgy_update()
-    print(stratgy.win_rate[datestr])
+        # stratgy.signal_update()
+        # stratgy.stratgy_update()
+    # print(stratgy.win_rate[datestr])
 
 
 if __name__ == "__main__":
-    pass
+    model = Model_reverse()
+    run(datestr='2023-07-17',
+    symbol='601012.SH',
+    stratgy_type=reverse_strategy,
+    model=model)
+    

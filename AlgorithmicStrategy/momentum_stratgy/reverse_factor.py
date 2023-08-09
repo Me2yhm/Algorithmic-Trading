@@ -110,8 +110,7 @@ class Turnover():
         self.interval = interval
         self.time_now = time_now
         #把tick字典的键str->pd.Timestamp
-        new_tickdict = {pd.to_datetime(k, format='%Y%m%d%H%M%S%f'): v for k, v in tickdict.items()}
-        self.tickdict = new_tickdict
+        self.tickdict = tickdict
         
     def form_series(self, l = 61, total_shares = 293.52):
         #total_shares 为总发行股数*（10**8）
@@ -123,14 +122,15 @@ class Turnover():
             start_time = time_list[i]
             end_time = time_list[i+1]
             #取出特定时间段的tick，计算volume
-            tickdict_subset = {k: v for k, v in self.tickdict.items() if start_time < k <= end_time}
-            for v in tickdict_subset.values(): #v为包含同一时间tick的列表
-                for tick in v:  
-                    if isinstance(tick.volume, (int, float)):
-                        volume_temp += tick.volume
+            date_today = self.time_now.strftime('%Y%m%d')
+            ticklist_today = self.tickdict[date_today]
+            for tick in ticklist_today:
+                if  start_time < tick['time'] <= end_time:
+                    if isinstance(tick['volume'], (int, float)):
+                            volume_temp += tick['volume']
                     else:
-                        print("Tick volume is not an int:", tick.volume)
-            volume[end_time] = volume_temp
+                        print("Tick volume is not an int:", tick['volume'])
+                    volume[end_time] = volume_temp
             turnover_series[end_time] = volume[end_time]/total_shares
         return turnover_series
 
@@ -141,9 +141,7 @@ class Information():
     def __init__(self, time_now: pd.Timestamp , tickdict: Dict, m = pd.Timedelta(milliseconds=500)):
         self.m = m  # 算信息分布的时间长度
         self.time_now = time_now
-         #把tick字典的键str->pd.Timestamp
-        new_tickdict = {pd.to_datetime(k, format='%Y%m%d%H%M%S%f'): v for k, v in tickdict.items()}
-        self.tickdict = new_tickdict
+        self.tickdict = tickdict
     def calculate(self, time, s = 120):
         #计算某一时刻信息分布
         time_list = sorted([time - i * self.m for i in range(s)])
@@ -152,14 +150,16 @@ class Information():
             volume_temp = 0
             start_time = time_list[i]
             end_time = time_list[i+1]
-            tickdict_subset = {k: v for k, v in self.tickdict.items() if start_time < k <= end_time}
-            for v in tickdict_subset.values():
-                for tick in v:
-                    if isinstance(tick.volume, (int, float)):
-                        volume_temp += tick.volume
+            #取出特定时间段的tick，计算volume
+            date_today = self.time_now.strftime('%Y%m%d')
+            ticklist_today = self.tickdict[date_today]
+            for tick in ticklist_today:
+                if  start_time < tick['time'] <= end_time:
+                    if isinstance(tick['volume'], (int, float)):
+                            volume_temp += tick['volume']
                     else:
-                        print("Tick volume is not an int:", tick.volume)
-            volume[end_time] = volume_temp
+                        print("Tick volume is not an int:", tick['volume'])
+                    volume[end_time] = volume_temp
         volume_array = np.array(list(volume.values()))
         volume_std = np.std(volume_array)
         volume_mean = np.mean(volume_array) 
