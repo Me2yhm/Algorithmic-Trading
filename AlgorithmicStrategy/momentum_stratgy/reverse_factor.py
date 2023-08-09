@@ -26,20 +26,36 @@ class Hurst():
         self.ret_series = ret_series
     def calculate(self):
         RS = [0]*self.k
+        size_list = [0]*self.k
         for i in range(self.k):
+            size_list[i]= len(self.ret_series)/(2**i)
             subseries_list = np.array_split(self.ret_series.index, 2**i)
-            RS[i] = 0
             #计算每组的R/S值
             for s in range(2**i):
-                series = pd.Series(subseries_list[s], index=self.ret_series.index[:len(subseries_list[s])])
+                series = pd.Series(self.ret_series[subseries_list[s]], index=self.ret_series.index[:len(subseries_list[s])])
                 std = series.std()
                 mean = series.mean()
-                series_delta = series.apply(lambda x: x-mean)
-                R = series_delta.max() - series_delta.min()
-                RS += R/std
-            RS[i] = RS[i]/2**i
-        #对R/S值和k回归，取系数为hurst
-        hurst = np.polyfit(np.log(len(RS)), np.log(RS), 1)[0]
+                # breakpoint()
+                if np.isnan(std) or np.isnan(mean):
+                    continue
+                else:
+                    series_delta = series.apply(lambda x: x-mean)
+                    R = series_delta.max() - series_delta.min()
+                    breakpoint()
+                    RS[i] += R/std
+                RS[i] = RS[i]/2**i
+        #去掉RS的0值，对R/S值和k回归，取系数为hurst
+        RS_new = size_list_new = []
+        for i in range(len(RS)):
+            if RS[i] !=0:
+                RS_new.append(RS[i])
+                size_list_new.append(len(self.ret_series)/(2**i))
+        RS_new = np.array(RS_new)
+        size_list_new = np.array(size_list_new)
+        if len(RS_new)!=0:
+            hurst = np.polyfit(np.log(size_list_new), np.log(RS_new), 1)[0]
+        else:
+            hurst = None
         return hurst
     
 class Factor_turnover_based():
@@ -122,8 +138,8 @@ class Turnover():
             start_time = time_list[i]
             end_time = time_list[i+1]
             #取出特定时间段的tick，计算volume
-            date_today = self.time_now.strftime('%Y%m%d')
-            breakpoint()
+            date_today = self.time_now.strftime('%Y-%m-%d')
+            # breakpoint()
             ticklist_today = self.tickdict[date_today]
             for tick in ticklist_today:
                 if  start_time < pd.to_datetime(tick['time'], format='%Y%m%d%H%M%S%f') <= end_time:
@@ -132,7 +148,11 @@ class Turnover():
                     else:
                         print("Tick volume is not an int:", tick['volume'])
                     volume[end_time] = volume_temp
-            turnover_series[end_time] = volume[end_time]/total_shares
+            if end_time in volume.keys():
+                turnover_series[end_time] = volume[end_time]/total_shares
+            else:
+                turnover_series[end_time] = None
+            turnover_series = pd.Series(turnover_series)
         return turnover_series
 
 class Information():
@@ -152,7 +172,7 @@ class Information():
             start_time = time_list[i]
             end_time = time_list[i+1]
             #取出特定时间段的tick，计算volume
-            date_today = self.time_now.strftime('%Y%m%d')
+            date_today = self.time_now.strftime('%Y-%m-%d')
             ticklist_today = self.tickdict[date_today]
             for tick in ticklist_today:
                 if  start_time < pd.to_datetime(tick['time'], format='%Y%m%d%H%M%S%f') <= end_time:
@@ -160,10 +180,16 @@ class Information():
                             volume_temp += tick['volume']
                     else:
                         print("Tick volume is not an int:", tick['volume'])
-                    volume[end_time] = volume_temp
+                    if end_time in volume.keys():
+                        volume[end_time] = volume_temp
+                    else:
+                        volume[end_time] = None
         volume_array = np.array(list(volume.values()))
-        volume_std = np.std(volume_array)
-        volume_mean = np.mean(volume_array) 
+        try:
+            volume_std = np.std(volume_array)
+            volume_mean = np.mean(volume_array) 
+        except Exception as e:
+            volume_std = volume_mean = None
         try:
             info = volume_std/volume_mean
         except Exception as e:

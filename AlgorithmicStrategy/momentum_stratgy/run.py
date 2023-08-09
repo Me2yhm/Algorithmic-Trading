@@ -24,6 +24,7 @@ def run(
             stratgy.update_orderbook(tick_data)
             if stratgy.new_timeStamp is False:
                 continue
+            print(stratgy.date)
             print(stratgy.model_update(model=model))
             # stratgy.signal_update()
             # stratgy.stratgy_update()
@@ -31,6 +32,7 @@ def run(
             break
     # 确保最后一行tick数据也被更新
     if stratgy.new_timeStamp is False:
+        print(stratgy.date)
         stratgy.model_update(model=model)
         # stratgy.signal_update()
         # stratgy.stratgy_update()
