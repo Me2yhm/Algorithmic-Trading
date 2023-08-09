@@ -6,7 +6,6 @@ from .modelType import modelType, Model_reverse
 from ..OrderMaster.DataManager import DataStream, DataSet
 from ..OrderMaster.OrderBook import OrderBook
 
-
 def run(
     datestr: str,
     symbol: str,
