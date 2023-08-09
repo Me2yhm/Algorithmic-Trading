@@ -123,9 +123,10 @@ class Turnover():
             end_time = time_list[i+1]
             #取出特定时间段的tick，计算volume
             date_today = self.time_now.strftime('%Y%m%d')
+            breakpoint()
             ticklist_today = self.tickdict[date_today]
             for tick in ticklist_today:
-                if  start_time < tick['time'] <= end_time:
+                if  start_time < pd.to_datetime(tick['time'], format='%Y%m%d%H%M%S%f') <= end_time:
                     if isinstance(tick['volume'], (int, float)):
                             volume_temp += tick['volume']
                     else:
@@ -154,8 +155,8 @@ class Information():
             date_today = self.time_now.strftime('%Y%m%d')
             ticklist_today = self.tickdict[date_today]
             for tick in ticklist_today:
-                if  start_time < tick['time'] <= end_time:
-                    if isinstance(tick['volume'], (int, float)):
+                if  start_time < pd.to_datetime(tick['time'], format='%Y%m%d%H%M%S%f') <= end_time:
+                    if isinstance(tick['volume'], int):
                             volume_temp += tick['volume']
                     else:
                         print("Tick volume is not an int:", tick['volume'])

@@ -28,7 +28,7 @@ class Model_reverse(modelType):
         tick_list_today = tickdict[date_today]
         tick_now = tick_list_today[-1]
         time_str = str(tick_now['time'])
-        #time_str 年/月/日/小时/分钟/秒/毫秒
+        #time_str 年/月/日/小时/分钟/秒/微秒
         time_now = pd.Timestamp(pd.to_datetime(time_str, format='%Y%m%d%H%M%S%f'))
         
         # 生成时间列表
@@ -36,17 +36,18 @@ class Model_reverse(modelType):
         interval = pd.Timedelta(seconds=3)
         backtrack_time = time_now - backtrack_minutes
         time_list = sorted(pd.date_range(start=backtrack_time, end=time_now, freq=interval).tolist())
-        
         #从盘口信息得到price,作为计算ret的输入
         #TODO：tick时间和snapshot不同步
-        price_list = [0.0]*len(time_list)
+        price_list = [0]*len(time_list)
         for i in range(len(time_list)):
-            time_int = int(time_list[i].strftime('%Y%m%d%H%M%S%f'))
-            ask_1,volume_ask = orderbook.snapshots[time_int]['ask']
-            bid_1,volume_bid = orderbook.snapshots[time_int]['bid']
-            price_list[i] = ask_1*volume_ask/(volume_ask+volume_bid)+bid_1*volume_bid/(volume_bid+volume_ask)
+            time_int = int(time_list[i].strftime('%Y%m%d%H%M%S%f')[-3])
+            if time_int in orderbook.snapshots:
+                ask_1,volume_ask = orderbook.snapshots[time_int]['ask']
+                bid_1,volume_bid = orderbook.snapshots[time_int]['bid']
+                price_list[i] = ask_1*volume_ask/(volume_ask+volume_bid)+bid_1*volume_bid/(volume_bid+volume_ask)
+            else:
+                price_list[i] = None
         price_list = pd.Series(price_list,index=time_list)
-        
         #更新各个指标
         ret_series = Ret(time_now,price_list,m = pd.Timedelta(seconds=10)).form_series()
         turnover_series = Turnover(time_now,tickdict).form_series()
