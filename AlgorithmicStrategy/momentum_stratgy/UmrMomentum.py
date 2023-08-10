@@ -4,12 +4,12 @@ from .modelType import modelType
 class AbstractStream():
     #抽象流式数据基类
     def __init__(self, stream) -> None:
-        self.Price = float
-        self.Qty = int
-        self.Amo = float
-        self.Time = pd.Timestamp
-        self.delta = int
-        self.T = int
+        self.Price : float
+        self.Qty : int
+        self.Amo : float
+        self.Time : pd.Timestamp
+        self.delta : int
+        self.T : int
     
 class Tick(AbstractStream):
     """tick数据流式传入一tick的信息
@@ -32,7 +32,7 @@ class Tick(AbstractStream):
         self.BSFlag = one_tick[9]
         self.BizIndex = one_tick[10]
         self.delta = int(delta)#时间切刀
-        self.T = int
+        self.T : int
         #pd.Timedelta((self.Time - pd.to_datetime(20230228092500000, format='%Y%m%d%H%M%S%f')), unit='microseconds')
         #这里要把时间全部转换成毫秒再相除
         #所属周期，这里必须需要转换成pd时间
@@ -41,8 +41,8 @@ class MktStream(AbstractStream):##接收公司的沪深300指数行情
     def __init__(self, mkt:dict, delta=50000) -> None:
         self.Price = mkt['f45']
         self.Time = mkt['f86']
-        self.delta = int
-        self.T = int
+        self.delta : int
+        self.T : int
 
 class T():#周期
     def __init__(self, one_stream:AbstractStream) -> None:
@@ -74,8 +74,8 @@ class StreamDict():
     dic: dict[int,list]
     def __init__(self):
         self.dic = dict()
-        self.max_T_dict = 0#字典的最大周期
-        self.old_T_dict = 0#字典的老周期
+        self.max_T_dict : int#字典的最大周期
+        self.old_T_dict  : int#字典的老周期
     
     def append(self, one_stream:AbstractStream):
         """逻辑说明:
