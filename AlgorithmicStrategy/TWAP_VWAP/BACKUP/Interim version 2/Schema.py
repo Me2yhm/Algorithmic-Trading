@@ -6,6 +6,7 @@ from datetime import datetime, date
 from os import PathLike
 from pathlib import Path
 
+
 TimeType = Union[datetime, date, pd.Timestamp, str, int]
 PathType = Union[str, Path, PathLike]
 

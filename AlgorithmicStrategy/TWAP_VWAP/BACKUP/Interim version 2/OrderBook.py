@@ -5,10 +5,12 @@ from typing import Literal, Union
 
 import numpy as np
 
-from .DataManager import DataStream, DataSet
-from .Schema import TimeType, SnapShot, LifeTime, OrderTick, OrderFlag, Excecuted_trade
-from .Schema import OrderDepth, Excecuted_trade
-from .Depth import OrderDepthCalculator
+from DataManager import DataStream, DataSet
+from Schema import TimeType, SnapShot, LifeTime, OrderTick, OrderFlag
+from Schema import Excecuted_trade, OrderDepth
+
+# from AbstractFeatures import Pastfeature
+from depth import OrderDepthCalculator
 
 
 class OrderBook:
@@ -233,8 +235,8 @@ class OrderBook:
                         candle[3] = data["price"]
                     candle[4] = data["price"]
 
-        except KeyError as ke:
-            raise ke
+        except:
+            KeyError
 
     def _order_stale_update(self, data: OrderTick, key: str):
         oid = data[key]
