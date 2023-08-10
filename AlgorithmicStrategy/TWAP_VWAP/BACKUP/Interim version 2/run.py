@@ -36,12 +36,12 @@ def show_total_order_num():
 
 if __name__ == "__main__":
     current_dir = Path(__file__).parent
-    data_api = current_dir.parent / "datas/000001.SZ/tick/gtja/2023-07-03.csv"
+    data_api = current_dir.parents[2] / "datas/000001.SZ/tick/gtja/2023-07-03.csv"
     tick = DataSet(data_api, date_column="time", ticker="000001.SZ")
     ob = OrderBook(data_api=tick)
     candle = Pastfeature(data_api=tick)
 
-    if 0:
+    if 1:
         ob.update(20230703093700130)
         #模块1 任意时刻的candle数据
         print(ob.search_candle(20230703093700130))
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         #模块3 任意时刻成交单VWAP、成交量、成交单数、被动方新陈代谢
         print(ob.search_snapshot(20230703093700130)["total_trade"])
         #模块3 任意时间段成交单VWAP、成交量、成交单数、被动方新陈代谢
-        print(ob._get_avg_trade(20230703093700130, 20230703094000130)) 
+        print(ob.get_avg_trade(20230703093700130, 20230703094000130))
 
     if 0:
         ob.update(20230703093700130)
