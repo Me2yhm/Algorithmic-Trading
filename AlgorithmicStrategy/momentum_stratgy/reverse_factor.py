@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import Dict, List, TypedDict
 import numpy as np
-
+import time as t
 
 class Tick():
     """tick数据流式传入一tick的信息
@@ -185,6 +185,7 @@ class Information():
                     else:
                         volume[end_time] = None
         volume_array = np.array(list(volume.values()))
+
         try:
             volume_std = np.std(volume_array)
             volume_mean = np.mean(volume_array) 
@@ -194,6 +195,7 @@ class Information():
             info = volume_std/volume_mean
         except Exception as e:
             info = None
+
         return info
     def form_series(self, interval= pd.Timedelta(seconds = 20), l = 60):
         #计算信息分布时间序列
