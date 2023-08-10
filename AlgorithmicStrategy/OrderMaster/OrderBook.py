@@ -475,6 +475,7 @@ class OrderBook:
 
         if total_trade_2["passive_num"] == 0:
             passive_stale_avg = -1
+            total_trade_2["passive_stale_total"] = -1
             if total_trade_2["volume"] == 0:
                 total_trade_2["price"] = -1
         else:
