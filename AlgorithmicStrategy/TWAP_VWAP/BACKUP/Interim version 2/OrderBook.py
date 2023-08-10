@@ -5,10 +5,12 @@ from typing import Literal, Union
 
 import numpy as np
 
-from .DataManager import DataStream, DataSet
-from .Schema import TimeType, SnapShot, LifeTime, OrderTick, OrderFlag, Excecuted_trade
-from .Schema import OrderDepth, Excecuted_trade
-from .Depth import OrderDepthCalculator
+from DataManager import DataStream, DataSet
+from Schema import TimeType, SnapShot, LifeTime, OrderTick, OrderFlag
+from Schema import Excecuted_trade, OrderDepth
+
+# from AbstractFeatures import Pastfeature
+from depth import OrderDepthCalculator
 
 
 class OrderBook:
@@ -19,18 +21,16 @@ class OrderBook:
         "candle_tick",
         "oid_map",
         "skip_order",
-        "kwargs"
     )
 
     # noinspection PyTypeChecker
-    def __init__(self, data_api: Union[DataStream, DataSet], **kwargs):
+    def __init__(self, data_api: Union[DataStream, DataSet]):
         self.snapshots: OrderedDict[TimeType, SnapShot] = OrderedDict()
         self.last_snapshot: SnapShot = None
         self.data_api: Union[DataStream, DataSet] = data_api
         self.oid_map: dict[int, LifeTime] = dict()
         self.skip_order: list[int] = []
         self.candle_tick: OrderedDict[TimeType, list[float]] = OrderedDict()
-        self.kwargs = kwargs
 
     def update(self, until: int = None):
         while True:
@@ -137,25 +137,25 @@ class OrderBook:
                             continue
                     self._update_from_tick(data)
 
-    def _order_depth_update(self, **kwargs):
-        order_depth_calculator = OrderDepthCalculator(self.last_snapshot, kwargs.get("n", 10))
+    def _order_depth_update(self):
+        order_depth_calculator = OrderDepthCalculator(self.last_snapshot, 10)
         # self.last_snapshot["order_depth"]["n_depth"] = order_depth_calculator.n_depth
         # self.last_snapshot["order_depth"]["total_volume"] = order_depth_calculator.total_volume
         self.last_snapshot["order_depth"][
             "weighted_average_depth"
-        ] = order_depth_calculator.calculate_weighted_average_depth(kwargs.get("decay_rate", 0.5))
+        ] = order_depth_calculator.calculate_weighted_average_depth(2)
 
     def _order_num_change(self, data: OrderTick, key: str, direction: Literal[1, -1]):
         """
-        使ordernum增加的direction为1,使ordernum减少的direction为-1
+        使ordernum增加的direction为1,使ordernum减少的direction为0
         """
         if direction == 1:
-            if data["flag"] == OrderFlag.BUY:
+            if data["flag"] == 1:
                 if data["price"] not in self.last_snapshot["bid_num"]:
                     self.last_snapshot["bid_num"][data["price"]] = 1
                 else:
                     self.last_snapshot["bid_num"][data["price"]] += 1
-            if data["flag"] == OrderFlag.SELL:
+            if data["flag"] == 2:
                 if data["price"] not in self.last_snapshot["ask_num"]:
                     self.last_snapshot["ask_num"][data["price"]] = 1
                 else:
@@ -200,7 +200,7 @@ class OrderBook:
 
             if not self.candle_tick:
                 self.candle_tick[timestamp] = [
-                    0,
+                    None,
                     data["price"],
                     data["price"],
                     data["price"],
@@ -212,8 +212,7 @@ class OrderBook:
                 if timestamp not in self.candle_tick:
                     if len(self.snapshots.keys()) == 1:
                         self.candle_tick[timestamp] = [
-                            # None,
-                            0,
+                            None,
                             data["price"],
                             data["price"],
                             data["price"],
@@ -236,8 +235,8 @@ class OrderBook:
                         candle[3] = data["price"]
                     candle[4] = data["price"]
 
-        except KeyError as ke:
-            return
+        except:
+            KeyError
 
     def _order_stale_update(self, data: OrderTick, key: str):
         oid = data[key]
@@ -361,12 +360,13 @@ class OrderBook:
         )
 
     def _update_from_order(self, data: OrderTick):
-        self._order_depth_update(**self.kwargs)
+        self._order_depth_update()
         snap: SnapShot = self.last_snapshot.copy()
         snap["timestamp"]: int = data[self.data_api.date_column]
         AS: Literal["bid", "ask"] = (
             "bid" if data["flag"] in [OrderFlag.BUY, OrderFlag.CANCEL_BUY] else "ask"
-        )  # type: ignore
+        )  # type
+        # : ignore
         direction: Literal[1, -1] = 1 if data["flag"] in [OrderFlag.BUY, OrderFlag.SELL] else -1  # type: ignore
         # assert data["price"] != 0.0, data
         if data["price"] == 0.0:
@@ -384,7 +384,7 @@ class OrderBook:
         self.snapshots[data[self.data_api.date_column]] = copy.deepcopy(self.last_snapshot)  # type: ignore
 
     def _update_from_tick(self, data: OrderTick):
-        self._order_depth_update(**self.kwargs)
+        self._order_depth_update()
         snap: SnapShot = self.last_snapshot.copy()
         snap["timestamp"]: int = data[self.data_api.date_column]
         # assert data["price"] != 0.0, data
@@ -421,6 +421,10 @@ class OrderBook:
         snap1 = self.search_snapshot(timestamp_1)
         ask_total_stale2 = copy.deepcopy(snap2["ask_order_stale"])
         bid_total_stale2 = copy.deepcopy(snap2["bid_order_stale"])
+        # print(snap2["timestamp"])
+        # print(snap2["ask_num_death"])
+        # print(snap1["timestamp"])
+        # print(snap1["ask_num_death"])
         for key in list(ask_total_stale2.keys()):
             if key in snap1["ask_order_stale"].keys():
                 ask_total_stale2[key] -= snap1["ask_order_stale"][key]
@@ -453,7 +457,7 @@ class OrderBook:
 
         return ask_total_stale2, bid_total_stale2
 
-    def get_avg_trade(self, timestamp_1, timestamp_2):
+    def _get_avg_trade(self, timestamp_1, timestamp_2):
         snap1 = self.search_snapshot(timestamp_1)
         snap2 = self.search_snapshot(timestamp_2)
 
@@ -484,32 +488,24 @@ class OrderBook:
     def print_json(dict_like: dict):
         print(json.dumps(dict_like, indent=2))
 
-    def search_closet_time(self, query_stamp: int, stamps: list[int] = None, backwards:bool = True):
-        if stamps is None:
-            stamps = list(self.snapshots.keys())
-        logged_timestamp: np.ndarray = np.array(stamps)
-        if backwards:
-            search_timestamp = logged_timestamp[logged_timestamp <= query_stamp]
-            return search_timestamp[-1]
-        else:
-            search_timestamp = logged_timestamp[logged_timestamp >= query_stamp]
-            return search_timestamp[0]
-
     def search_snapshot(self, query_stamp: int):
         closest_time = self.search_closet_time(query_stamp)
         return self.snapshots[closest_time]
 
+    def search_closet_time(self, query_stamp: int):
+        logged_timestamp: np.ndarray = np.array(list(self.snapshots.keys()))
+        search_timestamp = logged_timestamp[logged_timestamp <= query_stamp]
+        return search_timestamp[-1]
+
     def search_candle(self, query_stamp: int):
-        closest_time = self.search_closet_time(
-            query_stamp, list(self.candle_tick.keys())
-        )
-        return self.candle_tick[closest_time]
+        logged_timestamp: np.ndarray = np.array(list(self.candle_tick.keys()))
+        search_timestamp = logged_timestamp[logged_timestamp <= query_stamp]
+        return self.candle_tick[search_timestamp[-1]]
 
     def get_candle_slot(self, timestamp1: int, timestamp2: int):
         logged_timestamp: np.ndarray = np.array(list(self.candle_tick.keys()))
-        search_timestamp = logged_timestamp[(timestamp1 <= logged_timestamp) & (logged_timestamp <= timestamp2)]
-        print(search_timestamp)
-        print(list(self.candle_tick.keys()))
+        search_timestamp_2 = logged_timestamp[logged_timestamp <= timestamp2]
+        search_timestamp = search_timestamp_2[search_timestamp_2 >= timestamp1]
         candle = [0.0, 0.0, 0.0, 0.0, 0.0]
         candle[4] = self.candle_tick[search_timestamp[-1]][4]
         candle[0] = self.candle_tick[search_timestamp[0]][4]
@@ -539,17 +535,18 @@ class OrderBook:
         return keys, values
 
     @staticmethod
-    def get_values_from_ordered_dict(
-        input_list: list, ordered_dict: OrderedDict, default: int = 0
-    ):
+    def get_values_from_ordered_dict(input_list: list, ordered_dict: OrderedDict):
         result = []
         for key in input_list:
-            result.append(ordered_dict.get(key, default))
+            if key in ordered_dict:
+                result.append(ordered_dict[key])
+            else:
+                result.append(0)
 
         return result
 
     @staticmethod
-    def divide_ordered_dicts(od1: OrderedDict, od2: OrderedDict):
+    def divide_ordered_dicts(od1, od2):
         result = OrderedDict()
         for key in od1:
             if key in od2:
@@ -560,34 +557,28 @@ class OrderBook:
         return result
 
     def get_super_snapshot(self, level: int, timestamp: int):
-        ob_snap = self.search_snapshot(timestamp)
+        ob = self.search_snapshot(timestamp)
         super_snapshot = dict()
         (
             super_snapshot["ask_price"],
             super_snapshot["ask_volume"],
-        ) = self.get_max_n_keys_and_values(ob_snap["ask"], level)
+        ) = self.get_max_n_keys_and_values(ob["ask"], level)
         (
             super_snapshot["bid_price"],
             super_snapshot["bid_volume"],
-        ) = self.get_max_n_keys_and_values(ob_snap["bid"], level)
+        ) = self.get_max_n_keys_and_values(ob["bid"], level)
         _, super_snapshot["ask_order_num"] = self.get_max_n_keys_and_values(
-            ob_snap["ask_num"], level
+            ob["ask_num"], level
         )
         _, super_snapshot["bid_order_num"] = self.get_max_n_keys_and_values(
-            ob_snap["bid_num"], level
+            ob["bid_num"], level
         )
         super_snapshot["ask_order_stale"] = self.get_values_from_ordered_dict(
             super_snapshot["ask_price"],
-            self.divide_ordered_dicts(
-                ob_snap["ask_order_stale"], ob_snap["ask_num_death"]
-            ),
-            default=-1,
+            self.divide_ordered_dicts(ob["ask_order_stale"], ob["ask_num_death"]),
         )
         super_snapshot["bid_order_stale"] = self.get_values_from_ordered_dict(
             super_snapshot["bid_price"],
-            self.divide_ordered_dicts(
-                ob_snap["bid_order_stale"], ob_snap["bid_num_death"]
-            ),
-            default=-1,
+            self.divide_ordered_dicts(ob["bid_order_stale"], ob["bid_num_death"]),
         )
         return super_snapshot
