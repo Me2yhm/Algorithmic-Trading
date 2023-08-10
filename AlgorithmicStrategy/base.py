@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+from collections import defaultdict
 from typing import Dict, List, TypedDict, Optional
 from .utils import get_date
 from .OrderMaster.OrderBook import OrderBook, OrderTick
@@ -55,7 +56,7 @@ class AlgorithmicStrategy(ABC):
     """
 
     orderbook: OrderBook
-    ticks: Dict[str, List[OrderTick]]
+    ticks: Dict[str, Dict[int,List[OrderTick]]]
     signals: Dict[str, List[signal]]
     _timeStamp: int
     _date: str
@@ -81,7 +82,7 @@ class AlgorithmicStrategy(ABC):
         pre_close: float = 0.0,
     ) -> None:
         self.orderbook = orderbook
-        self.ticks = {}
+        self.ticks = defaultdict(defaultdict(list))
         self.signals = {}
         self._timeStamp = 0
         self.deals = {}
@@ -152,13 +153,17 @@ class AlgorithmicStrategy(ABC):
             assert all([line["time"] == lines[0]["time"] for line in lines])
         except AssertionError:
             raise ValueError("lines need the same timestamp")
-        if self.newday:
-            self.ticks[self.date] = lines
-        else:
-            self.ticks[self.date].extend(lines)
         self.timeStamp = lines[-1]["time"]
         self.date = get_date(self.timeStamp)
         self.record_price(lines)
+        if self.newday:
+            self.ticks[self.date] = {self.timeStamp:lines}
+        else:
+            if self.new_timeStamp:
+                self.ticks[self.date][self.timeStamp]=lines
+            else:
+                self.ticks[self.date][self.timeStamp].extend(lines)
+        
         if self.new_timeStamp:  # 为了确保将同一timestamp下的所有数据传入再更新订单簿
             if not self.lines:
                 self.lines.extend(lines)
@@ -168,6 +173,7 @@ class AlgorithmicStrategy(ABC):
             self.lines = []
         self.lines.extend(lines)
 
+    # 获得离当前时间最近的价格
     def get_close_price(self, timestamp: int, date: Optional[str] = None):
         if date is None:
             date = self.date
