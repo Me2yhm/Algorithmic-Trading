@@ -83,7 +83,7 @@ class AlgorithmicStrategy(ABC):
         pre_close: float = 0.0,
     ) -> None:
         self.orderbook = orderbook
-        self.ticks = defaultdict(defaultdict(list))
+        self.ticks = {}
         self.signals = {}
         self._timeStamp = 0
         self.deals = {}
