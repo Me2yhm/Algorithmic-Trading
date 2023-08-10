@@ -130,7 +130,7 @@ class AlgorithmicStrategy(ABC):
         """
         允许对self.date赋值,且当日期更改之后,self.newday变为True
         """
-        if new_timeStamp != self._date:
+        if new_timeStamp != self._timeStamp:
             self.new_timeStamp = True
             self._timeStamp = new_timeStamp
         else:
