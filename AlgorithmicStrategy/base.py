@@ -45,9 +45,10 @@ class AlgorithmicStrategy(ABC):
             \signal类是一次交易信号,组成的列表代表一天的交易信号
             \signal类似字典,键名含义如下
             \symbol为股票代码, direction表示买入或者卖出: ["B"/"S"],
-    tick: \记录每日的逐笔数据, 一个字典,字典的键为日期,值为一个由OT类组成的列表:{date:[OT]}
-          \OT可以看作一个字典,形式为: {time:int,oid:int,oidb:int,oids:int,price:float,volume:int,flag:int,ptype:int}
-          \ time表示当前时间戳, oid等键名的含义可以查询: 语雀|技术团队|数据格式知识库|逐笔数据文档
+    ticks: \记录每日的逐笔数据, 一个嵌套字典,字典的键为日期,值也为一个字典
+           \内部的值字典储存每一个timestamp下的所有tick数据, 键为timestamp, 值为Orderdict组成的列表:{timestamp:[OrderTick]}
+           \OT可以看作一个字典,形式为: {time:int,oid:int,oidb:int,oids:int,price:float,volume:int,flag:int,ptype:int}
+           \ time表示当前时间戳, oid等键名的含义可以查询: 语雀|技术团队|数据格式知识库|逐笔数据文档
     commission: 手续费, 券商收取, 默认按万分之1.5算
     stamp_duty: 印花税, 买入没有印花税, 卖出有, 为0.001
     transfer_fee: 过户费, 为0.00002, 买卖都有
