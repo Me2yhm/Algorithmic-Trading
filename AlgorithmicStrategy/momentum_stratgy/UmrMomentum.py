@@ -20,17 +20,9 @@ class Tick(AbstractStream):
             one_tick流式输入一tick
             delta 一周期的时间
         """
-        self.ID = one_tick[0]
-        self.Time = pd.to_datetime(one_tick[1], format='%Y%m%d%H%M%S%f')#这里可能必须转换成pd时间
-        self.Price = float(one_tick[2])
-        self.Qty = int(one_tick[3])
-        self.Amo = float(one_tick[4])
-        self.BuyNO = one_tick[5]
-        self.SellNo = one_tick[6]
-        self.Index = one_tick[7]
-        self.ChannelNo = one_tick[8]
-        self.BSFlag = one_tick[9]
-        self.BizIndex = one_tick[10]
+        self.Time = pd.to_datetime(one_tick['time'], format='%Y%m%d%H%M%S%f')#这里可能必须转换成pd时间
+        self.Price = float(one_tick['price'])
+        self.Qty = int(one_tick['volume'])
         self.delta = int(delta)#时间切刀
         self.T : int
         #pd.Timedelta((self.Time - pd.to_datetime(20230228092500000, format='%Y%m%d%H%M%S%f')), unit='microseconds')
@@ -275,9 +267,7 @@ class UMRMonmentum(modelType):
     def _error(self):
         #报错并跳过
         print("This stream data can't calculate all indexes!")
-        
-        
-    
+  
     def _stream_store(self, one_tick, one_mktstream):
         #每次进来一条tick或者mktstream，就调用这个函数,将tick和mktstream的信息进行预处理，并储存在self中的属性中
         one_tick = Tick(one_tick, delta = self.delta)#初始化tick对象
@@ -308,31 +298,37 @@ class UMRMonmentum(modelType):
         time.cal_time_weight(i)
         self.umr.cal_UMR(i, self.risk_turnover, self.stockret, self.mktret, time)
         
-    
-    def model_update(self, one_tick, one_mktstream):
+    #TODO 把strategy的self.timestamp作为当前时间输入
+    def model_update(self, ticks, one_mktstream,timestamp:int):
         #先储存
-        self._stream_store(one_tick, one_mktstream)
-        #1. 先要判断进来的stream是不是填满了这个周期，如果没填满就不开始计算
-        if self.TD.max_T_dict == self.TD.old_T_dict or self.MktD.max_T_dict == self.MktD.old_T_dict:
-            #此时这个周期的stream未必都来了
-            return 
-        for i in range(self.TD.old_T_dict + 1, self.TD.max_T_dict + 1):
-            #计算turnover不需要跳过任何周期，最先计算
-            self._cal_turnover(i)
-            #2. 判断是否满足计算收益率的周期数
-            if self.TD.max_T_dict > 1:
-                break
-            #计算收益率
-            self._cal_mktret(i)
-            self._cal_stockret(i)
-            #3. 判断是否满足计算风险系数的周期数
-            if self.TD.max_T_dict < 50:
-                break
-            #计算风险系数
-            self._cal_risk(i)
-            #4. 判断是否满足计算时间权重的周期数
-            if self.TD.max_T_dict < 80:
-                break
-            #计算umr
-            self._cal_umr(i)
-        
+        #timestamp 17位int
+        date_today = str(timestamp)[:4]+'-'+str(timestamp)[4:6]+'-'+str(timestamp)[6:8]
+        time_now = pd.to_datetime(str(timestamp), format='%Y%m%d%H%M%S%f')
+        tickdict = ticks[date_today] #到目前为止所有时刻的ticks
+        tickdict_now = tickdict[int(time_now.strftime('%H:%M:%S:%f')[:-3])]
+        for one_tick in tickdict_now:
+            self._stream_store(one_tick, one_mktstream)
+            #1. 先要判断进来的stream是不是填满了这个周期，如果没填满就不开始计算
+            if self.TD.max_T_dict == self.TD.old_T_dict or self.MktD.max_T_dict == self.MktD.old_T_dict:
+                #此时这个周期的stream未必都来了
+                return 
+            for i in range(self.TD.old_T_dict + 1, self.TD.max_T_dict + 1):
+                #计算turnover不需要跳过任何周期，最先计算
+                self._cal_turnover(i)
+                #2. 判断是否满足计算收益率的周期数
+                if self.TD.max_T_dict > 1:
+                    break
+                #计算收益率
+                self._cal_mktret(i)
+                self._cal_stockret(i)
+                #3. 判断是否满足计算风险系数的周期数
+                if self.TD.max_T_dict < 50:
+                    break
+                #计算风险系数
+                self._cal_risk(i)
+                #4. 判断是否满足计算时间权重的周期数
+                if self.TD.max_T_dict < 80:
+                    break
+                #计算umr
+                self._cal_umr(i)
+            
