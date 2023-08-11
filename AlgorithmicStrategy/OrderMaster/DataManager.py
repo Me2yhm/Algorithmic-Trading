@@ -75,6 +75,11 @@ class DataStream(DataBase):
                 or self.file_date_num + 145700000 < timestamp
         )
 
+    def isTrade(self, timestamp: int):
+        return (
+            self.file_date_num + 9_15_00_000 <= timestamp <= self.file_date_num + 11_30_00_000
+        ) or (self.file_date_num + 13_00_00_000 <= timestamp <= self.file_date + 15_00_00_000)
+
     def _open_next_file(self):
         if self.current_file is not None:
             self.current_file.close()
@@ -205,6 +210,12 @@ class DataSet(DataBase):
                 timestamp < self.file_date_num + 93000000
                 or self.file_date_num + 145700000 < timestamp
         )
+
+    def isTrade(self, timestamp: int):
+        return (
+            self.file_date_num + 9_15_00_000 <= timestamp <= self.file_date_num + 11_30_00_000
+        ) or (self.file_date_num + 13_00_00_000 <= timestamp <= self.file_date_num + 15_00_00_000)
+
 
     def _open_next_file(self):
         if self.current_file is not None:
