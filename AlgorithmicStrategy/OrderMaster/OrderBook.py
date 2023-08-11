@@ -19,7 +19,7 @@ class OrderBook:
         "candle_tick",
         "oid_map",
         "skip_order",
-        "kwargs"
+        "kwargs",
     )
 
     # noinspection PyTypeChecker
@@ -73,6 +73,7 @@ class OrderBook:
                 )
 
             if data["oid"] != 0 or data["ptype"] != 0:
+
                 if data["flag"] in [OrderFlag.BUY, OrderFlag.SELL]:
                     self.oid_map[data["oid"]] = LifeTime(
                         oid=data["oid"],
@@ -116,7 +117,7 @@ class OrderBook:
                             data["price"] = self.oid_map[data[tmp_oid_idx]]["price"]
                         else:
                             continue
-                    assert data["price"] != 0.0, data
+                    # assert data["price"] != 0.0, data
                     self._update_from_tick(data)
 
                 elif self.data_api.ticker.endswith("SH"):
@@ -138,12 +139,16 @@ class OrderBook:
                     self._update_from_tick(data)
 
     def _order_depth_update(self, **kwargs):
-        order_depth_calculator = OrderDepthCalculator(self.last_snapshot, kwargs.get("n", 10))
+        order_depth_calculator = OrderDepthCalculator(
+            self.last_snapshot, kwargs.get("n", 10)
+        )
         # self.last_snapshot["order_depth"]["n_depth"] = order_depth_calculator.n_depth
         # self.last_snapshot["order_depth"]["total_volume"] = order_depth_calculator.total_volume
         self.last_snapshot["order_depth"][
             "weighted_average_depth"
-        ] = order_depth_calculator.calculate_weighted_average_depth(kwargs.get("decay_rate", 0.5))
+        ] = order_depth_calculator.calculate_weighted_average_depth(
+            kwargs.get("decay_rate", 0.5)
+        )
 
     def _order_num_change(self, data: OrderTick, key: str, direction: Literal[1, -1]):
         """
@@ -172,6 +177,45 @@ class OrderBook:
     def _trade_update(self, data: OrderTick):
         # 计算所有成交单的数据
         # 如果主动成交单的rest = volume则为第一次计算，仅计算一次成交单数量的增加，volume仍然继续计算
+        timestamp = data["time"]
+
+        if not self.candle_tick:
+            self.candle_tick[timestamp] = [
+                None,
+                data["price"],
+                data["price"],
+                data["price"],
+                data["price"],
+            ]
+
+        else:
+            timestamp_last = max(self.candle_tick.keys())
+            if timestamp not in self.candle_tick:
+                if len(self.snapshots.keys()) == 1:
+                    self.candle_tick[timestamp] = [
+                        None,
+                        data["price"],
+                        data["price"],
+                        data["price"],
+                        data["price"],
+                    ]
+                else:
+                    self.candle_tick[timestamp] = [
+                        self.candle_tick[timestamp_last][4],
+                        data["price"],
+                        data["price"],
+                        data["price"],
+                        data["price"],
+                    ]
+
+            else:
+                candle = self.candle_tick[timestamp]
+                if data["price"] > candle[2]:
+                    candle[2] = data["price"]
+                if data["price"] < candle[3]:
+                    candle[3] = data["price"]
+                candle[4] = data["price"]
+
         try:
             oidp = data["oidb"] if data["flag"] == OrderFlag.BUY else data["oids"]
             if self.oid_map[oidp]["rest"] == 0:
@@ -195,48 +239,7 @@ class OrderBook:
                 self.last_snapshot["total_trade"]["total_price"]
                 / self.last_snapshot["total_trade"]["volume"]
             )
-
-            timestamp = data["time"]
-
-            if not self.candle_tick:
-                self.candle_tick[timestamp] = [
-                    0,
-                    data["price"],
-                    data["price"],
-                    data["price"],
-                    data["price"],
-                ]
-
-            else:
-                timestamp_last = max(self.candle_tick.keys())
-                if timestamp not in self.candle_tick:
-                    if len(self.snapshots.keys()) == 1:
-                        self.candle_tick[timestamp] = [
-                            # None,
-                            0,
-                            data["price"],
-                            data["price"],
-                            data["price"],
-                            data["price"],
-                        ]
-                    else:
-                        self.candle_tick[timestamp] = [
-                            self.candle_tick[timestamp_last][4],
-                            data["price"],
-                            data["price"],
-                            data["price"],
-                            data["price"],
-                        ]
-
-                else:
-                    candle = self.candle_tick[timestamp]
-                    if data["price"] > candle[2]:
-                        candle[2] = data["price"]
-                    if data["price"] < candle[3]:
-                        candle[3] = data["price"]
-                    candle[4] = data["price"]
-
-        except KeyError as ke:
+        except KeyError:
             return
 
     def _order_stale_update(self, data: OrderTick, key: str):
@@ -399,8 +402,12 @@ class OrderBook:
                     self.oid_map[data["oidb"]]["volume"] = data["volume"]
                 self._tick_change(snap, data, direction=direction)
             elif data["flag"] == OrderFlag.CANCEL_BUY:
+                if data["oidb"] in self.skip_order:
+                    return
                 self._order_change(snap, "bid", -1, data)
             elif data["flag"] == OrderFlag.CANCEL_SELL:
+                if data["oids"] in self.skip_order:
+                    return
                 self._order_change(snap, "ask", -1, data)
         elif self.data_api.ticker.endswith("SH"):
             if data["flag"] == OrderFlag.SELL:
@@ -467,9 +474,10 @@ class OrderBook:
         ]
 
         if total_trade_2["passive_num"] == 0:
-            passive_stale_avg = None
+            passive_stale_avg = -1
+            total_trade_2["passive_stale_total"] = -1
             if total_trade_2["volume"] == 0:
-                total_trade_2["price"] = None
+                total_trade_2["price"] = -1
         else:
             total_trade_2["price"] = (
                 total_trade_2["total_price"] / total_trade_2["volume"]
@@ -484,7 +492,9 @@ class OrderBook:
     def print_json(dict_like: dict):
         print(json.dumps(dict_like, indent=2))
 
-    def search_closet_time(self, query_stamp: int, stamps: list[int] = None, backwards:bool = True):
+    def search_closet_time(
+        self, query_stamp: int, stamps: list[int] = None, backwards: bool = True
+    ):
         if stamps is None:
             stamps = list(self.snapshots.keys())
         logged_timestamp: np.ndarray = np.array(stamps)
@@ -508,19 +518,25 @@ class OrderBook:
     def get_candle_slot(self, timestamp1: int, timestamp2: int):
         logged_timestamp: np.ndarray = np.array(list(self.candle_tick.keys()))
         search_timestamp = logged_timestamp[(timestamp1 <= logged_timestamp) & (logged_timestamp <= timestamp2)]
-        print(search_timestamp)
-        print(list(self.candle_tick.keys()))
-        candle = [0.0, 0.0, 0.0, 0.0, 0.0]
-        candle[4] = self.candle_tick[search_timestamp[-1]][4]
-        candle[0] = self.candle_tick[search_timestamp[0]][4]
-        candle[1] = self.candle_tick[search_timestamp[0]][1]
-        candle[2] = self.candle_tick[search_timestamp[0]][2]
-        candle[3] = self.candle_tick[search_timestamp[0]][3]
-        for timestamp in search_timestamp:
-            if candle[2] < self.candle_tick[timestamp][2]:
-                candle[2] = self.candle_tick[timestamp][2]
-            if candle[3] > self.candle_tick[timestamp][3]:
-                candle[3] = self.candle_tick[timestamp][3]
+        if search_timestamp.any():
+            candle = [0.0, 0.0, 0.0, 0.0, 0.0]
+            candle[4] = self.candle_tick[search_timestamp[-1]][4]
+            candle[0] = self.candle_tick[search_timestamp[0]][4]
+            candle[1] = self.candle_tick[search_timestamp[0]][1]
+            candle[2] = self.candle_tick[search_timestamp[0]][2]
+            candle[3] = self.candle_tick[search_timestamp[0]][3]
+            for timestamp in search_timestamp:
+                if candle[2] < self.candle_tick[timestamp][2]:
+                    candle[2] = self.candle_tick[timestamp][2]
+                if candle[3] > self.candle_tick[timestamp][3]:
+                    candle[3] = self.candle_tick[timestamp][3]
+        else:
+            closest_time1 = self.search_closet_time(
+                timestamp1, list(self.candle_tick.keys()))
+            closest_time2 = self.search_closet_time(
+                timestamp2, list(self.candle_tick.keys()), -1
+            )
+            candle = self.get_candle_slot(closest_time1, closest_time2)
         return candle
 
     @staticmethod
