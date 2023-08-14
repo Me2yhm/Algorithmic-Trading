@@ -3,7 +3,7 @@ from abc import abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import TextIO, Iterator
-from .Schema import TimeType, PathType, OrderTick
+from Schema import TimeType, PathType, OrderTick
 
 
 class DataBase:
@@ -112,6 +112,7 @@ class DataStream(DataBase):
                 if i == self.date_column:
                     j = j.ljust(8, "0")
                     tmp = int(j) + self.file_date_num
+                    res["iscall"] = True if self.isCALL(tmp) else False
                 else:
                     tmp = int(j)
                 res[i] = tmp
@@ -236,6 +237,7 @@ class DataSet(DataBase):
                 if i == self.date_column:
                     j = j.ljust(8, "0")
                     tmp = int(j) + self.file_date_num
+                    res["iscall"] = True if self.isCALL(tmp) else False
                 else:
                     tmp = int(j)
                 res[i] = tmp

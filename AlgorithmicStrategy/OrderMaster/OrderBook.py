@@ -2,13 +2,14 @@ import copy
 import json
 from collections import OrderedDict
 from typing import Literal, Union
+from datetime import datetime, timedelta
 
 import numpy as np
 
-from .DataManager import DataStream, DataSet
-from .Schema import TimeType, SnapShot, LifeTime, OrderTick, OrderFlag, Excecuted_trade
-from .Schema import OrderDepth, Excecuted_trade
-from .Depth import OrderDepthCalculator
+from DataManager import DataStream, DataSet
+from Schema import TimeType, SnapShot, LifeTime, OrderTick, OrderFlag, Excecuted_trade
+from Schema import OrderDepth, Excecuted_trade
+from Depth import OrderDepthCalculator
 
 
 class OrderBook:
@@ -82,6 +83,7 @@ class OrderBook:
                         birth=data[self.data_api.date_column],
                         rest=data["volume"],
                         AS="bid" if data["flag"] == OrderFlag.BUY else "ask",
+                        iscall=True if data["iscall"] == True else False
                     )
                 self._update_from_order(data)
                 if data["flag"] in [OrderFlag.BUY, OrderFlag.SELL]:
@@ -270,9 +272,13 @@ class OrderBook:
             elif tmp_val == 0:
                 self.oid_map[data[key]]["rest"] = 0
                 self.oid_map[data[key]]["death"] = data[self.data_api.date_column]
-                self.oid_map[data[key]]["life"] = (
-                    data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
-                )
+                t1 = datetime.strptime(str(data[self.data_api.date_column]), '%Y%m%d%H%M%S%f')
+                t2 = datetime.strptime(str(self.oid_map[data[key]]["birth"]), '%Y%m%d%H%M%S%f')
+                life = (t1-t2)/timedelta(milliseconds=1)
+                if self.oid_map[data[key]]["iscall"] == True and data["iscall"] == False:
+                    self.oid_map[data[key]]["life"] = life - 3*1e5
+                else:
+                    self.oid_map[data[key]]["life"] = life
                 self._order_num_change(data, key, -1)
                 self._order_stale_update(data, key)
         except KeyError:
@@ -282,9 +288,13 @@ class OrderBook:
         try:
             self.oid_map[data[key]]["rest"] = 0
             self.oid_map[data[key]]["death"] = data[self.data_api.date_column]
-            self.oid_map[data[key]]["life"] = (
-                data[self.data_api.date_column] - self.oid_map[data[key]]["birth"]
-            )
+            t1 = datetime.strptime(str(data[self.data_api.date_column]), '%Y%m%d%H%M%S%f')
+            t2 = datetime.strptime(str(self.oid_map[data[key]]["birth"]), '%Y%m%d%H%M%S%f')
+            life = (t1-t2)/timedelta(milliseconds=1)
+            if self.oid_map[data[key]]["iscall"] == True and data["iscall"] == False:
+                self.oid_map[data[key]]["life"] = life - 3*1e5
+            else:
+                self.oid_map[data[key]]["life"] = life
             self._order_num_change(data, key, -1)
             self._order_stale_update(data, key)
         except KeyError:

@@ -19,6 +19,7 @@ class OrderTick(TypedDict, total=False):
     volume: int
     flag: int
     ptype: int
+    iscall: bool
 
 
 class OrderFlag(int, Enum):
@@ -38,6 +39,7 @@ class LifeTime(TypedDict, total=False):
     death: int
     life: int
     AS: str
+    iscall: bool
 
 
 class Excecuted_trade(TypedDict):
