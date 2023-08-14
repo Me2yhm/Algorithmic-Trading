@@ -3,7 +3,7 @@ from abc import abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import TextIO, Iterator
-from .Schema import TimeType, PathType, OrderTick
+from Schema import TimeType, PathType, OrderTick
 
 
 class DataBase:
@@ -75,6 +75,11 @@ class DataStream(DataBase):
                 or self.file_date_num + 145700000 < timestamp
         )
 
+    def isTrade(self, timestamp: int):
+        return (
+            self.file_date_num + 9_15_00_000 <= timestamp <= self.file_date_num + 11_30_00_000
+        ) or (self.file_date_num + 13_00_00_000 <= timestamp <= self.file_date + 15_00_00_000)
+
     def _open_next_file(self):
         if self.current_file is not None:
             self.current_file.close()
@@ -107,6 +112,7 @@ class DataStream(DataBase):
                 if i == self.date_column:
                     j = j.ljust(8, "0")
                     tmp = int(j) + self.file_date_num
+                    res["iscall"] = True if self.isCALL(tmp) else False
                 else:
                     tmp = int(j)
                 res[i] = tmp
@@ -206,6 +212,12 @@ class DataSet(DataBase):
                 or self.file_date_num + 145700000 < timestamp
         )
 
+    def isTrade(self, timestamp: int):
+        return (
+            self.file_date_num + 9_15_00_000 <= timestamp <= self.file_date_num + 11_30_00_000
+        ) or (self.file_date_num + 13_00_00_000 <= timestamp <= self.file_date_num + 15_00_00_000)
+
+
     def _open_next_file(self):
         if self.current_file is not None:
             self.current_file.close()
@@ -225,6 +237,7 @@ class DataSet(DataBase):
                 if i == self.date_column:
                     j = j.ljust(8, "0")
                     tmp = int(j) + self.file_date_num
+                    res["iscall"] = True if self.isCALL(tmp) else False
                 else:
                     tmp = int(j)
                 res[i] = tmp

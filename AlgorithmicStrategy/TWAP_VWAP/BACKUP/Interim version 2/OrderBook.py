@@ -172,6 +172,45 @@ class OrderBook:
     def _trade_update(self, data: OrderTick):
         # 计算所有成交单的数据
         # 如果主动成交单的rest = volume则为第一次计算，仅计算一次成交单数量的增加，volume仍然继续计算
+        timestamp = data["time"]
+
+        if not self.candle_tick:
+            self.candle_tick[timestamp] = [
+                None,
+                data["price"],
+                data["price"],
+                data["price"],
+                data["price"],
+            ]
+
+        else:
+            timestamp_last = max(self.candle_tick.keys())
+            if timestamp not in self.candle_tick:
+                if len(self.snapshots.keys()) == 1:
+                    self.candle_tick[timestamp] = [
+                        None,
+                        data["price"],
+                        data["price"],
+                        data["price"],
+                        data["price"],
+                    ]
+                else:
+                    self.candle_tick[timestamp] = [
+                        self.candle_tick[timestamp_last][4],
+                        data["price"],
+                        data["price"],
+                        data["price"],
+                        data["price"],
+                    ]
+
+            else:
+                candle = self.candle_tick[timestamp]
+                if data["price"] > candle[2]:
+                    candle[2] = data["price"]
+                if data["price"] < candle[3]:
+                    candle[3] = data["price"]
+                candle[4] = data["price"]
+
         try:
             oidp = data["oidb"] if data["flag"] == OrderFlag.BUY else data["oids"]
             if self.oid_map[oidp]["rest"] == 0:
@@ -195,46 +234,6 @@ class OrderBook:
                 self.last_snapshot["total_trade"]["total_price"]
                 / self.last_snapshot["total_trade"]["volume"]
             )
-
-            timestamp = data["time"]
-
-            if not self.candle_tick:
-                self.candle_tick[timestamp] = [
-                    None,
-                    data["price"],
-                    data["price"],
-                    data["price"],
-                    data["price"],
-                ]
-
-            else:
-                timestamp_last = max(self.candle_tick.keys())
-                if timestamp not in self.candle_tick:
-                    if len(self.snapshots.keys()) == 1:
-                        self.candle_tick[timestamp] = [
-                            None,
-                            data["price"],
-                            data["price"],
-                            data["price"],
-                            data["price"],
-                        ]
-                    else:
-                        self.candle_tick[timestamp] = [
-                            self.candle_tick[timestamp_last][4],
-                            data["price"],
-                            data["price"],
-                            data["price"],
-                            data["price"],
-                        ]
-
-                else:
-                    candle = self.candle_tick[timestamp]
-                    if data["price"] > candle[2]:
-                        candle[2] = data["price"]
-                    if data["price"] < candle[3]:
-                        candle[3] = data["price"]
-                    candle[4] = data["price"]
-
         except:
             KeyError
 

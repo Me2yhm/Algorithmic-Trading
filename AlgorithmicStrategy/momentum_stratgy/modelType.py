@@ -1,6 +1,8 @@
 from abc import abstractmethod, ABC
 from .reverse_factor import *
 from ..OrderMaster.OrderBook import OrderBook
+import time
+
 class modelType(ABC):
     """
     模型的抽象基类，用于实现指标更新或者模型增量训练
@@ -23,6 +25,9 @@ class Model_reverse(modelType):
         """
         基于更新的数据计算新的反转因子，返回一个因子字典
         """
+        start_time = time.time() ##
+        # 在这里放入你要计时的代码
+        
         #tick.time修改为pd.Timestamp格式
         date_today = max(tickdict.keys()) #str
         tick_list_today = tickdict[date_today]
@@ -48,13 +53,48 @@ class Model_reverse(modelType):
             else:
                 price_list[i] = None
         price_list = pd.Series(price_list,index=time_list)
+        
+        end_time = time.time() ##
+        elapsed_time = end_time - start_time ##
+        print("修改格式经过的时间：", elapsed_time, "秒") ##
+        
         #更新各个指标
+        start_time = time.time() ##
         ret_series = Ret(time_now,price_list,m = pd.Timedelta(seconds=10)).form_series()
+        end_time = time.time() ##
+        elapsed_time = end_time - start_time ##
+        print("计算ret经过的时间：", elapsed_time, "秒") ##
+        
+        start_time = time.time() ##
         turnover_series = Turnover(time_now,tickdict).form_series()
+        end_time = time.time() ##
+        elapsed_time = end_time - start_time ##
+        print("计算turnover经过的时间：", elapsed_time, "秒") ##
+        
+        start_time = time.time() ##
         hurst = Hurst(ret_series).calculate() 
+        end_time = time.time() ##
+        elapsed_time = end_time - start_time ##
+        print("计算hurst经过的时间：", elapsed_time, "秒") ##
+        
+        start_time = time.time() ##
         info_series = Information(time_now,tickdict).form_series()
+        end_time = time.time() ##
+        elapsed_time = end_time - start_time ##
+        print("计算info经过的时间：", elapsed_time, "秒") ##
+        
+        start_time = time.time() ##
         factor_1 = Factor_turnover_based(ret_series, turnover_series).calculate() 
+        end_time = time.time() ##
+        elapsed_time = end_time - start_time ##
+        print("计算factor1经过的时间：", elapsed_time, "秒") ##
+        
+        start_time = time.time() ##
         factor_2 = Factor_information_based(ret_series,info_series).calculate()
+        end_time = time.time() ##
+        elapsed_time = end_time - start_time ##
+        print("计算factor2经过的时间：", elapsed_time, "秒") ##
+        
         index_dict = {'time':time_now,'hurst':hurst,'factor_turnover':factor_1,'factor_info':factor_2}
         return index_dict        
 
