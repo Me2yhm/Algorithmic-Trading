@@ -101,14 +101,14 @@ class AlgorithmicStrategy(ABC):
         self.lines = []
 
     @property
-    def date(self):
+    def date(self) -> str:
         """
         获得当前日期
         """
         return self._date
 
     @date.setter
-    def date(self, newdate):
+    def date(self, newdate: str) -> None:
         """
         允许对self.date赋值,且当日期更改之后,self.newday变为True
         """
@@ -119,14 +119,14 @@ class AlgorithmicStrategy(ABC):
             self.newday = False
 
     @property
-    def timeStamp(self):
+    def timeStamp(self) -> int:
         """
         获得当前时间戳
         """
         return self._timeStamp
 
     @timeStamp.setter
-    def timeStamp(self, new_timeStamp):
+    def timeStamp(self, new_timeStamp: int) -> None:
         """
         允许对self.date赋值,且当日期更改之后,self.newday变为True
         """
@@ -136,7 +136,8 @@ class AlgorithmicStrategy(ABC):
         else:
             self.new_timeStamp = False
 
-    def record_price(self, lines: List[OrderTick]):
+    # 记录历史成交价
+    def record_price(self, lines: List[OrderTick]) -> None:
         for line in lines:
             if line["oid"] == 0 and (line["oidb"] != 0) and (line["oids"] != 0):
                 self.current_price = line["price"]
