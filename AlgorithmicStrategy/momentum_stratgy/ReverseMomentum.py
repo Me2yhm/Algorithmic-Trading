@@ -143,8 +143,8 @@ class Ret():
         self.price_dict[i] = self.stream.dic[i].ask1 + self.stream.dic[i].bid1
     def cal_ret(self, i): #i为计算return的周期
         #计算收益率
-        if i > 0 and i in self.price_dict and i - 1 in self.price_dict and self.price_dict[i-1] != 0:
-            self.dict[i] = self.price_dict[i] / self.price_dict[i-1]
+        if i >= 0 and i in self.price_dict and i + 1 in self.price_dict and self.price_dict[i-1] != 0:
+            self.dict[i] = self.price_dict[i+1] / self.price_dict[i]
         else:
             self.dict[i] = None
             
@@ -185,12 +185,53 @@ class Info():
                
         
 class Hurst():
-    def __init__(self):
-        self.hurst : int
-        #TODO
-        
-        
-        
+    def __init__(self, k=6):
+        self.k = k #将ret_series分成k组来回归
+        self.hurst = None
+        self.stream = None 
+    def cal_hurst(self,ret_dict, period = 128):
+        #period最好取2的幂次
+        self.stream = dict(list(ret_dict.items())[-period:]) #ret_dict为ret的字典{int：float},截取周期长度为period
+        ret_series = pd.Series(self.stream, index = list(self.stream.keys()))
+        #计算第i期的hurst指数
+        RS = [0]*self.k #initialize R/S-index
+        size_list = [0]*self.k
+        for j in range(self.k):            
+            #第j种划分，即划分为2**j组
+            #TODO
+            size_list[j] = period / (2**j) #第j种划分方式下，一组的周期数目
+            #计算每组的R/S值
+            # for number in range(2**j):   #字典好像没有pd.Series方便
+                #number为j划分的第几组
+                # temp_end_period = list(ret_dict.keys())[-1] - number*size_list[j]   #第number组的起始周期数
+                # temp_start_period = temp_end_period - size_list[j]                  #第number组的结束周期数
+                # selected_items = {key: value for key, value in self.stream.items() if temp_start_period <= key <= temp_end_period}
+            subseries_index_list = np.array_split(ret_series.index, 2**j)    
+            for s in range(2**j):
+                series = pd.Series(ret_series[subseries_index_list[s]], index=ret_series.index[:len(subseries_index_list[s])])
+                std = series.std()
+                mean = series.mean()
+                if np.isnan(std) or np.isnan(mean):
+                    continue
+                else:
+                    series_delta = series.apply(lambda x: x-mean)
+                    R = series_delta.max() - series_delta.min()
+                    breakpoint()
+                    RS[j] += R/std
+                RS[j] = RS[j]/2**j
+                #去掉RS的0值，对R/S值和k回归，取系数为hurst
+        RS_new = size_list_new = []
+        for j in range(len(RS)):
+            if RS[j] !=0:
+                RS_new.append(RS[j])
+                size_list_new.append(len(ret_series)/(2**j))
+        RS_new = np.array(RS_new)
+        size_list_new = np.array(size_list_new)
+        if len(RS_new)!=0:
+            self.hurst = np.polyfit(np.log(size_list_new), np.log(RS_new), 1)[0]
+        else:
+            self.hurst = None
+            
         
 class factor1():
     def __init__(self):       
