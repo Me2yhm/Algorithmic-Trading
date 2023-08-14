@@ -57,7 +57,7 @@ class AlgorithmicStrategy(ABC):
     """
 
     orderbook: OrderBook
-    ticks: Dict[str, Dict[int,List[OrderTick]]]
+    ticks: Dict[str, Dict[int, List[OrderTick]]]
     signals: Dict[str, List[signal]]
     _timeStamp: int
     _date: str
@@ -158,13 +158,13 @@ class AlgorithmicStrategy(ABC):
         self.date = get_date(self.timeStamp)
         self.record_price(lines)
         if self.newday:
-            self.ticks[self.date] = {self.timeStamp:lines}
+            self.ticks[self.date] = {self.timeStamp: lines}
         else:
             if self.new_timeStamp:
-                self.ticks[self.date][self.timeStamp]=lines
+                self.ticks[self.date][self.timeStamp] = lines
             else:
                 self.ticks[self.date][self.timeStamp].extend(lines)
-        
+
         if self.new_timeStamp:  # 为了确保将同一timestamp下的所有数据传入再更新订单簿
             if not self.lines:
                 self.lines.extend(lines)
@@ -213,3 +213,43 @@ class AlgorithmicStrategy(ABC):
         根据更新过后的signal, 更新成交记录和持仓记录, 更新策略的评价结果
         动量是胜率、赔率, VWAP是成交成本与实际VWAP的差
         """
+
+    def update_deal(self) -> None:
+        if self.newday:
+            self.deals[self.date] = [self.signals[self.date][-1]]
+        else:
+            self.deals[self.date].append(self.signals[self.date][-1])
+
+    def update_poccession(self) -> None:
+        deal = self.deals[self.date][-1]
+        money = deal["volume"] * deal["price"]
+        buy_commission = self.buy_cost * money
+        sell_commission = self.sell_cost * money
+
+        if self.newday:
+            single_possession: possession = {
+                "code": deal["symbol"],
+                "averagePrice": 0.0,
+                "cost": 0.0,
+                "volume": 0,
+            }
+            self.possessions[self.date] = single_possession
+            total = 0
+        else:
+            total = (
+                self.possessions[self.date]["volume"]
+                * self.possessions[self.date]["averagePrice"]
+            )
+
+        if deal["direction"] == "B":
+            self.possessions[self.date]["volume"] += deal["volume"]
+            self.possessions[self.date]["cost"] += money + buy_commission
+            self.possessions[self.date]["averagePrice"] = (
+                total + money
+            ) / self.possessions[self.date]["volume"]
+        else:
+            self.possessions[self.date]["volume"] -= deal["volume"]
+            self.possessions[self.date]["cost"] -= money - sell_commission
+            self.possessions[self.date]["averagePrice"] = (
+                total - money
+            ) / self.possessions[self.date]["volume"]
