@@ -41,7 +41,7 @@ class AlgorithmicStrategy(ABC):
                 \possession类似字典
                 \其中cost是总的交易成本,考虑手续费;
                 \ averagePrice是股票总金额除以总量(不包含手续费)
-    signal: \记录每日交易信号, 一个字典,键为日期,值为signal类组成的列表:{date:[signal]}
+    signals: \记录每日交易信号, 一个字典,键为日期,值为signal类组成的列表:{date:[signal]}
             \signal类是一次交易信号,组成的列表代表一天的交易信号
             \signal类似字典,键名含义如下
             \symbol为股票代码, direction表示买入或者卖出: ["B"/"S"],
