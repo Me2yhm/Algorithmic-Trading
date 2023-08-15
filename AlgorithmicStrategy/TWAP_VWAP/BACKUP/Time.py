@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class TimestampConverter:
     @staticmethod
     def to_milliseconds(timestamp):
@@ -23,7 +22,6 @@ class TimestampConverter:
 
         timestamp = f"{hours:02d}{minutes:02d}{seconds:02d}{milliseconds:03d}"
         return timestamp
-
 
 class SignalDeliverySimulator:
     def __init__(self, start_timestamp, end_timestamp):
@@ -58,7 +56,6 @@ class SignalDeliverySimulator:
 
         return data
 
-
 if __name__ == "__main__":
     start_timestamp = "093000000"
     end_timestamp = "145700000"
@@ -66,6 +63,15 @@ if __name__ == "__main__":
     simulator = SignalDeliverySimulator(start_timestamp, end_timestamp)
     simulated_data = simulator.simulate_signal_delivery()
 
-    Time = [{"Type": entry[0], "Timestamp": TimestampConverter.to_timestamp(entry[1])} for entry in simulated_data]
+    Time_dict = {}
 
+    for entry in simulated_data:
+        timestamp = TimestampConverter.to_timestamp(entry[1])
+        if timestamp in Time_dict:
+            Time_dict[timestamp]["trade"] = Time_dict[timestamp]["trade"] or (entry[0] == "trade")
+            Time_dict[timestamp]["update"] = Time_dict[timestamp]["update"] or (entry[0] == "update")
+        else:
+            Time_dict[timestamp] = {"trade": (entry[0] == "trade"), "update": (entry[0] == "update")}
 
+    for timestamp, attributes in Time_dict.items():
+        print(f"Timestamp: {timestamp}, Attributes: {attributes}")
