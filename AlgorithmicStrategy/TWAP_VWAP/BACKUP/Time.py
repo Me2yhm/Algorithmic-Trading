@@ -1,5 +1,5 @@
 import numpy as np
-import csv
+
 
 class TimestampConverter:
     @staticmethod
@@ -24,19 +24,21 @@ class TimestampConverter:
         timestamp = f"{hours:02d}{minutes:02d}{seconds:02d}{milliseconds:03d}"
         return timestamp
 
+
 class SignalDeliverySimulator:
     def __init__(self, start_timestamp, end_timestamp):
         self.start_timestamp = start_timestamp
         self.end_timestamp = end_timestamp
         self.current_timestamp = TimestampConverter.to_milliseconds(start_timestamp)
-        self.mean_time = 3
+        self.update_interval = 3 * 1000
         self.std_deviation = 1
 
     def select_signal_delivery_time(self):
-        return int(abs(np.random.normal(self.mean_time, self.std_deviation)))
+        return int(abs(np.random.normal(self.update_interval / 1000, self.std_deviation)))
 
     def simulate_signal_delivery(self):
         data = []
+
         while self.current_timestamp <= TimestampConverter.to_milliseconds(self.end_timestamp):
             signal_interval = self.select_signal_delivery_time()
             self.current_timestamp += 1000 * signal_interval
@@ -44,10 +46,18 @@ class SignalDeliverySimulator:
             if "113000000" <= TimestampConverter.to_timestamp(self.current_timestamp) <= "130000000":
                 continue
 
-            data.append(self.current_timestamp)
+            data.append(("trade", self.current_timestamp))
             self.current_timestamp += 1000 * (6 - signal_interval)
 
+        fixed_timestamp = TimestampConverter.to_milliseconds("093000000")
+        while fixed_timestamp <= TimestampConverter.to_milliseconds(self.end_timestamp):
+            data.append(("update", fixed_timestamp))
+            fixed_timestamp += self.update_interval
+
+        data.sort(key=lambda x: x[1])
+
         return data
+
 
 if __name__ == "__main__":
     start_timestamp = "093000000"
@@ -56,9 +66,6 @@ if __name__ == "__main__":
     simulator = SignalDeliverySimulator(start_timestamp, end_timestamp)
     simulated_data = simulator.simulate_signal_delivery()
 
-    with open("timestamp1.csv", "w", newline="") as csvfile:
-        csv_writer = csv.writer(csvfile)
-        csv_writer.writerow(["Timestamp"])
+    Time = [{"Type": entry[0], "Timestamp": TimestampConverter.to_timestamp(entry[1])} for entry in simulated_data]
 
-        for timestamp in simulated_data:
-            csv_writer.writerow([TimestampConverter.to_timestamp(timestamp)])
+
