@@ -3,7 +3,7 @@ from abc import abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import TextIO, Iterator
-from Schema import TimeType, PathType, OrderTick
+from .Schema import TimeType, PathType, OrderTick
 
 
 class DataBase:
@@ -45,12 +45,12 @@ class DataStream(DataBase):
         "ticker",
         "file_date",
         "file_date_num",
-        "data_cache"
+        "data_cache",
     )
 
     # noinspection PyTypeChecker
     def __init__(
-            self, data_folder: PathType, ticker: str, delimiter: str = ",", **kwargs
+        self, data_folder: PathType, ticker: str, delimiter: str = ",", **kwargs
     ):
         assert ticker.endswith(".SH") or ticker.endswith(
             ".SZ"
@@ -71,14 +71,20 @@ class DataStream(DataBase):
 
     def isCALL(self, timestamp: int):
         return (
-                timestamp < self.file_date_num + 93000000
-                or self.file_date_num + 145700000 < timestamp
+            timestamp < self.file_date_num + 93000000
+            or self.file_date_num + 145700000 < timestamp
         )
 
     def isTrade(self, timestamp: int):
         return (
-            self.file_date_num + 9_15_00_000 <= timestamp <= self.file_date_num + 11_30_00_000
-        ) or (self.file_date_num + 13_00_00_000 <= timestamp <= self.file_date + 15_00_00_000)
+            self.file_date_num + 9_15_00_000
+            <= timestamp
+            <= self.file_date_num + 11_30_00_000
+        ) or (
+            self.file_date_num + 13_00_00_000
+            <= timestamp
+            <= self.file_date + 15_00_00_000
+        )
 
     def _open_next_file(self):
         if self.current_file is not None:
@@ -183,12 +189,12 @@ class DataSet(DataBase):
         "ticker",
         "file_date",
         "file_date_num",
-        "data_cache"
+        "data_cache",
     )
 
     # noinspection PyTypeChecker
     def __init__(
-            self, data_path: PathType, ticker: str, delimiter: str = ",", **kwargs
+        self, data_path: PathType, ticker: str, delimiter: str = ",", **kwargs
     ):
         self.file_path: PathType = Path(data_path)
         assert ticker.endswith("SH") or ticker.endswith(
@@ -208,15 +214,20 @@ class DataSet(DataBase):
 
     def isCALL(self, timestamp: int):
         return (
-                timestamp < self.file_date_num + 93000000
-                or self.file_date_num + 145700000 < timestamp
+            timestamp < self.file_date_num + 93000000
+            or self.file_date_num + 145700000 < timestamp
         )
 
     def isTrade(self, timestamp: int):
         return (
-            self.file_date_num + 9_15_00_000 <= timestamp <= self.file_date_num + 11_30_00_000
-        ) or (self.file_date_num + 13_00_00_000 <= timestamp <= self.file_date_num + 15_00_00_000)
-
+            self.file_date_num + 9_15_00_000
+            <= timestamp
+            <= self.file_date_num + 11_30_00_000
+        ) or (
+            self.file_date_num + 13_00_00_000
+            <= timestamp
+            <= self.file_date_num + 15_00_00_000
+        )
 
     def _open_next_file(self):
         if self.current_file is not None:
