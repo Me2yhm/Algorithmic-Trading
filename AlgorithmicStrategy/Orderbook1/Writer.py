@@ -15,12 +15,15 @@ class Writer:
             features
             if features is not None
             else [
+                "timestamp",
+                "trade_price",
                 "candle",
                 "candle_range",
                 "snapshot",
                 "VWAP",
                 "VWAP_range",
-                "depth",
+                "depth"
+
             ]
         )
         self.rollback = kwargs.get("rollback", 5000)
@@ -29,13 +32,17 @@ class Writer:
         self.csvwriter.writerow(self.columns)
 
     def collect_data_by_timestamp(
-        self, ob: OrderBook, timestamp: int, timestamp_prev: int
+        self, ob: OrderBook, timestamp: int, timestamp_prev: int, trade_delay: int
     ):
         # logger.info(f"WRITING DATA: {timestamp_prev}-{timestamp}")
         nearest_snapshot = ob.search_snapshot(timestamp)
         res = []
         for f in self.features:
-            if f == "candle":
+            if f == "timestamp":
+                res.append(timestamp)
+            elif f == "trade_price":
+                res.append(ob.search_candle(timestamp + trade_delay)[4])
+            elif f == "candle":
                 res.extend(ob.search_candle(timestamp))
             elif f == "candle_range":
                 res.extend(ob.get_candle_slot(timestamp_prev, timestamp))
@@ -50,13 +57,13 @@ class Writer:
                 res.append(tmp[1])
             elif f == "depth":
                 res.append(nearest_snapshot["order_depth"]["weighted_average_depth"])
+
         assert len(res) == len(self.columns)
         return res
 
-    def collect_data_order_book(self, ob: OrderBook):
+    def collect_data_order_book(self, ob: OrderBook, end_stamp:int, trade_delay: int):
         begin_stamp = ob.data_api.file_date_num + 9_30_00_000
         dt_begin = datetime.strptime(str(begin_stamp), "%Y%m%d%H%M%S%f")
-        end_stamp = ob.last_snapshot["timestamp"]
         dt_end = datetime.strptime(str(end_stamp), "%Y%m%d%H%M%S%f")
 
         time_diff = dt_end - dt_begin
@@ -69,15 +76,21 @@ class Writer:
 
                 timestamp = int(new_dt.strftime("%Y%m%d%H%M%S%f")[:-3])
                 if not ob.data_api.isCALL(timestamp) and ob.data_api.isTrade(timestamp):
-                    tmp_data = self.collect_data_by_timestamp(ob, timestamp, timestamp_prev)
+                    tmp_data = self.collect_data_by_timestamp(ob, timestamp, timestamp_prev, trade_delay)
                     self.csvwriter.writerow(tmp_data)
                 dt_begin = new_dt
                 pbar.update(1)
+        
+
 
     def init_columns(self):
         columns = []
         for feature in self.features:
-            if feature == "candle":
+            if feature == "timestamp":
+                columns.append("timestamp")
+            elif feature == "trade_price":
+                columns.append("trade_price")
+            elif feature == "candle":
                 """
                 前一次收盘、开盘、最高、最低、收盘
                 """

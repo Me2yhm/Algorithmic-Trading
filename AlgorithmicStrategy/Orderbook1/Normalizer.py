@@ -2,9 +2,8 @@ import csv
 
 from tqdm import tqdm
 from OrderBook import OrderBook
-from datetime import datetime, timedelta
-from collections import deque
 from Writer import Writer
+
 
 import pandas as pd
 import numpy as np
@@ -14,23 +13,6 @@ from copy import deepcopy
 import os
 
 
-class LimitedQueue:
-    def __init__(self, max_size):
-        self.max_size = max_size
-        self.queue = deque()
-
-    @property
-    def size(self):
-        return len(self.queue)
-
-    def push(self, item):
-        if self.size >= self.max_size:
-            self.queue.popleft()  # 移除最老的元素
-        self.queue.append(item)
-
-    @property
-    def items(self):
-        return list(self.queue)
 
 
 class Normalizer:
@@ -137,7 +119,9 @@ class Normalizer:
         self.df_his_feature = pd.DataFrame()
         self.df_total = pd.DataFrame()
         self.index : int = 0
-        self.total_columns = kwargs.get("total_columns", ['preclose_range',
+        self.total_columns = kwargs.get("total_columns", [  'timestamp',	
+                                                            'trade_price',
+                                                            'preclose_range',
                                                             'open_range',
                                                             'high_range',
                                                             'low_range',
@@ -323,7 +307,7 @@ class Normalizer:
             count = 0.0
             for file in self.filenames:
                 df = pd.read_csv(self.folder_path + file)
-                df_his_feature_new = df[['VWAP_range','volume_range']]
+                df_his_feature_new = df[['VWAP','volume_range']]
                 if count == 0.0:
                     self.df_his_feature = df_his_feature_new
                 else:
@@ -331,9 +315,14 @@ class Normalizer:
                 self.df_origin = pd.concat([self.df_origin, df], ignore_index=True)
                 count += 1.0
             self.df_his_feature = self.df_his_feature.rename(
-                    columns={'VWAP_range': 'VWAP_range_hist', 'volume_range': 'volume_range_hist'})
+                    columns={'VWAP': 'VWAP_hist', 'volume_range': 'volume_range_hist'})
             self.df_his_feature = self.df_his_feature / count
-            self.df_his_feature = (self.df_his_feature - self.df_his_feature.mean())/self.df_his_feature.std()
+            df_VWAP_original =  deepcopy(self.df_his_feature['VWAP_hist'])
+            df_VWAP_original = df_VWAP_original.rename("VWAP_hist_original")
+            self.df_his_feature = (self.df_his_feature - 
+                                   self.df_his_feature.mean())/self.df_his_feature.std()
+            self.df_his_feature = pd.concat([self.df_his_feature, df_VWAP_original],
+                                            axis = 1)
 
     def get_continuous_params(self):
         param_mean = self.df_origin[self.continuous_var].mean()
@@ -373,7 +362,7 @@ class Normalizer:
     
     def to_discrete_normalize(self, df:pd.DataFrame):
         df_dis = self.to_discrete_stale(df)
-        dummy_df = pd.get_dummies(df_dis, columns=df_dis.columns)
+        dummy_df = pd.get_dummies(df_dis, columns=df_dis.columns, dtype= int)
         return dummy_df
 
     
@@ -382,14 +371,19 @@ class Normalizer:
         index = 0
         for index in range(0, len(self.total_columns)):
             if self.total_columns[index] not in columns:
-                df.insert(index, self.total_columns[index], False)
+                df.insert(index, self.total_columns[index], 0)
         
         return df
             
     def to_normalize(self, df):
+        df.loc[df['VWAP_range'] == -1, 'VWAP_range'] = None
+        df = df.fillna(method='ffill')
         df_cont = self.to_continuous_normalize(df[self.continuous_var])
         df_dis = self.to_discrete_normalize(df[self.discrete_var])
-        self.df_normalized = pd.concat([df_cont, df_dis, self.df_his_feature], axis=1)
+        df_original = df['VWAP_range'].rename("VWAP_range_original")
+        df_supportive = df[['timestamp', 'trade_price']]
+        self.df_normalized = pd.concat([df_supportive, df_cont, df_dis, 
+                                        self.df_his_feature, df_original], axis=1)
         return self.insert_columns(self.df_normalized)
 
     def initialize_output(self, is_train:bool = True, output_path:str = None, output:bool = True):
