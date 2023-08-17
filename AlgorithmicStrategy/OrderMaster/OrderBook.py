@@ -6,10 +6,10 @@ from datetime import datetime, timedelta
 
 import numpy as np
 
-from DataManager import DataStream, DataSet
-from Schema import TimeType, SnapShot, LifeTime, OrderTick, OrderFlag, Excecuted_trade
-from Schema import OrderDepth, Excecuted_trade
-from Depth import OrderDepthCalculator
+from .DataManager import DataStream, DataSet
+from .Schema import TimeType, SnapShot, LifeTime, OrderTick, OrderFlag, Excecuted_trade
+from .Schema import OrderDepth, Excecuted_trade
+from .Depth import OrderDepthCalculator
 
 
 class OrderBook:
