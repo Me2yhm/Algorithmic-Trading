@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
 from ..base import AlgorithmicStrategy, possession, signal
-from .modelType import modelType, Model_reverse
+from .modelType import modelType
+from .ReverseMomentum import Model_reverse
 from ..OrderMaster.OrderBook import OrderBook
 
 

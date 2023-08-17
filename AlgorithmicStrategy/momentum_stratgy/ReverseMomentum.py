@@ -1,6 +1,7 @@
 import pandas as pd
 from abc import abstractmethod, ABC
 from typing import Dict, List, TypedDict,Union
+from collections import OrderedDict, deque
 import numpy as np
 from .modelType import modelType
 from ..OrderMaster.OrderBook import OrderBook
@@ -37,7 +38,7 @@ class Snapshot():
         self.is_time_node = False #是否盘口的时间为正好处于周期节点
         
 class T():#周期
-    def __init__(self, one_stream:Union[Tick,Snapshot]) -> None:
+    def __init__(self, one_stream:Union[Tick,Snapshot]):
         self.stream = one_stream
         self.start : pd.Timestamp
         self.end : pd.Timestamp
@@ -96,6 +97,8 @@ class StreamDict():
                 self.dic[one_stream.T].append(one_stream)
                 self.old_T_dict = self.max_T_dict
         elif isinstance(one_stream, Snapshot):    #StreamDict为存放snapshot的字典
+            """snapshot比tick的字典多一行！dict存放的是周期开始的price，收盘时的price对应一个新的周期"""
+            
             if one_stream.is_time_node == True:
                 self.dic[one_stream.T] = one_stream
         else:
@@ -137,13 +140,13 @@ class Ret():
             Dic (StreamDict): 全部的snapshot实例化对象
         """
         self.stream = Dic
-        self.price_dict = dict()
-        self.dict = dict()
+        self.price_dict = dict() 
+        self.dict = dict() #ret_dict
     def _cal_price(self,i):
         self.price_dict[i] = self.stream.dic[i].ask1 + self.stream.dic[i].bid1
     def cal_ret(self, i): #i为计算return的周期
         #计算收益率
-        if i >= 0 and i in self.price_dict and i + 1 in self.price_dict and self.price_dict[i-1] != 0:
+        if i >= 0 and i in self.price_dict and i + 1 in self.price_dict and self.price_dict[i] != 0:
             self.dict[i] = self.price_dict[i+1] / self.price_dict[i]
         else:
             self.dict[i] = None
@@ -187,95 +190,112 @@ class Info():
 class Hurst():
     def __init__(self, k=6):
         self.k = k #将ret_series分成k组来回归
-        self.hurst = None
+        self.hurstdict = dict()
         self.stream = None 
-    def cal_hurst(self,ret_dict, period = 128):
+    def cal_hurst(self, i, ret_dict, period = 128):
         #period最好取2的幂次
-        self.stream = dict(list(ret_dict.items())[-period:]) #ret_dict为ret的字典{int：float},截取周期长度为period
-        ret_series = pd.Series(self.stream, index = list(self.stream.keys()))
-        #计算第i期的hurst指数
-        RS = [0]*self.k #initialize R/S-index
-        size_list = [0]*self.k
-        for j in range(self.k):            
-            #第j种划分，即划分为2**j组
-            #TODO
-            size_list[j] = period / (2**j) #第j种划分方式下，一组的周期数目
-            #计算每组的R/S值
-            # for number in range(2**j):   #字典好像没有pd.Series方便
-                #number为j划分的第几组
-                # temp_end_period = list(ret_dict.keys())[-1] - number*size_list[j]   #第number组的起始周期数
-                # temp_start_period = temp_end_period - size_list[j]                  #第number组的结束周期数
-                # selected_items = {key: value for key, value in self.stream.items() if temp_start_period <= key <= temp_end_period}
-            subseries_index_list = np.array_split(ret_series.index, 2**j)    
-            for s in range(2**j):
-                series = pd.Series(ret_series[subseries_index_list[s]], index=ret_series.index[:len(subseries_index_list[s])])
-                std = series.std()
-                mean = series.mean()
-                if np.isnan(std) or np.isnan(mean):
-                    continue
-                else:
-                    series_delta = series.apply(lambda x: x-mean)
-                    R = series_delta.max() - series_delta.min()
-                    breakpoint()
-                    RS[j] += R/std
-                RS[j] = RS[j]/2**j
-                #去掉RS的0值，对R/S值和k回归，取系数为hurst
-        RS_new = size_list_new = []
-        for j in range(len(RS)):
-            if RS[j] !=0:
-                RS_new.append(RS[j])
-                size_list_new.append(len(ret_series)/(2**j))
-        RS_new = np.array(RS_new)
-        size_list_new = np.array(size_list_new)
-        if len(RS_new)!=0:
-            self.hurst = np.polyfit(np.log(size_list_new), np.log(RS_new), 1)[0]
+        if (i-period+1) < 0: #周期不满
+            self.hurstdict[i] = None
         else:
-            self.hurst = None
+            start_time = i - period + 1
+            self.stream = {x: ret_dict[x] for x in ret_dict if start_time <= x <= i} #ret_dict为ret的字典{int：float},截取周期长度为period
+            ret_series = pd.Series(self.stream, index = list(self.stream.keys()))
+            #计算第i期的hurst指数
+            RS = [0]*self.k #initialize R/S-index
+            size_list = [0]*self.k
+            for j in range(self.k):            
+                #第j种划分，即划分为2**j组
+                #TODO
+                size_list[j] = period / (2**j) #第j种划分方式下，一组的周期数目
+                #计算每组的R/S值
+                # for number in range(2**j):   #字典好像没有pd.Series方便
+                    #number为j划分的第几组
+                    # temp_end_period = list(ret_dict.keys())[-1] - number*size_list[j]   #第number组的起始周期数
+                    # temp_start_period = temp_end_period - size_list[j]                  #第number组的结束周期数
+                    # selected_items = {key: value for key, value in self.stream.items() if temp_start_period <= key <= temp_end_period}
+                subseries_index_list = np.array_split(ret_series.index, 2**j)  
+                count = 0  
+                for s in range(2**j):
+                    series = pd.Series(ret_series[subseries_index_list[s]], index=ret_series.index[:len(subseries_index_list[s])])
+                    std = series.std()
+                    mean = series.mean()
+                    if np.isnan(std) or np.isnan(mean):
+                        continue
+                    else:
+                        series_delta = series.apply(lambda x: x-mean)
+                        R = series_delta.max() - series_delta.min()
+                        # breakpoint()
+                        RS[j] += R/std
+                        count +=1
+                    RS[j] = RS[j]/2**count
+                    #去掉RS的0值，对R/S值和k回归，取系数为hurst
+            RS_new = size_list_new = []
+            for j in range(len(RS)):
+                if RS[j] !=0:
+                    RS_new.append(RS[j])
+                    size_list_new.append(len(ret_series)/(2**j))
+            RS_new = np.array(RS_new)
+            size_list_new = np.array(size_list_new)
+            if len(RS_new)!=0:
+                self.hurstdict[i] = np.polyfit(np.log(size_list_new), np.log(RS_new), 1)[0]
+            else:
+                self.hurstdict[i] = None
             
         
-class factor1():
+class Factor1():
+    """
+    计算基于换手率排序的反转因子
+    """
     def __init__(self):       
         self.factor1_dict = dict()
     def cal_factor1(self, i:int, ret:Ret, turnover:TurnOver, delta=5):
         """i为当前周期,delta为turnover排序的周期"""
         #基于换手率对ret排序
         #先获取排序后的周期list
-        start_period =  max(i - delta + 1, 1)
-        sorted_turnover_periods = sorted(range(start_period, i + 1), key=lambda x: turnover.dict[x] if x in turnover.dict else -1)
-        if len(sorted_turnover_periods) < delta:
+        if i - delta + 1 < 0: #周期不足
             self.factor1_dict[i] = None
         else:
+            start_period =  i - delta + 1
+            sorted_turnover_periods = sorted(range(start_period, i + 1), key=lambda x: turnover.dict[x])
             self.factor1_dict[i] = ret.dict[sorted_turnover_periods[-1]] -  ret.dict[sorted_turnover_periods[0]]
         #根据这个排序生成相应的factor
         
-class factor2():
+class Factor2():
+    """计算基于信息分布排序的反转因子
+    """
     def __init__(self):       
         self.factor2_dict = dict()
-    def cal_factor1(self, i:int, ret:Ret, info:Info, delta=5):
+    def cal_factor2(self, i:int, ret:Ret, info:Info, delta=5):
         """i为当前周期,delta为info排序的周期"""
         #基于info对ret排序
         #先获取排序后的周期list
-        start_period =  max(i - delta + 1, 1)
-        sorted_info_periods = sorted(range(start_period, i + 1), key=lambda x: info.dict[x] if x in info.dict else -1)
-        if len(sorted_info_periods) < delta:#周期数不够
+        if i - delta + 1 < 0: #周期不足            
             self.factor2_dict[i] = None
         else:
+            start_period =  i - delta + 1
+            sorted_info_periods = sorted(range(start_period, i + 1), key=lambda x: info.dict[x])
             self.factor2_dict[i] = ret.dict[sorted_info_periods[-1]] -  ret.dict[sorted_info_periods[0]]
         #根据这个排序生成相应的factor
                         
 class Model_reverse(modelType):
    
-    def __init__(self, Risk_d = 5, Umr_m = 20, H = 10, delta_stream = 40000000, whole = 294e10) -> None:
+    def __init__(self, delta_stream=40000000,std_period=10, hurst_period=128, k=6, whole=294e10,delta_factor1=5,delta_factor2=5):
         #一开始初始化的时候先把这些实例化，然后每次update就更新这里的属性
         self.TD = StreamDict()#tickdict
-        self.RD = StreamDict()#pricedict
+        self.SD = StreamDict()#snapshotdict
         self.TO = TurnOver(self.TD)#计算换手率，储存换手率
-        self.stockret = Ret(self.TD)#计算股票收益率，储存
+        self.ret = Ret(self.TD)#计算股票收益率，储存
+        self.info = Info(self.TO)
+        self.k = k #hurst计算时的分组数目 
+        self.hurst = Hurst(self.k)
+        self.factor1 = Factor1()
+        self.factor2 = Factor2()
+        self.delta1 = delta_factor1
+        self.delta2 = delta_factor2
         self.whole = whole#总流通股本
-
-        self.delta = delta_stream
-        self.H = H
-        self.Umr_m = Umr_m
+        self.delta = delta_stream #周期间隔 以微秒为单位
+        self.info_period = std_period #计算波动率的周期数
+        self.hurst_period = hurst_period #计算hurst的周期数
     
     def _error(self):
         #报错并跳过
@@ -283,44 +303,70 @@ class Model_reverse(modelType):
   
     def _tick_store(self,one_tick):
         #每次进来一条tick，就调用这个函数,将tick的信息进行预处理，并储存在self中的属性中
-        one_tick = Tick(one_tick, delta = self.delta)#初始化tick对象
-        T_tick = T(one_tick)#计算tick的周期
+        one_Tick = Tick(one_tick, delta = self.delta)#初始化tick对象
+        T_tick = T(one_Tick)#计算tick的周期
         T_tick.cal_T()
         self.TD.append(one_tick)#将这单tick添加到TD中
         
     def _snapshot_store(self,one_snapshot):
         #每次进来一条snapshot，就调用这个函数,将snapshot的信息进行预处理，并储存在self中的属性中
-        T_ret= T(one_snapshot)#计算snapshot的周期
-        T_ret.cal_T()
-        self.RD.append(one_snapshot)#将价格添加到RD中
-        #这个函数只做一件事，那就是更新TD和RD
+        one_Snapshot = Snapshot(one_snapshot, delta = self.delta)
+        T_snapshot= T(one_Snapshot)#计算snapshot的周期
+        T_snapshot.cal_T()
+        self.SD.append(one_snapshot)#将价格添加到SD中
+        #这个函数只做一件事，那就是更新TD和SD
     
     def _cal_turnover(self, i):
         self.TO.cal_turnover(self.whole, i)#计算这个周期的turnover
     
+    def _cal_ret(self,i):
+        if i == 0: #计算第0个周期开始和结束的价格
+            self.ret._cal_price(0)
+            self.ret._cal_price(1)
+        else:
+            self.ret._cal_price(i+1) #计算这个周期结束（=下个周期开始）的价格
+        self.ret.cal_ret(i) #计算这个周期的ret
+        
+    def _cal_info(self,i):
+        self.info.cal_info(i, period = self.info_period)
+        
+    def _cal_hurst(self,i):
+        self.hurst.cal_hurst(i,self.ret.dict,self.hurst_period)
+        
+    def _cal_factor1(self,i):
+        self.factor1.cal_factor1(i, self.ret, self.TO, self.delta1)
+        
+    def _cal_factor2(self,i):
+        self.factor2.cal_factor2(i,self.ret,self.info,self.delta2)
+        
     #TODO 把strategy的self.timestamp作为当前时间输入
-    def model_update(self, ticks, one_mktstream,timestamp:int):
+    def model_update(self, ticks, orderbook:OrderBook,timestamp:int):
         #先储存
         #timestamp 17位int
         date_today = str(timestamp)[:4]+'-'+str(timestamp)[4:6]+'-'+str(timestamp)[6:8]
         time_now = pd.to_datetime(str(timestamp), format='%Y%m%d%H%M%S%f')
         tickdict = ticks[date_today] #到目前为止所有时刻的ticks
         tickdict_now = tickdict[int(time_now.strftime('%H:%M:%S:%f')[:-3])]
-        for one_tick in tickdict_now:
-            self._tick_store(one_tick)
-            #1. 先要判断进来的stream是不是填满了这个周期，如果没填满就不开始计算
-            if self.TD.max_T_dict == self.TD.old_T_dict :
-                #此时这个周期的stream未必都来了
-                return 
-            for i in range(self.TD.old_T_dict + 1, self.TD.max_T_dict + 1):
-                #计算turnover不需要跳过任何周期，最先计算
-                self._cal_turnover(i)
-                #2. 判断是否满足计算收益率的周期数
-                if self.TD.max_T_dict > 1:
-                    break
-                #计算收益率
-                self._cal_mktret(i)
-                self._cal_stockret(i)
-                #计算umr
-                self._cal_umr(i)
         
+        #0. 存入one_tick和one_snapshot
+        deque_dict = deque(orderbook.snapshots.items())
+        last_element = deque_dict.pop() #返回一个元组：（time，snapshot）
+        one_snapshot = last_element[1]
+        self._snapshot_store(one_snapshot) 
+        for one_tick in tickdict_now:
+            self._tick_store(one_tick) #把一个时间戳的ticks一条条变为Tick对象存入TD
+            
+        #1. 先要判断进来的stream是不是填满了这个周期，如果没填满就不开始计算    
+        if self.TD.max_T_dict == self.TD.old_T_dict :
+            #此时这个周期的stream未必都来了
+            return {"factor1":self.factor1.factor1_dict,"factor2":self.factor2.factor2_dict,"hurst":self.hurst.hurstdict}
+        for i in range(self.TD.old_T_dict, self.TD.max_T_dict): 
+            #计算各指标
+            self._cal_turnover(i)
+            self._cal_ret(i)
+            self._cal_info(i)
+            #计算反转因子和hurst
+            self._cal_factor1(i)
+            self._cal_factor2(i)
+            self._cal_hurst(i)
+            return {"factor1":self.factor1.factor1_dict,"factor2":self.factor2.factor2_dict,"hurst":self.hurst.hurstdict}
