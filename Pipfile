@@ -7,8 +7,13 @@ name = "pip_conf_index_global"
 pandas = "*"
 loguru = "*"
 matplotlib = "*"
+torch = "*"
+tqdm = "*"
+seaborn = "*"
 
 [dev-packages]
+tqdm = "*"
+update = "*"
 
 [requires]
 python_version = "3.11"

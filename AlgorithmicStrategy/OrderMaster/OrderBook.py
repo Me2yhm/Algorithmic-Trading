@@ -74,7 +74,6 @@ class OrderBook:
                 )
 
             if data["oid"] != 0 or data["ptype"] != 0:
-
                 if data["flag"] in [OrderFlag.BUY, OrderFlag.SELL]:
                     self.oid_map[data["oid"]] = LifeTime(
                         oid=data["oid"],
@@ -83,7 +82,7 @@ class OrderBook:
                         birth=data[self.data_api.date_column],
                         rest=data["volume"],
                         AS="bid" if data["flag"] == OrderFlag.BUY else "ask",
-                        iscall=True if data["iscall"] == True else False
+                        iscall=True if data["iscall"] == True else False,
                     )
                 self._update_from_order(data)
                 if data["flag"] in [OrderFlag.BUY, OrderFlag.SELL]:
@@ -272,11 +271,18 @@ class OrderBook:
             elif tmp_val == 0:
                 self.oid_map[data[key]]["rest"] = 0
                 self.oid_map[data[key]]["death"] = data[self.data_api.date_column]
-                t1 = datetime.strptime(str(data[self.data_api.date_column]), '%Y%m%d%H%M%S%f')
-                t2 = datetime.strptime(str(self.oid_map[data[key]]["birth"]), '%Y%m%d%H%M%S%f')
-                life = (t1-t2)/timedelta(milliseconds=1)
-                if self.oid_map[data[key]]["iscall"] == True and data["iscall"] == False:
-                    self.oid_map[data[key]]["life"] = life - 3*1e5
+                t1 = datetime.strptime(
+                    str(data[self.data_api.date_column]), "%Y%m%d%H%M%S%f"
+                )
+                t2 = datetime.strptime(
+                    str(self.oid_map[data[key]]["birth"]), "%Y%m%d%H%M%S%f"
+                )
+                life = (t1 - t2) / timedelta(milliseconds=1)
+                if (
+                    self.oid_map[data[key]]["iscall"] == True
+                    and data["iscall"] == False
+                ):
+                    self.oid_map[data[key]]["life"] = life - 3 * 1e5
                 else:
                     self.oid_map[data[key]]["life"] = life
                 self._order_num_change(data, key, -1)
@@ -288,11 +294,15 @@ class OrderBook:
         try:
             self.oid_map[data[key]]["rest"] = 0
             self.oid_map[data[key]]["death"] = data[self.data_api.date_column]
-            t1 = datetime.strptime(str(data[self.data_api.date_column]), '%Y%m%d%H%M%S%f')
-            t2 = datetime.strptime(str(self.oid_map[data[key]]["birth"]), '%Y%m%d%H%M%S%f')
-            life = (t1-t2)/timedelta(milliseconds=1)
+            t1 = datetime.strptime(
+                str(data[self.data_api.date_column]), "%Y%m%d%H%M%S%f"
+            )
+            t2 = datetime.strptime(
+                str(self.oid_map[data[key]]["birth"]), "%Y%m%d%H%M%S%f"
+            )
+            life = (t1 - t2) / timedelta(milliseconds=1)
             if self.oid_map[data[key]]["iscall"] == True and data["iscall"] == False:
-                self.oid_map[data[key]]["life"] = life - 3*1e5
+                self.oid_map[data[key]]["life"] = life - 3 * 1e5
             else:
                 self.oid_map[data[key]]["life"] = life
             self._order_num_change(data, key, -1)
@@ -527,7 +537,9 @@ class OrderBook:
 
     def get_candle_slot(self, timestamp1: int, timestamp2: int):
         logged_timestamp: np.ndarray = np.array(list(self.candle_tick.keys()))
-        search_timestamp = logged_timestamp[(timestamp1 <= logged_timestamp) & (logged_timestamp <= timestamp2)]
+        search_timestamp = logged_timestamp[
+            (timestamp1 <= logged_timestamp) & (logged_timestamp <= timestamp2)
+        ]
         if search_timestamp.any():
             candle = [0.0, 0.0, 0.0, 0.0, 0.0]
             candle[4] = self.candle_tick[search_timestamp[-1]][4]
@@ -542,7 +554,8 @@ class OrderBook:
                     candle[3] = self.candle_tick[timestamp][3]
         else:
             closest_time1 = self.search_closet_time(
-                timestamp1, list(self.candle_tick.keys()))
+                timestamp1, list(self.candle_tick.keys())
+            )
             closest_time2 = self.search_closet_time(
                 timestamp2, list(self.candle_tick.keys()), -1
             )
