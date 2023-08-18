@@ -13,7 +13,7 @@ PathType = Union[str, Path, PathLike]
 class OrderTick(TypedDict, total=False):
     time: int
     oid: int
-    oidb: int
+    oidb: int 
     oids: int
     price: float
     volume: int
