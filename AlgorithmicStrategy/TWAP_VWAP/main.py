@@ -3,6 +3,7 @@ import warnings
 from argparse import ArgumentParser
 from pathlib import Path
 
+import pandas as pd
 import torch as t
 
 from AlgorithmicStrategy import DataSet, OrderBook, Writer
@@ -51,11 +52,16 @@ if __name__ == "__main__":
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
-    tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"
-    tick = DataSet(data_path=tick_path, ticker="SZ")
-    ob = OrderBook(data_api=tick, decay_rate=5)
+    # tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"
+    # tick = DataSet(data_path=tick_path, ticker="SZ")
+    # ob = OrderBook(data_api=tick, decay_rate=5)
+    #
+    # until = None
+    # ob.update(until=until)
+    # w = Writer(filename='example.csv')
+    # w.collect_data_order_book(ob)
 
-    until = None
-    ob.update(until=until)
-    w = Writer(filename='example.csv')
-    w.collect_data_order_book(ob)
+    path = r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\归一化测试集3s\norm000157_3s_0726.csv"
+    df = pd.read_csv(path)
+    # print(df.loc[1451, 'depth'])
+    print(sum(df['depth'] > 0))
