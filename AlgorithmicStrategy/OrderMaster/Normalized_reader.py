@@ -20,14 +20,14 @@ class Normalized_reader:
         self.inputs = OrderedDict()
         df = self.dfs[filename]
         input_df = df.drop(["trade_price", "timestamp"], axis=1)
-        for limit in range(99, len(self.dfs[filename])):
-            trade_price = df.loc[limit, "trade_price"]
-            trade_time = df.loc[limit, "timestamp"]
+        for limit in range(100, len(self.dfs[filename])):
+            trade_price = df.loc[limit-1, "trade_price"]
+            trade_time = df.loc[limit-1, "timestamp"]
             self.trade_record[trade_time] = {
                 "trade_volume": None,
                 "trade_price": trade_price,
             }
-            self.inputs[trade_time] = input_df.loc[limit - 99 : limit, :]
+            self.inputs[trade_time] = input_df.iloc[limit - 100 : limit, :-2]
 
         self.timestamp_list = list(self.inputs.keys())
         return self.inputs, self.trade_record

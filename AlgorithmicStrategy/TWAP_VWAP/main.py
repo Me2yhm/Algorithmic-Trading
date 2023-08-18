@@ -73,14 +73,14 @@ if __name__ == "__main__":
     # original_files = list(original_folder.glob("*.csv"))
     # logger.info(pd.read_csv(original_files[0]).columns)
 
-    normer = Normalizer(
-        file_folder=original_folder
-    )
-    normer.initialize_output(output_path=Path('./Example'))
+    # normer = Normalizer(
+    #     file_folder=original_folder
+    # )
+    # normer.initialize_output(output_path=Path('./Example'))
 
     norm_reader = Normalized_reader(file_folder=args.train)
 
-    logger.info(norm_reader.dfs.keys())
+    # logger.info(norm_reader.dfs.keys())
     inputs, trade_info = norm_reader.generate_inputs("0703")
     logger.info(list(inputs.values())[0].shape)
 
