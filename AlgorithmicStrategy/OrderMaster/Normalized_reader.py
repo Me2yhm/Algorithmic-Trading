@@ -1,35 +1,33 @@
 import pandas as pd
-import os
 from collections import OrderedDict
+from pathlib import Path
 
 
 class Normalized_reader:
-    def __init__(self, filepath) -> None:
-        self.filepath = filepath
-        self.filenames = []
-        self.df_total = dict()
-        self.df_input = OrderedDict()
-        self.trade_record = OrderedDict()
-        self.timestamp_list = []
-        for filename in os.listdir(self.filepath):
-            if filename.endswith(".csv"):
-                self.filenames.append(filename)
-                self.df_total[filename] = pd.read_csv(self.filepath + filename)
+    def __init__(self, file_folder: Path):
+        self.file_folder: Path = file_folder
+        self.filenames: list[Path] = list(self.file_folder.glob("*.csv"))
+        self.filenames.sort(key=lambda x: int(x.stem.split("_")[-1]))
+        self.dfs: dict[str, pd.DataFrame] = {
+            k.stem.split("_")[-1]: pd.read_csv(k) for k in self.filenames
+        }
+        self.inputs: OrderedDict = OrderedDict()
+        self.trade_record: OrderedDict = OrderedDict()
+        self.timestamp_list: list[int] = []
 
-    def get_df_input(self, filename):
+    def generate_inputs(self, filename):
         self.trade_record = OrderedDict()
-        self.df_input = OrderedDict()
-        for limit in range(100, len(self.df_total[filename])):
-            trade_price = self.df_total[filename].iloc[limit, 1]
-            trade_time = self.df_total[filename].iloc[limit, 0]
+        self.inputs = OrderedDict()
+        df = self.dfs[filename]
+        input_df = df.drop(["trade_price", "timestamp"], axis=1)
+        for limit in range(99, len(self.dfs[filename])):
+            trade_price = df.loc[limit, "trade_price"]
+            trade_time = df.loc[limit, "timestamp"]
             self.trade_record[trade_time] = {
                 "trade_volume": None,
                 "trade_price": trade_price,
             }
-            self.df_input[trade_time] = self.df_total[filename].iloc[
-                limit - 100 : limit, 2:-2
-            ]
+            self.inputs[trade_time] = input_df.loc[limit - 99 : limit, :]
 
-        self.timestamp_list = list(self.df_input.keys())
-
-        return self.df_input, self.trade_record
+        self.timestamp_list = list(self.inputs.keys())
+        return self.inputs, self.trade_record

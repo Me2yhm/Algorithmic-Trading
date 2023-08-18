@@ -168,10 +168,10 @@ if __name__ == "__main__":
         path_train = r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\Orderbook1\归一化训练集3s\\"
         Normalized_reader_000157 = Normalized_reader(path_train)
         normalized_000157_0703 = Normalized_reader_000157.filenames[0]
-        Normalized_reader_000157.get_df_input(normalized_000157_0703)
+        Normalized_reader_000157.generate_inputs(normalized_000157_0703)
         timestamplist = Normalized_reader_000157.timestamp_list
         print(Normalized_reader_000157.trade_record[timestamplist[0]])
-        print(Normalized_reader_000157.df_input[timestamplist[0]].shape)
+        print(Normalized_reader_000157.inputs[timestamplist[0]].shape)
 
         print(Normalized_reader_000157.trade_record[timestamplist[1000]])
-        print(Normalized_reader_000157.df_input[timestamplist[1000]].shape)
+        print(Normalized_reader_000157.inputs[timestamplist[1000]].shape)

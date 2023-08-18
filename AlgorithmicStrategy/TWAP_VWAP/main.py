@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 import torch as t
 
-from AlgorithmicStrategy import DataSet, OrderBook, Writer
+from AlgorithmicStrategy import DataSet, OrderBook, Writer, Normalized_reader
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
 
@@ -48,9 +48,27 @@ if __name__ == "__main__":
     parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
     parser.add_argument("-e", "--epoch", type=int, default=10)
-    parser.add_argument("--dataset", type=str, default="./DATA/ML")
+    parser.add_argument(
+        "--train",
+        type=str,
+        default=Path(__file__).parent / "DATA" / "ML" / "000157" / "train",
+    )
+    parser.add_argument(
+        "--test",
+        type=str,
+        default=Path(__file__).parent / "DATA" / "ML" / "000157" / "test",
+    )
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
+
+    logger.info(f"Using training data: {args.train}")
+    logger.info(f"Using testing data: {args.test}")
+
+    norm_reader = Normalized_reader(file_folder=args.train)
+
+    logger.info(norm_reader.dfs.keys())
+    inputs, trade_info = norm_reader.generate_inputs('0703')
+    logger.info(list(inputs.values())[0].shape)
 
     # tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"
     # tick = DataSet(data_path=tick_path, ticker="SZ")
@@ -61,7 +79,7 @@ if __name__ == "__main__":
     # w = Writer(filename='example.csv')
     # w.collect_data_order_book(ob)
 
-    path = r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\归一化测试集3s\norm000157_3s_0726.csv"
-    df = pd.read_csv(path)
+    # path = r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\归一化测试集3s\000157_3s_0726.csv"
+    # df = pd.read_csv(path)
     # print(df.loc[1451, 'depth'])
-    print(sum(df['depth'] > 0))
+    # print(sum(df['depth'] > 0))
