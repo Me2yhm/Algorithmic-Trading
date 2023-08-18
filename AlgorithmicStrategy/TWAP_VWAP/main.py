@@ -6,7 +6,13 @@ from pathlib import Path
 import pandas as pd
 import torch as t
 
-from AlgorithmicStrategy import DataSet, OrderBook, Writer, Normalized_reader
+from AlgorithmicStrategy import (
+    DataSet,
+    OrderBook,
+    Writer,
+    Normalized_reader,
+    Normalizer,
+)
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
 
@@ -63,11 +69,16 @@ if __name__ == "__main__":
 
     logger.info(f"Using training data: {args.train}")
     logger.info(f"Using testing data: {args.test}")
+    original_folder = Path(r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练集3s")
+    normer = Normalizer(
+        file_folder=original_folder
+    )
+    normer.initialize_output(output_path=Path('./Example'))
 
     norm_reader = Normalized_reader(file_folder=args.train)
 
     logger.info(norm_reader.dfs.keys())
-    inputs, trade_info = norm_reader.generate_inputs('0703')
+    inputs, trade_info = norm_reader.generate_inputs("0703")
     logger.info(list(inputs.values())[0].shape)
 
     # tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"

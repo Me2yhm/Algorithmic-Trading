@@ -102,7 +102,7 @@ if __name__ == "__main__":
         Normalizer_002703.initialize_output(
             is_train=True, output_path=output_path_train, output=True
         )
-        Normalizer_002703.folder_path = file_path_test
+        Normalizer_002703.file_folder = file_path_test
         Normalizer_002703.initialize_output(False, output_path_test, True)
 
         # trade_update_time = Trade_Update_time(start_timestamp = "093000000", end_timestamp = "145700000")

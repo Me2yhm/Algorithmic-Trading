@@ -84,7 +84,7 @@ if __name__ == "__main__":
         output_path_test = 'C:/Users/14913/Documents/GitHub/Algorithmic-Trading/AlgorithmicStrategy/Orderbook1/归一化测试集3s/'
         Normalizer_002703 = Normalizer(file_path_train)
         Normalizer_002703.initialize_output(is_train = True, output_path = output_path_train, output = True)
-        Normalizer_002703.folder_path = file_path_test
+        Normalizer_002703.file_folder = file_path_test
         Normalizer_002703.initialize_output(False, output_path_test, True)
 
         # trade_update_time = Trade_Update_time(start_timestamp = "093000000", end_timestamp = "145700000")
