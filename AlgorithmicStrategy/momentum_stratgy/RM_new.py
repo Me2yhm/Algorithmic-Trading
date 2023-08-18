@@ -162,7 +162,7 @@ class Ret():
         self.dict = dict() #ret_dict
     def _cal_price(self,i):
         try:
-            self.price_dict[i] = (self.stream.dic[i][0].ask1 + self.stream.dic[i][0].bid1 )/2
+            self.price_dict[i] = self.stream.dic[i][0].ask1 + self.stream.dic[i][0].bid1 
         except Exception as e:
             self.price_dict[i] = None
     def cal_ret(self, i): #i为计算return的周期
@@ -330,6 +330,8 @@ class Model_reverse(modelType):
         self.period_now : int
         self.period_start : pd.Timestamp
         self.period_end : pd.Timestamp
+        self.total_period = int(20100000000/self.delta)+1 #总周期数
+        self.period_list = []*self.total_period #周期列表
         
     def _error(self):
         #报错并跳过
@@ -360,11 +362,11 @@ class Model_reverse(modelType):
         self.TO.cal_turnover(self.whole, i)#计算这个周期的turnover
     
     def _cal_ret(self,i):
-        if i == 0: #计算第0个周期开始和结束的价格
-            self.ret._cal_price(0)
-            self.ret._cal_price(1)
-        else:
-            self.ret._cal_price(i+1) #计算这个周期结束（=下个周期开始）的价格
+        # if i == 0: #计算第0个周期开始和结束的价格
+        #     self.ret._cal_price(0)
+        #     self.ret._cal_price(1)
+        # else:
+        #     self.ret._cal_price(i+1) #计算这个周期结束（=下个周期开始）的价格
         self.ret.cal_ret(i) #计算这个周期的ret
         
     def _cal_info(self,i):
@@ -379,23 +381,38 @@ class Model_reverse(modelType):
     def _cal_factor2(self,i):
         self.factor2.cal_factor2(i,self.ret,self.info,self.delta2)
         
+    def _get_closest_time(self,query_stamp,timelist:list): 
+        logged_timestamp: np.ndarray = np.array(timelist)
+        search_timestamp = logged_timestamp[logged_timestamp <= query_stamp]
+        return search_timestamp[0]
+        
     #strategy的self.timestamp作为当前时间输入
-    def model_update(self, ticks, orderbook:OrderBook,timestamp:int):
+    def model_update(self, ticks, price_dict_all: Dict[str, Dict[int, float]], timestamp:int):
         #先储存
         #timestamp 17位int
         date_today = str(timestamp)[:4]+'-'+str(timestamp)[4:6]+'-'+str(timestamp)[6:8]
-        
         if int(str(timestamp)[8:]) >= 92500000: #跳过集合竞价期间的数据
-            
-            #time_now = pd.to_datetime(str(timestamp), format='%Y%m%d%H%M%S%f')
+            print(price_dict_all)
+            breakpoint()
+            # price_dict = price_dict_all[date_today]
+            time_now = pd.to_datetime(str(timestamp), format='%Y%m%d%H%M%S%f')
             tickdict = ticks[date_today] #到目前为止所有时刻的ticks
             tickdict_now = tickdict[timestamp]
             #0. 存入one_tick和one_snapshot
             for one_tick in tickdict_now:
                 self._tick_store(one_tick) #把一个时间戳的ticks一条条变为Tick对象存入TD 
             period_start_int = int(self.period_start.strftime('%Y%m%d%H%M%S%f')[:-3])
-            one_snapshot = orderbook.search_snapshot(period_start_int)
-            self._snapshot_store(one_snapshot) 
+            # one_snapshot = orderbook.search_snapshot(period_start_int)
+            # self._snapshot_store(one_snapshot)
+            opentime = str(time_now.year)+str(time_now.month).zfill(2)+str(time_now.day).zfill(2)+'092500000'
+            openqu = pd.to_datetime(opentime, format='%Y%m%d%H%M%S%f')
+            price_list = []*self.total_period
+            for i in range(self.TD.old_T_dict,self.TD.max_T_dict+1):
+                timestamp = int(list(self.TD.dic.keys())[i])*pd.Timedelta(microseconds=pd.delta) + openqu # type: ignore
+                self.period_list[i] = int(timestamp.strftime('%Y%m%d%H%M%S%f')[:-3]) # type: ignore
+                price_list[i] = price_dict[self._get_closest_time(self.period_list[i],list(price_dict.keys()))]
+            self.ret.price_dict= dict(zip(self.period_list,price_list))
+            
             # print(list(self.TD.dic.keys()))
             print(self.TD.max_T_dict)
             # print(self.TD.old_T_dict)
