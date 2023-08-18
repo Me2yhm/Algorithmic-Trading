@@ -26,15 +26,15 @@ def run(
             if stratgy.new_timeStamp is False:
                 continue
             if stratgy.timeStamp >= 20230717092500000:
-                print(stratgy.current_price,stratgy.price_list)
-            # stratgy.model_update(model=model) 
-            # stratgy.signal_update()
-            # stratgy.stratgy_update()
+                    # print(stratgy.current_price,stratgy.price_list)
+                stratgy.model_update(model=model) 
+                # stratgy.signal_update()
+                # stratgy.stratgy_update()
         except StopIteration:
             break
     # 确保最后一行tick数据也被更新
-    # if stratgy.new_timeStamp is False:
-    #     stratgy.model_update(model=model)
+    if stratgy.new_timeStamp is False:
+        stratgy.model_update(model=model)
         # stratgy.signal_update()
         # stratgy.stratgy_update()
     # print(stratgy.win_rate[datestr])
@@ -43,7 +43,7 @@ def run(
 if __name__ == "__main__":
     model = Model_reverse()
     run(datestr='2023-07-17',
-    symbol='601012.SH',
+    symbol='000157.SZ',
     stratgy_type=reverse_strategy,
     model=model)
     
