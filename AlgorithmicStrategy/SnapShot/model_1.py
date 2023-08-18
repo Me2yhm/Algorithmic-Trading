@@ -143,7 +143,7 @@ class TradingSimulator(ABC):
             # 根据预测结果生成信号
             signal = {
                 "symbol": "AAPL",  # 股票代码
-                "direction": "B" if prediction > 0 else "S",  # 买入还是卖出 
+                "direction": "B" if random.random() < prediction else "S",  # 买入还是卖出 
                 "price": 100.0,  # 价格
                 "volume": 100  # 交易量
             }
