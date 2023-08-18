@@ -70,6 +70,9 @@ if __name__ == "__main__":
     logger.info(f"Using training data: {args.train}")
     logger.info(f"Using testing data: {args.test}")
     original_folder = Path(r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练集3s")
+    # original_files = list(original_folder.glob("*.csv"))
+    # logger.info(pd.read_csv(original_files[0]).columns)
+
     normer = Normalizer(
         file_folder=original_folder
     )

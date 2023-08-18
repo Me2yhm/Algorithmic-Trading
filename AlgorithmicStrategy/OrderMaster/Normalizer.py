@@ -1,8 +1,7 @@
-import os
 from collections import deque
-from copy import deepcopy
 from pathlib import Path
 from typing import cast
+from tqdm import tqdm
 import pandas as pd
 
 from .OrderBook import OrderBook
@@ -35,6 +34,13 @@ class Normalizer:
         self.df_origin: pd.DataFrame = pd.DataFrame()
         self.df_normalized: pd.DataFrame = pd.DataFrame()
         self.is_train: bool = is_train
+        self.const_var: list[str] = kwargs.get(
+            "const_var",
+            [
+                "timestamp",
+                "trade_price",
+            ],
+        )
         self.continuous_var: list[str] = kwargs.get(
             "continuous_var",
             [
@@ -333,7 +339,7 @@ class Normalizer:
             for file in self.filenames:
                 df = pd.read_csv(file)
                 hist_feature += df.loc[:, ["VWAP", "volume_range"]]
-                res = pd.concat([res, df], axis=0, ignore_index=True)
+                res = pd.concat([df, res], axis=0, ignore_index=True)
 
             hist_feature = hist_feature.rename(
                 columns={"VWAP": "VWAP_hist", "volume_range": "volume_range_hist"}
@@ -375,13 +381,7 @@ class Normalizer:
 
     def to_discrete_stale(self, df: pd.DataFrame):
         l1, l2, l3 = self.dis_norm
-        map_dict = {
-            -1:"no_value",
-            0:"min",
-            1:"lower",
-            2:"upper",
-            3:"max"
-        }
+        map_dict = {-1: "no_value", 0: "min", 1: "lower", 2: "upper", 3: "max"}
         df[(df < 0)] = -1
         df[(df >= 0) & (df < l1)] = 0
         df[(df < l2) & (df >= l1)] = 1
@@ -404,9 +404,10 @@ class Normalizer:
         return df
 
     def to_normalize(self, df: pd.DataFrame):
+        df_consts = df[self.const_var]
         df_cont = self.to_continuous_normalize(df[self.continuous_var])
         df_dis = self.to_discrete_normalize(df[self.discrete_var])
-        self.df_normalized = pd.concat([df_cont, df_dis, self.hist_feature], axis=1)
+        self.df_normalized = pd.concat([df_consts, df_cont, df_dis, self.hist_feature], axis=1)
         return self.insert_columns(self.df_normalized)
 
     def initialize_output(
@@ -421,12 +422,12 @@ class Normalizer:
         if output_path is not None:
             if not output_path.exists():
                 output_path.mkdir(parents=True, exist_ok=True)
-            for file in self.filenames:
+            for file in tqdm(self.filenames):
                 self.to_normalize(pd.read_csv(file)).to_csv(
                     output_path / ("norm_" + file.name), index=False
                 )
 
-    def to_normalize_by_row(self, df):
+    def to_normalize_by_row(self, df: pd.DataFrame):
         df_cont = self.to_continuous_normalize(df[self.continuous_var])
         df_dis = self.to_discrete_normalize(df[self.discrete_var])
         df_hist = pd.DataFrame([self.hist_feature.iloc[self.index]])
