@@ -73,16 +73,18 @@ if __name__ == "__main__":
     # original_files = list(original_folder.glob("*.csv"))
     # logger.info(pd.read_csv(original_files[0]).columns)
 
-    # normer = Normalizer(
-    #     file_folder=original_folder
-    # )
-    # normer.initialize_output(output_path=Path('./Example'))
+    normer = Normalizer(
+        file_folder=original_folder
+    )
+    # logger.info(len(normer.get_past_files(file=normer.filenames_map[8], limit=5)))
+    normer.initialize_output(output_path=Path('./Example'))
 
     norm_reader = Normalized_reader(file_folder=args.train)
 
+
     # logger.info(norm_reader.dfs.keys())
-    inputs, trade_info = norm_reader.generate_inputs("0703")
-    logger.info(list(inputs.values())[0].shape)
+    # inputs, trade_info = norm_reader.generate_inputs("0703")
+    # logger.info(list(inputs.values())[0].shape)
 
     # tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"
     # tick = DataSet(data_path=tick_path, ticker="SZ")

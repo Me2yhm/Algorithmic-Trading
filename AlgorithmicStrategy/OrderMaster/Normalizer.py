@@ -31,15 +31,18 @@ class LimitedQueue:
 class Normalizer:
     def __init__(self, file_folder: Path, is_train: bool = True, **kwargs):
         self.file_folder: Path = file_folder
-        self.vars = json.loads(open(Path(__file__).parent / "vars.json", 'r').read())
+        self.vars = json.loads(open(Path(__file__).parent / "vars.json", "r").read())
         self.filenames: list[Path] = list(self.file_folder.glob("*.csv"))
-        self.df_origin: pd.DataFrame = pd.DataFrame()
+        self.filenames.sort(key=lambda x: int(x.stem.split("_")[-1]))
+        self.df_map = {file:pd.read_csv(file) for file in self.filenames}
+        self.df_origin: pd.DataFrame = pd.concat(self.df_map.values(), axis=0, ignore_index=True)
         self.df_normalized: pd.DataFrame = pd.DataFrame()
+
         self.is_train: bool = is_train
-        self.const_var: list[str] = self.vars.get('const_var')
-        self.continuous_var: list[str] =self.vars.get('continuous_var')
-        self.discrete_var: list[str] =self.vars.get('discrete_var')
-        self.total_columns: list[str] =self.vars.get('total_columns')
+        self.const_var: list[str] = self.vars.get("const_var")
+        self.continuous_var: list[str] = self.vars.get("continuous_var")
+        self.discrete_var: list[str] = self.vars.get("discrete_var")
+        self.total_columns: list[str] = self.vars.get("total_columns")
         self.dis_norm: list[int] = kwargs.get("dis_norm", [30, 120, 480])
         self.cont_norm = None
 
@@ -48,27 +51,32 @@ class Normalizer:
         self.df_total: pd.DataFrame = pd.DataFrame()
         self.index: int = 0
 
+    def generate_hist_feature(self, filenames: list[Path]):
+        hist_feature = cast(pd.DataFrame, 0)
+        for file in filenames:
+            df = self.df_map[file]
+            hist_feature += df.loc[:, ["VWAP", "volume_range"]]
 
-    def generate_hist_feature(self):
-        if self.is_train:
-            res = pd.DataFrame()
-            hist_feature = cast(pd.DataFrame, 0)
-            for file in self.filenames:
-                df = pd.read_csv(file)
-                hist_feature += df.loc[:, ["VWAP", "volume_range"]]
-                res = pd.concat([df, res], axis=0, ignore_index=True)
+        hist_feature = hist_feature.rename(
+            columns={"VWAP": "VWAP_hist", "volume_range": "volume_range_hist"}
+        )
+        hist_feature /= len(self.filenames)
+        df_VWAP_original = hist_feature["VWAP_hist"].copy(deep=True)
+        df_VWAP_original = df_VWAP_original.rename("VWAP_hist_original")
+        hist_feature = (
+                               hist_feature - hist_feature.mean()
+                       ) / hist_feature.std()
+        self.hist_feature = pd.concat([hist_feature, df_VWAP_original], axis=1)
 
-            hist_feature = hist_feature.rename(
-                columns={"VWAP": "VWAP_hist", "volume_range": "volume_range_hist"}
-            )
-            hist_feature /= len(self.filenames)
-            df_VWAP_original = hist_feature["VWAP_hist"].copy(deep=True)
-            df_VWAP_original = df_VWAP_original.rename("VWAP_hist_original")
-            hist_feature = (
-                hist_feature - self.hist_feature.mean()
-            ) / hist_feature.std()
-            self.hist_feature = pd.concat([hist_feature, df_VWAP_original], axis=1)
-            self.df_origin = res
+    def get_past_files(self, file: Path, limit: int = 5):
+        idx = self.filenames.index(file)
+        if limit is not None:
+            if idx < limit:
+                return self.filenames[:idx]
+            else:
+                return self.filenames[idx - limit: idx]
+        else:
+            return self.filenames[:idx]
 
     def get_continuous_params(self):
         param_mean = self.df_origin[self.continuous_var].mean()
@@ -80,13 +88,13 @@ class Normalizer:
 
     def get_quantile(self, quantile: float):
         result = (
-            self.df_origin["ask_order_stale_0"].quantile(quantile)
-            + self.df_origin["ask_order_stale_1"].quantile(quantile)
-            + self.df_origin["ask_order_stale_2"].quantile(quantile)
-            + self.df_origin["bid_order_stale_0"].quantile(quantile)
-            + self.df_origin["bid_order_stale_1"].quantile(quantile)
-            + self.df_origin["bid_order_stale_2"].quantile(quantile)
-        ) / 6
+                         self.df_origin["ask_order_stale_0"].quantile(quantile)
+                         + self.df_origin["ask_order_stale_1"].quantile(quantile)
+                         + self.df_origin["ask_order_stale_2"].quantile(quantile)
+                         + self.df_origin["bid_order_stale_0"].quantile(quantile)
+                         + self.df_origin["bid_order_stale_1"].quantile(quantile)
+                         + self.df_origin["bid_order_stale_2"].quantile(quantile)
+                 ) / 6
         return result
 
     def get_dis_norm(self):
@@ -124,14 +132,15 @@ class Normalizer:
         df_consts = df[self.const_var]
         df_cont = self.to_continuous_normalize(df[self.continuous_var])
         df_dis = self.to_discrete_normalize(df[self.discrete_var])
-        self.df_normalized = pd.concat([df_consts, df_cont, df_dis, self.hist_feature], axis=1)
+        self.df_normalized = pd.concat(
+            [df_consts, df_cont, df_dis, self.hist_feature], axis=1
+        )
         return self.insert_columns(self.df_normalized)
 
     def initialize_output(
-        self, is_train: bool = True, output_path: Path = None, **kwargs
+            self, is_train: bool = True, output_path: Path = None, **kwargs
     ):
         self.is_train = is_train
-        self.generate_hist_feature()
         if self.is_train:
             self.get_continuous_params()
             self.get_dis_norm()
@@ -140,6 +149,10 @@ class Normalizer:
             if not output_path.exists():
                 output_path.mkdir(parents=True, exist_ok=True)
             for file in tqdm(self.filenames):
+                filenames = self.get_past_files(file, limit=5)
+                if len(filenames) == 0:
+                    continue
+                self.generate_hist_feature(filenames)
                 self.to_normalize(pd.read_csv(file)).to_csv(
                     output_path / ("norm_" + file.name), index=False
                 )
@@ -153,7 +166,7 @@ class Normalizer:
         return self.insert_columns(df_normalized_row)
 
     def normalize_by_time(
-        self, ob: OrderBook, update_time, rollback: int, write_filename
+            self, ob: OrderBook, update_time, rollback: int, write_filename
     ):
         writer = Writer(write_filename, None, rollback=rollback, bid_ask_num=10)
         columns = writer.columns
