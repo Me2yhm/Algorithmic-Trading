@@ -3,7 +3,7 @@ from abc import abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import TextIO, Iterator
-from .Schema import TimeType, PathType, OrderTick
+from Schema import TimeType, PathType, OrderTick
 
 
 class DataBase:
