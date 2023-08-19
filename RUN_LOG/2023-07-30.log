@@ -1,0 +1,28 @@
+2023-07-30 11:26:40.672 | INFO     | __main__:<module>:19 - ================Starting================
+2023-07-30 11:26:40.674 | INFO     | __main__:<module>:29 - Set device: cpu
+2023-07-30 11:26:40.686 | INFO     | __main__:<module>:32 - Set seed: 2333
+2023-07-30 11:26:40.686 | INFO     | log:train_log:35 - Epoch: 1/10, Step: 1/20,  Loss: 1.5, Acc: 0.65
+2023-07-30 11:26:40.686 | INFO     | log:train_log:35 - Epoch: 1/10, Step: 10/20,  Loss: 1.5, Acc: 0.65
+2023-07-30 11:26:40.686 | INFO     | log:eval_log:18 - ===========Evaluating Network===========
+2023-07-30 11:26:40.686 | INFO     | log:eval_log:19 - Test set: Epoch: 1, Current Accuracy: 0.5300
+2023-07-30 11:26:48.769 | INFO     | __main__:<module>:19 - ================Starting================
+2023-07-30 11:26:48.770 | INFO     | __main__:<module>:29 - Set device: cpu
+2023-07-30 11:26:48.773 | INFO     | __main__:<module>:32 - Set seed: 2333
+2023-07-30 11:26:48.774 | INFO     | log:train_log:35 - Epoch: 1/10, Step: 1/20,  Loss: 1.5, Acc: 0.65
+2023-07-30 11:26:48.775 | INFO     | log:train_log:35 - Epoch: 1/10, Step: 10/20,  Loss: 1.5, Acc: 0.65
+2023-07-30 11:26:48.776 | INFO     | log:eval_log:18 - ===========Evaluating Network===========
+2023-07-30 11:26:48.777 | INFO     | log:eval_log:19 - Test set: Epoch: 1, Current Accuracy: 0.5300
+2023-07-30 16:42:32.149 | INFO     | __main__:<module>:19 - ================Starting================
+2023-07-30 16:42:32.150 | INFO     | __main__:<module>:29 - Set device: cpu
+2023-07-30 16:42:32.169 | INFO     | __main__:<module>:32 - Set seed: 2333
+2023-07-30 16:42:32.170 | INFO     | log:train_log:35 - Epoch: 1/10, Step: 1/20,  Loss: 1.5, Acc: 0.65
+2023-07-30 16:42:32.171 | INFO     | log:train_log:35 - Epoch: 1/10, Step: 10/20,  Loss: 1.5, Acc: 0.65
+2023-07-30 16:42:32.172 | INFO     | log:eval_log:18 - ===========Evaluating Network===========
+2023-07-30 16:42:32.173 | INFO     | log:eval_log:19 - Test set: Epoch: 1, Current Accuracy: 0.5300
+2023-07-30 16:42:36.698 | INFO     | __main__:<module>:19 - ================Starting================
+2023-07-30 16:42:36.698 | INFO     | __main__:<module>:29 - Set device: cpu
+2023-07-30 16:42:36.703 | INFO     | __main__:<module>:32 - Set seed: 2333
+2023-07-30 16:42:36.704 | INFO     | log:train_log:35 - Epoch: 1/10, Step: 1/20,  Loss: 1.5, Acc: 0.65
+2023-07-30 16:42:36.705 | INFO     | log:train_log:35 - Epoch: 1/10, Step: 10/20,  Loss: 1.5, Acc: 0.65
+2023-07-30 16:42:36.706 | INFO     | log:eval_log:18 - ===========Evaluating Network===========
+2023-07-30 16:42:36.707 | INFO     | log:eval_log:19 - Test set: Epoch: 1, Current Accuracy: 0.5300

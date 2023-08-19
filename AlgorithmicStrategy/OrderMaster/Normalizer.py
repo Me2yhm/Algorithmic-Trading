@@ -56,7 +56,11 @@ class Normalizer:
         for file in filenames:
             df = self.df_map[file]
             hist_feature += df.loc[:, ["VWAP", "volume_range"]]
-
+        
+        volume_sum = hist_feature['volume_range'].sum()
+        df_volume_range_new = hist_feature['volume_range'].copy(deep=True)
+        df_volume_percentage = df_volume_range_new/volume_sum
+        df_volume_percentage = df_volume_percentage.rename('volume_percentage')
         hist_feature = hist_feature.rename(
             columns={"VWAP": "VWAP_hist", "volume_range": "volume_range_hist"}
         )
@@ -66,7 +70,7 @@ class Normalizer:
         hist_feature = (
                                hist_feature - hist_feature.mean()
                        ) / hist_feature.std()
-        self.hist_feature = pd.concat([hist_feature, df_VWAP_original], axis=1)
+        self.hist_feature = pd.concat([hist_feature, df_VWAP_original,df_volume_percentage], axis=1)
 
     def get_past_files(self, file: Path, limit: int = 5):
         idx = self.filenames.index(file)
