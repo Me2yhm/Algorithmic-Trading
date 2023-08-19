@@ -7,7 +7,6 @@ import random
 from log import logger
 import matplotlib.pyplot as plt
 from typing import Sequence, Union
-from collections import deque
 
 plt.style.use("seaborn-pastel")
 
@@ -21,7 +20,7 @@ def setup_seed(seed: int):
 
 
 def save_model(
-        model: nn.Module, optimizer: optim, epoch: int, loss: float, path: str, **kwargs
+    model: nn.Module, optimizer: optim, epoch: int, loss: float, path: str, **kwargs
 ):
     save_dict = {
         "epoch": epoch,
@@ -43,7 +42,7 @@ def save_model(
 
 
 def plotter(
-        x: Sequence, y: Sequence = None, ylabel: str = "", xlabel: str = "epochs", **kwargs
+    x: Sequence, y: Sequence = None, ylabel: str = "", xlabel: str = "epochs", **kwargs
 ):
     fontdict = kwargs.get("fontdict", {"fontsize": 20})
     plt.figure(figsize=(8, 6))
@@ -61,8 +60,8 @@ def plotter(
 
 
 def categorical(
-        labels: Union[np.ndarray, t.Tensor, list],
-        classes: Union[np.ndarray, t.Tensor, list, int] = None,
+    labels: Union[np.ndarray, t.Tensor, list],
+    classes: Union[np.ndarray, t.Tensor, list, int] = None,
 ):
     """
     :param labels: class vector to be converted into a matrix
@@ -89,44 +88,6 @@ def categorical(
     return one_hot_labels
 
 
-class LimitedQueue:
-    def __init__(self, max_size):
-        self.max_size = max_size
-        self.queue = deque()
-
-    @property
-    def size(self):
-        return len(self.queue)
-
-    def push(self, item):
-        if self.size >= self.max_size:
-            self.queue.popleft()  # 移除最老的元素
-        self.queue.append(item)
-
-    @property
-    def items(self):
-        return list(self.queue)
-
-
-
-
 if __name__ == "__main__":
     plotter(range(8), ylabel="acc", show=False, path="./PICS/test.png")
     print(categorical([1, 2, 3, 8]))
-
-    # 创建一个最大容量为5的LimitedQueue
-    my_queue = LimitedQueue(5)
-
-    # 添加数据到队列
-    my_queue.push(1)
-    my_queue.push(2)
-    my_queue.push(3)
-    my_queue.push(4)
-    my_queue.push(5)
-
-    # 打印当前队列中的数据
-    print(my_queue.items)  # 输出: [1, 2, 3, 4, 5]
-
-    # 添加新数据，会剔除最老的数据
-    my_queue.push(6)
-    print(my_queue.items)  # 输出: [2, 3, 4, 5, 6]
