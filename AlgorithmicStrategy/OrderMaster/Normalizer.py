@@ -1,5 +1,4 @@
 import json
-from collections import deque
 from pathlib import Path
 from typing import cast
 from tqdm import tqdm
@@ -8,26 +7,6 @@ import csv
 
 from .OrderBook import OrderBook
 from .Writer import Writer
-
-
-
-class LimitedQueue:
-    def __init__(self, max_size):
-        self.max_size = max_size
-        self.queue = deque()
-
-    @property
-    def size(self):
-        return len(self.queue)
-
-    def push(self, item):
-        if self.size >= self.max_size:
-            self.queue.popleft()  # 移除最老的元素
-        self.queue.append(item)
-
-    @property
-    def items(self):
-        return list(self.queue)
 
 
 class Normalizer:
