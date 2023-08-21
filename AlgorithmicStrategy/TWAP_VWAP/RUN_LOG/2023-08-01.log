@@ -1,9 +1,0 @@
-2023-08-01 17:15:05.185 | INFO     | __main__:main:13 - ================Starting================
-2023-08-01 17:15:05.185 | INFO     | __main__:main:17 - Reading dataset from D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML
-2023-08-01 17:15:05.185 | INFO     | __main__:main:22 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
-2023-08-01 17:15:06.986 | INFO     | __main__:main:25 - Set device: cuda:0
-2023-08-01 17:15:06.989 | INFO     | __main__:main:28 - Set seed: 2333
-2023-08-01 17:15:06.989 | INFO     | log:log_train:25 - Epoch: 1/10, Step: 1/20,  Loss: 1.5, Acc: 0.65
-2023-08-01 17:15:06.989 | INFO     | log:log_train:25 - Epoch: 1/10, Step: 10/20,  Loss: 1.5, Acc: 0.65
-2023-08-01 17:15:06.989 | INFO     | log:log_eval:16 - ===========Evaluating Network===========
-2023-08-01 17:15:06.990 | INFO     | log:log_eval:17 - Test set: Epoch: 1, Current Accuracy: 0.5300
