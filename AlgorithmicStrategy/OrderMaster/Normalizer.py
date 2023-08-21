@@ -72,7 +72,7 @@ class Normalizer:
         hist_feature = (
                                hist_feature - hist_feature.mean()
                        ) / hist_feature.std()
-        self.hist_feature = pd.concat([hist_feature, df_VWAP_original,df_volume_percentage], axis=1)
+        self.hist_feature = pd.concat([hist_feature, df_VWAP_original, df_volume_percentage], axis=1)
 
     def get_past_files(self, file: Path, limit: int = 5):
         idx = self.filenames.index(file)

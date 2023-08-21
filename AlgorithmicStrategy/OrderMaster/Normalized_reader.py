@@ -27,7 +27,8 @@ class Normalized_reader:
                 "trade_volume": None,
                 "trade_price": trade_price,
             }
-            self.inputs[trade_time] = input_df.iloc[limit - 100 : limit, :-3]
+            self.inputs[trade_time] = input_df.iloc[limit - 100 : limit, :-2]
+            return input_df.iloc[limit - 100 : limit, :-2]
 
         self.timestamp_list = list(self.inputs.keys())
         return self.inputs, self.trade_record

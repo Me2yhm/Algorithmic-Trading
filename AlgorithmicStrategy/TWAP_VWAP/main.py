@@ -5,7 +5,7 @@ from pathlib import Path
 
 import torch as t
 
-from AlgorithmicStrategy import DataSet, OrderBook, Writer
+from AlgorithmicStrategy import DataSet, OrderBook, Writer, Normalized_reader, Normalizer
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
 
@@ -51,11 +51,24 @@ if __name__ == "__main__":
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
-    tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"
-    tick = DataSet(data_path=tick_path, ticker="SZ")
-    ob = OrderBook(data_api=tick, decay_rate=5)
+    # normal_folder = Path.cwd() / "Example"
+    # normal_folder = Path('D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练')
 
-    until = None
-    ob.update(until=until)
-    w = Writer(filename='example.csv')
-    w.collect_data_order_book(ob)
+    original_folder = Path.cwd() / "DATA" / "KangYang" / "测试集3s"
+
+    nm = Normalizer(file_folder=original_folder)
+
+    nm.initialize_output(output_path=Path.cwd() / "Example")
+
+    # nr = Normalized_reader(normal_folder)
+
+    # print(nr.generate_inputs('0704').shape)
+
+    # tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"
+    # tick = DataSet(data_path=tick_path, ticker="SZ")
+    # ob = OrderBook(data_api=tick, decay_rate=5)
+
+    # until = None
+    # ob.update(until=until)
+    # w = Writer(filename='example.csv')
+    # w.collect_data_order_book(ob)
