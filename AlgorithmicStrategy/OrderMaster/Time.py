@@ -78,34 +78,3 @@ class SignalDeliverySimulator:
         data.sort(key=lambda x: x[1])
 
         return data
-
-    @property
-    def time_dict(self):
-        time_dict = {}
-        simulated_data = simulator.simulate_signal_delivery()
-        for entry in simulated_data:
-            timestamp = int(TimestampConverter.to_timestamp(entry[1]))
-            if 20230704113000000 <= timestamp <= 20230704130000000:
-                continue
-            if timestamp in time_dict:
-                time_dict[timestamp]["trade"] = time_dict[timestamp]["trade"] or (
-                    entry[0] == "trade"
-                )
-                time_dict[timestamp]["update"] = time_dict[timestamp]["update"] or (
-                    entry[0] == "update"
-                )
-            else:
-                time_dict[timestamp] = {
-                    "trade": (entry[0] == "trade"),
-                    "update": (entry[0] == "update"),
-                }
-
-
-if __name__ == "__main__":
-    start_timestamp = "20230704093000000"
-    end_timestamp = "20230704145700000"
-
-    simulator = SignalDeliverySimulator(start_timestamp, end_timestamp)
-    simulated_data = simulator.simulate_signal_delivery()
-
-    print(simulator.time_dict)

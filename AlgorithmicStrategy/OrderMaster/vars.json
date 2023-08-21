@@ -96,7 +96,6 @@
     ],
     "total_columns": [
         "timestamp",
-        "trade_price",
         "preclose_range",
         "open_range",
         "high_range",
@@ -274,7 +273,6 @@
         "passive_stale_avg_range_upper"
     ],
     "const_var": [
-        "timestamp",
-        "trade_price"
+        "timestamp"
     ]
 }

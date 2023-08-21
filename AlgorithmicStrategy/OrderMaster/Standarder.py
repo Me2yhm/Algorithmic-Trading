@@ -1,15 +1,10 @@
 import json
-from collections import deque
 from pathlib import Path
 from typing import cast, Union
-
+from datetime import datetime
 import numpy as np
-from tqdm import tqdm
 import pandas as pd
-import csv
-
-from .OrderBook import OrderBook
-from .Writer import Writer
+from tqdm import tqdm
 
 
 class Standarder:
@@ -37,7 +32,7 @@ class Standarder:
 
     def fresh_files(self):
         self.filenames: list[Path] = list(self.file_folder.glob("*.csv"))
-        self.filenames.sort(key=lambda x: int(x.stem.split("_")[-1]))
+        self.filenames.sort(key=lambda x: datetime.strptime(x.stem, "%Y-%m-%d"))
 
     def read_files(self):
         self.dfs: dict[Path, pd.DataFrame] = {
@@ -98,7 +93,7 @@ class Standarder:
 
         res = []
         for q in quantile:
-            res.append(np.quantile(tmp, q, axis=0).mean())
+            res.append(float(np.quantile(tmp, q, axis=0).mean()))
 
         return res
 
@@ -107,7 +102,7 @@ class Standarder:
         df_consts = data[self.const_var]
         df_cont = (data[self.continuous_var] - self.con_param_mean) / self.con_param_std
 
-        df_dis = data[self.const_var]
+        df_dis = data[self.discrete_var].copy()
         l1, l2, l3 = self.dis_param
         map_dict = {-1: "no_value", 0: "min", 1: "lower", 2: "upper", 3: "max"}
         df_dis[(df_dis < 0)] = -1
@@ -140,7 +135,7 @@ class Standarder:
                 df_normalized = self.transform(self.dfs[file])
                 if output is not None:
                     df_normalized.to_csv(
-                        output / ("norm_" + file.name), index=False
+                        output / file.name, index=False
                     )
         else:
             df_normalized = self.transform(datas)
