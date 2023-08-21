@@ -1,0 +1,18 @@
+2023-07-31 09:13:47.783 | INFO     | __main__:main:13 - ================Starting================
+2023-07-31 09:13:47.784 | INFO     | __main__:main:17 - Reading dataset from d:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\DATA\ML
+2023-07-31 09:13:47.786 | INFO     | __main__:main:22 - Saving model parameters to d:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-07-31 09:13:47.789 | INFO     | __main__:main:25 - Set device: cpu
+2023-07-31 09:13:47.804 | INFO     | __main__:main:28 - Set seed: 2333
+2023-07-31 09:13:47.805 | INFO     | log:log_train:25 - Epoch: 1/10, Step: 1/20,  Loss: 1.5, Acc: 0.65
+2023-07-31 09:13:47.806 | INFO     | log:log_train:25 - Epoch: 1/10, Step: 10/20,  Loss: 1.5, Acc: 0.65
+2023-07-31 09:13:47.808 | INFO     | log:log_eval:16 - ===========Evaluating Network===========
+2023-07-31 09:13:47.808 | INFO     | log:log_eval:17 - Test set: Epoch: 1, Current Accuracy: 0.5300
+2023-07-31 09:18:06.138 | INFO     | __main__:main:13 - ================Starting================
+2023-07-31 09:18:06.139 | INFO     | __main__:main:17 - Reading dataset from d:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\DATA\ML
+2023-07-31 09:18:06.140 | INFO     | __main__:main:22 - Saving model parameters to d:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-07-31 09:18:06.141 | INFO     | __main__:main:25 - Set device: cpu
+2023-07-31 09:18:06.145 | INFO     | __main__:main:28 - Set seed: 2333
+2023-07-31 09:18:06.146 | INFO     | log:log_train:25 - Epoch: 1/10, Step: 1/20,  Loss: 1.5, Acc: 0.65
+2023-07-31 09:18:06.147 | INFO     | log:log_train:25 - Epoch: 1/10, Step: 10/20,  Loss: 1.5, Acc: 0.65
+2023-07-31 09:18:06.148 | INFO     | log:log_eval:16 - ===========Evaluating Network===========
+2023-07-31 09:18:06.149 | INFO     | log:log_eval:17 - Test set: Epoch: 1, Current Accuracy: 0.5300
