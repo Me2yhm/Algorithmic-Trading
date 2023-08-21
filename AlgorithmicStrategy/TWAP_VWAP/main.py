@@ -11,6 +11,8 @@ from AlgorithmicStrategy import (
     Writer,
     Standarder,
     Trade_Update_time,
+    LimitedQueue
+
 )
 
 from log import logger, log_eval, log_train
@@ -59,7 +61,7 @@ if __name__ == "__main__":
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
-    tick_folder = Path.cwd() / "../datas/002703.SZ/tick/gtja/"
+    tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
     tick_files = list(tick_folder.glob("*.csv"))
 
     raw_data_folder = Path.cwd() / "RAW"
@@ -71,24 +73,30 @@ if __name__ == "__main__":
     """
     timer = Trade_Update_time(start_timestamp="093006000", end_timestamp="145700000")
     for tick_file in tqdm(tick_files):
+        lq = LimitedQueue(max_size=100)
         tick = DataSet(data_path=tick_file, ticker="SZ")
         ob = OrderBook(data_api=tick)
         writer = Writer(filename=raw_data_folder / tick_file.name)
         timer.get_trade_update_time()
-        print(len(timer.time_dict))
         signals = []
-        # for ts, action in timer.time_dict.items():
-        #     timestamp = int(ts) + tick.file_date_num
-        #     ob.update(until=timestamp)
-        #     if action['trade']:
-        #         pass
-        #
-        #     if action['update']:
-        #         newest_data = writer.collect_data_by_timestamp(
-        #             ob,
-        #             timestamp = timestamp,
-        #             timestamp_prev= writer.get_prev_timestamp(timestamp)
-        #         )
-        #         writer.csvwriter.writerow(newest_data)
-        #         # newest_data = pd.DataFrame([newest_data], columns=writer.columns)
+        for ts, action in timer.time_dict.items():
+            timestamp = int(ts) + tick.file_date_num
+            ob.update(until=timestamp)
+            if action['trade']:
+                pass
+
+            if action['update']:
+                newest_data = writer.collect_data_by_timestamp(
+                    ob,
+                    timestamp = timestamp,
+                    timestamp_prev= writer.get_prev_timestamp(timestamp)
+                )
+                writer.csvwriter.writerow(newest_data)
+                newest_data = pd.DataFrame([newest_data], columns=writer.columns)
+                lq.push(newest_data)
+
+            if lq.size == 100:
+                df = lq.to_df()
+                print(df.shape)
+                break
         break
