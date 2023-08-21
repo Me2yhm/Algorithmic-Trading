@@ -10,9 +10,8 @@ from AlgorithmicStrategy import (
     OrderBook,
     Writer,
     Standarder,
-    Trade_Update_time,
-    LimitedQueue
-
+    SignalDeliverySimulator,
+    LimitedQueue,
 )
 from tqdm import tqdm
 
@@ -23,23 +22,22 @@ raw_data_folder = Path.cwd() / "RAW"
 if not raw_data_folder.exists():
     raw_data_folder.mkdir(parents=True, exist_ok=True)
 
-timer = Trade_Update_time(start_timestamp="093006000", end_timestamp="145700000")
-timer.get_trade_update_time()
-for tick_file in tqdm(tick_files[1:]):
+
+for tick_file in tqdm(tick_files):
     tick = DataSet(data_path=tick_file, ticker="SZ")
+    begin_time = str(tick.file_date_num + 93000000)
+    end_time = str(tick.file_date_num + 145700000)
+    simulator = SignalDeliverySimulator(
+        start_timestamp=begin_time, end_timestamp=end_time
+    )
+    simulated_data = simulator.simulate_signal_delivery()
+
     writer = Writer(filename=raw_data_folder / tick_file.name)
     ob = OrderBook(data_api=tick)
     ob.update()
-    for ts, action in timer.time_dict.items():
-        print(ts)
-        timestamp = int(ts) + tick.file_date_num
-        try:
-            newest_data = writer.collect_data_by_timestamp(
-                ob,
-                timestamp=timestamp,
-                timestamp_prev=writer.get_prev_timestamp(timestamp)
-            )
-        except IndexError as ie:
-            print(timestamp)
-            raise ie
+    for ts, action in simulator.time_dict.items():
+        newest_data = writer.collect_data_by_timestamp(
+            ob, timestamp=ts, timestamp_prev=writer.get_prev_timestamp(ts)
+        )
+
         writer.csvwriter.writerow(newest_data)

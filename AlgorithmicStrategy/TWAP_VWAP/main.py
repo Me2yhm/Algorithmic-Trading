@@ -11,8 +11,7 @@ from AlgorithmicStrategy import (
     Writer,
     Standarder,
     Trade_Update_time,
-    LimitedQueue
-
+    LimitedQueue,
 )
 
 from log import logger, log_eval, log_train
@@ -82,14 +81,14 @@ if __name__ == "__main__":
         for ts, action in timer.time_dict.items():
             timestamp = int(ts) + tick.file_date_num
             ob.update(until=timestamp)
-            if action['trade']:
+            if action["trade"]:
                 pass
 
-            if action['update']:
+            if action["update"]:
                 newest_data = writer.collect_data_by_timestamp(
                     ob,
-                    timestamp = timestamp,
-                    timestamp_prev= writer.get_prev_timestamp(timestamp)
+                    timestamp=timestamp,
+                    timestamp_prev=writer.get_prev_timestamp(timestamp),
                 )
                 writer.csvwriter.writerow(newest_data)
                 newest_data = pd.DataFrame([newest_data], columns=writer.columns)
