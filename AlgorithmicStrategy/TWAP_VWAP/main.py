@@ -2,7 +2,6 @@ import argparse
 import warnings
 from argparse import ArgumentParser
 from pathlib import Path
-
 import pandas as pd
 import torch as t
 
@@ -13,6 +12,7 @@ from AlgorithmicStrategy import (
     Standarder,
     Trade_Update_time,
 )
+
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
 from tqdm import tqdm
@@ -66,11 +66,10 @@ if __name__ == "__main__":
     if not raw_data_folder.exists():
         raw_data_folder.mkdir(parents=True, exist_ok=True)
 
-
     """
     Scripts begin
     """
-    timer = Trade_Update_time(start_timestamp = "093006000", end_timestamp = "145700000")
+    timer = Trade_Update_time(start_timestamp="093006000", end_timestamp="145700000")
     for tick_file in tqdm(tick_files):
         tick = DataSet(data_path=tick_file, ticker="SZ")
         ob = OrderBook(data_api=tick)
