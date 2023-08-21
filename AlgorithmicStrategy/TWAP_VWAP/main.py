@@ -2,10 +2,13 @@ import argparse
 import warnings
 from argparse import ArgumentParser
 from pathlib import Path
+import pandas as pd
+import sys
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 import torch as t
 
-from AlgorithmicStrategy import DataSet, OrderBook, Writer, Normalized_reader, Normalizer
+from AlgorithmicStrategy import DataSet, OrderBook, Writer, Normalized_reader, Normalizer,LimitedQueue
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
 
@@ -54,11 +57,11 @@ if __name__ == "__main__":
     # normal_folder = Path.cwd() / "Example"
     # normal_folder = Path('D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练')
 
-    original_folder = Path.cwd() / "DATA" / "KangYang" / "测试集3s"
+    # original_folder = Path.cwd() / "DATA" / "KangYang" / "测试集3s"
 
-    nm = Normalizer(file_folder=original_folder)
+    # nm = Normalizer(file_folder=original_folder)
 
-    nm.initialize_output(output_path=Path.cwd() / "Example")
+    # nm.initialize_output(output_path=Path.cwd() / "Example")
 
     # nr = Normalized_reader(normal_folder)
 
@@ -72,3 +75,16 @@ if __name__ == "__main__":
     # ob.update(until=until)
     # w = Writer(filename='example.csv')
     # w.collect_data_order_book(ob)
+
+
+    lq = LimitedQueue(100)
+    df = pd.read_csv(r'D:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练集3s\000157_3s_0704.csv')
+    for i in range(105):
+        data = df.iloc[i,:]
+        lq.push(data)
+    matrix = lq.form_matrix()
+    print(matrix[:,0] == df.loc[5:104,'timestamp'])
+    # for i in range(1,100):
+    #     value1 = matrix[0,-1]
+    #     value2 = matrix[0,-2]
+    #     print(matrix[-i,0] > matrix[-i-1,0])
