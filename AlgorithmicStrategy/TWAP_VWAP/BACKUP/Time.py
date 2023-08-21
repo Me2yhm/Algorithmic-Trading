@@ -80,12 +80,15 @@ if __name__ == "__main__":
     Time_dict = {}
 
     for entry in simulated_data:
-        timestamp = TimestampConverter.to_timestamp(entry[1])
-        if "20230704113000000" <= timestamp <= "20230704130000000":
+        # timestamp = entry[1]
+        timestamp = int(TimestampConverter.to_timestamp(entry[1]))
+        if 20230704113000000 <= timestamp <= 20230704130000000:
             continue
         if timestamp in Time_dict:
             Time_dict[timestamp]["trade"] = Time_dict[timestamp]["trade"] or (entry[0] == "trade")
             Time_dict[timestamp]["update"] = Time_dict[timestamp]["update"] or (entry[0] == "update")
         else:
             Time_dict[timestamp] = {"trade": (entry[0] == "trade"), "update": (entry[0] == "update")}
+
+    print(Time_dict)
 
