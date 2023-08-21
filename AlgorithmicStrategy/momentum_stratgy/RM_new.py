@@ -160,11 +160,11 @@ class Ret():
         self.stream = Dic
         self.price_dict = dict() 
         self.dict = dict() #ret_dict
-    def _cal_price(self,i):
-        try:
-            self.price_dict[i] = self.stream.dic[i][0].ask1 + self.stream.dic[i][0].bid1 
-        except Exception as e:
-            self.price_dict[i] = None
+    # def _cal_price(self,i):
+    #     try:
+    #         self.price_dict[i] = self.stream.dic[i][0].ask1 + self.stream.dic[i][0].bid1 
+    #     except Exception as e:
+    #         self.price_dict[i] = None
     def cal_ret(self, i): #i为计算return的周期
         #计算收益率
         if i >= 0 and i in self.price_dict and i + 1 in self.price_dict and self.price_dict[i] != None and self.price_dict[i] !=0:
@@ -389,7 +389,18 @@ class Model_reverse(modelType):
         logged_timestamp: np.ndarray = np.array(timelist)
         search_timestamp = logged_timestamp[logged_timestamp <= query_stamp]
         return search_timestamp[-1]
-        
+    
+    def _cal_pricedict(self,price_dict_all,date_today,openqu) :
+        price_list = [0.0]*self.total_period
+        for i in range(self.TD.old_T_dict,self.TD.max_T_dict+1):
+            timestamp = int(list(self.TD.dic.keys())[i])*pd.Timedelta(microseconds=self.delta) + openqu #type:ignore
+            self.period_list[i] = int(timestamp.strftime('%Y%m%d%H%M%S%f')[:-3]) 
+            price_dict1 = price_dict_all[date_today]
+            price_dict = {time_int: price_dict1[time_int] for time_int in price_dict1.keys() if int(str(time_int)[8:]) >= 92400000}
+            closest_time = self._get_closest_time(self.period_list[i],list(price_dict.keys())) #获取此周期最近的盘口时间：int
+            price_list[i] = price_dict[closest_time] 
+            self.ret.price_dict[i] = price_list[i]  
+            
     #strategy的self.timestamp作为当前时间输入
     def model_update(self, ticks, price_dict_all: Dict[str, Dict[int, float]], timestamp:int):
         #先储存
@@ -410,15 +421,7 @@ class Model_reverse(modelType):
             # self._snapshot_store(one_snapshot)
             opentime = str(time_now.year)+str(time_now.month).zfill(2)+str(time_now.day).zfill(2)+'092500000'
             openqu = pd.to_datetime(opentime, format='%Y%m%d%H%M%S%f')
-            price_list = [0.0]*self.total_period
-            for i in range(self.TD.old_T_dict,self.TD.max_T_dict+1):
-                timestamp = int(list(self.TD.dic.keys())[i])*pd.Timedelta(microseconds=self.delta) + openqu #type:ignore
-                self.period_list[i] = int(timestamp.strftime('%Y%m%d%H%M%S%f')[:-3]) 
-                price_dict1 = price_dict_all[date_today]
-                price_dict = {time_int: price_dict1[time_int] for time_int in price_dict1.keys() if int(str(time_int)[8:]) >= 92400000}
-                closest_time = self._get_closest_time(self.period_list[i],list(price_dict.keys())) #获取此周期最近的盘口时间：int
-                price_list[i] = price_dict[closest_time] 
-                self.ret.price_dict[i] = price_list[i]
+            self._cal_pricedict(price_dict_all, date_today, openqu)
             # print(list(self.TD.dic.keys()))
             # print(self.TD.max_T_dict)
             # print(self.TD.old_T_dict)
@@ -439,6 +442,6 @@ class Model_reverse(modelType):
                 self._cal_factor1(i)
                 self._cal_factor2(i)
                 self._cal_hurst(i)
-                if i == 200 :
-                    breakpoint()
+                # if i == 200 :``
+                    # breakpoint()
         return {"factor1":self.factor1.factor1_dict,"factor2":self.factor2.factor2_dict,"hurst":self.hurst.hurst_dict}
