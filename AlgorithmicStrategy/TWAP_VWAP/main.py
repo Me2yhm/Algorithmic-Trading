@@ -3,11 +3,19 @@ import warnings
 from argparse import ArgumentParser
 from pathlib import Path
 
+import pandas as pd
 import torch as t
 
-from AlgorithmicStrategy import DataSet, OrderBook, Writer, Normalized_reader, Normalizer
+from AlgorithmicStrategy import (
+    DataSet,
+    OrderBook,
+    Writer,
+    Standarder,
+    Trade_Update_time,
+)
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
+from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
 
@@ -51,24 +59,37 @@ if __name__ == "__main__":
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
-    # normal_folder = Path.cwd() / "Example"
-    # normal_folder = Path('D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练')
+    tick_folder = Path.cwd() / "../datas/002703.SZ/tick/gtja/"
+    tick_files = list(tick_folder.glob("*.csv"))
 
-    original_folder = Path.cwd() / "DATA" / "KangYang" / "测试集3s"
+    raw_data_folder = Path.cwd() / "RAW"
+    if not raw_data_folder.exists():
+        raw_data_folder.mkdir(parents=True, exist_ok=True)
 
-    nm = Normalizer(file_folder=original_folder)
 
-    nm.initialize_output(output_path=Path.cwd() / "Example")
-
-    # nr = Normalized_reader(normal_folder)
-
-    # print(nr.generate_inputs('0704').shape)
-
-    # tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"
-    # tick = DataSet(data_path=tick_path, ticker="SZ")
-    # ob = OrderBook(data_api=tick, decay_rate=5)
-
-    # until = None
-    # ob.update(until=until)
-    # w = Writer(filename='example.csv')
-    # w.collect_data_order_book(ob)
+    """
+    Scripts begin
+    """
+    timer = Trade_Update_time(start_timestamp = "093006000", end_timestamp = "145700000")
+    for tick_file in tqdm(tick_files):
+        tick = DataSet(data_path=tick_file, ticker="SZ")
+        ob = OrderBook(data_api=tick)
+        writer = Writer(filename=raw_data_folder / tick_file.name)
+        timer.get_trade_update_time()
+        print(len(timer.time_dict))
+        signals = []
+        # for ts, action in timer.time_dict.items():
+        #     timestamp = int(ts) + tick.file_date_num
+        #     ob.update(until=timestamp)
+        #     if action['trade']:
+        #         pass
+        #
+        #     if action['update']:
+        #         newest_data = writer.collect_data_by_timestamp(
+        #             ob,
+        #             timestamp = timestamp,
+        #             timestamp_prev= writer.get_prev_timestamp(timestamp)
+        #         )
+        #         writer.csvwriter.writerow(newest_data)
+        #         # newest_data = pd.DataFrame([newest_data], columns=writer.columns)
+        break

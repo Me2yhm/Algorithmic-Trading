@@ -65,6 +65,7 @@ class Trade_Update_time:
         self.time_dict = {}
 
     def get_trade_update_time(self):
+        self.time_dict = {}
         for entry in self.simulated_data:
             timestamp = TimestampConverter.to_timestamp(entry[1])
             if timestamp in self.time_dict:
@@ -77,5 +78,5 @@ class Trade_Update_time:
 if __name__ == "__main__":
     trade_update_time = Trade_Update_time(start_timestamp = "093006000", end_timestamp = "145700000")
     trade_update_time.get_trade_update_time()
-    print(trade_update_time.time_dict['093000000'])
+    print(trade_update_time.time_dict)
 
