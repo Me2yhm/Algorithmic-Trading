@@ -4,12 +4,12 @@ from .modelType import modelType
 class AbstractStream():
     #抽象流式数据基类
     def __init__(self, stream) -> None:
-        self.Price = float
-        self.Qty = int
-        self.Amo = float
-        self.Time = pd.Timestamp
-        self.delta = int
-        self.T = int
+        self.Price : float
+        self.Qty : int
+        self.Amo : float
+        self.Time : pd.Timestamp
+        self.delta : int
+        self.T : int
     
 class Tick(AbstractStream):
     """tick数据流式传入一tick的信息
@@ -32,7 +32,7 @@ class Tick(AbstractStream):
         self.BSFlag = one_tick[9]
         self.BizIndex = one_tick[10]
         self.delta = int(delta)#时间切刀
-        self.T = int
+        self.T : int
         #pd.Timedelta((self.Time - pd.to_datetime(20230228092500000, format='%Y%m%d%H%M%S%f')), unit='microseconds')
         #这里要把时间全部转换成毫秒再相除
         #所属周期，这里必须需要转换成pd时间
@@ -41,15 +41,15 @@ class MktStream(AbstractStream):##接收公司的沪深300指数行情
     def __init__(self, mkt:dict, delta=50000) -> None:
         self.Price = mkt['f45']
         self.Time = mkt['f86']
-        self.delta = int
-        self.T = int
+        self.delta : int
+        self.T : int
 
 class T():#周期
     def __init__(self, one_stream:AbstractStream) -> None:
         self.stream = one_stream
-        self.start = pd.Timestamp
-        self.end = pd.Timestamp
-        self.period = int
+        self.start : pd.Timestamp
+        self.end : pd.Timestamp
+        self.period : int
     
     def cal_T(self):
         time = pd.to_datetime(self.stream.Time, format='%Y%m%d%H%M%S%f')
@@ -315,23 +315,27 @@ class UMRMonmentum(modelType):
         #1. 先要判断进来的stream是不是填满了这个周期，如果没填满就不开始计算
         if self.TD.max_T_dict == self.TD.old_T_dict or self.MktD.max_T_dict == self.MktD.old_T_dict:
             #此时这个周期的stream未必都来了
+            self._error()
             return 
         for i in range(self.TD.old_T_dict + 1, self.TD.max_T_dict + 1):
             #计算turnover不需要跳过任何周期，最先计算
             self._cal_turnover(i)
             #2. 判断是否满足计算收益率的周期数
             if self.TD.max_T_dict > 1:
+                self._error()
                 break
             #计算收益率
-            self._cal_mktret(i)
+            self._cal_mktret(i) 
             self._cal_stockret(i)
             #3. 判断是否满足计算风险系数的周期数
             if self.TD.max_T_dict < 50:
+                self._error()
                 break
             #计算风险系数
             self._cal_risk(i)
             #4. 判断是否满足计算时间权重的周期数
             if self.TD.max_T_dict < 80:
+                self._error()
                 break
             #计算umr
             self._cal_umr(i)
