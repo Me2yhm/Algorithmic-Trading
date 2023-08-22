@@ -74,8 +74,8 @@ class StreamDict():
     dic: dict[int,list]
     def __init__(self):
         self.dic = dict()
-        self.max_T_dict = 0#字典的最大周期
-        self.old_T_dict = 0#字典的老周期
+        self.max_T_dict : int#字典的最大周期
+        self.old_T_dict  : int#字典的老周期
     
     def append(self, one_stream:AbstractStream):
         """逻辑说明:

@@ -56,7 +56,7 @@ if __name__ == "__main__":
         print(ob.get_super_snapshot(10, 20230703103700130))
      
 
-    if 0:
+    if 1:
         ob.update(20230703093700130)
         #模块3 任意时刻成交单VWAP、成交量、成交单数、被动方新陈代谢
         print(ob.search_snapshot(20230703093700130)["total_trade"])
