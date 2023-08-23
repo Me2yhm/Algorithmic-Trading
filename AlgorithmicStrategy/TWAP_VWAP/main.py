@@ -2,7 +2,6 @@ import argparse
 import warnings
 from argparse import ArgumentParser
 from pathlib import Path
-
 import pandas as pd
 import torch as t
 
@@ -10,11 +9,15 @@ from AlgorithmicStrategy import (
     DataSet,
     OrderBook,
     Writer,
-    Normalized_reader,
-    Normalizer,
+    Standarder,
+    SignalDeliverySimulator,
+    TimestampConverter,
+    LimitedQueue,
 )
+
 from log import logger, log_eval, log_train
 from utils import setup_seed, plotter
+from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
 
@@ -54,46 +57,45 @@ if __name__ == "__main__":
     parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
     parser.add_argument("-e", "--epoch", type=int, default=10)
-    parser.add_argument(
-        "--train",
-        type=str,
-        default=Path(__file__).parent / "DATA" / "ML" / "000157" / "train",
-    )
-    parser.add_argument(
-        "--test",
-        type=str,
-        default=Path(__file__).parent / "DATA" / "ML" / "000157" / "test",
-    )
+    parser.add_argument("--dataset", type=str, default="./DATA/ML")
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
-    logger.info(f"Using training data: {args.train}")
-    logger.info(f"Using testing data: {args.test}")
-    original_folder = Path(r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练集3s")
-    # original_files = list(original_folder.glob("*.csv"))
-    # logger.info(pd.read_csv(original_files[0]).columns)
+    tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
+    tick_files = list(tick_folder.glob("*.csv"))
 
-    normer = Normalizer(
-        file_folder=original_folder
-    )
-    normer.initialize_output(output_path=Path('./Example'))
+    raw_data_folder = Path.cwd() / "RAW"
+    if not raw_data_folder.exists():
+        raw_data_folder.mkdir(parents=True, exist_ok=True)
 
-    norm_reader = Normalized_reader(file_folder=args.train)
+    """
+    Scripts begin
+    """
+    for tick_file in tqdm(tick_files):
+        lq = LimitedQueue(max_size=100)
+        tick = DataSet(data_path=tick_file, ticker="SZ")
+        ob = OrderBook(data_api=tick)
+        writer = Writer(filename=raw_data_folder / tick_file.name)
+        time_dict = {}
+        signals = []
+        for ts, action in time_dict.items():
+            timestamp = int(ts) + tick.file_date_num
+            ob.update(until=timestamp)
+            if action["trade"]:
+                pass
 
-    logger.info(norm_reader.dfs.keys())
-    inputs, trade_info = norm_reader.generate_inputs("0703")
-    logger.info(list(inputs.values())[0].shape)
+            if action["update"]:
+                newest_data = writer.collect_data_by_timestamp(
+                    ob,
+                    timestamp=timestamp,
+                    timestamp_prev=writer.get_prev_timestamp(timestamp),
+                )
+                writer.csvwriter.writerow(newest_data)
+                newest_data = pd.DataFrame([newest_data], columns=writer.columns)
+                lq.push(newest_data)
 
-    # tick_path = Path.cwd() / "../datas/002703.SZ/tick/gtja/2023-07-03.csv"
-    # tick = DataSet(data_path=tick_path, ticker="SZ")
-    # ob = OrderBook(data_api=tick, decay_rate=5)
-    #
-    # until = None
-    # ob.update(until=until)
-    # w = Writer(filename='example.csv')
-    # w.collect_data_order_book(ob)
-
-    # path = r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\归一化测试集3s\000157_3s_0726.csv"
-    # df = pd.read_csv(path)
-    # print(df.loc[1451, 'depth'])
-    # print(sum(df['depth'] > 0))
+            if lq.size == 100:
+                df = lq.to_df()
+                print(df.shape)
+                break
+        break

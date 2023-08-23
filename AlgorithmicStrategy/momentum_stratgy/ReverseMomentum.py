@@ -160,14 +160,14 @@ class Ret():
         self.stream = Dic
         self.price_dict = dict() 
         self.dict = dict() #ret_dict
-    def _cal_price(self,i):
-        try:
-            self.price_dict[i] = (self.stream.dic[i][0].ask1 + self.stream.dic[i][0].bid1 )/2
-        except Exception as e:
-            self.price_dict[i] = None
+    # def _cal_price(self,i):
+    #     try:
+    #         self.price_dict[i] = self.stream.dic[i][0].ask1 + self.stream.dic[i][0].bid1 
+    #     except Exception as e:
+    #         self.price_dict[i] = None
     def cal_ret(self, i): #i为计算return的周期
         #计算收益率
-        if i >= 0 and i in self.price_dict and i + 1 in self.price_dict and self.price_dict[i] != None:
+        if i >= 0 and i in self.price_dict and i + 1 in self.price_dict and self.price_dict[i] != None and self.price_dict[i] !=0:
             self.dict[i] = self.price_dict[i+1] / self.price_dict[i]
         else:
             self.dict[i] = None
@@ -224,7 +224,7 @@ class Hurst():
             self.stream = {x: ret_dict[x] for x in ret_dict if start_time <= x <= i} #ret_dict为ret的字典{int：float},截取周期长度为period
             ret_series = pd.Series(self.stream, index = list(self.stream.keys()))
             #计算第i期的hurst指数
-            RS = [0]*self.k #initialize R/S-index
+            RS = [0.0]*self.k #initialize R/S-index
             size_list = [0]*self.k
             for j in range(self.k):            
                 #第j种划分，即划分为2**j组
@@ -248,10 +248,14 @@ class Hurst():
                         series_delta = series.apply(lambda x: x-mean)
                         R = series_delta.max() - series_delta.min()
                         # breakpoint()
-                        RS[j] += R/std
-                        count +=1
-                    RS[j] = RS[j]/2**count
-                    #去掉RS的0值，对R/S值和k回归，取系数为hurst
+                        if std != 0:   
+                            RS[j] += R/std
+                            count +=1
+                    if count != 0:
+                        RS[j] = RS[j]/count
+                    else:
+                        RS[j] = 0
+            #去掉RS的0值，对R/S值和k回归，取系数为hurst
             RS_new = size_list_new = []
             for j in range(len(RS)):
                 if RS[j] !=0:
@@ -330,6 +334,8 @@ class Model_reverse(modelType):
         self.period_now : int
         self.period_start : pd.Timestamp
         self.period_end : pd.Timestamp
+        self.total_period = int(23700000000/self.delta)+1 #总周期数
+        self.period_list = [0]*self.total_period #周期列表
         
     def _error(self):
         #报错并跳过
@@ -352,19 +358,19 @@ class Model_reverse(modelType):
         #T_snapshot= T(one_Snapshot)#计算snapshot的周期
         # T_snapshot.cal_T()
         one_Snapshot.T = self.period_now
-        print("snapshot周期：",one_Snapshot.T)
+        # print("snapshot周期：",one_Snapshot.T)
         self.SD.append(one_Snapshot)#将价格添加到SD中
-        print("SDdic.keys:",self.SD.dic.keys())
+        # print("SDdic.keys:",self.SD.dic.keys())
     
     def _cal_turnover(self, i):
         self.TO.cal_turnover(self.whole, i)#计算这个周期的turnover
     
     def _cal_ret(self,i):
-        if i == 0: #计算第0个周期开始和结束的价格
-            self.ret._cal_price(0)
-            self.ret._cal_price(1)
-        else:
-            self.ret._cal_price(i+1) #计算这个周期结束（=下个周期开始）的价格
+        # if i == 0: #计算第0个周期开始和结束的价格
+        #     self.ret._cal_price(0)
+        #     self.ret._cal_price(1)
+        # else:
+        #     self.ret._cal_price(i+1) #计算这个周期结束（=下个周期开始）的价格
         self.ret.cal_ret(i) #计算这个周期的ret
         
     def _cal_info(self,i):
@@ -379,38 +385,56 @@ class Model_reverse(modelType):
     def _cal_factor2(self,i):
         self.factor2.cal_factor2(i,self.ret,self.info,self.delta2)
         
+    def _get_closest_time(self,query_stamp,timelist:list): 
+        logged_timestamp: np.ndarray = np.array(timelist)
+        search_timestamp = logged_timestamp[logged_timestamp <= query_stamp]
+        return search_timestamp[-1]
+    
+    def _cal_pricedict(self,price_dict_all,date_today,openqu) :
+        price_list = [0.0]*self.total_period
+        for i in range(self.TD.old_T_dict,self.TD.max_T_dict+1):
+            timestamp = int(list(self.TD.dic.keys())[i])*pd.Timedelta(microseconds=self.delta) + openqu #type:ignore
+            self.period_list[i] = int(timestamp.strftime('%Y%m%d%H%M%S%f')[:-3]) 
+            price_dict1 = price_dict_all[date_today]
+            price_dict = {time_int: price_dict1[time_int] for time_int in price_dict1.keys() if int(str(time_int)[8:]) >= 92400000}
+            closest_time = self._get_closest_time(self.period_list[i],list(price_dict.keys())) #获取此周期最近的盘口时间：int
+            price_list[i] = price_dict[closest_time] 
+            self.ret.price_dict[i] = price_list[i]  
+            
     #strategy的self.timestamp作为当前时间输入
-    def model_update(self, ticks, orderbook:OrderBook,timestamp:int):
+    def model_update(self, ticks, price_dict_all: Dict[str, Dict[int, float]], timestamp:int):
         #先储存
         #timestamp 17位int
         date_today = str(timestamp)[:4]+'-'+str(timestamp)[4:6]+'-'+str(timestamp)[6:8]
-        
         if int(str(timestamp)[8:]) >= 92500000: #跳过集合竞价期间的数据
-            
-            #time_now = pd.to_datetime(str(timestamp), format='%Y%m%d%H%M%S%f')
+            # print(price_dict_all)
+            # breakpoint()
+            # price_dict = price_dict_all[date_today]
+            time_now = pd.to_datetime(str(timestamp), format='%Y%m%d%H%M%S%f')
             tickdict = ticks[date_today] #到目前为止所有时刻的ticks
             tickdict_now = tickdict[timestamp]
             #0. 存入one_tick和one_snapshot
             for one_tick in tickdict_now:
                 self._tick_store(one_tick) #把一个时间戳的ticks一条条变为Tick对象存入TD 
             period_start_int = int(self.period_start.strftime('%Y%m%d%H%M%S%f')[:-3])
-            one_snapshot = orderbook.search_snapshot(period_start_int)
-            self._snapshot_store(one_snapshot) 
+            # one_snapshot = orderbook.search_snapshot(period_start_int)
+            # self._snapshot_store(one_snapshot)
+            opentime = str(time_now.year)+str(time_now.month).zfill(2)+str(time_now.day).zfill(2)+'092500000'
+            openqu = pd.to_datetime(opentime, format='%Y%m%d%H%M%S%f')
+            self._cal_pricedict(price_dict_all, date_today, openqu)
             # print(list(self.TD.dic.keys()))
-            print(self.TD.max_T_dict)
+            # print(self.TD.max_T_dict)
             # print(self.TD.old_T_dict)
             #1. 先要判断进来的stream是不是填满了这个周期，如果没填满就不开始计算    
             if self.TD.max_T_dict == self.TD.old_T_dict :
-                logging.info("didn't come to new period")
-                logging.info(f"print period{self.TD.max_T_dict}")
+                # logging.info("didn't come to new period")
+                # logging.info(f"print period{self.TD.max_T_dict}")
                 # breakpoint()
                 #此时这个周期的stream未必都来了
                 return
             for i in range(self.TD.old_T_dict, self.TD.max_T_dict):
-                logging.info(f"come to new period{i}")
+                # logging.info(f"come to new period{i}")
                 #计算各指标
-                if i == 30:
-                    breakpoint()
                 self._cal_turnover(i)  
                 self._cal_ret(i)
                 self._cal_info(i)
@@ -418,5 +442,6 @@ class Model_reverse(modelType):
                 self._cal_factor1(i)
                 self._cal_factor2(i)
                 self._cal_hurst(i)
-                
+                # if i == 200 :``
+                    # breakpoint()
         return {"factor1":self.factor1.factor1_dict,"factor2":self.factor2.factor2_dict,"hurst":self.hurst.hurst_dict}

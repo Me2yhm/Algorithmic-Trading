@@ -41,7 +41,7 @@ class AlgorithmicStrategy(ABC):
                 \possession类似字典
                 \其中cost是总的交易成本,考虑手续费;
                 \ averagePrice是股票总金额除以总量(不包含手续费)
-    signals: \记录每日交易信号, 一个字典,键为日期,值为signal类组成的列表:{date:[signal]}
+    signal: \记录每日交易信号, 一个字典,键为日期,值为signal类组成的列表:{date:[signal]}
             \signal类是一次交易信号,组成的列表代表一天的交易信号
             \signal类似字典,键名含义如下
             \symbol为股票代码, direction表示买入或者卖出: ["B"/"S"],
@@ -57,7 +57,7 @@ class AlgorithmicStrategy(ABC):
     """
 
     orderbook: OrderBook
-    ticks: Dict[str, Dict[int, List[OrderTick]]]
+    ticks: Dict[str, Dict[int,List[OrderTick]]]
     signals: Dict[str, List[signal]]
     _timeStamp: int
     _date: str
@@ -101,14 +101,14 @@ class AlgorithmicStrategy(ABC):
         self.lines = []
 
     @property
-    def date(self) -> str:
+    def date(self):
         """
         获得当前日期
         """
         return self._date
 
     @date.setter
-    def date(self, newdate: str) -> None:
+    def date(self, newdate):
         """
         允许对self.date赋值,且当日期更改之后,self.newday变为True
         """
@@ -119,14 +119,14 @@ class AlgorithmicStrategy(ABC):
             self.newday = False
 
     @property
-    def timeStamp(self) -> int:
+    def timeStamp(self):
         """
         获得当前时间戳
         """
         return self._timeStamp
 
     @timeStamp.setter
-    def timeStamp(self, new_timeStamp: int) -> None:
+    def timeStamp(self, new_timeStamp):
         """
         允许对self.date赋值,且当日期更改之后,self.newday变为True
         """
@@ -136,15 +136,14 @@ class AlgorithmicStrategy(ABC):
         else:
             self.new_timeStamp = False
 
-    # 记录历史成交价
-    def record_price(self, lines: List[OrderTick]) -> None:
+    def record_price(self, lines: List[OrderTick]):
         for line in lines:
             if line["oid"] == 0 and (line["oidb"] != 0) and (line["oids"] != 0):
                 self.current_price = line["price"]
-        if self.newday:
-            self.price_list[self.date] = {self.timeStamp: self.current_price}
-        else:
-            self.price_list[self.date][self.timeStamp] = self.current_price
+                if self.newday:
+                    self.price_list[self.date] = {self.timeStamp: self.current_price}
+                else:
+                    self.price_list[self.date][self.timeStamp] = self.current_price
 
     # 存在一个问题, 当前的处理逻辑可能导致最后10ms的tick数据无法被撮合到盘口
     def update_orderbook(self, lines: List[OrderTick]) -> None:
@@ -159,13 +158,13 @@ class AlgorithmicStrategy(ABC):
         self.date = get_date(self.timeStamp)
         self.record_price(lines)
         if self.newday:
-            self.ticks[self.date] = {self.timeStamp: lines}
+            self.ticks[self.date] = {self.timeStamp:lines}
         else:
             if self.new_timeStamp:
-                self.ticks[self.date][self.timeStamp] = lines
+                self.ticks[self.date][self.timeStamp]=lines
             else:
                 self.ticks[self.date][self.timeStamp].extend(lines)
-
+        
         if self.new_timeStamp:  # 为了确保将同一timestamp下的所有数据传入再更新订单簿
             if not self.lines:
                 self.lines.extend(lines)
@@ -214,43 +213,3 @@ class AlgorithmicStrategy(ABC):
         根据更新过后的signal, 更新成交记录和持仓记录, 更新策略的评价结果
         动量是胜率、赔率, VWAP是成交成本与实际VWAP的差
         """
-
-    def update_deal(self) -> None:
-        if self.newday:
-            self.deals[self.date] = [self.signals[self.date][-1]]
-        else:
-            self.deals[self.date].append(self.signals[self.date][-1])
-
-    def update_poccession(self) -> None:
-        deal = self.deals[self.date][-1]
-        money = deal["volume"] * deal["price"]
-        buy_commission = self.buy_cost * money
-        sell_commission = self.sell_cost * money
-
-        if self.newday:
-            single_possession: possession = {
-                "code": deal["symbol"],
-                "averagePrice": 0.0,
-                "cost": 0.0,
-                "volume": 0,
-            }
-            self.possessions[self.date] = single_possession
-            total = 0
-        else:
-            total = (
-                self.possessions[self.date]["volume"]
-                * self.possessions[self.date]["averagePrice"]
-            )
-
-        if deal["direction"] == "B":
-            self.possessions[self.date]["volume"] += deal["volume"]
-            self.possessions[self.date]["cost"] += money + buy_commission
-            self.possessions[self.date]["averagePrice"] = (
-                total + money
-            ) / self.possessions[self.date]["volume"]
-        else:
-            self.possessions[self.date]["volume"] -= deal["volume"]
-            self.possessions[self.date]["cost"] -= money - sell_commission
-            self.possessions[self.date]["averagePrice"] = (
-                total - money
-            ) / self.possessions[self.date]["volume"]

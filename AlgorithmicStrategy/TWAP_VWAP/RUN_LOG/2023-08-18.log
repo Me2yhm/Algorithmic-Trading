@@ -1,0 +1,106 @@
+2023-08-18 13:47:16.874 | INFO     | __main__:<module>:60 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\train
+2023-08-18 13:47:16.874 | INFO     | __main__:<module>:61 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\test
+2023-08-18 13:47:16.874 | INFO     | __main__:<module>:65 - dict_keys([])
+2023-08-18 13:48:31.807 | INFO     | __main__:<module>:64 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\000157\DATA\ML\train
+2023-08-18 13:48:31.808 | INFO     | __main__:<module>:65 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\000157\DATA\ML\test
+2023-08-18 13:48:31.809 | INFO     | __main__:<module>:69 - dict_keys([])
+2023-08-18 13:49:26.684 | INFO     | __main__:<module>:64 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 13:49:26.685 | INFO     | __main__:<module>:65 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 13:49:27.970 | INFO     | __main__:<module>:69 - dict_keys(['D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0703.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0704.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0705.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0706.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0707.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0710.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0711.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0712.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0713.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0714.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0717.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0718.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0719.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0720.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0721.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0724.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\norm000157_3s_0725.csv'])
+2023-08-18 13:56:42.333 | INFO     | __main__:<module>:64 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 13:56:42.333 | INFO     | __main__:<module>:65 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 13:56:43.539 | INFO     | __main__:<module>:69 - dict_keys(['D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0703.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0704.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0705.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0706.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0707.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0710.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0711.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0712.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0713.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0714.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0717.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0718.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0719.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0720.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0721.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0724.csv', 'D:\\Fudan\\Work\\JoyE_work\\AlgorithmicStrategy\\AlgorithmicStrategy\\TWAP_VWAP\\DATA\\ML\\000157\\train\\000157_3s_0725.csv'])
+2023-08-18 13:59:04.823 | INFO     | __main__:<module>:64 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 13:59:04.824 | INFO     | __main__:<module>:65 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 13:59:15.525 | INFO     | __main__:<module>:64 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 13:59:15.525 | INFO     | __main__:<module>:65 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 13:59:16.745 | INFO     | __main__:<module>:69 - dict_keys(['0703', '0704', '0705', '0706', '0707', '0710', '0711', '0712', '0713', '0714', '0717', '0718', '0719', '0720', '0721', '0724', '0725'])
+2023-08-18 14:05:04.780 | INFO     | __main__:<module>:64 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 14:05:04.780 | INFO     | __main__:<module>:65 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 14:05:05.974 | INFO     | __main__:<module>:69 - dict_keys(['0703', '0704', '0705', '0706', '0707', '0710', '0711', '0712', '0713', '0714', '0717', '0718', '0719', '0720', '0721', '0724', '0725'])
+2023-08-18 14:05:30.738 | INFO     | __main__:<module>:64 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 14:05:30.738 | INFO     | __main__:<module>:65 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 14:05:31.915 | INFO     | __main__:<module>:69 - dict_keys(['0703', '0704', '0705', '0706', '0707', '0710', '0711', '0712', '0713', '0714', '0717', '0718', '0719', '0720', '0721', '0724', '0725'])
+2023-08-18 14:05:32.161 | INFO     | __main__:<module>:71 - (101, 179)
+2023-08-18 14:06:19.556 | INFO     | __main__:<module>:64 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 14:06:19.557 | INFO     | __main__:<module>:65 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 14:06:20.845 | INFO     | __main__:<module>:69 - dict_keys(['0703', '0704', '0705', '0706', '0707', '0710', '0711', '0712', '0713', '0714', '0717', '0718', '0719', '0720', '0721', '0724', '0725'])
+2023-08-18 14:06:21.100 | INFO     | __main__:<module>:71 - (100, 179)
+2023-08-18 15:08:38.468 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:08:38.468 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:10:19.841 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:10:19.841 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:13:33.717 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:13:33.717 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:14:30.363 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:14:30.363 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:14:36.847 | INFO     | __main__:<module>:80 - dict_keys(['0703', '0704', '0705', '0706', '0707', '0710', '0711', '0712', '0713', '0714', '0717', '0718', '0719', '0720', '0721', '0724', '0725'])
+2023-08-18 15:14:37.093 | INFO     | __main__:<module>:82 - (100, 179)
+2023-08-18 15:17:06.759 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:17:06.759 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:17:24.519 | INFO     | __main__:<module>:80 - dict_keys(['0703', '0704', '0705', '0706', '0707', '0710', '0711', '0712', '0713', '0714', '0717', '0718', '0719', '0720', '0721', '0724', '0725'])
+2023-08-18 15:17:24.774 | INFO     | __main__:<module>:82 - (100, 179)
+2023-08-18 15:42:27.934 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:42:27.936 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:45:56.220 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:45:56.220 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:45:56.256 | INFO     | __main__:<module>:74 - Index(['timestamp', 'trade_price', 'preclose', 'open', 'high', 'low', 'close',
+       'preclose_range', 'open_range', 'high_range',
+       ...
+       'passive_num', 'passive_stale_total', 'order_num_range', 'volume_range',
+       'VWAP_range', 'amount_range', 'passive_num_range',
+       'passive_stale_total_range', 'passive_stale_avg_range', 'depth'],
+      dtype='object', length=106)
+2023-08-18 15:47:45.245 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:47:45.245 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:47:45.284 | INFO     | __main__:<module>:74 - Index(['timestamp', 'trade_price', 'preclose', 'open', 'high', 'low', 'close',
+       'preclose_range', 'open_range', 'high_range',
+       ...
+       'passive_num', 'passive_stale_total', 'order_num_range', 'volume_range',
+       'VWAP_range', 'amount_range', 'passive_num_range',
+       'passive_stale_total_range', 'passive_stale_avg_range', 'depth'],
+      dtype='object', length=106)
+2023-08-18 15:49:12.519 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:49:12.519 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 15:49:22.016 | INFO     | __main__:<module>:83 - dict_keys(['0703', '0704', '0705', '0706', '0707', '0710', '0711', '0712', '0713', '0714', '0717', '0718', '0719', '0720', '0721', '0724', '0725'])
+2023-08-18 15:49:22.274 | INFO     | __main__:<module>:85 - (100, 179)
+2023-08-18 15:59:33.181 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 15:59:33.181 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:02:55.869 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:02:55.869 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:03:28.276 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:03:28.277 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:03:37.361 | INFO     | __main__:<module>:83 - dict_keys(['0703', '0704', '0705', '0706', '0707', '0710', '0711', '0712', '0713', '0714', '0717', '0718', '0719', '0720', '0721', '0724', '0725'])
+2023-08-18 16:03:37.607 | INFO     | __main__:<module>:85 - (100, 179)
+2023-08-18 16:09:08.965 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:09:08.966 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:09:41.270 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:09:41.270 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:09:43.343 | INFO     | __main__:<module>:85 - (99, 177)
+2023-08-18 16:11:01.359 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:11:01.359 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:11:03.324 | INFO     | __main__:<module>:85 - (100, 177)
+2023-08-18 16:19:57.479 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:19:57.480 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:19:57.481 | INFO     | __main__:<module>:79 - []
+2023-08-18 16:20:10.456 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:20:10.457 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:20:10.458 | INFO     | __main__:<module>:79 - [WindowsPath('D:/Fudan/Work/JoyE_work/AlgorithmicStrategy/AlgorithmicStrategy/TWAP_VWAP/DATA/KangYang/训练集3s/000157_3s_0703.csv')]
+2023-08-18 16:20:29.362 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:20:29.362 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:20:29.363 | INFO     | __main__:<module>:79 - 3
+2023-08-18 16:20:36.606 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:20:36.606 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:20:36.607 | INFO     | __main__:<module>:79 - 5
+2023-08-18 16:25:03.857 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:25:03.858 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:25:03.859 | INFO     | __main__:<module>:79 - 5
+2023-08-18 16:25:30.685 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:25:30.685 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:25:30.686 | INFO     | __main__:<module>:79 - 5
+2023-08-18 16:32:37.153 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:32:37.154 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:33:33.246 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:33:33.246 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test
+2023-08-18 16:34:02.986 | INFO     | __main__:<module>:70 - Using training data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\train
+2023-08-18 16:34:02.987 | INFO     | __main__:<module>:71 - Using testing data: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\DATA\ML\000157\test

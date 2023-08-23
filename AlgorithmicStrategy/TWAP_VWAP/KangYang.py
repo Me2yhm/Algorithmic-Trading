@@ -1,12 +1,14 @@
 
 import warnings
 from pathlib import Path
-
+import sys
+sys.path.append(str(Path(__file__).parent.parent.parent))
 from AlgorithmicStrategy import (
     DataSet,
     OrderBook,
     Writer,
     Normalized_reader,
+    Normalizer
 )
 
 warnings.filterwarnings("ignore")
@@ -94,10 +96,10 @@ if __name__ == "__main__":
 
     if 0:
         # Normalizer功能测试
-        file_path_train = "C:/Users/14913/Documents/GitHub/Algorithmic-Trading/AlgorithmicStrategy/Orderbook1/训练集3s/"
-        file_path_test = "C:/Users/14913/Documents/GitHub/Algorithmic-Trading/AlgorithmicStrategy/Orderbook1/测试集3s/"
-        output_path_train = "C:/Users/14913/Documents/GitHub/Algorithmic-Trading/AlgorithmicStrategy/Orderbook1/归一化训练集3s/"
-        output_path_test = "C:/Users/14913/Documents/GitHub/Algorithmic-Trading/AlgorithmicStrategy/Orderbook1/归一化测试集3s/"
+        file_path_train = Path(r"D:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练集3s")
+        file_path_test = Path(r"D:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\测试集3s")
+        output_path_train = Path(r"D:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练")
+        output_path_test = Path(r"D:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\测试")
         Normalizer_002703 = Normalizer(file_path_train)
         Normalizer_002703.initialize_output(
             is_train=True, output_path=output_path_train, output=True
@@ -165,9 +167,10 @@ if __name__ == "__main__":
 
     if 1:
         # Normalized_reader 功能测试
-        path_train = r"D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\Orderbook1\归一化训练集3s\\"
+        path_train = Path(r"D:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\DATA\KangYang\训练")
         Normalized_reader_000157 = Normalized_reader(path_train)
-        normalized_000157_0703 = Normalized_reader_000157.filenames[0]
+        normalized_000157_0703 = Normalized_reader_000157.filenames[0].stem.split("_")[-1]
+        print(normalized_000157_0703)
         Normalized_reader_000157.generate_inputs(normalized_000157_0703)
         timestamplist = Normalized_reader_000157.timestamp_list
         print(Normalized_reader_000157.trade_record[timestamplist[0]])
