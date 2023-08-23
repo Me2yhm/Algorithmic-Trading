@@ -64,9 +64,9 @@ if __name__ == "__main__":
     tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
     tick_files = list(tick_folder.glob("*.csv"))
 
-    raw_data_folder = Path.cwd() / "RAW"
-    if not raw_data_folder.exists():
-        raw_data_folder.mkdir(parents=True, exist_ok=True)
+    raw_data_folder = Path.cwd() / "DATA/ML/RAW"
+    norm_data_folder = Path.cwd() / "DATA/ML/NORM"
+    label_data_folder = Path.cwd() / "DATA/ML/LABEL"
 
     """
     Scripts begin

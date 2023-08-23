@@ -2,6 +2,7 @@ import datetime
 from functools import cached_property
 from typing import Union
 
+import pandas as pd
 import torch as t
 from torch.utils.data import Dataset
 import numpy as np
@@ -16,43 +17,36 @@ class FileFea(NamedTuple):
     date: datetime
 
 
+# def filename_parser(filename: str):
+#     file_fea = filename.split('_')
+#     code = file_fea[0]
+#     rollback = int(file_fea[1].strip('s'))
+#     date = datetime.today().year * 100_00 + int(file_fea[2])
+#     date = datetime.strptime(str(date), '%Y%m%d')
+#     return FileFea(code=code, rollback=rollback, date=date)
+
 def filename_parser(filename: str):
-    file_fea = filename.split('_')
-    code = file_fea[0]
-    rollback = int(file_fea[1].strip('s'))
-    date = datetime.today().year * 100_00 + int(file_fea[2])
-    date = datetime.strptime(str(date), '%Y%m%d')
-    return FileFea(code=code, rollback=rollback, date=date)
-
-
+    return datetime.strptime(filename, '%Y-%m-%d')
 def get_all_files(datafolder: Path):
     datafiles = list(datafolder.glob("*.csv"))
-    datafiles = sorted(datafiles, key=lambda x: filename_parser(x.stem).date)
+    datafiles = sorted(datafiles, key=lambda x: filename_parser(x.stem))
     return datafiles
 
 
-class JoyeLOB(Dataset):
-    def __init__(self, filepath: Union[str, Path], window: int):
-        self.raw = np.loadtxt(filepath, skiprows=1, delimiter=",")
-        self.window = window
+class JoyeLOB():
+    def __init__(self, window: int):
 
-    @cached_property
-    def length(self):
-        return len(self.raw)
+        self.datas: dict[Path, np.ndarray] = {}
+        self.data: np.ndarray = None
+        self.window: int = window
 
-    @cached_property
-    def max_index(self):
-        return self.length - self.window
-
-    def __len__(self):
-        return self.length - self.window + 1
+    def push(self, file:Path):
+        self.datas[file] = np.loadtxt(file, delimiter=',', skiprows=1)
 
     def __getitem__(self, index):
-        lob_data = self.raw[index: index + self.window]
-        return lob_data
+        return self.datas.get(index, None)
 
 
-datafolder = Path(__file__).parents[1] / "DATA" / "ML"
-datafiles = get_all_files(datafolder)
-lob = JoyeLOB(datafiles[1], window=100)
-print(lob[lob.max_index].shape)
+
+if __name__ == '__main__':
+    pass

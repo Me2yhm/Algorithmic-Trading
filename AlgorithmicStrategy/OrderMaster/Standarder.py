@@ -66,6 +66,7 @@ class Standarder:
         hist_feature /= len(self.filenames)
 
         hist_feature = (hist_feature - hist_feature.mean()) / hist_feature.std()
+        hist_feature["volume_range_hist"] = hist_feature["volume_range_hist"]
         self.hist_feature = hist_feature
         self.df_volume_percentage = df_volume_percentage
         self.hist_df = pd.concat(
