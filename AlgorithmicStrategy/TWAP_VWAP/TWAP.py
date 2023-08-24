@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent))
+from typing import Literal
 
 from AlgorithmicStrategy import AlgorithmicStrategy,TradeTime,DataSet,OrderBook
 
@@ -12,7 +13,7 @@ class TWAP(AlgorithmicStrategy):
                  trade_num: float,
                  trade_volume: float,
                  symbol: str, #股票代码
-                 direction: str, #买卖方向
+                 direction: Literal['BUY','SELL'], #买卖方向
                  commision: float = 0.00015, 
                  stamp_duty: float = 0.001, 
                  transfer_fee: float = 0.00002, 
@@ -48,7 +49,10 @@ class TWAP(AlgorithmicStrategy):
             if ts == self.timeStamp and action['trade']:
                 self.ts_list.append(ts)
                 self.ob.update(ts)
-                price = list(self.ob.search_snapshot(ts)['ask'].keys())[0]
+                if self.signal['direction'] == 'BUY':
+                    price = list(self.ob.search_snapshot(ts)['ask'].keys())[0]
+                else:
+                    price = list(self.ob.search_snapshot(ts)['bid'].keys())[0]
                 self.signal['price'] = price
                 self.volume_traded += self.signal['volume']
                 self.money_traded += price*self.signal['volume']
