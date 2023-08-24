@@ -6,9 +6,9 @@ import csv
 from tqdm import tqdm
 from collections import OrderedDict
 
-tick_folder = Path(r'D:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\datas\000157.SZ\tick\gtja')
+tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
 tick_files = list(tick_folder.glob("*.csv"))
-csv_folder = Path(r'D:\算法交易\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\LittleOB')
+csv_folder = Path.cwd() / "DATA/ML/LittleOB"
 if not csv_folder.exists():
     csv_folder.mkdir(parents=True, exist_ok=True)
 little_ob = OrderedDict()

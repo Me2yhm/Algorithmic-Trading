@@ -53,6 +53,8 @@ class Attention(nn.Module):
         )
 
     def forward(self, x: Tensor):
+        # if len(x.shape) == 2:
+        #     x = t.unsqueeze(x, 0)
         b, n, _, h = *x.shape, self.heads
         # 在给定维度(轴)上将输入张量进行分块, 此处为在最后一维上分成三部分
         qkv = self.to_qkv(x).chunk(3, dim=-1)
@@ -138,25 +140,32 @@ class OCET(nn.Module):
             nn.Conv2d(in_channels=2, out_channels=4, kernel_size=(1, 2), stride=(1, 2)),
             nn.LeakyReLU(negative_slope=0.01),
             nn.BatchNorm2d(4),
-            nn.Conv2d(in_channels=4, out_channels=40, kernel_size=(1, 10)),
+            nn.Conv2d(in_channels=4, out_channels=8, kernel_size=(1, 2), stride=(1, 2)),
+            nn.LeakyReLU(negative_slope=0.01),
+            nn.BatchNorm2d(8),
+            nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(1, 3), stride=(1, 2)),
+            nn.LeakyReLU(negative_slope=0.01),
+            nn.BatchNorm2d(16),
+            nn.Conv2d(in_channels=16, out_channels=40, kernel_size=(1, 10)),
             nn.LeakyReLU(negative_slope=0.01),
             nn.BatchNorm2d(40),
         )
 
         self.transformer = Transformer(dim, depth, heads, dim_head, mlp_dim, dropout)
         self.fc = nn.Linear(dim, num_classes)
+        self.sigmoid = nn.Sigmoid()
 
     def forward(self, x: Tensor) -> Tensor:
         res = x + self.oce(x)
-
         res = self.conv1(res)
         # 默认去除所有维度为1的dimension
-        res = t.squeeze(res)
-
+        res = t.squeeze(res, dim = -1)
         res = self.transformer(res)
         # get the cls token
         res = res[:, 0]
 
         res = self.fc(res)
+
+        # res = self.sigmoid(res)
 
         return res

@@ -66,7 +66,7 @@ class Standarder:
         hist_feature /= len(self.filenames)
 
         hist_feature = (hist_feature - hist_feature.mean()) / hist_feature.std()
-        hist_feature["volume_range_hist"] = hist_feature["volume_range_hist"]
+        hist_feature["volume_percentage"] = df_volume_percentage["volume_percentage"]
         self.hist_feature = hist_feature
         self.df_volume_percentage = df_volume_percentage
         self.hist_df = pd.concat(
@@ -101,6 +101,10 @@ class Standarder:
         return res
 
     def transform(self, data: pd.DataFrame):
+
+        df_volume = data[['volume_range']].copy()
+        df_volume['volume_range'] /= df_volume['volume_range'].sum()
+        df_volume = df_volume.rename(columns={"volume_range": "volume_percent_today"})
         df_consts = data[self.const_var]
         df_cont = (data[self.continuous_var] - self.con_param_mean) / self.con_param_std
 
@@ -115,9 +119,16 @@ class Standarder:
         df_dis = df_dis.replace(map_dict)
         df_dis = pd.get_dummies(df_dis, columns=df_dis.columns, dtype=int)
         df_normalized = pd.concat(
-            [df_consts, df_cont, df_dis, self.hist_feature], axis=1
+            [df_consts, df_cont, df_dis, self.hist_feature, df_volume], axis=1
         )
-        return df_normalized
+        return self.insert_columns(df_normalized)
+
+    def insert_columns(self, df: pd.DataFrame):
+        columns = df.columns
+        for index in range(0, len(self.total_columns)):
+            if self.total_columns[index] not in columns:
+                df.insert(index, self.total_columns[index], 0)
+        return df
 
     def fit_transform(
         self,

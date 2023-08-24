@@ -1,0 +1,251 @@
+2023-08-24 10:07:28.422 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:07:29.692 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:07:29.695 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:07:29.822 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:07:29.823 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:08:06.550 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:08:07.795 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:08:07.797 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:08:07.893 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:08:07.893 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:10:11.143 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:10:12.384 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:10:12.386 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:10:12.499 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:10:12.499 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:10:57.367 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:10:58.598 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:10:58.600 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:10:58.671 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:10:58.672 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:11:22.067 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:11:23.297 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:11:23.299 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:11:23.393 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:11:23.393 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:12:41.955 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:12:43.182 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:12:43.184 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:12:43.247 | INFO     | __main__:<module>:98 - Model = OCET(
+  (oce): Sequential(
+    (0): Conv2d(1, 1, kernel_size=(4, 1), stride=(1, 1), padding=same)
+    (1): Sigmoid()
+  )
+  (conv1): Sequential(
+    (0): Conv2d(1, 2, kernel_size=(1, 2), stride=(1, 2))
+    (1): LeakyReLU(negative_slope=0.01)
+    (2): BatchNorm2d(2, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Conv2d(2, 4, kernel_size=(1, 2), stride=(1, 2))
+    (4): LeakyReLU(negative_slope=0.01)
+    (5): BatchNorm2d(4, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Conv2d(4, 40, kernel_size=(1, 10), stride=(1, 1))
+    (7): LeakyReLU(negative_slope=0.01)
+    (8): BatchNorm2d(40, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (transformer): Transformer(
+    (layers): ModuleList(
+      (0-1): 2 x ModuleList(
+        (0): PreNorm(
+          (norm): LayerNorm((100,), eps=1e-05, elementwise_affine=True)
+          (fn): Attention(
+            (attend): Softmax(dim=-1)
+            (to_qkv): Linear(in_features=100, out_features=300, bias=False)
+            (to_out): Sequential(
+              (0): Linear(in_features=100, out_features=100, bias=True)
+              (1): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+        (1): PreNorm(
+          (norm): LayerNorm((100,), eps=1e-05, elementwise_affine=True)
+          (fn): FeedForward(
+            (net): Sequential(
+              (0): Linear(in_features=100, out_features=200, bias=True)
+              (1): GELU(approximate='none')
+              (2): Dropout(p=0.0, inplace=False)
+              (3): Linear(in_features=200, out_features=100, bias=True)
+              (4): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+      )
+    )
+  )
+  (fc): Linear(in_features=100, out_features=1, bias=True)
+)
+2023-08-24 10:12:43.248 | INFO     | __main__:<module>:99 - Model parameters = 163464
+2023-08-24 10:21:58.527 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:21:59.750 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:21:59.754 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:29:10.759 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:29:12.027 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:29:12.030 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:29:50.845 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:29:52.075 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:29:52.077 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:30:15.462 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:30:16.692 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:30:16.695 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:31:23.029 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:31:24.255 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:31:24.256 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:32:48.249 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:32:49.471 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:32:49.473 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:34:09.235 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:34:10.475 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:34:10.476 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:38:09.244 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:38:10.478 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:38:10.479 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:38:45.502 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:38:46.733 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:38:46.735 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:39:06.091 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:39:07.315 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:39:07.316 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:39:58.049 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:39:59.275 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:39:59.277 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:40:15.250 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:40:16.475 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:40:16.477 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:40:49.771 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:40:50.994 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:40:50.996 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:41:48.180 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:41:49.410 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:41:49.411 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:42:05.739 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:42:06.964 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:42:06.965 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:42:26.359 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:42:27.581 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:42:27.582 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:47:24.765 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:47:25.990 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:47:25.991 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:49:16.450 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:49:17.679 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:49:17.681 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:50:16.593 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:50:17.812 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:50:17.815 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:54:51.165 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:54:52.389 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:54:52.390 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:56:03.196 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:56:04.419 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:56:04.420 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:42:24.301 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:42:25.574 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:42:25.576 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:42:53.411 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:42:54.641 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:42:54.644 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:43:27.517 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:43:28.746 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:43:28.747 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:48:16.712 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:48:17.941 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:48:17.943 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:50:24.918 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:50:26.144 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:50:26.146 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:53:22.916 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:53:24.145 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:53:24.147 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:55:27.105 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:55:28.346 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:55:28.347 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:56:20.007 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:56:21.237 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:56:21.238 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:58:13.291 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:58:14.516 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:58:14.517 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:58:58.023 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:58:59.256 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:58:59.259 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:00:44.779 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:00:46.008 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:00:46.010 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:00:59.849 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 128.12165754648038
+2023-08-24 16:01:08.362 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: 58.397120609009754
+2023-08-24 16:01:15.856 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: 111.10982889169951
+2023-08-24 16:01:23.257 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: 82.72158436097905
+2023-08-24 16:01:30.866 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-10, Loss: 117.33029683847553
+2023-08-24 16:01:38.479 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-11, Loss: 4.798458019632438
+2023-08-24 16:01:45.831 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-12, Loss: 131.74423123572763
+2023-08-24 16:01:54.184 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-13, Loss: 66.14583815206812
+2023-08-24 16:02:02.258 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-14, Loss: 101.13784464278689
+2023-08-24 16:02:09.901 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-17, Loss: 59.51858802764238
+2023-08-24 16:02:18.346 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-18, Loss: 63.80330348617409
+2023-08-24 16:02:26.175 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-19, Loss: 56.3529015938026
+2023-08-24 16:02:33.683 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-20, Loss: 93.2059877624216
+2023-08-24 16:02:41.502 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-21, Loss: 63.41212038032055
+2023-08-24 16:02:49.597 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-24, Loss: 58.42352457679728
+2023-08-24 16:02:57.014 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-25, Loss: 91.33561839701714
+2023-08-24 16:03:04.621 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-26, Loss: 75.35666024477455
+2023-08-24 16:03:11.988 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-04, Loss: 132.01359826288711
+2023-08-24 16:03:19.201 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-05, Loss: 51.887223435042344
+2023-08-24 16:03:26.694 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-06, Loss: 109.04240112817011
+2023-08-24 16:03:34.287 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-07, Loss: 83.70462588857391
+2023-08-24 16:03:41.989 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-10, Loss: 117.78488388346965
+2023-08-24 16:03:49.292 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-11, Loss: 6.569622727851523
+2023-08-24 16:03:56.631 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-12, Loss: 137.11838745996485
+2023-08-24 16:04:04.374 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-13, Loss: 67.67380683272228
+2023-08-24 16:04:11.595 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-14, Loss: 101.03627641531725
+2023-08-24 16:04:18.831 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-17, Loss: 55.67241486593569
+2023-08-24 16:04:26.090 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-18, Loss: 61.84322054441823
+2023-08-24 16:04:33.476 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-19, Loss: 57.2271863632659
+2023-08-24 16:04:40.617 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-20, Loss: 90.67532916775605
+2023-08-24 16:04:48.020 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-21, Loss: 62.99324750010795
+2023-08-24 16:04:55.211 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-24, Loss: 60.51413684306179
+2023-08-24 16:05:02.344 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-25, Loss: 88.01802274101391
+2023-08-24 16:05:10.117 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-26, Loss: 76.72189575195677
+2023-08-24 16:09:12.613 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:09:13.840 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:09:13.842 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:12:08.185 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:12:09.411 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:12:09.412 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:12:52.221 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:12:53.445 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:12:53.447 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:13:19.849 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:13:21.083 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:13:21.085 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:14:09.924 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:14:11.151 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:14:11.153 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:14:29.693 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 384760.84375
+2023-08-24 16:14:45.389 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: -876815.8125
+2023-08-24 16:15:00.995 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: -2110097.0
+2023-08-24 16:15:17.144 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: -2979927.75
+2023-08-24 16:15:48.204 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:15:49.432 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:15:49.434 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:16:05.717 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:16:06.943 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:16:06.945 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:16:25.374 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: -303467.4375
+2023-08-24 16:16:41.652 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: -362914.25
+2023-08-24 16:16:58.357 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: -428196.4375
+2023-08-24 16:17:14.732 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: -466977.375
+2023-08-24 16:17:30.799 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-10, Loss: -527420.125
+2023-08-24 16:17:47.323 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-11, Loss: -550220.0625
+2023-08-24 16:18:04.077 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-12, Loss: -608222.1875
+2023-08-24 16:18:21.250 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-13, Loss: -584576.0
+2023-08-24 16:18:52.210 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:18:53.438 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:18:53.439 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:19:11.850 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 96276.75
+2023-08-24 16:19:27.696 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: -219000.4375
+2023-08-24 16:19:43.801 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: -527070.25
+2023-08-24 16:20:00.264 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: -744323.875
+2023-08-24 16:20:35.641 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:20:36.869 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:20:36.870 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:20:55.193 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 96276.75
+2023-08-24 16:21:11.127 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: -219000.4375
