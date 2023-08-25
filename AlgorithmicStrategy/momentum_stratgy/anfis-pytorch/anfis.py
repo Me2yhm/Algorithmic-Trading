@@ -70,6 +70,7 @@ class FuzzifyVariable(torch.nn.Module):
         y_pred = torch.cat([mf(x) for mf in self.mfdefs.values()], dim=1)
         if self.padding > 0:
             y_pred = torch.cat([y_pred, torch.zeros(x.shape[0], self.padding)], dim=1)
+        print("每个变量的mfs", self.num_mfs)
         return y_pred
 
 
@@ -389,16 +390,20 @@ class AnfisNet(torch.nn.Module):
             rstr.append(" " * 9 + "THEN {}".format(crow.tolist()))
         return "\n".join(rstr)
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor):
         """
         Forward pass: run x thru the five layers and return the y values.
         I save the outputs from each layer to an instance variable,
         as this might be useful for comprehension/debugging.
         """
+        print("输入数据的形状:", x.shape)
         self.fuzzified = self.layer["fuzzify"](x)
+        print("模糊化后的形状:", self.fuzzified.shape)
         self.raw_weights = self.layer["rules"](self.fuzzified)
+        print("weight的形状:", self.raw_weights.shape)
         self.weights = F.normalize(self.raw_weights, p=1, dim=1)
         self.rule_tsk = self.layer["consequent"](x)
+        print("rule_tsk:", self.rule_tsk.shape)
         # y_pred = self.layer['weighted_sum'](self.weights, self.rule_tsk)
         y_pred = torch.bmm(self.rule_tsk, self.weights.unsqueeze(2))
         self.y_pred = y_pred.squeeze(2)
