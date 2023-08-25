@@ -1,28 +1,26 @@
 import argparse
+import sys
 import warnings
 from argparse import ArgumentParser
 from pathlib import Path
-import pandas as pd
+
+import numpy as np
 import torch as t
+from matplotlib import pyplot as plt
 from torch import optim
-import sys
-from pathlib import Path
+
 sys.path.append(str(Path(__file__).parent.parent.parent))
-from typing import Literal
 
 from AlgorithmicStrategy import (
     DataSet,
     OrderBook,
-    Writer,
-    Standarder,
-    LimitedQueue,
     TradeTime
 )
 
 from MODELS import JoyeLOB, OCET, LittleOB, MultiTaskLoss
 
 from log import logger, log_eval, log_train
-from utils import setup_seed, plotter
+from utils import setup_seed, plotter, save_model
 from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
@@ -35,11 +33,6 @@ def main(opts: argparse.Namespace):
     dataset_path: Path = Path(__file__).parent / opts.dataset
     assert dataset_path.exists(), "Dataset path does not exist!"
     logger.info(f"Reading dataset from {dataset_path}")
-
-    model_save_path: Path = Path(__file__).parent / opts.model_save
-    if not model_save_path.exists():
-        model_save_path.mkdir()
-    logger.info(f"Saving model parameters to {model_save_path}")
 
     device = t.device("cuda:0" if t.cuda.is_available() else "cpu")
     logger.info(f"Set device: {device}")
@@ -78,6 +71,11 @@ if __name__ == "__main__":
     tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
     tick_files = list(tick_folder.glob("*.csv"))
 
+    model_save_path: Path = Path().cwd() / args.model_save
+    if not model_save_path.exists():
+        model_save_path.mkdir(parents=True, exist_ok=True)
+    logger.info(f"Saving model parameters to {model_save_path}")
+
     raw_data_folder = Path.cwd() / "DATA/ML/RAW"
     norm_data_folder = Path.cwd() / "DATA/ML/NORM"
     label_data_folder = Path.cwd() / "DATA/ML/LABEL"
@@ -101,8 +99,13 @@ if __name__ == "__main__":
         dim_head=25,
         mlp_dim=200,
     )
+    newest_model = model_save_path / "1.ocet"
+    para_dict = t.load(newest_model, map_location=device)
+    ocet.load_state_dict(para_dict["model_state_dict"])
     ocet.to(device=device)
+
     optimizer = optim.Adam(ocet.parameters(), lr=0.001, weight_decay=0.0005)
+    optimizer.load_state_dict(para_dict["optimizer_state_dict"])
 
     # logger.info(f"Model = {str(ocet)}")
     # logger.info("Model parameters = %d" % sum(p.numel() for p in ocet.parameters()))
@@ -110,19 +113,24 @@ if __name__ == "__main__":
     """
     Scripts begin
     """
-    loss_log = []
-    for epc in tqdm(range(args.epoch)):
+    loss_global = []
+    true_vwaps = []
+    pred_vwaps = []
+    for epc in tqdm(range(int(newest_model.stem) + 1, args.epoch)):
+        loss_log = []
         for file in train_files:
             if file not in joye_data:
                 joye_data.push(file)
             tick = DataSet(file, ticker='000157.SZ')
             llob_file = little_lob_folder / file.name
-            llob.push(llob_file)
+            if llob_file not in llob:
+                llob.push(llob_file)
             tt = TradeTime(begin=9_30_00_000, end=14_57_00_000, tick=tick)
             pred_trade_volume_fracs = []
             true_trade_volume_fracs = []
             hist_trade_volume_fracs = []
             trade_price = []
+
             for ts, action in tt.generate_signals():
                 if action['trade']:
                     time_search, X, volume_hist, volume_today = joye_data.batch(file, timestamp=ts)
@@ -138,22 +146,24 @@ if __name__ == "__main__":
                         pred_trade_volume_fracs.append(pred_frac)
                         true_trade_volume_fracs.append(volume_today)
 
-            # trade_price = t.tensor(trade_price, dtype=t.float32)
-            # pred_trade_volume_fracs = t.stack(pred_trade_volume_fracs)
-
             market_vwap = llob.get_VWAP(llob_file)
-            # pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
-            # pred_vwap = t.mm(pred_trade_volume_fracs, trade_price)
-            # loss = pred_vwap - market_vwap
+            true_vwaps.append(market_vwap)
+            pred_trade_volume_fracs = t.squeeze(t.stack(pred_trade_volume_fracs))
 
-            pred_trade_volume_fracs = t.tensor(pred_trade_volume_fracs, requires_grad=True,  dtype=t.float32)
-            trade_price = t.tensor(trade_price)
-            pred_vwap = t.sum(pred_trade_volume_fracs * trade_price/200)
+            additional_vwap = 0
+            if t.sum(pred_trade_volume_fracs) < 1:
+                rest = 1 - t.sum(pred_trade_volume_fracs)
+                _, final_price = llob.batch(llob_file, tick.file_date_num + 14_57_00_000)
+                additional_vwap = rest * final_price
 
-            hist_trade_volume_fracs = t.tensor(hist_trade_volume_fracs, dtype=t.float32)
+            trade_price = t.cuda.FloatTensor(trade_price)
+            pred_vwap = t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
+            pred_vwaps.append(pred_vwap.item())
+
+            hist_trade_volume_fracs = t.cuda.FloatTensor(hist_trade_volume_fracs)
             hist_trade_volume_fracs = hist_trade_volume_fracs/t.sum(hist_trade_volume_fracs)
 
-            true_trade_volume_fracs = t.tensor(true_trade_volume_fracs, dtype=t.float32)
+            true_trade_volume_fracs = t.cuda.FloatTensor(true_trade_volume_fracs)
             true_trade_volume_fracs = true_trade_volume_fracs/t.sum(true_trade_volume_fracs)
 
             loss = loss_func.calculate_loss(
@@ -163,41 +173,23 @@ if __name__ == "__main__":
                 market_vwap,
                 pred_vwap
             )
-            # print(pred_trade_volume_fracs)
             loss.backward()
             optimizer.step()
             loss_log.append(loss.item())
             log_train(epoch=epc, epochs=args.epoch, file=file.stem, loss=loss.item())
 
+        loss_global.extend(loss_log)
+
+        save_model(
+            model=ocet,
+            optimizer=optimizer,
+            epoch=epc,
+            loss=float(np.mean(loss_log)),
+            path=model_save_path / f"{epc}.ocet"
+        )
+    plotter(loss_global, ylabel='loss')
+    # plotter(loss_global, ylabel='VWAP')
 
 
 
 
-    # for tick_file in tqdm(tick_files):
-    #     lq = LimitedQueue(max_size=100)
-    #     tick = DataSet(data_path=tick_file, ticker="SZ")
-    #     ob = OrderBook(data_api=tick)
-    #     writer = Writer(filename=raw_data_folder / tick_file.name)
-    #     time_dict = {}
-    #     signals = []
-    #     for ts, action in time_dict.items():
-    #         timestamp = int(ts) + tick.file_date_num
-    #         ob.update(until=timestamp)
-    #         if action["trade"]:
-    #             pass
-    #
-    #         if action["update"]:
-    #             newest_data = writer.collect_data_by_timestamp(
-    #                 ob,
-    #                 timestamp=timestamp,
-    #                 timestamp_prev=writer.get_prev_timestamp(timestamp),
-    #             )
-    #             writer.csvwriter.writerow(newest_data)
-    #             newest_data = pd.DataFrame([newest_data], columns=writer.columns)
-    #             lq.push(newest_data)
-    #
-    #         if lq.size == 100:
-    #             df = lq.to_df()
-    #             print(df.shape)
-    #             break
-    #     break

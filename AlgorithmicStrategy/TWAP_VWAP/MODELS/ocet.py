@@ -167,8 +167,5 @@ class OCET(nn.Module):
 
         res = self.fc(res)
 
-        res = self.relu(res)
-
-        res = t.clip(res,max=0.2)
-
+        res = t.clip(res, max=1.0, min=0.0)
         return res

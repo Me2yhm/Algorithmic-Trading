@@ -243,3 +243,200 @@
 2023-08-25 09:57:30.093 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-04, Loss: 67.67677986057728
 2023-08-25 09:57:41.116 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-05, Loss: 70.54938093513289
 2023-08-25 09:57:52.064 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-06, Loss: 45.654718035512566
+2023-08-25 12:09:46.193 | INFO     | __main__:<module>:70 - ================Starting================
+2023-08-25 12:09:47.463 | INFO     | __main__:<module>:73 - Set device: cuda:0
+2023-08-25 12:09:47.466 | INFO     | __main__:<module>:76 - Set seed: 2333
+2023-08-25 12:11:42.763 | INFO     | __main__:<module>:70 - ================Starting================
+2023-08-25 12:11:43.982 | INFO     | __main__:<module>:73 - Set device: cuda:0
+2023-08-25 12:11:43.983 | INFO     | __main__:<module>:76 - Set seed: 2333
+2023-08-25 12:12:40.274 | INFO     | __main__:<module>:70 - ================Starting================
+2023-08-25 12:12:41.488 | INFO     | __main__:<module>:73 - Set device: cuda:0
+2023-08-25 12:12:41.489 | INFO     | __main__:<module>:76 - Set seed: 2333
+2023-08-25 12:13:29.098 | INFO     | __main__:<module>:70 - ================Starting================
+2023-08-25 12:13:30.315 | INFO     | __main__:<module>:73 - Set device: cuda:0
+2023-08-25 12:13:30.316 | INFO     | __main__:<module>:76 - Set seed: 2333
+2023-08-25 12:13:48.950 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-04, Loss: 52.800148010253906
+2023-08-25 12:14:05.519 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-05, Loss: 7.7931718826293945
+2023-08-25 12:14:22.379 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-06, Loss: -0.47933530807495117
+2023-08-25 12:14:39.165 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-07, Loss: -1.4750137329101562
+2023-08-25 12:14:57.706 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-10, Loss: -1.4467426538467407
+2023-08-25 12:15:15.530 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-11, Loss: -1.4218628406524658
+2023-08-25 12:15:34.126 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-12, Loss: -1.4253485202789307
+2023-08-25 12:15:52.680 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-13, Loss: -1.4182677268981934
+2023-08-25 12:16:13.780 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-14, Loss: -1.4711169004440308
+2023-08-25 12:16:34.150 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-17, Loss: -1.4949281215667725
+2023-08-25 12:16:55.550 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-18, Loss: -1.5095160007476807
+2023-08-25 12:17:17.145 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-19, Loss: -1.518853783607483
+2023-08-25 12:17:38.870 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-20, Loss: -1.5116688013076782
+2023-08-25 12:18:01.250 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-21, Loss: -1.410105586051941
+2023-08-25 12:30:02.524 | INFO     | __main__:<module>:62 - ================Starting================
+2023-08-25 12:30:03.746 | INFO     | __main__:<module>:65 - Set device: cuda:0
+2023-08-25 12:30:03.748 | INFO     | __main__:<module>:68 - Set seed: 2333
+2023-08-25 12:30:03.748 | INFO     | __main__:<module>:76 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 12:30:24.368 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-04, Loss: 104.06249237060547
+2023-08-25 12:30:42.064 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-05, Loss: 15.496847152709961
+2023-08-25 12:30:58.869 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-06, Loss: 0.13958525657653809
+2023-08-25 12:31:15.987 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-07, Loss: -1.516275405883789
+2023-08-25 12:31:33.038 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-10, Loss: -1.4156659841537476
+2023-08-25 12:31:50.634 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-11, Loss: -1.4218628406524658
+2023-08-25 12:32:08.665 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-12, Loss: -1.4253485202789307
+2023-08-25 12:32:26.389 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-13, Loss: -1.4182677268981934
+2023-08-25 12:32:46.601 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-14, Loss: -1.4711169004440308
+2023-08-25 12:33:07.083 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-17, Loss: -1.4949281215667725
+2023-08-25 12:38:01.867 | INFO     | __main__:<module>:62 - ================Starting================
+2023-08-25 12:38:03.091 | INFO     | __main__:<module>:65 - Set device: cuda:0
+2023-08-25 12:38:03.093 | INFO     | __main__:<module>:68 - Set seed: 2333
+2023-08-25 12:38:03.093 | INFO     | __main__:<module>:76 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 12:38:21.713 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-04, Loss: 788.3743896484375
+2023-08-25 12:38:38.249 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-05, Loss: 127.60903930664062
+2023-08-25 12:38:54.859 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-06, Loss: 13.307428359985352
+2023-08-25 12:39:11.846 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-07, Loss: 0.16323520243167877
+2023-08-25 12:39:29.403 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-10, Loss: 0.24683408439159393
+2023-08-25 12:39:46.641 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-11, Loss: 0.26063716411590576
+2023-08-25 12:40:04.566 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-12, Loss: 0.23215149343013763
+2023-08-25 12:40:23.066 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-13, Loss: 0.2517322301864624
+2023-08-25 12:40:42.754 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-14, Loss: 0.25888314843177795
+2023-08-25 12:41:03.280 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-17, Loss: 0.2550719380378723
+2023-08-25 12:41:23.975 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-18, Loss: 0.255484014749527
+2023-08-25 12:41:44.875 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-19, Loss: 0.24864621460437775
+2023-08-25 12:42:06.212 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-20, Loss: 0.23083120584487915
+2023-08-25 12:42:28.222 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-21, Loss: 0.24239444732666016
+2023-08-25 12:42:50.896 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-24, Loss: 0.25152307748794556
+2023-08-25 12:43:13.552 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-25, Loss: 0.25593113899230957
+2023-08-25 12:43:36.922 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-26, Loss: 0.24464647471904755
+2023-08-25 12:43:36.940 | INFO     | utils:save_model:33 - Saved model to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE\0.ocet
+2023-08-25 12:43:53.688 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-04, Loss: 0.24688105285167694
+2023-08-25 12:44:10.537 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-05, Loss: 0.2463672012090683
+2023-08-25 12:44:27.412 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-06, Loss: 0.25222423672676086
+2023-08-25 12:44:45.049 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-07, Loss: 0.25469616055488586
+2023-08-25 12:45:02.304 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-10, Loss: 0.246833935379982
+2023-08-25 12:45:20.052 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-11, Loss: 0.26063767075538635
+2023-08-25 12:45:38.576 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-12, Loss: 0.23215143382549286
+2023-08-25 12:45:56.933 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-13, Loss: 0.25173211097717285
+2023-08-25 12:46:16.721 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-14, Loss: 0.2588832378387451
+2023-08-25 12:46:38.910 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-17, Loss: 0.25507184863090515
+2023-08-25 12:47:02.086 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-18, Loss: 0.25548413395881653
+2023-08-25 12:47:25.109 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-19, Loss: 0.2486460953950882
+2023-08-25 12:47:48.282 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-20, Loss: 0.2308320254087448
+2023-08-25 12:48:12.276 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-21, Loss: 0.24239476025104523
+2023-08-25 12:48:36.095 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-24, Loss: 0.25152304768562317
+2023-08-25 12:49:00.150 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-25, Loss: 0.2559308707714081
+2023-08-25 12:49:24.828 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-26, Loss: 0.24464650452136993
+2023-08-25 12:49:24.846 | INFO     | utils:save_model:33 - Saved model to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE\1.ocet
+2023-08-25 12:49:43.793 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-04, Loss: 0.24688220024108887
+2023-08-25 12:50:02.805 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-05, Loss: 0.2463679313659668
+2023-08-25 12:50:22.347 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-06, Loss: 0.2522244155406952
+2023-08-25 12:58:06.241 | INFO     | __main__:<module>:96 - ================Starting================
+2023-08-25 12:58:07.461 | INFO     | __main__:<module>:99 - Set device: cuda:0
+2023-08-25 12:58:07.462 | INFO     | __main__:<module>:102 - Set seed: 2333
+2023-08-25 12:58:07.463 | INFO     | __main__:<module>:110 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 12:59:41.612 | INFO     | __main__:<module>:96 - ================Starting================
+2023-08-25 12:59:42.830 | INFO     | __main__:<module>:99 - Set device: cuda:0
+2023-08-25 12:59:42.831 | INFO     | __main__:<module>:102 - Set seed: 2333
+2023-08-25 12:59:42.831 | INFO     | __main__:<module>:110 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:05:07.847 | INFO     | __main__:<module>:96 - ================Starting================
+2023-08-25 13:05:09.065 | INFO     | __main__:<module>:99 - Set device: cuda:0
+2023-08-25 13:05:09.066 | INFO     | __main__:<module>:102 - Set seed: 2333
+2023-08-25 13:05:09.066 | INFO     | __main__:<module>:110 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:08:16.334 | INFO     | __main__:<module>:109 - ================Starting================
+2023-08-25 13:08:17.549 | INFO     | __main__:<module>:112 - Set device: cuda:0
+2023-08-25 13:08:17.551 | INFO     | __main__:<module>:115 - Set seed: 2333
+2023-08-25 13:08:17.551 | INFO     | __main__:<module>:123 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:11:23.114 | INFO     | __main__:<module>:109 - ================Starting================
+2023-08-25 13:11:24.333 | INFO     | __main__:<module>:112 - Set device: cuda:0
+2023-08-25 13:11:24.334 | INFO     | __main__:<module>:115 - Set seed: 2333
+2023-08-25 13:11:24.335 | INFO     | __main__:<module>:123 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:17:48.925 | INFO     | __main__:<module>:109 - ================Starting================
+2023-08-25 13:17:50.142 | INFO     | __main__:<module>:112 - Set device: cuda:0
+2023-08-25 13:17:50.143 | INFO     | __main__:<module>:115 - Set seed: 2333
+2023-08-25 13:17:50.144 | INFO     | __main__:<module>:123 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:17:58.826 | INFO     | log:log_eval:16 - file 2023-07-04, Loss: 88.63094329833984
+2023-08-25 13:18:21.124 | INFO     | __main__:<module>:109 - ================Starting================
+2023-08-25 13:18:22.343 | INFO     | __main__:<module>:112 - Set device: cuda:0
+2023-08-25 13:18:22.345 | INFO     | __main__:<module>:115 - Set seed: 2333
+2023-08-25 13:18:22.345 | INFO     | __main__:<module>:123 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:18:30.635 | INFO     | log:log_eval:16 - file 2023-07-04, Loss: 88.63094329833984
+2023-08-25 13:18:36.590 | INFO     | log:log_eval:16 - file 2023-07-05, Loss: 0.2463671863079071
+2023-08-25 13:18:42.822 | INFO     | log:log_eval:16 - file 2023-07-06, Loss: 5.7480878829956055
+2023-08-25 13:18:49.285 | INFO     | log:log_eval:16 - file 2023-07-07, Loss: 25.225210189819336
+2023-08-25 13:18:55.669 | INFO     | log:log_eval:16 - file 2023-07-10, Loss: 0.24683408439159393
+2023-08-25 13:19:02.241 | INFO     | log:log_eval:16 - file 2023-07-11, Loss: 0.26063716411590576
+2023-08-25 13:19:08.841 | INFO     | log:log_eval:16 - file 2023-07-12, Loss: 166.7967529296875
+2023-08-25 13:19:15.383 | INFO     | log:log_eval:16 - file 2023-07-13, Loss: 0.2517322301864624
+2023-08-25 13:19:23.845 | INFO     | log:log_eval:16 - file 2023-07-14, Loss: 229.71310424804688
+2023-08-25 13:19:33.673 | INFO     | log:log_eval:16 - file 2023-07-17, Loss: 62.05445861816406
+2023-08-25 13:19:44.324 | INFO     | log:log_eval:16 - file 2023-07-18, Loss: 12.10551643371582
+2023-08-25 13:19:55.354 | INFO     | log:log_eval:16 - file 2023-07-19, Loss: 0.24864621460437775
+2023-08-25 13:20:06.903 | INFO     | log:log_eval:16 - file 2023-07-20, Loss: 0.23083120584487915
+2023-08-25 13:20:18.865 | INFO     | log:log_eval:16 - file 2023-07-21, Loss: 43.84005355834961
+2023-08-25 13:20:31.618 | INFO     | log:log_eval:16 - file 2023-07-24, Loss: 0.25152307748794556
+2023-08-25 13:20:43.876 | INFO     | log:log_eval:16 - file 2023-07-25, Loss: 0.0036465732846409082
+2023-08-25 13:20:56.954 | INFO     | log:log_eval:16 - file 2023-07-26, Loss: 0.24464647471904755
+2023-08-25 13:21:41.615 | INFO     | __main__:<module>:63 - ================Starting================
+2023-08-25 13:21:42.834 | INFO     | __main__:<module>:66 - Set device: cuda:0
+2023-08-25 13:21:42.835 | INFO     | __main__:<module>:69 - Set seed: 2333
+2023-08-25 13:21:42.835 | INFO     | __main__:<module>:77 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:21:55.619 | INFO     | __main__:<module>:63 - ================Starting================
+2023-08-25 13:21:56.834 | INFO     | __main__:<module>:66 - Set device: cuda:0
+2023-08-25 13:21:56.836 | INFO     | __main__:<module>:69 - Set seed: 2333
+2023-08-25 13:21:56.836 | INFO     | __main__:<module>:77 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:22:15.627 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-04, Loss: 0.24688270688056946
+2023-08-25 13:22:31.417 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-05, Loss: 0.2463671863079071
+2023-08-25 13:22:48.033 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-06, Loss: 0.2522263526916504
+2023-08-25 13:23:06.292 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-07, Loss: 0.2546960413455963
+2023-08-25 13:23:23.801 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-10, Loss: 0.24683408439159393
+2023-08-25 13:23:40.760 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-11, Loss: 0.26063716411590576
+2023-08-25 13:23:59.155 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-12, Loss: 0.23215149343013763
+2023-08-25 13:24:16.770 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-13, Loss: 0.2517322301864624
+2023-08-25 13:24:36.754 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-14, Loss: 0.25888314843177795
+2023-08-25 13:24:56.839 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-17, Loss: 0.2550719380378723
+2023-08-25 13:25:18.210 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-18, Loss: 0.255484014749527
+2023-08-25 13:25:38.724 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-19, Loss: 0.24864621460437775
+2023-08-25 13:25:59.470 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-20, Loss: 0.23083120584487915
+2023-08-25 13:26:21.935 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-21, Loss: 0.24239444732666016
+2023-08-25 13:26:43.714 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-24, Loss: 0.25152307748794556
+2023-08-25 13:27:05.992 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-25, Loss: 0.25593113899230957
+2023-08-25 13:27:28.690 | INFO     | log:log_train:26 - Epoch: 2/20,file 2023-07-26, Loss: 0.24464647471904755
+2023-08-25 13:27:28.712 | INFO     | utils:save_model:33 - Saved model to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE\2.ocet
+2023-08-25 13:27:44.473 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-04, Loss: 0.24688105285167694
+2023-08-25 13:28:00.211 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-05, Loss: 0.2463672012090683
+2023-08-25 13:28:16.121 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-06, Loss: 0.25222423672676086
+2023-08-25 13:28:32.427 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-07, Loss: 0.25469616055488586
+2023-08-25 13:28:48.735 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-10, Loss: 0.246833935379982
+2023-08-25 13:29:05.329 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-11, Loss: 0.26063767075538635
+2023-08-25 13:29:22.300 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-12, Loss: 0.23215143382549286
+2023-08-25 13:29:39.092 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-13, Loss: 0.25173211097717285
+2023-08-25 13:29:57.898 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-14, Loss: 0.2588832378387451
+2023-08-25 13:30:18.737 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-17, Loss: 0.25507184863090515
+2023-08-25 13:30:38.842 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-18, Loss: 0.25548413395881653
+2023-08-25 13:30:59.563 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-19, Loss: 0.2486460953950882
+2023-08-25 13:31:22.703 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-20, Loss: 0.2308320254087448
+2023-08-25 13:31:46.173 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-21, Loss: 0.24239476025104523
+2023-08-25 13:32:09.472 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-24, Loss: 0.25152304768562317
+2023-08-25 13:32:34.068 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-25, Loss: 0.2559308707714081
+2023-08-25 13:33:00.144 | INFO     | log:log_train:26 - Epoch: 3/20,file 2023-07-26, Loss: 0.24464650452136993
+2023-08-25 13:33:00.171 | INFO     | utils:save_model:33 - Saved model to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE\3.ocet
+2023-08-25 13:33:34.445 | INFO     | __main__:<module>:109 - ================Starting================
+2023-08-25 13:33:35.668 | INFO     | __main__:<module>:112 - Set device: cuda:0
+2023-08-25 13:33:35.670 | INFO     | __main__:<module>:115 - Set seed: 2333
+2023-08-25 13:33:35.671 | INFO     | __main__:<module>:123 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:34:21.664 | INFO     | __main__:<module>:109 - ================Starting================
+2023-08-25 13:34:22.884 | INFO     | __main__:<module>:112 - Set device: cuda:0
+2023-08-25 13:34:22.885 | INFO     | __main__:<module>:115 - Set seed: 2333
+2023-08-25 13:34:22.886 | INFO     | __main__:<module>:123 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:34:46.223 | INFO     | __main__:<module>:109 - ================Starting================
+2023-08-25 13:34:47.446 | INFO     | __main__:<module>:112 - Set device: cuda:0
+2023-08-25 13:34:47.448 | INFO     | __main__:<module>:115 - Set seed: 2333
+2023-08-25 13:34:47.449 | INFO     | __main__:<module>:123 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:35:17.561 | INFO     | __main__:<module>:109 - ================Starting================
+2023-08-25 13:35:18.783 | INFO     | __main__:<module>:112 - Set device: cuda:0
+2023-08-25 13:35:18.784 | INFO     | __main__:<module>:115 - Set seed: 2333
+2023-08-25 13:35:18.785 | INFO     | __main__:<module>:123 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-25 13:35:27.255 | INFO     | log:log_eval:16 - file 2023-07-04, Loss: 70.86335754394531
+2023-08-25 13:35:33.505 | INFO     | log:log_eval:16 - file 2023-07-05, Loss: 0.2463671863079071
+2023-08-25 13:35:40.135 | INFO     | log:log_eval:16 - file 2023-07-06, Loss: 5.748088359832764
+2023-08-25 13:35:46.608 | INFO     | log:log_eval:16 - file 2023-07-07, Loss: 6.308484077453613
+2023-08-25 13:35:53.144 | INFO     | log:log_eval:16 - file 2023-07-10, Loss: 0.24683408439159393
+2023-08-25 13:35:59.431 | INFO     | log:log_eval:16 - file 2023-07-11, Loss: 0.26063716411590576
+2023-08-25 13:36:05.730 | INFO     | log:log_eval:16 - file 2023-07-12, Loss: 112.43587493896484
+2023-08-25 13:36:12.419 | INFO     | log:log_eval:16 - file 2023-07-13, Loss: 0.2517322301864624

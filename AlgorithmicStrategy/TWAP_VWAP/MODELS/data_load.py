@@ -105,6 +105,12 @@ class LittleOB:
         # target = int(timestamp_arr[idx])
         return idx
 
+    def __getitem__(self, index):
+        return self.datas.get(index, None)
+
+    def __contains__(self, item):
+        return item in self.datas
+
 
 if __name__ == "__main__":
     train_folder = Path().cwd().parent / "DATA/ML/000157/train"
