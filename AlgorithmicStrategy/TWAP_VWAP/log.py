@@ -20,10 +20,10 @@ def log_eval(epoch: int, acc: float, **kwargs):
 
 
 def log_train(
-    epoch: int, epochs: int, step: int, steps: int, loss: float, acc: float, **kwargs
+    epoch: int, epochs: int, file:str, loss: float, **kwargs
 ):
     logger.info(
-        f"Epoch: {epoch}/{epochs}, Step: {step}/{steps},  Loss: {loss}, Acc: {acc}"
+        f"Epoch: {epoch}/{epochs},file {file}, Loss: {loss}"
     )
     if kwargs:
         logger.info(f"Other arguments: {kwargs}")
