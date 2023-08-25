@@ -5,6 +5,10 @@ from pathlib import Path
 import pandas as pd
 import torch as t
 from torch import optim
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent.parent))
+from typing import Literal
 
 from AlgorithmicStrategy import (
     DataSet,
@@ -58,13 +62,13 @@ def show_total_order_number(ob: OrderBook):
 if __name__ == "__main__":
     parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
-    parser.add_argument("-e", "--epoch", type=int, default=2)
+    parser.add_argument("-e", "--epoch", type=int, default=20)
     parser.add_argument("--dataset", type=str, default="./DATA/ML")
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
 
     logger.info("Starting".center(40, "="))
-    t.set_default_tensor_type(t.cuda.FloatTensor)
+    # t.set_default_tensor_type(t.cuda.FloatTensor)
     device = t.device("cuda:0" if t.cuda.is_available() else "cpu")
     logger.info(f"Set device: {device}")
 
@@ -112,7 +116,8 @@ if __name__ == "__main__":
             if file not in joye_data:
                 joye_data.push(file)
             tick = DataSet(file, ticker='000157.SZ')
-            llob.push(file)
+            llob_file = little_lob_folder / file.name
+            llob.push(llob_file)
             tt = TradeTime(begin=9_30_00_000, end=14_57_00_000, tick=tick)
             pred_trade_volume_fracs = []
             true_trade_volume_fracs = []
@@ -125,7 +130,7 @@ if __name__ == "__main__":
                         X = t.tensor(X, device=device, dtype=t.float32)
                         pred_frac = ocet(X)
 
-                        _, price = llob.batch(file, ts)
+                        _, price = llob.batch(llob_file, ts)
 
                         trade_price.append(price)
 
@@ -133,17 +138,17 @@ if __name__ == "__main__":
                         pred_trade_volume_fracs.append(pred_frac)
                         true_trade_volume_fracs.append(volume_today)
 
-            trade_price = t.tensor(trade_price, dtype=t.float32)
-            pred_trade_volume_fracs = t.stack(pred_trade_volume_fracs)
+            # trade_price = t.tensor(trade_price, dtype=t.float32)
+            # pred_trade_volume_fracs = t.stack(pred_trade_volume_fracs)
 
-            market_vwap = llob.get_VWAP(file)
-            pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
+            market_vwap = llob.get_VWAP(llob_file)
+            # pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
             # pred_vwap = t.mm(pred_trade_volume_fracs, trade_price)
             # loss = pred_vwap - market_vwap
 
-            # pred_trade_volume_fracs = t.tensor(pred_trade_volume_fracs, requires_grad=True,  dtype=t.float32)
-            # trade_price = t.tensor(trade_price)
-            # pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
+            pred_trade_volume_fracs = t.tensor(pred_trade_volume_fracs, requires_grad=True,  dtype=t.float32)
+            trade_price = t.tensor(trade_price)
+            pred_vwap = t.sum(pred_trade_volume_fracs * trade_price/200)
 
             hist_trade_volume_fracs = t.tensor(hist_trade_volume_fracs, dtype=t.float32)
             hist_trade_volume_fracs = hist_trade_volume_fracs/t.sum(hist_trade_volume_fracs)
@@ -158,6 +163,7 @@ if __name__ == "__main__":
                 market_vwap,
                 pred_vwap
             )
+            # print(pred_trade_volume_fracs)
             loss.backward()
             optimizer.step()
             loss_log.append(loss.item())

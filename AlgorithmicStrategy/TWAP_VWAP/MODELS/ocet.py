@@ -154,6 +154,7 @@ class OCET(nn.Module):
         self.transformer = Transformer(dim, depth, heads, dim_head, mlp_dim, dropout)
         self.fc = nn.Linear(dim, num_classes)
         self.sigmoid = nn.Sigmoid()
+        self.relu = nn.ReLU()
 
     def forward(self, x: Tensor) -> Tensor:
         res = x + self.oce(x)
@@ -166,6 +167,8 @@ class OCET(nn.Module):
 
         res = self.fc(res)
 
-        # res = self.sigmoid(res)
+        res = self.relu(res)
+
+        res = t.clip(res,max=0.2)
 
         return res

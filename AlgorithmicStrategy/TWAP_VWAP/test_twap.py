@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     twap = TWAP(ob,tick,2400,1500,'000157.SZ','BUY')
     twap.get_time_dict()
-    for i in range(20230703093003000,20230703094055000):
+    for i in range(20230703093003000,20230703145700000):
         twap.timeStamp = i
         twap.signal_update()
         if twap.trade:
