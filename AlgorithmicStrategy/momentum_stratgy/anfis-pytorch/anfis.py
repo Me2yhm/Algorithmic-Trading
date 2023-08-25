@@ -229,6 +229,7 @@ class ConsequentLayer(torch.nn.Module):
               y.shape: n_cases * n_out
         """
         # Append 1 to each list of input vals, for the constant term:
+        # 这一步是为什么？
         x_plus = torch.cat([x, torch.ones(x.shape[0], 1)], dim=1)
         # Shape of weighted_x is n_cases * n_rules * (n_in+1)
         # torch.einsum 定义张量乘法
@@ -318,7 +319,9 @@ class AnfisNet(torch.nn.Module):
     and then fit_coeff will adjust the TSK coeff using LSE.
     """
 
-    def __init__(self, description, invardefs, outvarnames, hybrid=True):
+    def __init__(
+        self, description: str, invardefs: dict[str, list], outvarnames, hybrid=True
+    ):
         super(AnfisNet, self).__init__()
         self.description = description
         self.outvarnames = outvarnames
