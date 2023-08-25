@@ -81,7 +81,7 @@ class FuzzifyLayer(torch.nn.Module):
     as this allows us to put all results in the same tensor.
     """
 
-    def __init__(self, varmfs, varnames=None):
+    def __init__(self, varmfs: list[FuzzifyVariable], varnames=None):
         super(FuzzifyLayer, self).__init__()
         if not varnames:
             self.varnames = ["x{}".format(i) for i in range(len(varmfs))]
@@ -89,6 +89,7 @@ class FuzzifyLayer(torch.nn.Module):
             self.varnames = list(varnames)
         maxmfs = max([var.num_mfs for var in varmfs])
         for var in varmfs:
+            # 这一行的作用是保证var:fuzzifiVariable 输出的长度相同
             var.pad_to(maxmfs)
         self.varmfs = torch.nn.ModuleDict(zip(self.varnames, varmfs))
 
@@ -144,11 +145,13 @@ class AntecedentLayer(torch.nn.Module):
     for each variable. Forward pass then calculates the fire-strengths.
     """
 
-    def __init__(self, varlist):
+    def __init__(self, varlist: list[FuzzifyVariable]):
         super(AntecedentLayer, self).__init__()
         # Count the (actual) mfs for each variable:
+        # len(varlist) == n_in
         mf_count = [var.num_mfs for var in varlist]
         # Now make the MF indices for each rule:
+        print(mf_count)
         mf_indices = itertools.product(*[range(n) for n in mf_count])
         self.mf_indices = torch.tensor(list(mf_indices))
         # mf_indices.shape is n_rules * n_in
