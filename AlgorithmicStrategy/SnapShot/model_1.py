@@ -243,14 +243,14 @@ class TradingSimulator(ABC):
                     if random.random() < prediction:
 
                         signal = {
-                            "symbol": "AAPL",  # 股票代码
+                            "symbol": "AAPL",  # 股票代码，需要读取变量，这边只是一个假设
                             "direction": "B",  # 买入 
                             "bidprice": r_optimal_bid,  # 买价
                             "volume": orders  # 交易量
                         }
                     else:
                         signal = {
-                            "symbol": "AAPL",  # 股票代码
+                            "symbol": "AAPL",  # 同上
                             "direction": "S",  # 卖出 
                             "askprice": r_optimal_ask,  #卖价
                             "volume": orders  # 交易量

@@ -52,5 +52,5 @@ class MultiTaskLoss:
             + self.eta * vwap_loss
             + self.gamma * volume_percent_penalty
         )
-
+        # print(vwap_loss,VWAP_ML,VWAP_market,volume_percent_penalty)
         return total_loss

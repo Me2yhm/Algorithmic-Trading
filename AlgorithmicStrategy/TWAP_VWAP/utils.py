@@ -20,7 +20,7 @@ def setup_seed(seed: int):
 
 
 def save_model(
-    model: nn.Module, optimizer: optim, epoch: int, loss: float, path: str, **kwargs
+    model: nn.Module, optimizer: optim, epoch: int, loss: float, path: Path, **kwargs
 ):
     save_dict = {
         "epoch": epoch,
@@ -42,12 +42,12 @@ def save_model(
 
 
 def plotter(
-    x: Sequence, y: Sequence = None, ylabel: str = "", xlabel: str = "epochs", **kwargs
+    y: Sequence, x: Sequence = None, ylabel: str = "", xlabel: str = "epochs", **kwargs
 ):
     fontdict = kwargs.get("fontdict", {"fontsize": 20})
     plt.figure(figsize=(8, 6))
-    if y is None:
-        y = range(len(x))
+    if x is None:
+        x = range(len(y))
     plt.plot(x, y, lw=2, label=ylabel)
     plt.ylabel(ylabel, fontdict=fontdict)
     plt.xlabel(xlabel, fontdict=fontdict)
