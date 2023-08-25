@@ -1,5 +1,82 @@
+from datetime import timedelta, datetime
+from collections import OrderedDict
+from typing import Literal
+
 import numpy as np
-import csv
+import random
+from .DataManager import DataSet
+
+
+class TradeTime:
+    def __init__(self, begin: int, end: int, tick: DataSet):
+        self.begin: int = begin
+        self.end: int = end
+        self.tick: DataSet = tick
+
+    @classmethod
+    def is_trade_time(cls, timestamp: datetime):
+        time_num = int(timestamp.strftime("%Y%m%d%H%M%S%f")[8:])
+        if (time_num < 91500000000) or (time_num > 145700000000) or (130000000000 > time_num > 113000000000):
+            return False
+        else:
+            return True
+
+    def generate_timestamps(
+        self,
+        key: Literal["update", "trade"],
+        interval: int = 6000,
+        limits=(-3000, 3000),
+    ):
+        interval = timedelta(microseconds=interval * 1e3)
+        trade_timestamps = OrderedDict()
+        current_time = datetime.strptime(
+            str(self.tick.file_date_num + self.begin), "%Y%m%d%H%M%S%f"
+        )
+        end_time = datetime.strptime(
+            str(self.tick.file_date_num + self.end), "%Y%m%d%H%M%S%f"
+        )
+        while current_time <= end_time:
+
+            tmp = current_time
+            if any(limits):
+                tmp += timedelta(
+                    microseconds=int(
+                        np.random.randint(low=limits[0], high=limits[1])
+                    )
+                    * 1e3
+                )
+            if self.is_trade_time(tmp):
+                if key == "update":
+                    trade_timestamps[int(tmp.strftime("%Y%m%d%H%M%S%f")[:-3])] = {
+                        key: True,
+                        "trade": False,
+                    }
+                elif key == "trade":
+                    trade_timestamps[int(tmp.strftime("%Y%m%d%H%M%S%f")[:-3])] = {
+                        key: True,
+                    }
+            current_time += interval
+
+        return trade_timestamps
+
+    def generate_signals(self, **kwargs):
+        trade = self.generate_timestamps(
+            key="trade",
+            interval=kwargs.get("trade_interval", 6000),
+            limits=kwargs.get("trade_limits", (-2500, 2500)),
+        )
+        update = self.generate_timestamps(
+            key="update",
+            interval=kwargs.get("update_interval", 3000),
+            limits=kwargs.get("update_limits", (0, 0)),
+        )
+        for k, v in trade.items():
+            if k in update:
+                update[k].update(v)
+            else:
+                update[k] = v
+                update[k].update({"update": False})
+        return sorted(update.items(), key=lambda x: x[0])
 
 
 class TimestampConverter:
