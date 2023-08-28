@@ -70,6 +70,7 @@ class FuzzifyVariable(torch.nn.Module):
         y_pred = torch.cat([mf(x) for mf in self.mfdefs.values()], dim=1)
         if self.padding > 0:
             y_pred = torch.cat([y_pred, torch.zeros(x.shape[0], self.padding)], dim=1)
+        print("每个变量的mfs", self.num_mfs)
         return y_pred
 
 
@@ -133,6 +134,7 @@ class FuzzifyLayer(torch.nn.Module):
         assert x.shape[1] == self.num_in, "{} is wrong no. of input values".format(
             self.num_in
         )
+        # apply FuzzyifyVariable in every input
         y_pred = torch.stack(
             [var(x[:, i : i + 1]) for i, var in enumerate(self.varmfs.values())], dim=1
         )
@@ -151,7 +153,6 @@ class AntecedentLayer(torch.nn.Module):
         # len(varlist) == n_in
         mf_count = [var.num_mfs for var in varlist]
         # Now make the MF indices for each rule:
-        print(mf_count)
         mf_indices = itertools.product(*[range(n) for n in mf_count])
         self.mf_indices = torch.tensor(list(mf_indices))
         # mf_indices.shape is n_rules * n_in
@@ -220,7 +221,7 @@ class ConsequentLayer(torch.nn.Module):
         )
         self._coeff = new_coeff
 
-    def fit_coeff(self, x, weights, y_actual):
+    def fit_coeff(self, x: torch.Tensor, weights: torch.Tensor, y_actual: torch.Tensor):
         """
         Use LSE to solve for coeff: y_actual = coeff * (weighted)x
               x.shape: n_cases * n_in
@@ -229,8 +230,10 @@ class ConsequentLayer(torch.nn.Module):
               y.shape: n_cases * n_out
         """
         # Append 1 to each list of input vals, for the constant term:
+        # 这一步是为什么？
         x_plus = torch.cat([x, torch.ones(x.shape[0], 1)], dim=1)
         # Shape of weighted_x is n_cases * n_rules * (n_in+1)
+        # torch.einsum 定义张量乘法
         weighted_x = torch.einsum("bp, bq -> bpq", weights, x_plus)
         # Can't have value 0 for weights, or LSE won't work:
         weighted_x[weighted_x == 0] = 1e-12
@@ -239,7 +242,9 @@ class ConsequentLayer(torch.nn.Module):
         y_actual_2d = y_actual.view(y_actual.shape[0], -1)
         # Use gels to do LSE, then pick out the solution rows:
         try:
-            coeff_2d, _ = torch.gels(y_actual_2d, weighted_x_2d)
+            # 没有torck.gels这个函数
+            coeff_2d, _ = torch.lstsq(y_actual_2d, weighted_x_2d)
+            print("coeff_2d ", coeff_2d)
         except RuntimeError as e:
             print("Internal error in gels", e)
             print("Weights are:", weighted_x)
@@ -296,13 +301,14 @@ class WeightedSumLayer(torch.nn.Module):
     def __init__(self):
         super(WeightedSumLayer, self).__init__()
 
-    def forward(self, weights, tsk):
+    def forward(self, weights: torch.Tensor, tsk: torch.Tensor):
         """
         weights.shape: n_cases * n_rules
             tsk.shape: n_cases * n_out * n_rules
          y_pred.shape: n_cases * n_out
         """
         # Add a dimension to weights to get the bmm to work:
+        # weights.unsqueeze: n_cases * n_rules * 1 ?
         y_pred = torch.bmm(tsk, weights.unsqueeze(2))
         return y_pred.squeeze(2)
 
@@ -314,7 +320,9 @@ class AnfisNet(torch.nn.Module):
     and then fit_coeff will adjust the TSK coeff using LSE.
     """
 
-    def __init__(self, description, invardefs, outvarnames, hybrid=True):
+    def __init__(
+        self, description: str, invardefs: dict[str, list], outvarnames, hybrid=True
+    ):
         super(AnfisNet, self).__init__()
         self.description = description
         self.outvarnames = outvarnames
@@ -382,16 +390,20 @@ class AnfisNet(torch.nn.Module):
             rstr.append(" " * 9 + "THEN {}".format(crow.tolist()))
         return "\n".join(rstr)
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor):
         """
         Forward pass: run x thru the five layers and return the y values.
         I save the outputs from each layer to an instance variable,
         as this might be useful for comprehension/debugging.
         """
+        print("输入数据的形状:", x.shape)
         self.fuzzified = self.layer["fuzzify"](x)
+        print("模糊化后的形状:", self.fuzzified.shape)
         self.raw_weights = self.layer["rules"](self.fuzzified)
+        print("weight的形状:", self.raw_weights.shape)
         self.weights = F.normalize(self.raw_weights, p=1, dim=1)
         self.rule_tsk = self.layer["consequent"](x)
+        print("rule_tsk:", self.rule_tsk.shape)
         # y_pred = self.layer['weighted_sum'](self.weights, self.rule_tsk)
         y_pred = torch.bmm(self.rule_tsk, self.weights.unsqueeze(2))
         self.y_pred = y_pred.squeeze(2)

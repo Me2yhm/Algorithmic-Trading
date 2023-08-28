@@ -185,20 +185,21 @@ class Info():
         
     def cal_info(self, i, period = 10):
         #i为计算info的周期,period为计算std的周期
+        fix = period / (period - 1)
         if i in self.stream: #已有第i期ret
             if (i - period + 1) in self.stream: #可回看perioed期数据计算std
                 if (i - period) not in self.stream: #第一个可算std的周期
                     self.first_volume = self.stream[i - period + 1] #存入第一个volume 用于增量计算
                     data_values = list(self.stream.values())  # 将字典的值转换为列表
                     self.std = np.std(data_values) 
-                    self.var = self.std**2 #初始化：第一个方差
+                    self.var = self.std ** 2 #初始化：第一个方差
                     self.mean_new = self.mean_old = np.mean(data_values)
                     self.dict[i] = self.std / self.mean_new                 
                 else:
                     #增量法计算标准差
                     self.last_volume = self.stream[i]
                     self.mean_new = self.mean_old + ((self.last_volume - self.first_volume) / (period - 1)) #无偏估计
-                    self.var = self.var + self.last_volume**2 - self.first_volume**2 + (period - 1)*(self.mean_old**2-self.mean_new)
+                    self.var = self.var + fix * (self.mean_old ** 2 - self.mean_new ** 2 + 1 / period * (self.last_volume ** 2 - self.first_volume ** 2))
                     self.std = math.sqrt(self.var)
                     self.dict[i] = self.std / self.mean_new  
                     self.mean_old = self.mean_new
