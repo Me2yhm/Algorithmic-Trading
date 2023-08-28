@@ -11,11 +11,7 @@ from torch import optim
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from AlgorithmicStrategy import (
-    DataSet,
-    OrderBook,
-    TradeTime
-)
+from AlgorithmicStrategy import DataSet, OrderBook, TradeTime
 
 from MODELS import JoyeLOB, OCET, LittleOB, MultiTaskLoss
 
@@ -24,32 +20,6 @@ from utils import setup_seed, plotter, save_model
 from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
-
-
-@logger.catch
-def main(opts: argparse.Namespace):
-    logger.info("Starting".center(40, "="))
-
-    dataset_path: Path = Path(__file__).parent / opts.dataset
-    assert dataset_path.exists(), "Dataset path does not exist!"
-    logger.info(f"Reading dataset from {dataset_path}")
-
-    device = t.device("cuda:0" if t.cuda.is_available() else "cpu")
-    logger.info(f"Set device: {device}")
-
-    setup_seed(opts.seed)
-    logger.info("Set seed: {}".format(opts.seed))
-
-    log_train(epoch=1, epochs=opts.epoch, step=1, steps=20, loss=1.5, acc=0.65)
-    log_train(epoch=1, epochs=opts.epoch, step=10, steps=20, loss=1.5, acc=0.65)
-    log_eval(epoch=1, acc=0.53)
-
-    plotter(range(8), ylabel="acc", show=False, path="./PICS/test.png")
-
-
-def show_total_order_number(ob: OrderBook):
-    logger.info(f"TOTAL BID NUMBER: {sum(ob.last_snapshot['bid_num'].values())}")
-    logger.info(f"TOTAL ASK NUMBER: {sum(ob.last_snapshot['ask_num'].values())}")
 
 
 if __name__ == "__main__":
@@ -87,10 +57,8 @@ if __name__ == "__main__":
     test_files = list(test_folder.glob("*.csv"))
 
     joye_data = JoyeLOB(window=100)
-    llob = LittleOB(direction='BUY')
-    loss_func = MultiTaskLoss(
-
-    )
+    llob = LittleOB(direction="BUY")
+    loss_func = MultiTaskLoss()
     ocet = OCET(
         num_classes=1,
         dim=100,
@@ -121,7 +89,7 @@ if __name__ == "__main__":
         for file in train_files:
             if file not in joye_data:
                 joye_data.push(file)
-            tick = DataSet(file, ticker='000157.SZ')
+            tick = DataSet(file, ticker="000157.SZ")
             llob_file = little_lob_folder / file.name
             if llob_file not in llob:
                 llob.push(llob_file)
@@ -132,8 +100,10 @@ if __name__ == "__main__":
             trade_price = []
 
             for ts, action in tt.generate_signals():
-                if action['trade']:
-                    time_search, X, volume_hist, volume_today = joye_data.batch(file, timestamp=ts)
+                if action["trade"]:
+                    time_search, X, volume_hist, volume_today = joye_data.batch(
+                        file, timestamp=ts
+                    )
                     if time_search is not None:
                         X = t.tensor(X, device=device, dtype=t.float32)
                         pred_frac = ocet(X)
@@ -153,7 +123,9 @@ if __name__ == "__main__":
             additional_vwap = 0
             if t.sum(pred_trade_volume_fracs) < 1:
                 rest = 1 - t.sum(pred_trade_volume_fracs)
-                _, final_price = llob.batch(llob_file, tick.file_date_num + 14_57_00_000)
+                _, final_price = llob.batch(
+                    llob_file, tick.file_date_num + 14_57_00_000
+                )
                 additional_vwap = rest * final_price
 
             trade_price = t.cuda.FloatTensor(trade_price)
@@ -161,17 +133,21 @@ if __name__ == "__main__":
             pred_vwaps.append(pred_vwap.item())
 
             hist_trade_volume_fracs = t.cuda.FloatTensor(hist_trade_volume_fracs)
-            hist_trade_volume_fracs = hist_trade_volume_fracs/t.sum(hist_trade_volume_fracs)
+            hist_trade_volume_fracs = hist_trade_volume_fracs / t.sum(
+                hist_trade_volume_fracs
+            )
 
             true_trade_volume_fracs = t.cuda.FloatTensor(true_trade_volume_fracs)
-            true_trade_volume_fracs = true_trade_volume_fracs/t.sum(true_trade_volume_fracs)
+            true_trade_volume_fracs = true_trade_volume_fracs / t.sum(
+                true_trade_volume_fracs
+            )
 
             loss = loss_func.calculate_loss(
                 pred_trade_volume_fracs,
                 true_trade_volume_fracs,
                 hist_trade_volume_fracs,
                 market_vwap,
-                pred_vwap
+                pred_vwap,
             )
             loss.backward()
             optimizer.step()
@@ -185,11 +161,7 @@ if __name__ == "__main__":
             optimizer=optimizer,
             epoch=epc,
             loss=float(np.mean(loss_log)),
-            path=model_save_path / f"{epc}.ocet"
+            path=model_save_path / f"{epc}.ocet",
         )
-    plotter(loss_global, ylabel='loss')
+    plotter(loss_global, ylabel="loss")
     # plotter(loss_global, ylabel='VWAP')
-
-
-
-
