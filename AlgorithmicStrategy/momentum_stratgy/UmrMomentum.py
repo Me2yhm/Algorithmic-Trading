@@ -47,9 +47,9 @@ class MktStream(AbstractStream):##接收公司的沪深300指数行情
 class T():#周期
     def __init__(self, one_stream:AbstractStream) -> None:
         self.stream = one_stream
-        self.start = pd.Timestamp
-        self.end = pd.Timestamp
-        self.period = int
+        self.start : pd.Timestamp
+        self.end : pd.Timestamp
+        self.period : int
     
     def cal_T(self):
         time = pd.to_datetime(self.stream.Time, format='%Y%m%d%H%M%S%f')
@@ -153,6 +153,7 @@ class Risk():
         self.d = d
         self.risk_variable = type 
         self.dic = dict()
+        self.new_risk : float
     
     def cal_risk(self, i):
         """计算当前时间周期的risk, 并存入dic中
@@ -160,11 +161,15 @@ class Risk():
         Args:
             i (_type_): 当前时间周期
         """
-        sum = 0
-        for j in range(i - self.d + 1, i + 1):
-            sum += self.risk_variable.dict[j]
-            
-        self.dic[i] = (sum / self.d - self.risk_variable.dict[i]) * 10e8  
+        if i == 50:
+            sum = 0
+            for j in range(i - self.d + 1, i + 1):
+                sum += self.risk_variable.dict[j]
+            self.new_risk = (sum / self.d - self.risk_variable.dict[i]) * 10e8
+            self.dic[i] = self.new_risk
+        else:#增量形式
+             self.new_risk = self.new_risk + self.risk_variable.dict[i] - self.risk_variable.dict[i + 1] - 1 / self.d * (self.risk_variable.dict[i - self.d] - self.risk_variable.dict[i + 1])
+             self.dic[i] = self.new_risk
         
 class Ret():
     #统一计算股票和指数的收益率
@@ -174,6 +179,7 @@ class Ret():
         self.weireSdict = dict()
         self.lnreSdict = dict()
     
+    #这个不怎么用
     def cal_ret(self, i):#i表示这一周期的股票收益率
         #使用周期内最后一笔成交单作为股票当前周期的股价(模拟日线的收盘价)
         #这里要处理一下如果是该时期一单tick也没有的情形
@@ -197,7 +203,7 @@ class Ret():
             self.weireSdict[i] = 0
         elif self.dict.dic[i] is not [] and self.dict.dic[i - 1] is not []:
             streams_i = self.dict.dic[i]
-            streams_i_1 = self.dict.dic[i]
+            streams_i_1 = self.dict.dic[i - 1]
             sum_i = 0
             sum_i_1 = 0
             for tick in streams_i:
@@ -207,9 +213,11 @@ class Ret():
             price_i = 0
             price_i_1 = 0
             for stream in streams_i:
-                price_i += stream.Amo / sum_i
+                price_i += stream.Amo
+            price_i = price_i / sum_i
             for stream in streams_i_1:
-                price_i_1 += stream.Amo / sum_i_1
+                price_i_1 += stream.Amo
+            price_i_1 = price_i_1 / sum_i_1
             self.weireSdict[i] = price_i / price_i_1 - 1
                 
     def cal_ln_ret(self):
@@ -236,6 +244,8 @@ class TimeWeight():
 class UMR():
     def __init__(self) -> None:
         self.umrdict = dict()#这个是不变的
+        self.new_umr : float
+        self.firt : float
     """
     def _cal_time_weight(self, i):
         sum = 0
@@ -250,11 +260,17 @@ class UMR():
         """
             i是当前计算umr的周期
         """
-        umr = 0
-        for j in range(i - time_weight.m + 1, i + 1):
-            umr += risk.dic[j] * time_weight.time_weigt_dict[j] * (stockret.weireSdict[j] - mktret.weireSdict[j])
-            #没有mkt的指数，暂时只能这么做
-        self.umrdict[i] = umr
+        if i == 80:
+            
+            umr = 0
+            for j in range(i - time_weight.m + 1, i + 1):
+                umr += risk.dic[j] * time_weight.time_weigt_dict[j] * (stockret.weireSdict[j] - mktret.weireSdict[j])
+            self.new_umr = umr
+            self.umrdict[i] = self.new_umr
+        else:
+            self.new_umr = self.new_umr - risk.dic[i - time_weight.m] * time_weight.time_weigt_dict[i - time_weight.m] * (stockret.weireSdict[i - time_weight.m] - mktret.weireSdict[i - time_weight.m]) + risk.dic[i] * time_weight.time_weigt_dict[i] * (stockret.weireSdict[i] - mktret.weireSdict[i])
+            self.umrdict[i] = self.new_umr
+                                        
    
 class UMRMonmentum(modelType):
     
@@ -315,23 +331,27 @@ class UMRMonmentum(modelType):
         #1. 先要判断进来的stream是不是填满了这个周期，如果没填满就不开始计算
         if self.TD.max_T_dict == self.TD.old_T_dict or self.MktD.max_T_dict == self.MktD.old_T_dict:
             #此时这个周期的stream未必都来了
+            self._error()
             return 
         for i in range(self.TD.old_T_dict + 1, self.TD.max_T_dict + 1):
             #计算turnover不需要跳过任何周期，最先计算
             self._cal_turnover(i)
             #2. 判断是否满足计算收益率的周期数
             if self.TD.max_T_dict > 1:
+                self._error()
                 break
             #计算收益率
-            self._cal_mktret(i)
+            self._cal_mktret(i) 
             self._cal_stockret(i)
             #3. 判断是否满足计算风险系数的周期数
             if self.TD.max_T_dict < 50:
+                self._error()
                 break
             #计算风险系数
             self._cal_risk(i)
             #4. 判断是否满足计算时间权重的周期数
             if self.TD.max_T_dict < 80:
+                self._error()
                 break
             #计算umr
             self._cal_umr(i)

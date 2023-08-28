@@ -1,3 +1,4 @@
+import argparse
 import sys
 import warnings
 from argparse import ArgumentParser
@@ -9,8 +10,7 @@ from torch import optim
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from AlgorithmicStrategy import DataSet, TradeTime
-
+from AlgorithmicStrategy import DataSet, OrderBook, TradeTime
 
 from MODELS import (
     JoyeLOB,
@@ -19,14 +19,40 @@ from MODELS import (
     MultiTaskLoss,
     logger,
     log_train,
+    log_eval,
     setup_seed,
     save_model,
     plotter,
 )
 from tqdm import tqdm
 
-
 warnings.filterwarnings("ignore")
+
+
+@logger.catch
+def main(opts: argparse.Namespace):
+    logger.info("Starting".center(40, "="))
+
+    dataset_path: Path = Path(__file__).parent / opts.dataset
+    assert dataset_path.exists(), "Dataset path does not exist!"
+    logger.info(f"Reading dataset from {dataset_path}")
+
+    device = t.device("cuda:0" if t.cuda.is_available() else "cpu")
+    logger.info(f"Set device: {device}")
+
+    setup_seed(opts.seed)
+    logger.info("Set seed: {}".format(opts.seed))
+
+    log_train(epoch=1, epochs=opts.epoch, step=1, steps=20, loss=1.5, acc=0.65)
+    log_train(epoch=1, epochs=opts.epoch, step=10, steps=20, loss=1.5, acc=0.65)
+    log_eval(epoch=1, acc=0.53)
+
+    plotter(range(8), ylabel="acc", show=False, path="./PICS/test.png")
+
+
+def show_total_order_number(ob: OrderBook):
+    logger.info(f"TOTAL BID NUMBER: {sum(ob.last_snapshot['bid_num'].values())}")
+    logger.info(f"TOTAL ASK NUMBER: {sum(ob.last_snapshot['ask_num'].values())}")
 
 
 if __name__ == "__main__":
@@ -74,13 +100,13 @@ if __name__ == "__main__":
         dim_head=25,
         mlp_dim=200,
     )
-    newest_model = model_save_path / "1.ocet"
-    para_dict = t.load(newest_model, map_location=device)
-    ocet.load_state_dict(para_dict["model_state_dict"])
-    ocet.to(device=device)
+    # newest_model = model_save_path / "3.ocet"
+    # para_dict = t.load(newest_model, map_location=device)
+    # ocet.load_state_dict(para_dict["model_state_dict"])
+    # ocet.to(device=device)
 
-    optimizer = optim.Adam(ocet.parameters(), lr=0.001, weight_decay=0.0005)
-    optimizer.load_state_dict(para_dict["optimizer_state_dict"])
+    optimizer = optim.Adam(ocet.parameters(), lr=0.0001, weight_decay=0.0005)
+    # optimizer.load_state_dict(para_dict["optimizer_state_dict"])
 
     # logger.info(f"Model = {str(ocet)}")
     # logger.info("Model parameters = %d" % sum(p.numel() for p in ocet.parameters()))
@@ -91,7 +117,8 @@ if __name__ == "__main__":
     loss_global = []
     true_vwaps = []
     pred_vwaps = []
-    for epc in tqdm(range(int(newest_model.stem) + 1, args.epoch)):
+    # for epc in tqdm(range(int(newest_model.stem) + 1, args.epoch)):
+    for epc in tqdm(range(args.epoch)):
         loss_log = []
         for file in train_files:
             if file not in joye_data:
@@ -126,25 +153,42 @@ if __name__ == "__main__":
             market_vwap = llob.get_VWAP(llob_file)
             true_vwaps.append(market_vwap)
             pred_trade_volume_fracs = t.squeeze(t.stack(pred_trade_volume_fracs))
+            trade_price = t.Tensor(trade_price)
 
-            additional_vwap = 0
             if t.sum(pred_trade_volume_fracs) < 1:
+                additional_vwap = 0
                 rest = 1 - t.sum(pred_trade_volume_fracs)
                 _, final_price = llob.batch(
                     llob_file, tick.file_date_num + 14_57_00_000
                 )
                 additional_vwap = rest * final_price
+                pred_vwap = (
+                    t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
+                )
 
-            trade_price = t.cuda.FloatTensor(trade_price)
-            pred_vwap = t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
+            if t.sum(pred_trade_volume_fracs) > 1:
+                pred_vwap = t.sum(
+                    pred_trade_volume_fracs
+                    * trade_price
+                    / t.sum(pred_trade_volume_fracs).item()
+                )
+
+            if t.sum(pred_trade_volume_fracs) == 1:
+                pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
+
+            # trade_price = t.cuda.FloatTensor(trade_price)
+            # trade_price = t.Tensor(trade_price)
+            # pred_vwap = t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
             pred_vwaps.append(pred_vwap.item())
 
-            hist_trade_volume_fracs = t.cuda.FloatTensor(hist_trade_volume_fracs)
+            # hist_trade_volume_fracs = t.cuda.FloatTensor(hist_trade_volume_fracs)
+            hist_trade_volume_fracs = t.Tensor(hist_trade_volume_fracs)
             hist_trade_volume_fracs = hist_trade_volume_fracs / t.sum(
                 hist_trade_volume_fracs
             )
 
-            true_trade_volume_fracs = t.cuda.FloatTensor(true_trade_volume_fracs)
+            # true_trade_volume_fracs = t.cuda.FloatTensor(true_trade_volume_fracs)
+            true_trade_volume_fracs = t.Tensor(true_trade_volume_fracs)
             true_trade_volume_fracs = true_trade_volume_fracs / t.sum(
                 true_trade_volume_fracs
             )
@@ -156,6 +200,7 @@ if __name__ == "__main__":
                 market_vwap,
                 pred_vwap,
             )
+            optimizer.zero_grad()
             loss.backward()
             optimizer.step()
             loss_log.append(loss.item())
@@ -170,5 +215,5 @@ if __name__ == "__main__":
             loss=float(np.mean(loss_log)),
             path=model_save_path / f"{epc}.ocet",
         )
-    plotter(loss_global, ylabel="loss")
+    # plotter(loss_global, ylabel='loss')
     # plotter(loss_global, ylabel='VWAP')
