@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import Union
-
 from .main import momentumStratgy, reverse_strategy
-from .modelType import modelType, Model_reverse
+from .modelType import modelType
+from .ReverseMomentum import Model_reverse
 from ..OrderMaster.DataManager import DataStream, DataSet
 from ..OrderMaster.OrderBook import OrderBook
 
