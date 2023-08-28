@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
-from ..base import AlgorithmicStrategy, possession, signal
+
+from ..base import AlgorithmicStrategy, possession
 from .modelType import modelType
 from .ReverseMomentum import Model_reverse
 from ..OrderMaster.OrderBook import OrderBook
@@ -125,10 +126,12 @@ class reverse_strategy(momentumStratgy):
     """
     反转因子模型
     """
-    
+
     def model_update(self, model: Model_reverse):
-        return model.model_update(self.ticks,self.orderbook,self.timeStamp) 
-    def signal_update(self,index_dict):
+        return model.model_update(self.ticks, self.price_list, self.timeStamp)
+
+    def signal_update(self, index_dict):
         pass
+
     def stratgy_update(self):
         pass

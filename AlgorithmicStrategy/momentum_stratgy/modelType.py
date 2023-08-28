@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
-from ..OrderMaster.OrderBook import OrderBook
-import time
+
 
 class modelType(ABC):
     """
@@ -13,6 +12,4 @@ class modelType(ABC):
         """
         模型接受一个tick参数(目前还不确定是什么数据类型)，根据tick数据返回模型计算结果
         """
-        pass 
-
-        
+        pass

@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
-
-from collections import defaultdict
 from typing import Dict, List, TypedDict, Optional
+
 from .utils import get_date
 from .OrderMaster.OrderBook import OrderBook, OrderTick
 
@@ -57,7 +56,7 @@ class AlgorithmicStrategy(ABC):
     """
 
     orderbook: OrderBook
-    ticks: Dict[str, Dict[int,List[OrderTick]]]
+    ticks: Dict[str, Dict[int, List[OrderTick]]]
     signals: Dict[str, List[signal]]
     _timeStamp: int
     _date: str
@@ -158,13 +157,13 @@ class AlgorithmicStrategy(ABC):
         self.date = get_date(self.timeStamp)
         self.record_price(lines)
         if self.newday:
-            self.ticks[self.date] = {self.timeStamp:lines}
+            self.ticks[self.date] = {self.timeStamp: lines}
         else:
             if self.new_timeStamp:
-                self.ticks[self.date][self.timeStamp]=lines
+                self.ticks[self.date][self.timeStamp] = lines
             else:
                 self.ticks[self.date][self.timeStamp].extend(lines)
-        
+
         if self.new_timeStamp:  # 为了确保将同一timestamp下的所有数据传入再更新订单簿
             if not self.lines:
                 self.lines.extend(lines)
