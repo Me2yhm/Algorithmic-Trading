@@ -77,7 +77,7 @@ class AlgorithmicStrategy(ABC):
     def __init__(
         self,
         orderbook: OrderBook,
-        commision: float = 0.00015,
+        commission: float = 0.00015,
         stamp_duty: float = 0.001,
         transfer_fee: float = 0.00002,
         pre_close: float = 0.0,
@@ -88,7 +88,7 @@ class AlgorithmicStrategy(ABC):
         self._timeStamp = 0
         self.deals = {}
         self.possessions = {}
-        self.commission = commision
+        self.commission = commission
         self.stamp_duty = stamp_duty
         self.transfer_fee = transfer_fee
         self.buy_cost = self.commission + self.transfer_fee

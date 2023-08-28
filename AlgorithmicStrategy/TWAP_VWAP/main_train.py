@@ -1,4 +1,3 @@
-import argparse
 import sys
 import warnings
 from argparse import ArgumentParser
@@ -6,18 +5,26 @@ from pathlib import Path
 
 import numpy as np
 import torch as t
-from matplotlib import pyplot as plt
 from torch import optim
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from AlgorithmicStrategy import DataSet, OrderBook, TradeTime
+from AlgorithmicStrategy import DataSet, TradeTime
 
-from MODELS import JoyeLOB, OCET, LittleOB, MultiTaskLoss
 
-from log import logger, log_eval, log_train
-from utils import setup_seed, plotter, save_model
+from MODELS import (
+    JoyeLOB,
+    OCET,
+    LittleOB,
+    MultiTaskLoss,
+    logger,
+    log_train,
+    setup_seed,
+    save_model,
+    plotter,
+)
 from tqdm import tqdm
+
 
 warnings.filterwarnings("ignore")
 

@@ -1,22 +1,25 @@
-import argparse
+import sys
 import sys
 import warnings
 from argparse import ArgumentParser
 from pathlib import Path
 
-import numpy as np
 import torch as t
-from matplotlib import pyplot as plt
-from torch import optim, nn
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from AlgorithmicStrategy import DataSet, OrderBook, TradeTime
+from AlgorithmicStrategy import DataSet, TradeTime
 
-from MODELS import JoyeLOB, OCET, LittleOB, MultiTaskLoss
+from MODELS import (
+    JoyeLOB,
+    OCET,
+    LittleOB,
+    MultiTaskLoss,
+    logger,
+    log_eval,
+    setup_seed,
+)
 
-from log import logger, log_eval, log_train
-from utils import setup_seed, plotter, save_model
 from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
@@ -57,7 +60,9 @@ def evaluate(ocet: OCET):
                     pred_trade_volume_fracs.append(pred_frac)
                     true_trade_volume_fracs.append(volume_today)
                     if sum(pred_trade_volume_fracs) > 1:
-                        pred_trade_volume_fracs[-1] = pred_trade_volume_fracs[-1]-(sum(pred_trade_volume_fracs)-1)
+                        pred_trade_volume_fracs[-1] = pred_trade_volume_fracs[-1] - (
+                            sum(pred_trade_volume_fracs) - 1
+                        )
                         break
                     if sum(pred_trade_volume_fracs) == 1:
                         break
@@ -149,10 +154,9 @@ if __name__ == "__main__":
         mlp_dim=200,
     )
 
-
     newest_model = model_save_path / "18.ocet"
     # para_dict = t.load(newest_model, map_location=device)
-    para_dict = t.load(newest_model, map_location=t.device('cpu'))
+    para_dict = t.load(newest_model, map_location=t.device("cpu"))
     ocet.load_state_dict(para_dict["model_state_dict"])
     ocet.to(device=device)
     # with t.no_grad():

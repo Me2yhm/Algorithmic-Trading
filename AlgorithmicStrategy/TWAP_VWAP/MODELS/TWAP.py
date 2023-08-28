@@ -15,12 +15,12 @@ class TWAP(AlgorithmicStrategy):
         time_limit: float,
         symbol: str,  # 股票代码
         direction: Literal["BUY", "SELL"],  # 买卖方向
-        commision: float = 0.00015,
+        commission: float = 0.00015,
         stamp_duty: float = 0.001,
         transfer_fee: float = 0.00002,
         pre_close: float = 0,
     ) -> None:
-        super().__init__(orderbook, commision, stamp_duty, transfer_fee, pre_close)
+        super().__init__(orderbook, commission, stamp_duty, transfer_fee, pre_close)
         self.time_dict = {}
         self.tick = tick
         self.ob = orderbook

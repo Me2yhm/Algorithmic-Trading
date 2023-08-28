@@ -2,7 +2,7 @@ from typing import Literal
 
 from torch import nn, Tensor
 import torch as t
-from log import logger
+from .log import logger
 
 
 class MultiTaskLoss:

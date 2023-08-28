@@ -79,8 +79,8 @@ class LittleOB:
         if file not in self.datas:
             data: np.ndarray = np.loadtxt(file, delimiter=",", skiprows=1)
             self.datas[file] = {
-                "ASK": data[:, 1],
-                "BUY": data[:, 2],
+                "ASK": data[:, 2],
+                "BUY": data[:, 1],
                 "VWAP": data[-1, 3],
                 "timestamp": data[:, 0],
             }
