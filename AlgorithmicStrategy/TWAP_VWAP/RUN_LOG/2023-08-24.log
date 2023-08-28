@@ -1,0 +1,638 @@
+2023-08-24 10:07:28.422 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:07:29.692 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:07:29.695 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:07:29.822 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:07:29.823 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:08:06.550 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:08:07.795 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:08:07.797 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:08:07.893 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:08:07.893 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:10:11.143 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:10:12.384 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:10:12.386 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:10:12.499 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:10:12.499 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:10:57.367 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:10:58.598 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:10:58.600 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:10:58.671 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:10:58.672 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:11:22.067 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:11:23.297 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:11:23.299 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:11:23.393 | INFO     | __main__:<module>:98 -   Model = %s
+2023-08-24 10:11:23.393 | INFO     | __main__:<module>:99 -   Model parameters = %d
+2023-08-24 10:12:41.955 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:12:43.182 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:12:43.184 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:12:43.247 | INFO     | __main__:<module>:98 - Model = OCET(
+  (oce): Sequential(
+    (0): Conv2d(1, 1, kernel_size=(4, 1), stride=(1, 1), padding=same)
+    (1): Sigmoid()
+  )
+  (conv1): Sequential(
+    (0): Conv2d(1, 2, kernel_size=(1, 2), stride=(1, 2))
+    (1): LeakyReLU(negative_slope=0.01)
+    (2): BatchNorm2d(2, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Conv2d(2, 4, kernel_size=(1, 2), stride=(1, 2))
+    (4): LeakyReLU(negative_slope=0.01)
+    (5): BatchNorm2d(4, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Conv2d(4, 40, kernel_size=(1, 10), stride=(1, 1))
+    (7): LeakyReLU(negative_slope=0.01)
+    (8): BatchNorm2d(40, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (transformer): Transformer(
+    (layers): ModuleList(
+      (0-1): 2 x ModuleList(
+        (0): PreNorm(
+          (norm): LayerNorm((100,), eps=1e-05, elementwise_affine=True)
+          (fn): Attention(
+            (attend): Softmax(dim=-1)
+            (to_qkv): Linear(in_features=100, out_features=300, bias=False)
+            (to_out): Sequential(
+              (0): Linear(in_features=100, out_features=100, bias=True)
+              (1): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+        (1): PreNorm(
+          (norm): LayerNorm((100,), eps=1e-05, elementwise_affine=True)
+          (fn): FeedForward(
+            (net): Sequential(
+              (0): Linear(in_features=100, out_features=200, bias=True)
+              (1): GELU(approximate='none')
+              (2): Dropout(p=0.0, inplace=False)
+              (3): Linear(in_features=200, out_features=100, bias=True)
+              (4): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+      )
+    )
+  )
+  (fc): Linear(in_features=100, out_features=1, bias=True)
+)
+2023-08-24 10:12:43.248 | INFO     | __main__:<module>:99 - Model parameters = 163464
+2023-08-24 10:21:58.527 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:21:59.750 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:21:59.754 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:29:10.759 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:29:12.027 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:29:12.030 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:29:50.845 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:29:52.075 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:29:52.077 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:30:15.462 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:30:16.692 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:30:16.695 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:31:23.029 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:31:24.255 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:31:24.256 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:32:48.249 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:32:49.471 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:32:49.473 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:34:09.235 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:34:10.475 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:34:10.476 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:38:09.244 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:38:10.478 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:38:10.479 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:38:45.502 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:38:46.733 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:38:46.735 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:39:06.091 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:39:07.315 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:39:07.316 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:39:58.049 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:39:59.275 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:39:59.277 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:40:15.250 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:40:16.475 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:40:16.477 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:40:49.771 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:40:50.994 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:40:50.996 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:41:48.180 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:41:49.410 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:41:49.411 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:42:05.739 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:42:06.964 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:42:06.965 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:42:26.359 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:42:27.581 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:42:27.582 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:47:24.765 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:47:25.990 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:47:25.991 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:49:16.450 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:49:17.679 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:49:17.681 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:50:16.593 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:50:17.812 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:50:17.815 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:54:51.165 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:54:52.389 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:54:52.390 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 10:56:03.196 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 10:56:04.419 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 10:56:04.420 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:42:24.301 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:42:25.574 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:42:25.576 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:42:53.411 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:42:54.641 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:42:54.644 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:43:27.517 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:43:28.746 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:43:28.747 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:48:16.712 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:48:17.941 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:48:17.943 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:50:24.918 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:50:26.144 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:50:26.146 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:53:22.916 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:53:24.145 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:53:24.147 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:55:27.105 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:55:28.346 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:55:28.347 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:56:20.007 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:56:21.237 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:56:21.238 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:58:13.291 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:58:14.516 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:58:14.517 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 15:58:58.023 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 15:58:59.256 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 15:58:59.259 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:00:44.779 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:00:46.008 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:00:46.010 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:00:59.849 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 128.12165754648038
+2023-08-24 16:01:08.362 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: 58.397120609009754
+2023-08-24 16:01:15.856 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: 111.10982889169951
+2023-08-24 16:01:23.257 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: 82.72158436097905
+2023-08-24 16:01:30.866 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-10, Loss: 117.33029683847553
+2023-08-24 16:01:38.479 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-11, Loss: 4.798458019632438
+2023-08-24 16:01:45.831 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-12, Loss: 131.74423123572763
+2023-08-24 16:01:54.184 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-13, Loss: 66.14583815206812
+2023-08-24 16:02:02.258 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-14, Loss: 101.13784464278689
+2023-08-24 16:02:09.901 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-17, Loss: 59.51858802764238
+2023-08-24 16:02:18.346 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-18, Loss: 63.80330348617409
+2023-08-24 16:02:26.175 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-19, Loss: 56.3529015938026
+2023-08-24 16:02:33.683 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-20, Loss: 93.2059877624216
+2023-08-24 16:02:41.502 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-21, Loss: 63.41212038032055
+2023-08-24 16:02:49.597 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-24, Loss: 58.42352457679728
+2023-08-24 16:02:57.014 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-25, Loss: 91.33561839701714
+2023-08-24 16:03:04.621 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-26, Loss: 75.35666024477455
+2023-08-24 16:03:11.988 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-04, Loss: 132.01359826288711
+2023-08-24 16:03:19.201 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-05, Loss: 51.887223435042344
+2023-08-24 16:03:26.694 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-06, Loss: 109.04240112817011
+2023-08-24 16:03:34.287 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-07, Loss: 83.70462588857391
+2023-08-24 16:03:41.989 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-10, Loss: 117.78488388346965
+2023-08-24 16:03:49.292 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-11, Loss: 6.569622727851523
+2023-08-24 16:03:56.631 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-12, Loss: 137.11838745996485
+2023-08-24 16:04:04.374 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-13, Loss: 67.67380683272228
+2023-08-24 16:04:11.595 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-14, Loss: 101.03627641531725
+2023-08-24 16:04:18.831 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-17, Loss: 55.67241486593569
+2023-08-24 16:04:26.090 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-18, Loss: 61.84322054441823
+2023-08-24 16:04:33.476 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-19, Loss: 57.2271863632659
+2023-08-24 16:04:40.617 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-20, Loss: 90.67532916775605
+2023-08-24 16:04:48.020 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-21, Loss: 62.99324750010795
+2023-08-24 16:04:55.211 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-24, Loss: 60.51413684306179
+2023-08-24 16:05:02.344 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-25, Loss: 88.01802274101391
+2023-08-24 16:05:10.117 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-26, Loss: 76.72189575195677
+2023-08-24 16:09:12.613 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:09:13.840 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:09:13.842 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:12:08.185 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:12:09.411 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:12:09.412 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:12:52.221 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:12:53.445 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:12:53.447 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:13:19.849 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:13:21.083 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:13:21.085 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:14:09.924 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:14:11.151 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:14:11.153 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:14:29.693 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 384760.84375
+2023-08-24 16:14:45.389 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: -876815.8125
+2023-08-24 16:15:00.995 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: -2110097.0
+2023-08-24 16:15:17.144 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: -2979927.75
+2023-08-24 16:15:48.204 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:15:49.432 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:15:49.434 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:16:05.717 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:16:06.943 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:16:06.945 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:16:25.374 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: -303467.4375
+2023-08-24 16:16:41.652 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: -362914.25
+2023-08-24 16:16:58.357 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: -428196.4375
+2023-08-24 16:17:14.732 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: -466977.375
+2023-08-24 16:17:30.799 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-10, Loss: -527420.125
+2023-08-24 16:17:47.323 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-11, Loss: -550220.0625
+2023-08-24 16:18:04.077 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-12, Loss: -608222.1875
+2023-08-24 16:18:21.250 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-13, Loss: -584576.0
+2023-08-24 16:18:52.210 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:18:53.438 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:18:53.439 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:19:11.850 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 96276.75
+2023-08-24 16:19:27.696 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: -219000.4375
+2023-08-24 16:19:43.801 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: -527070.25
+2023-08-24 16:20:00.264 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: -744323.875
+2023-08-24 16:20:35.641 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-24 16:20:36.869 | INFO     | __main__:<module>:69 - Set device: cuda:0
+2023-08-24 16:20:36.870 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-24 16:20:55.193 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 96276.75
+2023-08-24 16:21:11.127 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: -219000.4375
+2023-08-24 17:39:18.123 | INFO     | __main__:<module>:68 - ================Starting================
+2023-08-24 17:51:44.334 | INFO     | __main__:<module>:70 - ================Starting================
+2023-08-24 17:51:44.336 | INFO     | __main__:<module>:73 - Set device: cpu
+2023-08-24 17:51:44.340 | INFO     | __main__:<module>:76 - Set seed: 2333
+2023-08-24 17:52:26.300 | INFO     | __main__:<module>:70 - ================Starting================
+2023-08-24 17:52:26.301 | INFO     | __main__:<module>:73 - Set device: cpu
+2023-08-24 17:52:26.303 | INFO     | __main__:<module>:76 - Set seed: 2333
+2023-08-24 17:53:34.561 | INFO     | __main__:<module>:70 - ================Starting================
+2023-08-24 17:53:34.563 | INFO     | __main__:<module>:73 - Set device: cpu
+2023-08-24 17:53:34.565 | INFO     | __main__:<module>:76 - Set seed: 2333
+2023-08-24 17:53:45.561 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-04, Loss: 20.533398841794014
+2023-08-24 17:53:57.665 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-05, Loss: 23.91041834083086
+2023-08-24 17:54:08.276 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-06, Loss: 13.727311020519268
+2023-08-24 17:54:18.992 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-07, Loss: 12.73712329255093
+2023-08-24 17:54:29.141 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-10, Loss: 5.659567584260551
+2023-08-24 17:54:39.522 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-11, Loss: 14.151673797992956
+2023-08-24 17:54:50.549 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-12, Loss: 25.21564570361277
+2023-08-24 17:55:01.159 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-13, Loss: 24.479954578506106
+2023-08-24 17:55:11.652 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-14, Loss: 26.990002303187133
+2023-08-24 17:55:22.841 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-17, Loss: 25.374689410726138
+2023-08-24 17:55:33.777 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-18, Loss: 18.220800441006283
+2023-08-24 17:55:44.465 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-19, Loss: 15.919568666979792
+2023-08-24 17:55:55.398 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-20, Loss: 23.890684375703156
+2023-08-24 17:56:06.240 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-21, Loss: 21.931327487172368
+2023-08-24 17:56:16.898 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-24, Loss: 18.526567589929627
+2023-08-24 17:56:27.671 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-25, Loss: 26.255299078052634
+2023-08-24 17:56:39.230 | INFO     | log:log_train:25 - Epoch: 0/2,file 2023-07-26, Loss: 24.97394946064964
+2023-08-24 17:56:50.013 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-04, Loss: 22.663147696583646
+2023-08-24 17:57:00.979 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-05, Loss: 22.895794746660716
+2023-08-24 17:57:12.192 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-06, Loss: 13.328325965729926
+2023-08-24 17:57:22.767 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-07, Loss: 11.402236920726411
+2023-08-24 17:57:33.124 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-10, Loss: 5.623845742616439
+2023-08-24 17:57:43.566 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-11, Loss: 14.154261004299931
+2023-08-24 17:57:54.191 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-12, Loss: 24.732549842958257
+2023-08-24 17:58:04.564 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-13, Loss: 23.61311402899817
+2023-08-24 17:58:15.422 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-14, Loss: 25.490242521282337
+2023-08-24 17:58:26.586 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-17, Loss: 26.299787640376373
+2023-08-24 17:58:37.137 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-18, Loss: 19.64822337563863
+2023-08-24 17:58:47.908 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-19, Loss: 17.672914568925663
+2023-08-24 17:58:58.346 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-20, Loss: 22.59830275496594
+2023-08-24 17:59:08.753 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-21, Loss: 23.569354448460032
+2023-08-24 17:59:19.317 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-24, Loss: 16.190799637221374
+2023-08-24 17:59:29.714 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-25, Loss: 25.562911116957096
+2023-08-24 17:59:39.970 | INFO     | log:log_train:25 - Epoch: 1/2,file 2023-07-26, Loss: 26.37752520411852
+2023-08-24 19:00:44.500 | INFO     | __main__:<module>:70 - ================Starting================
+2023-08-24 19:00:44.501 | INFO     | __main__:<module>:73 - Set device: cpu
+2023-08-24 19:00:44.505 | INFO     | __main__:<module>:76 - Set seed: 2333
+2023-08-24 19:00:54.532 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-04, Loss: 20.533398841794014
+2023-08-24 19:01:11.233 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-05, Loss: 23.91041834083086
+2023-08-24 19:01:22.772 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-06, Loss: 13.727311020519268
+2023-08-24 19:01:33.916 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-07, Loss: 12.73712329255093
+2023-08-24 19:01:45.102 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-10, Loss: 5.659567584260551
+2023-08-24 19:01:56.525 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-11, Loss: 14.151673797992956
+2023-08-24 19:02:07.999 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-12, Loss: 25.21564570361277
+2023-08-24 19:02:19.256 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-13, Loss: 24.479954578506106
+2023-08-24 19:02:30.222 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-14, Loss: 26.990002303187133
+2023-08-24 19:02:41.138 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-17, Loss: 25.374689410726138
+2023-08-24 19:02:51.893 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-18, Loss: 18.220800441006283
+2023-08-24 19:03:02.551 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-19, Loss: 15.919568666979792
+2023-08-24 19:03:13.236 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-20, Loss: 23.890684375703156
+2023-08-24 19:03:24.011 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-21, Loss: 21.931327487172368
+2023-08-24 19:03:34.833 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-24, Loss: 18.526567589929627
+2023-08-24 19:03:45.950 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-25, Loss: 26.255299078052634
+2023-08-24 19:03:56.809 | INFO     | log:log_train:25 - Epoch: 0/20,file 2023-07-26, Loss: 24.97394946064964
+2023-08-24 19:04:07.301 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-04, Loss: 22.663147696583646
+2023-08-24 19:04:17.887 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-05, Loss: 22.895794746660716
+2023-08-24 19:04:28.497 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-06, Loss: 13.328325965729926
+2023-08-24 19:04:39.031 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-07, Loss: 11.402236920726411
+2023-08-24 19:04:49.473 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-10, Loss: 5.623845742616439
+2023-08-24 19:05:00.053 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-11, Loss: 14.154261004299931
+2023-08-24 19:05:10.735 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-12, Loss: 24.732549842958257
+2023-08-24 19:05:21.254 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-13, Loss: 23.61311402899817
+2023-08-24 19:05:32.112 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-14, Loss: 25.490242521282337
+2023-08-24 19:05:42.822 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-17, Loss: 26.299787640376373
+2023-08-24 19:05:53.461 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-18, Loss: 19.64822337563863
+2023-08-24 19:06:04.080 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-19, Loss: 17.672914568925663
+2023-08-24 19:06:14.696 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-20, Loss: 22.59830275496594
+2023-08-24 19:06:25.246 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-21, Loss: 23.569354448460032
+2023-08-24 19:06:36.181 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-24, Loss: 16.190799637221374
+2023-08-24 19:06:47.151 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-25, Loss: 25.562911116957096
+2023-08-24 19:06:57.677 | INFO     | log:log_train:25 - Epoch: 1/20,file 2023-07-26, Loss: 26.37752520411852
+2023-08-24 19:07:08.508 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-04, Loss: 21.544528889389923
+2023-08-24 19:07:19.078 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-05, Loss: 23.967246362058376
+2023-08-24 19:07:29.730 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-06, Loss: 16.9241375777354
+2023-08-24 19:07:40.512 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-07, Loss: 12.880751613032691
+2023-08-24 19:07:51.045 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-10, Loss: 5.727594919119271
+2023-08-24 19:08:01.490 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-11, Loss: 14.849008702093727
+2023-08-24 19:08:12.162 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-12, Loss: 30.317923045039805
+2023-08-24 19:08:22.687 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-13, Loss: 25.509789238999122
+2023-08-24 19:08:33.218 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-14, Loss: 27.43299883046198
+2023-08-24 19:08:43.737 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-17, Loss: 27.99279375571747
+2023-08-24 19:08:54.278 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-18, Loss: 19.902820807342966
+2023-08-24 19:09:05.956 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-19, Loss: 18.557222685116585
+2023-08-24 19:09:16.539 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-20, Loss: 22.971538276719407
+2023-08-24 19:09:27.106 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-21, Loss: 22.08250195590179
+2023-08-24 19:09:37.767 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-24, Loss: 16.513059839477016
+2023-08-24 19:09:49.012 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-25, Loss: 23.986374256254667
+2023-08-24 19:09:59.583 | INFO     | log:log_train:25 - Epoch: 2/20,file 2023-07-26, Loss: 29.30195266110238
+2023-08-24 19:10:10.238 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-04, Loss: 22.599660897246952
+2023-08-24 19:10:21.006 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-05, Loss: 25.111017545344854
+2023-08-24 19:10:31.954 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-06, Loss: 18.724877856440095
+2023-08-24 19:10:43.208 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-07, Loss: 13.231195854715612
+2023-08-24 19:10:53.739 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-10, Loss: 6.387339610026056
+2023-08-24 19:11:04.384 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-11, Loss: 11.765103534866295
+2023-08-24 19:11:14.845 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-12, Loss: 24.634602180552257
+2023-08-24 19:11:25.419 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-13, Loss: 25.04562914291034
+2023-08-24 19:11:35.951 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-14, Loss: 28.694599357156594
+2023-08-24 19:11:46.405 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-17, Loss: 25.18547365451467
+2023-08-24 19:11:57.160 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-18, Loss: 20.18037515649298
+2023-08-24 19:12:07.689 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-19, Loss: 16.69436658413253
+2023-08-24 19:12:18.114 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-20, Loss: 22.743417063003548
+2023-08-24 19:12:28.558 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-21, Loss: 22.673852184651693
+2023-08-24 19:12:39.046 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-24, Loss: 17.26616273319325
+2023-08-24 19:12:49.766 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-25, Loss: 23.56129080618601
+2023-08-24 19:13:00.494 | INFO     | log:log_train:25 - Epoch: 3/20,file 2023-07-26, Loss: 28.514980664252548
+2023-08-24 19:13:11.106 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-04, Loss: 19.81906724146945
+2023-08-24 19:13:21.830 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-05, Loss: 22.548017923290775
+2023-08-24 19:13:32.430 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-06, Loss: 14.47216801496136
+2023-08-24 19:13:43.239 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-07, Loss: 11.931083032249665
+2023-08-24 19:13:54.629 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-10, Loss: 8.912228715917003
+2023-08-24 19:14:05.934 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-11, Loss: 13.612584300692843
+2023-08-24 19:14:17.316 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-12, Loss: 25.35760702466357
+2023-08-24 19:14:28.339 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-13, Loss: 25.665464591634613
+2023-08-24 19:14:38.968 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-14, Loss: 25.88773384575938
+2023-08-24 19:14:49.665 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-17, Loss: 27.737218269127283
+2023-08-24 19:15:00.395 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-18, Loss: 20.1136755379813
+2023-08-24 19:15:10.924 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-19, Loss: 18.31513582514121
+2023-08-24 19:15:21.478 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-20, Loss: 22.48136779876564
+2023-08-24 19:15:32.021 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-21, Loss: 23.76318082003452
+2023-08-24 19:15:43.303 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-24, Loss: 16.017141762107634
+2023-08-24 19:15:54.531 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-25, Loss: 26.470766015191
+2023-08-24 19:16:05.798 | INFO     | log:log_train:25 - Epoch: 4/20,file 2023-07-26, Loss: 23.959449804992648
+2023-08-24 19:16:16.461 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-04, Loss: 21.17680861979062
+2023-08-24 19:16:27.010 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-05, Loss: 24.478659525160708
+2023-08-24 19:16:37.669 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-06, Loss: 16.96208584704823
+2023-08-24 19:16:48.495 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-07, Loss: 10.390396872640947
+2023-08-24 19:16:59.218 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-10, Loss: 6.400885473274451
+2023-08-24 19:17:10.109 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-11, Loss: 15.018837743799281
+2023-08-24 19:17:20.723 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-12, Loss: 25.806306936728873
+2023-08-24 19:17:31.309 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-13, Loss: 25.408568212921875
+2023-08-24 19:17:41.949 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-14, Loss: 25.427458604273983
+2023-08-24 19:17:52.496 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-17, Loss: 26.094595989066477
+2023-08-24 19:18:03.080 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-18, Loss: 20.304904147713973
+2023-08-24 19:18:13.765 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-19, Loss: 16.465984278286097
+2023-08-24 19:18:24.527 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-20, Loss: 22.814500229742762
+2023-08-24 19:18:35.014 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-21, Loss: 23.57782825190499
+2023-08-24 19:18:45.771 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-24, Loss: 16.506199144555428
+2023-08-24 19:18:56.903 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-25, Loss: 26.927798857958965
+2023-08-24 19:19:07.658 | INFO     | log:log_train:25 - Epoch: 5/20,file 2023-07-26, Loss: 25.718155349198334
+2023-08-24 19:19:18.449 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-04, Loss: 20.047080070773394
+2023-08-24 19:19:29.376 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-05, Loss: 23.181890356347573
+2023-08-24 19:19:40.828 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-06, Loss: 16.48939050746322
+2023-08-24 19:19:51.844 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-07, Loss: 11.743675393535284
+2023-08-24 19:20:02.690 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-10, Loss: 4.7508298690181885
+2023-08-24 19:20:13.828 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-11, Loss: 13.067926060974532
+2023-08-24 19:20:25.067 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-12, Loss: 27.31257967541437
+2023-08-24 19:20:36.358 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-13, Loss: 25.03653597801834
+2023-08-24 19:20:47.235 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-14, Loss: 28.524046685789088
+2023-08-24 19:20:58.497 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-17, Loss: 26.383097137710482
+2023-08-24 19:21:09.924 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-18, Loss: 22.963633951452678
+2023-08-24 19:21:20.818 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-19, Loss: 17.472393033407442
+2023-08-24 19:21:31.680 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-20, Loss: 19.892986889282085
+2023-08-24 19:21:43.143 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-21, Loss: 24.11430805591233
+2023-08-24 19:21:55.048 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-24, Loss: 17.692185436691943
+2023-08-24 19:22:05.996 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-25, Loss: 25.696858688964124
+2023-08-24 19:22:17.289 | INFO     | log:log_train:25 - Epoch: 6/20,file 2023-07-26, Loss: 25.361967892570323
+2023-08-24 19:22:28.625 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-04, Loss: 20.59036942824255
+2023-08-24 19:22:39.391 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-05, Loss: 23.24976083238751
+2023-08-24 19:22:50.178 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-06, Loss: 14.829262564808106
+2023-08-24 19:23:00.976 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-07, Loss: 12.35102077547942
+2023-08-24 19:23:11.705 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-10, Loss: 4.5394824807463765
+2023-08-24 19:23:22.543 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-11, Loss: 13.198463832483665
+2023-08-24 19:23:33.167 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-12, Loss: 25.91203026205428
+2023-08-24 19:23:43.865 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-13, Loss: 26.45273886366395
+2023-08-24 19:23:54.517 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-14, Loss: 26.407283601555225
+2023-08-24 19:24:05.415 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-17, Loss: 27.030389915361138
+2023-08-24 19:24:16.149 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-18, Loss: 21.229791627813697
+2023-08-24 19:24:26.899 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-19, Loss: 17.542265259192597
+2023-08-24 19:24:37.729 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-20, Loss: 22.321153649612228
+2023-08-24 19:24:48.574 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-21, Loss: 22.210058685392877
+2023-08-24 19:25:00.119 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-24, Loss: 16.664083700303866
+2023-08-24 19:25:10.878 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-25, Loss: 24.888062770179776
+2023-08-24 19:25:21.738 | INFO     | log:log_train:25 - Epoch: 7/20,file 2023-07-26, Loss: 26.612676327634343
+2023-08-24 19:25:32.538 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-04, Loss: 22.049457984606132
+2023-08-24 19:25:43.312 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-05, Loss: 23.25571569725313
+2023-08-24 19:25:54.116 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-06, Loss: 16.271743459139195
+2023-08-24 19:26:05.030 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-07, Loss: 11.981884647990734
+2023-08-24 19:26:15.663 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-10, Loss: 4.394007179258907
+2023-08-24 19:26:26.576 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-11, Loss: 14.976445156261061
+2023-08-24 19:26:37.485 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-12, Loss: 26.067119991072445
+2023-08-24 19:26:48.275 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-13, Loss: 23.92409616197118
+2023-08-24 19:26:59.063 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-14, Loss: 27.696299443267613
+2023-08-24 19:27:09.825 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-17, Loss: 26.883543994386557
+2023-08-24 19:27:20.699 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-18, Loss: 22.517791646608927
+2023-08-24 19:27:31.373 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-19, Loss: 17.779556866524448
+2023-08-24 19:27:42.191 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-20, Loss: 22.020092117719987
+2023-08-24 19:27:53.351 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-21, Loss: 24.104246896127055
+2023-08-24 19:28:04.495 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-24, Loss: 15.689556470550293
+2023-08-24 19:28:15.215 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-25, Loss: 23.591445880600215
+2023-08-24 19:28:26.115 | INFO     | log:log_train:25 - Epoch: 8/20,file 2023-07-26, Loss: 24.607568769811298
+2023-08-24 19:28:36.979 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-04, Loss: 21.49155638666042
+2023-08-24 19:28:47.702 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-05, Loss: 21.48483438446918
+2023-08-24 19:28:58.538 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-06, Loss: 16.132175725694317
+2023-08-24 19:29:09.422 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-07, Loss: 12.727461937950173
+2023-08-24 19:29:20.164 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-10, Loss: 6.474661860284267
+2023-08-24 19:29:30.949 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-11, Loss: 14.859524037217396
+2023-08-24 19:29:41.926 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-12, Loss: 25.581211478766367
+2023-08-24 19:29:52.819 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-13, Loss: 25.25278817509305
+2023-08-24 19:30:04.120 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-14, Loss: 26.843657174689326
+2023-08-24 19:30:14.825 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-17, Loss: 24.412798901918183
+2023-08-24 19:30:25.568 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-18, Loss: 21.155306405666735
+2023-08-24 19:30:36.471 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-19, Loss: 19.89690596493556
+2023-08-24 19:30:47.242 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-20, Loss: 22.69034224369461
+2023-08-24 19:30:58.560 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-21, Loss: 22.710825974725914
+2023-08-24 19:31:09.800 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-24, Loss: 19.26179511015145
+2023-08-24 19:31:20.689 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-25, Loss: 25.88887347078284
+2023-08-24 19:31:31.645 | INFO     | log:log_train:25 - Epoch: 9/20,file 2023-07-26, Loss: 23.17267966649802
+2023-08-24 19:31:42.472 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-04, Loss: 20.21205728364752
+2023-08-24 19:31:53.390 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-05, Loss: 24.938453666959354
+2023-08-24 19:32:04.399 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-06, Loss: 15.215828519502493
+2023-08-24 19:32:15.149 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-07, Loss: 10.86079987905004
+2023-08-24 19:32:25.936 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-10, Loss: 5.489556663025646
+2023-08-24 19:32:36.905 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-11, Loss: 13.756813674776422
+2023-08-24 19:32:47.644 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-12, Loss: 24.738538230671075
+2023-08-24 19:32:58.384 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-13, Loss: 25.214742274372686
+2023-08-24 19:33:09.339 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-14, Loss: 27.797056995399405
+2023-08-24 19:33:20.222 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-17, Loss: 26.61449235430384
+2023-08-24 19:33:30.956 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-18, Loss: 19.92788055753843
+2023-08-24 19:33:41.816 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-19, Loss: 18.158648852359107
+2023-08-24 19:33:52.565 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-20, Loss: 23.043777562289236
+2023-08-24 19:34:03.918 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-21, Loss: 24.47982243044706
+2023-08-24 19:34:14.901 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-24, Loss: 16.743455155579504
+2023-08-24 19:34:25.689 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-25, Loss: 24.147485163921235
+2023-08-24 19:34:36.616 | INFO     | log:log_train:25 - Epoch: 10/20,file 2023-07-26, Loss: 26.02937624463823
+2023-08-24 19:34:47.458 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-04, Loss: 21.862014380329185
+2023-08-24 19:34:58.397 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-05, Loss: 24.407070746766994
+2023-08-24 19:35:09.313 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-06, Loss: 15.583802800378246
+2023-08-24 19:35:19.870 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-07, Loss: 11.748024998424016
+2023-08-24 19:35:30.524 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-10, Loss: 6.625398735648827
+2023-08-24 19:35:41.325 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-11, Loss: 15.375953941591781
+2023-08-24 19:35:51.951 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-12, Loss: 25.514973216488634
+2023-08-24 19:36:02.619 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-13, Loss: 24.27079104133652
+2023-08-24 19:36:13.400 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-14, Loss: 27.393285353089336
+2023-08-24 19:36:24.159 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-17, Loss: 24.58737202487326
+2023-08-24 19:36:34.987 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-18, Loss: 19.11613440217786
+2023-08-24 19:36:45.772 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-19, Loss: 17.295133713348523
+2023-08-24 19:36:56.632 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-20, Loss: 22.730856143529458
+2023-08-24 19:37:07.802 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-21, Loss: 21.17252045191375
+2023-08-24 19:37:18.660 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-24, Loss: 17.276031113742775
+2023-08-24 19:37:29.437 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-25, Loss: 25.785731920901064
+2023-08-24 19:37:40.391 | INFO     | log:log_train:25 - Epoch: 11/20,file 2023-07-26, Loss: 25.944320840363638
+2023-08-24 19:37:51.123 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-04, Loss: 22.160752423828335
+2023-08-24 19:38:02.161 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-05, Loss: 24.85250646497162
+2023-08-24 19:38:12.981 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-06, Loss: 14.911944942513212
+2023-08-24 19:38:23.837 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-07, Loss: 13.397257143249577
+2023-08-24 19:38:34.514 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-10, Loss: 6.339235792541331
+2023-08-24 19:38:45.244 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-11, Loss: 15.886003322932662
+2023-08-24 19:38:56.187 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-12, Loss: 25.44992309034945
+2023-08-24 19:39:07.043 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-13, Loss: 26.144524574591134
+2023-08-24 19:39:17.907 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-14, Loss: 23.79866886180895
+2023-08-24 19:39:28.785 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-17, Loss: 25.10502018472383
+2023-08-24 19:39:39.577 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-18, Loss: 21.008464191648336
+2023-08-24 19:39:50.340 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-19, Loss: 17.314410356306958
+2023-08-24 19:40:01.230 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-20, Loss: 21.321364282125945
+2023-08-24 19:40:12.127 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-21, Loss: 23.18865389997297
+2023-08-24 19:40:23.022 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-24, Loss: 15.214415012512255
+2023-08-24 19:40:33.772 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-25, Loss: 24.132208195633265
+2023-08-24 19:40:44.524 | INFO     | log:log_train:25 - Epoch: 12/20,file 2023-07-26, Loss: 24.118278488186903
+2023-08-24 19:40:55.230 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-04, Loss: 19.55535856857198
+2023-08-24 19:41:06.070 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-05, Loss: 23.17690067005335
+2023-08-24 19:41:16.947 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-06, Loss: 13.775871714630174
+2023-08-24 19:41:27.606 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-07, Loss: 13.019177619246461
+2023-08-24 19:41:38.501 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-10, Loss: 4.864219741506399
+2023-08-24 19:41:49.164 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-11, Loss: 13.555193449483735
+2023-08-24 19:41:59.941 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-12, Loss: 26.295959940169418
+2023-08-24 19:42:10.643 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-13, Loss: 23.41316042449957
+2023-08-24 19:42:21.529 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-14, Loss: 26.78790930355242
+2023-08-24 19:42:32.450 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-17, Loss: 26.58443419780778
+2023-08-24 19:42:43.225 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-18, Loss: 19.449495749256226
+2023-08-24 19:42:54.058 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-19, Loss: 19.045426330346974
+2023-08-24 19:43:05.144 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-20, Loss: 24.42108705836405
+2023-08-24 19:43:16.005 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-21, Loss: 21.461271251165563
+2023-08-24 19:43:26.923 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-24, Loss: 17.859419428001434
+2023-08-24 19:43:37.770 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-25, Loss: 25.882049112015235
+2023-08-24 19:43:48.688 | INFO     | log:log_train:25 - Epoch: 13/20,file 2023-07-26, Loss: 29.189863558952897
+2023-08-24 19:43:59.477 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-04, Loss: 22.121726436994475
+2023-08-24 19:44:10.220 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-05, Loss: 25.357813117786115
+2023-08-24 19:44:21.034 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-06, Loss: 15.547981906923338
+2023-08-24 19:44:31.833 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-07, Loss: 14.143325241574807
+2023-08-24 19:44:42.710 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-10, Loss: 7.74051478398691
+2023-08-24 19:44:53.538 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-11, Loss: 15.37045349012113
+2023-08-24 19:45:04.321 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-12, Loss: 23.928755943119278
+2023-08-24 19:45:15.322 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-13, Loss: 24.10812648807129
+2023-08-24 19:45:26.513 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-14, Loss: 26.03243901069721
+2023-08-24 19:45:37.798 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-17, Loss: 25.560348351707617
+2023-08-24 19:45:48.584 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-18, Loss: 17.793038026932614
+2023-08-24 19:45:59.284 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-19, Loss: 19.656490670421167
+2023-08-24 19:46:10.640 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-20, Loss: 21.307553441255763
+2023-08-24 19:46:21.364 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-21, Loss: 25.220959473548138
+2023-08-24 19:46:32.112 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-24, Loss: 19.531042582725146
+2023-08-24 19:46:43.035 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-25, Loss: 23.627034664572786
+2023-08-24 19:46:53.749 | INFO     | log:log_train:25 - Epoch: 14/20,file 2023-07-26, Loss: 27.032065270708255
+2023-08-24 19:47:04.613 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-04, Loss: 22.785395111877342
+2023-08-24 19:47:15.341 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-05, Loss: 24.61721548440795
+2023-08-24 19:47:26.131 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-06, Loss: 16.221304554977706
+2023-08-24 19:47:36.966 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-07, Loss: 12.435992051676335
+2023-08-24 19:47:47.643 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-10, Loss: 5.247632644840243
+2023-08-24 19:47:58.397 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-11, Loss: 14.580284480640247
+2023-08-24 19:48:09.209 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-12, Loss: 26.70680489859765
+2023-08-24 19:48:19.985 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-13, Loss: 25.093887624972073
+2023-08-24 19:48:30.738 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-14, Loss: 29.14575042367328
+2023-08-24 19:48:41.593 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-17, Loss: 25.931000610014117
+2023-08-24 19:48:52.423 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-18, Loss: 20.39849746470957
+2023-08-24 19:49:03.317 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-19, Loss: 17.9529390036735
+2023-08-24 19:49:14.461 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-20, Loss: 20.824204623776197
+2023-08-24 19:49:25.472 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-21, Loss: 22.967114564183042
+2023-08-24 19:49:36.231 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-24, Loss: 17.29690040477418
+2023-08-24 19:49:46.879 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-25, Loss: 26.299379735714826
+2023-08-24 19:49:57.878 | INFO     | log:log_train:25 - Epoch: 15/20,file 2023-07-26, Loss: 28.1203329089998
+2023-08-24 19:50:09.362 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-04, Loss: 20.5099100882104
+2023-08-24 19:50:20.209 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-05, Loss: 23.685617366904644
+2023-08-24 19:50:31.062 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-06, Loss: 16.406471022867503
+2023-08-24 19:50:42.139 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-07, Loss: 14.11878887210573
+2023-08-24 19:50:53.003 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-10, Loss: 6.933708108773293
+2023-08-24 19:51:03.936 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-11, Loss: 12.892366391464765
+2023-08-24 19:51:14.781 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-12, Loss: 27.03094456062388
+2023-08-24 19:51:25.578 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-13, Loss: 25.855317900498303
+2023-08-24 19:51:36.361 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-14, Loss: 25.78736897195843
+2023-08-24 19:51:47.309 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-17, Loss: 29.776476993143095
+2023-08-24 19:51:58.157 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-18, Loss: 18.156039397585133
+2023-08-24 19:52:09.421 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-19, Loss: 17.69268387258306
+2023-08-24 19:52:20.381 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-20, Loss: 21.52278045231251
+2023-08-24 19:52:31.245 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-21, Loss: 22.764791113630658
+2023-08-24 19:52:42.208 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-24, Loss: 17.200033469573405
+2023-08-24 19:52:53.178 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-25, Loss: 24.525525819041448
+2023-08-24 19:53:04.120 | INFO     | log:log_train:25 - Epoch: 16/20,file 2023-07-26, Loss: 24.37429330585598
+2023-08-24 19:53:14.825 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-04, Loss: 20.45346190213908
+2023-08-24 19:53:25.547 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-05, Loss: 22.17058321630015
+2023-08-24 19:53:36.278 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-06, Loss: 15.985018075601568
+2023-08-24 19:53:47.272 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-07, Loss: 14.370019895693675
+2023-08-24 19:53:58.155 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-10, Loss: 5.237048702643393
+2023-08-24 19:54:09.050 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-11, Loss: 14.582170727885927
+2023-08-24 19:54:20.025 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-12, Loss: 24.40213612903812
+2023-08-24 19:54:30.863 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-13, Loss: 25.121858811963673
+2023-08-24 19:54:41.766 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-14, Loss: 27.937719930458414
+2023-08-24 19:54:52.817 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-17, Loss: 25.422882666233487
+2023-08-24 19:55:03.601 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-18, Loss: 22.161960635782712
+2023-08-24 19:55:14.842 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-19, Loss: 18.376327638103064
+2023-08-24 19:55:25.624 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-20, Loss: 21.577575326842656
+2023-08-24 19:55:36.289 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-21, Loss: 23.224006059051266
+2023-08-24 19:55:47.156 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-24, Loss: 17.85766072788847
+2023-08-24 19:55:58.114 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-25, Loss: 26.343535366525327
+2023-08-24 19:56:08.976 | INFO     | log:log_train:25 - Epoch: 17/20,file 2023-07-26, Loss: 26.861451155610922
+2023-08-24 19:56:19.737 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-04, Loss: 20.409330562685206
+2023-08-24 19:56:30.604 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-05, Loss: 23.737058319899194
+2023-08-24 19:56:41.502 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-06, Loss: 16.263177256160553
+2023-08-24 19:56:52.437 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-07, Loss: 12.5076689502161
+2023-08-24 19:57:03.402 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-10, Loss: 4.756813964653309
+2023-08-24 19:57:14.287 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-11, Loss: 12.525552925588629
+2023-08-24 19:57:25.464 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-12, Loss: 24.974989945349297
+2023-08-24 19:57:36.542 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-13, Loss: 26.571866572856496
+2023-08-24 19:57:47.691 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-14, Loss: 27.764226721359087
+2023-08-24 19:57:58.743 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-17, Loss: 25.511897680368715
+2023-08-24 19:58:09.809 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-18, Loss: 19.528037059721058
+2023-08-24 19:58:20.850 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-19, Loss: 15.520468824709607
+2023-08-24 19:58:31.684 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-20, Loss: 23.91159871803015
+2023-08-24 19:58:42.536 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-21, Loss: 24.98103548512078
+2023-08-24 19:58:53.443 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-24, Loss: 15.85941552621414
+2023-08-24 19:59:04.374 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-25, Loss: 26.832827500708365
+2023-08-24 19:59:15.347 | INFO     | log:log_train:25 - Epoch: 18/20,file 2023-07-26, Loss: 25.66731559405602
+2023-08-24 19:59:26.193 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-04, Loss: 19.95149984393942
+2023-08-24 19:59:37.041 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-05, Loss: 25.209050434839625
+2023-08-24 19:59:47.807 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-06, Loss: 15.78197551485282
+2023-08-24 19:59:58.903 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-07, Loss: 13.12105178859156
+2023-08-24 20:00:12.006 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-10, Loss: 4.803782605929525
+2023-08-24 20:00:22.959 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-11, Loss: 15.56323414309448
+2023-08-24 20:00:33.917 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-12, Loss: 24.395197065353848
+2023-08-24 20:00:44.770 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-13, Loss: 23.985858009382707
+2023-08-24 20:00:55.700 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-14, Loss: 25.820876902127157
+2023-08-24 20:01:06.692 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-17, Loss: 25.315053042105543
+2023-08-24 20:01:17.735 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-18, Loss: 20.735052100296585
+2023-08-24 20:01:28.573 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-19, Loss: 18.905680764395726
+2023-08-24 20:01:39.687 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-20, Loss: 21.273317189472472
+2023-08-24 20:01:50.447 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-21, Loss: 21.88934179416214
+2023-08-24 20:02:01.263 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-24, Loss: 19.24455813065952
+2023-08-24 20:02:12.155 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-25, Loss: 24.335284552179214
+2023-08-24 20:02:22.828 | INFO     | log:log_train:25 - Epoch: 19/20,file 2023-07-26, Loss: 25.32616223039703

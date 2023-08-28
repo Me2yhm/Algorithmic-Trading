@@ -1,13 +1,9 @@
 import datetime
-from functools import cached_property
-from typing import Union
-
-import torch as t
-from torch.utils.data import Dataset
-import numpy as np
-from pathlib import Path
-from typing import NamedTuple
 from datetime import datetime
+from pathlib import Path
+from typing import NamedTuple, Literal
+
+import numpy as np
 
 
 class FileFea(NamedTuple):
@@ -17,42 +13,111 @@ class FileFea(NamedTuple):
 
 
 def filename_parser(filename: str):
-    file_fea = filename.split('_')
-    code = file_fea[0]
-    rollback = int(file_fea[1].strip('s'))
-    date = datetime.today().year * 100_00 + int(file_fea[2])
-    date = datetime.strptime(str(date), '%Y%m%d')
-    return FileFea(code=code, rollback=rollback, date=date)
+    return datetime.strptime(filename, "%Y-%m-%d")
 
 
 def get_all_files(datafolder: Path):
     datafiles = list(datafolder.glob("*.csv"))
-    datafiles = sorted(datafiles, key=lambda x: filename_parser(x.stem).date)
+    datafiles = sorted(datafiles, key=lambda x: filename_parser(x.stem))
     return datafiles
 
 
-class JoyeLOB(Dataset):
-    def __init__(self, filepath: Union[str, Path], window: int):
-        self.raw = np.loadtxt(filepath, skiprows=1, delimiter=",")
-        self.window = window
+class JoyeLOB:
+    def __init__(self, window: int):
+        self.datas: dict[Path, dict[str, np.ndarray]] = {}
+        self.times: dict[int, int] = {}
+        self.window: int = window
 
-    @cached_property
-    def length(self):
-        return len(self.raw)
+    def push(self, file: Path):
+        if file not in self.datas:
+            data: np.ndarray = np.loadtxt(file, delimiter=",", skiprows=1)
+            self.datas[file] = {
+                "X": data[:, 1:-2],
+                "volume_hist": data[:, -2],
+                "volume_today": data[:, -1],
+                "timestamp": data[:, 0],
+            }
 
-    @cached_property
-    def max_index(self):
-        return self.length - self.window
+    def pop(self, file: Path):
+        del self.datas[file]
 
-    def __len__(self):
-        return self.length - self.window + 1
+    def batch(self, file: Path, timestamp: int):
+        idx = self.search_timestamp_idx(file, timestamp)
+        if idx < (self.window - 1):
+            return None, None, None, None
+        else:
+            return (
+                int(self.datas[file]["timestamp"][idx]),
+                self.datas[file]["X"][idx - self.window + 1 : idx + 1, :][
+                    np.newaxis, np.newaxis, :, :
+                ],
+                self.datas[file]["volume_hist"][idx],
+                self.datas[file]["volume_today"][idx],
+            )
+
+    def search_timestamp_idx(self, file: Path, timestamp: int):
+        timestamp_arr = self.datas[file]["timestamp"].copy()
+        timestamp_arr[timestamp_arr >= timestamp] = np.inf
+        idx = np.argmin(np.abs(timestamp - timestamp_arr))
+        # target = int(timestamp_arr[idx])
+        return idx
 
     def __getitem__(self, index):
-        lob_data = self.raw[index: index + self.window]
-        return lob_data
+        return self.datas.get(index, None)
+
+    def __contains__(self, item):
+        return item in self.datas
 
 
-datafolder = Path(__file__).parents[1] / "DATA" / "ML"
-datafiles = get_all_files(datafolder)
-lob = JoyeLOB(datafiles[1], window=100)
-print(lob[lob.max_index].shape)
+class LittleOB:
+    def __init__(self, direction: Literal["ASK", "BUY"]):
+        self.direction = direction
+        self.datas: dict[Path, dict[str, np.ndarray]] = {}
+        self.times: dict[int, int] = {}
+
+    def push(self, file: Path):
+        if file not in self.datas:
+            data: np.ndarray = np.loadtxt(file, delimiter=",", skiprows=1)
+            self.datas[file] = {
+                "ASK": data[:, 1],
+                "BUY": data[:, 2],
+                "VWAP": data[-1, 3],
+                "timestamp": data[:, 0],
+            }
+
+    def pop(self, file: Path):
+        del self.datas[file]
+
+    def batch(self, file: Path, timestamp: int):
+        idx = self.search_timestamp_idx(file, timestamp)
+        return (
+            int(self.datas[file]["timestamp"][idx]),
+            self.datas[file][self.direction][idx],
+        )
+
+    def get_VWAP(self, file: Path):
+        return self.datas[file]["VWAP"]
+
+    def search_timestamp_idx(self, file: Path, timestamp: int):
+        timestamp_arr = self.datas[file]["timestamp"].copy()
+        timestamp_arr[timestamp_arr >= timestamp] = np.inf
+        idx = np.argmin(np.abs(timestamp - timestamp_arr))
+        # target = int(timestamp_arr[idx])
+        return idx
+
+    def __getitem__(self, index):
+        return self.datas.get(index, None)
+
+    def __contains__(self, item):
+        return item in self.datas
+
+
+if __name__ == "__main__":
+    train_folder = Path().cwd().parent / "DATA/ML/000157/train"
+    train_files = train_folder.glob("*.csv")
+    joye_data = JoyeLOB(window=100)
+    for file in train_files:
+        joye_data.push(file)
+        timestamp, X, y = joye_data.batch(file, timestamp=20230704095103000)
+        print(timestamp)
+        break

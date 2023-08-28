@@ -8,6 +8,7 @@
 import sys
 import itertools
 import numpy as np
+from pathlib import Path
 
 import torch
 from torch.utils.data import TensorDataset, DataLoader
@@ -15,6 +16,8 @@ from torch.utils.data import TensorDataset, DataLoader
 import anfis
 from membership import BellMembFunc, make_bell_mfs
 from experimental import train_anfis, test_anfis
+
+parent_path = Path(__file__).parent
 
 dtype = torch.float
 
@@ -309,15 +312,15 @@ if __name__ == "__main__":
         test_anfis(model, test_data, show_plots)
     elif example == "4":
         model = ex4_model()
-        train_data = jang_ex4_data("jang-example4-data.trn")
+        train_data = jang_ex4_data(parent_path.joinpath("jang-example4-data.trn"))
         train_anfis(model, train_data, 500, show_plots)
-        test_data = jang_ex4_data("jang-example4-data.chk")
+        test_data = jang_ex4_data(parent_path.joinpath("jang-example4-data.chk"))
         test_anfis(model, test_data, show_plots)
     elif example == "4T":
         model = jang_ex4_trained_model()
-        test_data = jang_ex4_data("jang-example4-data.trn")
+        test_data = jang_ex4_data(parent_path.joinpath("jang-example4-data.trn"))
         test_anfis(model, test_data, show_plots)
-        test_data = jang_ex4_data("jang-example4-data.chk")
+        test_data = jang_ex4_data(parent_path.joinpath("jang-example4-data.chk"))
         test_anfis(model, test_data, show_plots)
     else:
         print("ERROR - no such example")
