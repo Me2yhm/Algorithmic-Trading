@@ -208,7 +208,7 @@ class AlgorithmicStrategy(ABC):
         """
 
     @abstractmethod
-    def stratgy_update(self):
+    def strategy_update(self):
         """
         根据更新过后的signal, 更新成交记录和持仓记录, 更新策略的评价结果
         动量是胜率、赔率, VWAP是成交成本与实际VWAP的差

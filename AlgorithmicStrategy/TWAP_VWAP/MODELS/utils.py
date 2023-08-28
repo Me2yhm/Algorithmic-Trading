@@ -5,7 +5,7 @@ import torch as t
 from torch import nn
 import torch.optim as optim
 import random
-from log import logger
+from .log import logger
 import matplotlib.pyplot as plt
 from typing import Sequence, Union
 
