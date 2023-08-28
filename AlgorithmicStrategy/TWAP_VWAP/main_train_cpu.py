@@ -6,21 +6,24 @@ from pathlib import Path
 
 import numpy as np
 import torch as t
-from matplotlib import pyplot as plt
 from torch import optim
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from AlgorithmicStrategy import (
-    DataSet,
-    OrderBook,
-    TradeTime
+from AlgorithmicStrategy import DataSet, OrderBook, TradeTime
+
+from MODELS import (
+    JoyeLOB,
+    OCET,
+    LittleOB,
+    MultiTaskLoss,
+    logger,
+    log_train,
+    log_eval,
+    setup_seed,
+    save_model,
+    plotter,
 )
-
-from MODELS import JoyeLOB, OCET, LittleOB, MultiTaskLoss
-
-from log import logger, log_eval, log_train
-from utils import setup_seed, plotter, save_model
 from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
@@ -87,10 +90,8 @@ if __name__ == "__main__":
     test_files = list(test_folder.glob("*.csv"))
 
     joye_data = JoyeLOB(window=100)
-    llob = LittleOB(direction='BUY')
-    loss_func = MultiTaskLoss(
-
-    )
+    llob = LittleOB(direction="BUY")
+    loss_func = MultiTaskLoss()
     ocet = OCET(
         num_classes=1,
         dim=100,
@@ -108,7 +109,7 @@ if __name__ == "__main__":
     # optimizer.load_state_dict(para_dict["optimizer_state_dict"])
 
     # logger.info(f"Model = {str(ocet)}")
-# logger.info("Model parameters = %d" % sum(p.numel() for p in ocet.parameters()))
+    # logger.info("Model parameters = %d" % sum(p.numel() for p in ocet.parameters()))
 
     """
     Scripts begin
@@ -122,7 +123,7 @@ if __name__ == "__main__":
         for file in train_files:
             if file not in joye_data:
                 joye_data.push(file)
-            tick = DataSet(file, ticker='000157.SZ')
+            tick = DataSet(file, ticker="000157.SZ")
             llob_file = little_lob_folder / file.name
             if llob_file not in llob:
                 llob.push(llob_file)
@@ -133,8 +134,10 @@ if __name__ == "__main__":
             trade_price = []
 
             for ts, action in tt.generate_signals():
-                if action['trade']:
-                    time_search, X, volume_hist, volume_today = joye_data.batch(file, timestamp=ts)
+                if action["trade"]:
+                    time_search, X, volume_hist, volume_today = joye_data.batch(
+                        file, timestamp=ts
+                    )
                     if time_search is not None:
                         X = t.tensor(X, device=device, dtype=t.float32)
                         pred_frac = ocet(X)
@@ -155,18 +158,23 @@ if __name__ == "__main__":
             if t.sum(pred_trade_volume_fracs) < 1:
                 additional_vwap = 0
                 rest = 1 - t.sum(pred_trade_volume_fracs)
-                _, final_price = llob.batch(llob_file, tick.file_date_num + 14_57_00_000)
+                _, final_price = llob.batch(
+                    llob_file, tick.file_date_num + 14_57_00_000
+                )
                 additional_vwap = rest * final_price
-                pred_vwap = t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
-                
+                pred_vwap = (
+                    t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
+                )
 
             if t.sum(pred_trade_volume_fracs) > 1:
-                pred_vwap = t.sum(pred_trade_volume_fracs * trade_price/t.sum(pred_trade_volume_fracs).item()) 
+                pred_vwap = t.sum(
+                    pred_trade_volume_fracs
+                    * trade_price
+                    / t.sum(pred_trade_volume_fracs).item()
+                )
 
-            
             if t.sum(pred_trade_volume_fracs) == 1:
                 pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
-
 
             # trade_price = t.cuda.FloatTensor(trade_price)
             # trade_price = t.Tensor(trade_price)
@@ -175,18 +183,22 @@ if __name__ == "__main__":
 
             # hist_trade_volume_fracs = t.cuda.FloatTensor(hist_trade_volume_fracs)
             hist_trade_volume_fracs = t.Tensor(hist_trade_volume_fracs)
-            hist_trade_volume_fracs = hist_trade_volume_fracs/t.sum(hist_trade_volume_fracs)
+            hist_trade_volume_fracs = hist_trade_volume_fracs / t.sum(
+                hist_trade_volume_fracs
+            )
 
             # true_trade_volume_fracs = t.cuda.FloatTensor(true_trade_volume_fracs)
             true_trade_volume_fracs = t.Tensor(true_trade_volume_fracs)
-            true_trade_volume_fracs = true_trade_volume_fracs/t.sum(true_trade_volume_fracs)
+            true_trade_volume_fracs = true_trade_volume_fracs / t.sum(
+                true_trade_volume_fracs
+            )
 
             loss = loss_func.calculate_loss(
                 pred_trade_volume_fracs,
                 true_trade_volume_fracs,
                 hist_trade_volume_fracs,
                 market_vwap,
-                pred_vwap
+                pred_vwap,
             )
             optimizer.zero_grad()
             loss.backward()
@@ -194,20 +206,14 @@ if __name__ == "__main__":
             loss_log.append(loss.item())
             log_train(epoch=epc, epochs=args.epoch, file=file.stem, loss=loss.item())
 
-
         loss_global.extend(loss_log)
-        
 
         save_model(
             model=ocet,
             optimizer=optimizer,
             epoch=epc,
             loss=float(np.mean(loss_log)),
-            path= model_save_path / f"{epc}.ocet"
+            path=model_save_path / f"{epc}.ocet",
         )
     # plotter(loss_global, ylabel='loss')
     # plotter(loss_global, ylabel='VWAP')
-
-
-
-
