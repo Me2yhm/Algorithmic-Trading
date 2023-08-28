@@ -2,7 +2,8 @@ from pathlib import Path
 
 import numpy as np
 import torch as t
-from torch import nn, optim
+from torch import nn
+import torch.optim as optim
 import random
 from log import logger
 import matplotlib.pyplot as plt
@@ -16,11 +17,11 @@ def setup_seed(seed: int):
     t.cuda.manual_seed_all(seed)
     np.random.seed(seed)
     random.seed(seed)
-    t.backends.cudnn.deterministic = True
+    # t.backends.cudnn.deterministic = True
 
 
 def save_model(
-    model: nn.Module, optimizer: optim, epoch: int, loss: float, path: Path, **kwargs
+    model: nn.Module, optimizer: optim.Optimizer, epoch: int, loss: float, path: Path, **kwargs
 ):
     save_dict = {
         "epoch": epoch,
