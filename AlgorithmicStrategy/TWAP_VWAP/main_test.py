@@ -49,8 +49,8 @@ def evaluate(ocet: OCET):
                     file, timestamp=ts
                 )
                 if time_search is not None:
-                    X = t.tensor(X, device=device, dtype=t.float32)
-                    logger.info(X.size())
+                    X = t.tensor(X, dtype=t.float32)
+                    # logger.info(X.size())
                     pred_frac = ocet(X)
 
                     _, price = llob.batch(llob_file, ts)
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     # para_dict = t.load(newest_model, map_location=device)
     para_dict = t.load(newest_model, map_location=t.device("cpu"))
     ocet.load_state_dict(para_dict["model_state_dict"])
-    ocet.to(device=device)
+    # ocet.to(device='cpu')
     # with t.no_grad():
     #     ocet.eval()
 
