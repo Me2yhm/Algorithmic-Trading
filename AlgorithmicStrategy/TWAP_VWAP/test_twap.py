@@ -19,7 +19,8 @@ if __name__ == "__main__":
             twap.timeStamp = i
             twap.signal_update()
             if twap.trade:
-                twap.stratgy_update()
+                twap.strategy_update()
                 print(twap.signal)
                 print(twap.ts_list)
                 print(twap.delta_vwap)
+

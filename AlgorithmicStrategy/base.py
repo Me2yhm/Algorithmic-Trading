@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
-
-from collections import defaultdict
 from typing import Dict, List, TypedDict, Optional
+
 from .utils import get_date
 from .OrderMaster.OrderBook import OrderBook, OrderTick
 
@@ -57,7 +56,7 @@ class AlgorithmicStrategy(ABC):
     """
 
     orderbook: OrderBook
-    ticks: Dict[str, Dict[int,List[OrderTick]]]
+    ticks: Dict[str, Dict[int, List[OrderTick]]]
     signals: Dict[str, List[signal]]
     _timeStamp: int
     _date: str
@@ -140,10 +139,10 @@ class AlgorithmicStrategy(ABC):
         for line in lines:
             if line["oid"] == 0 and (line["oidb"] != 0) and (line["oids"] != 0):
                 self.current_price = line["price"]
-                if self.newday:
-                    self.price_list[self.date] = {self.timeStamp: self.current_price}
-                else:
-                    self.price_list[self.date][self.timeStamp] = self.current_price
+        if self.newday:
+            self.price_list[self.date] = {self.timeStamp: self.current_price}
+        else:
+            self.price_list[self.date][self.timeStamp] = self.current_price
 
     # 存在一个问题, 当前的处理逻辑可能导致最后10ms的tick数据无法被撮合到盘口
     def update_orderbook(self, lines: List[OrderTick]) -> None:
@@ -158,13 +157,13 @@ class AlgorithmicStrategy(ABC):
         self.date = get_date(self.timeStamp)
         self.record_price(lines)
         if self.newday:
-            self.ticks[self.date] = {self.timeStamp:lines}
+            self.ticks[self.date] = {self.timeStamp: lines}
         else:
             if self.new_timeStamp:
-                self.ticks[self.date][self.timeStamp]=lines
+                self.ticks[self.date][self.timeStamp] = lines
             else:
                 self.ticks[self.date][self.timeStamp].extend(lines)
-        
+
         if self.new_timeStamp:  # 为了确保将同一timestamp下的所有数据传入再更新订单簿
             if not self.lines:
                 self.lines.extend(lines)
@@ -208,7 +207,7 @@ class AlgorithmicStrategy(ABC):
         """
 
     @abstractmethod
-    def stratgy_update(self):
+    def strategy_update(self):
         """
         根据更新过后的signal, 更新成交记录和持仓记录, 更新策略的评价结果
         动量是胜率、赔率, VWAP是成交成本与实际VWAP的差

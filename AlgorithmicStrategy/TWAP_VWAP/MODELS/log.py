@@ -31,4 +31,4 @@ def log_train(
 
 
 
-init_logger(path=Path(__file__).parent / "RUN_LOG")
+init_logger(path=Path(__file__).parent / "../RUN_LOG")

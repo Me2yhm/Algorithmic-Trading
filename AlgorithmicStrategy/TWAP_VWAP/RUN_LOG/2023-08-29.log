@@ -1,0 +1,378 @@
+2023-08-29 11:00:22.032 | INFO     | __main__:<module>:96 - Using: 19.ocet
+2023-08-29 11:00:22.033 | INFO     | __main__:<module>:103 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 11:00:22.033 | INFO     | __main__:<module>:106 - Simulating: 000157.SZ
+2023-08-29 11:00:22.064 | INFO     | __main__:<module>:135 - Date: 2023-08-02
+2023-08-29 11:00:22.308 | INFO     | __main__:<module>:148 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 11:17:23.574 | INFO     | __main__:<module>:88 - Using: 19.ocet
+2023-08-29 11:17:23.575 | INFO     | __main__:<module>:95 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 11:17:23.576 | INFO     | __main__:<module>:98 - Simulating: 000157.SZ
+2023-08-29 11:17:23.603 | INFO     | __main__:<module>:127 - Date: 2023-08-02
+2023-08-29 11:17:23.834 | INFO     | __main__:<module>:140 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 11:18:29.112 | INFO     | __main__:<module>:88 - Using: 19.ocet
+2023-08-29 11:18:29.113 | INFO     | __main__:<module>:95 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 11:18:29.113 | INFO     | __main__:<module>:98 - Simulating: 000157.SZ
+2023-08-29 11:18:29.124 | INFO     | __main__:<module>:127 - Date: 2023-08-02
+2023-08-29 11:18:29.351 | INFO     | __main__:<module>:140 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 11:19:49.540 | INFO     | __main__:<module>:88 - Using: 19.ocet
+2023-08-29 11:19:49.541 | INFO     | __main__:<module>:95 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 11:19:49.541 | INFO     | __main__:<module>:98 - Simulating: 000157.SZ
+2023-08-29 11:19:49.553 | INFO     | __main__:<module>:127 - Date: 2023-08-02
+2023-08-29 11:19:49.773 | INFO     | __main__:<module>:140 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 11:21:28.007 | INFO     | __main__:<module>:89 - Using: 19.ocet
+2023-08-29 11:21:28.007 | INFO     | __main__:<module>:96 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 11:21:28.008 | INFO     | __main__:<module>:99 - Simulating: 000157.SZ
+2023-08-29 11:21:28.017 | INFO     | __main__:<module>:128 - Date: 2023-08-02
+2023-08-29 11:21:28.230 | INFO     | __main__:<module>:141 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 11:22:27.987 | INFO     | __main__:<module>:89 - Using: 19.ocet
+2023-08-29 11:22:27.988 | INFO     | __main__:<module>:96 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 11:22:27.988 | INFO     | __main__:<module>:99 - Simulating: 000157.SZ
+2023-08-29 11:22:27.999 | INFO     | __main__:<module>:128 - Date: 2023-08-02
+2023-08-29 11:22:28.212 | INFO     | __main__:<module>:141 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 11:23:49.721 | INFO     | __main__:<module>:89 - Using: 19.ocet
+2023-08-29 11:23:49.723 | INFO     | __main__:<module>:96 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 11:23:49.723 | INFO     | __main__:<module>:99 - Simulating: 000157.SZ
+2023-08-29 11:23:49.736 | INFO     | __main__:<module>:128 - Date: 2023-08-02
+2023-08-29 11:23:49.954 | INFO     | __main__:<module>:141 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 11:26:35.965 | INFO     | __main__:<module>:93 - Using: 19.ocet
+2023-08-29 11:26:35.966 | INFO     | __main__:<module>:100 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 11:26:35.966 | INFO     | __main__:<module>:103 - Simulating: 000157.SZ
+2023-08-29 11:26:35.976 | INFO     | __main__:<module>:132 - Date: 2023-08-02
+2023-08-29 11:26:36.190 | INFO     | __main__:<module>:145 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 11:27:26.526 | INFO     | __main__:signal_update:63 - Size: torch.Size([1, 1, 100, 175])
+2023-08-29 11:28:25.091 | INFO     | __main__:<module>:120 - ================Starting================
+2023-08-29 11:28:26.509 | INFO     | __main__:<module>:123 - Set device: cuda:0
+2023-08-29 11:28:26.512 | INFO     | __main__:<module>:126 - Set seed: 2333
+2023-08-29 11:28:26.512 | INFO     | __main__:<module>:134 - Saving model parameters to D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE
+2023-08-29 11:28:27.086 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.095 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.104 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.111 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.117 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.123 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.130 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.136 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.142 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.148 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.154 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.160 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.166 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.172 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.178 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.184 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.190 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.196 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.202 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.208 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.214 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.221 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.227 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.233 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.239 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.245 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.252 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.258 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.264 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.270 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.276 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.283 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.289 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.296 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.304 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.311 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.319 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.326 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.334 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.342 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.351 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.358 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.366 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.373 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.382 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.390 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.398 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.406 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.414 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.420 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.428 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.435 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.441 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.449 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.457 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.465 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.472 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.480 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.488 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.495 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.503 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.511 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.520 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.529 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.540 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.553 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.566 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.575 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.583 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.592 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.600 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.608 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.616 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.624 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.631 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.639 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.647 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.654 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.662 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.670 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.678 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.689 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.700 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.709 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.717 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.726 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.735 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.744 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.752 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.760 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.769 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.778 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.786 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.795 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.804 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.813 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.822 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.830 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.839 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.849 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.858 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.867 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.876 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.891 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.902 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.911 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.920 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.930 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.939 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.947 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.956 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.964 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.973 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.982 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:32.991 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.000 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.010 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.019 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.028 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.036 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.046 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.056 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.066 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.076 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.087 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.095 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.103 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.112 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.120 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.128 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.142 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.156 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.170 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.183 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.196 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.210 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.222 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.232 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.243 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.254 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.263 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.272 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.280 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.288 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.297 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.305 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.315 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.324 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.333 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.342 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.352 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.361 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.370 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.380 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.389 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.399 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.408 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.419 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.428 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.438 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.447 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.455 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.465 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.474 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.482 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.491 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.499 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.508 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.517 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.526 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.535 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.553 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.572 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.592 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.604 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.614 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.624 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.634 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.644 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.654 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.664 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.674 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.684 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.693 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.703 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.712 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.722 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.732 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.741 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.750 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.760 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.770 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.780 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.790 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.800 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.810 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.819 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.830 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.849 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.859 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.870 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.881 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.891 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.901 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.911 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.921 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.931 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.941 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.951 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.961 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.971 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.981 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:33.992 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.002 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.012 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.023 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.033 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.043 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.053 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.064 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.075 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.086 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.096 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.108 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.118 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.127 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.138 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.149 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.159 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.169 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.180 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.190 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.201 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.212 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.223 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.234 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.245 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.256 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.267 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.278 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.289 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.300 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.311 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.322 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.333 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.343 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.353 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.364 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.375 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.386 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.397 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.408 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.419 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 11:28:34.431 | INFO     | __main__:evaluate:53 - torch.Size([1, 1, 100, 177])
+2023-08-29 12:21:21.915 | INFO     | __main__:<module>:93 - Using: 19.ocet
+2023-08-29 12:21:21.917 | INFO     | __main__:<module>:100 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:21:21.917 | INFO     | __main__:<module>:103 - Simulating: 000157.SZ
+2023-08-29 12:21:21.947 | INFO     | __main__:<module>:132 - Date: 2023-08-02
+2023-08-29 12:21:57.506 | INFO     | __main__:<module>:93 - Using: 19.ocet
+2023-08-29 12:21:57.507 | INFO     | __main__:<module>:100 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:21:57.507 | INFO     | __main__:<module>:103 - Simulating: 000157.SZ
+2023-08-29 12:21:57.517 | INFO     | __main__:<module>:132 - Date: 2023-08-02
+2023-08-29 12:21:57.753 | INFO     | __main__:<module>:145 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:22:24.690 | INFO     | __main__:signal_update:63 - Size: torch.Size([1, 1, 103, 176])
+2023-08-29 12:27:21.668 | INFO     | __main__:<module>:93 - Using: 19.ocet
+2023-08-29 12:27:21.669 | INFO     | __main__:<module>:100 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:27:21.669 | INFO     | __main__:<module>:103 - Simulating: 000157.SZ
+2023-08-29 12:27:21.682 | INFO     | __main__:<module>:132 - Date: 2023-08-02
+2023-08-29 12:27:21.909 | INFO     | __main__:<module>:145 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:29:20.527 | INFO     | __main__:signal_update:63 - Size: torch.Size([1, 1, 103, 177])
+2023-08-29 12:31:49.962 | INFO     | __main__:<module>:93 - Using: 19.ocet
+2023-08-29 12:31:49.963 | INFO     | __main__:<module>:100 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:31:49.963 | INFO     | __main__:<module>:103 - Simulating: 000157.SZ
+2023-08-29 12:31:49.974 | INFO     | __main__:<module>:132 - Date: 2023-08-02
+2023-08-29 12:31:50.200 | INFO     | __main__:<module>:145 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:35:02.698 | INFO     | __main__:signal_update:63 - Size: torch.Size([1, 1, 103, 177])
+2023-08-29 12:37:16.557 | INFO     | __main__:<module>:94 - Using: 19.ocet
+2023-08-29 12:37:16.558 | INFO     | __main__:<module>:101 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:37:16.558 | INFO     | __main__:<module>:104 - Simulating: 000157.SZ
+2023-08-29 12:37:16.569 | INFO     | __main__:<module>:133 - Date: 2023-08-02
+2023-08-29 12:37:16.796 | INFO     | __main__:<module>:146 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:42:23.239 | INFO     | __main__:<module>:96 - Using: 19.ocet
+2023-08-29 12:42:23.240 | INFO     | __main__:<module>:103 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:42:23.240 | INFO     | __main__:<module>:106 - Simulating: 000157.SZ
+2023-08-29 12:42:23.250 | INFO     | __main__:<module>:135 - Date: 2023-08-02
+2023-08-29 12:42:23.464 | INFO     | __main__:<module>:148 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:43:14.997 | INFO     | __main__:<module>:96 - Using: 19.ocet
+2023-08-29 12:43:14.998 | INFO     | __main__:<module>:103 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:43:14.998 | INFO     | __main__:<module>:106 - Simulating: 000157.SZ
+2023-08-29 12:43:15.009 | INFO     | __main__:<module>:135 - Date: 2023-08-02
+2023-08-29 12:43:15.227 | INFO     | __main__:<module>:148 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:48:50.874 | INFO     | __main__:<module>:96 - Using: 19.ocet
+2023-08-29 12:48:50.874 | INFO     | __main__:<module>:103 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:48:50.875 | INFO     | __main__:<module>:106 - Simulating: 000157.SZ
+2023-08-29 12:48:50.885 | INFO     | __main__:<module>:135 - Date: 2023-08-02
+2023-08-29 12:48:51.115 | INFO     | __main__:<module>:148 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:53:21.957 | INFO     | __main__:<module>:96 - Using: 19.ocet
+2023-08-29 12:53:21.958 | INFO     | __main__:<module>:103 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:53:21.958 | INFO     | __main__:<module>:106 - Simulating: 000157.SZ
+2023-08-29 12:53:21.968 | INFO     | __main__:<module>:135 - Date: 2023-08-02
+2023-08-29 12:53:22.183 | INFO     | __main__:<module>:148 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:56:25.114 | INFO     | __main__:<module>:97 - Using: 19.ocet
+2023-08-29 12:56:25.115 | INFO     | __main__:<module>:104 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:56:25.115 | INFO     | __main__:<module>:107 - Simulating: 000157.SZ
+2023-08-29 12:56:25.125 | INFO     | __main__:<module>:136 - Date: 2023-08-02
+2023-08-29 12:56:25.344 | INFO     | __main__:<module>:149 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 12:59:03.301 | INFO     | __main__:<module>:97 - Using: 19.ocet
+2023-08-29 12:59:03.302 | INFO     | __main__:<module>:104 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 12:59:03.302 | INFO     | __main__:<module>:107 - Simulating: 000157.SZ
+2023-08-29 12:59:03.313 | INFO     | __main__:<module>:136 - Date: 2023-08-02
+2023-08-29 12:59:03.544 | INFO     | __main__:<module>:149 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 13:02:15.509 | INFO     | __main__:<module>:97 - Using: 19.ocet
+2023-08-29 13:02:15.510 | INFO     | __main__:<module>:104 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 13:02:15.511 | INFO     | __main__:<module>:107 - Simulating: 000157.SZ
+2023-08-29 13:02:15.523 | INFO     | __main__:<module>:136 - Date: 2023-08-02
+2023-08-29 13:02:15.778 | INFO     | __main__:<module>:149 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 13:08:11.974 | INFO     | __main__:<module>:97 - Using: 19.ocet
+2023-08-29 13:08:11.975 | INFO     | __main__:<module>:104 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 13:08:11.975 | INFO     | __main__:<module>:107 - Simulating: 000157.SZ
+2023-08-29 13:08:11.985 | INFO     | __main__:<module>:136 - Date: 2023-08-02
+2023-08-29 13:08:12.218 | INFO     | __main__:<module>:149 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 13:09:26.166 | INFO     | __main__:<module>:97 - Using: 19.ocet
+2023-08-29 13:09:26.167 | INFO     | __main__:<module>:104 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 13:09:26.167 | INFO     | __main__:<module>:107 - Simulating: 000157.SZ
+2023-08-29 13:09:26.178 | INFO     | __main__:<module>:136 - Date: 2023-08-02
+2023-08-29 13:09:26.422 | INFO     | __main__:<module>:149 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 13:13:29.797 | INFO     | __main__:<module>:97 - Using: 19.ocet
+2023-08-29 13:13:29.798 | INFO     | __main__:<module>:104 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-08-29 13:13:29.798 | INFO     | __main__:<module>:107 - Simulating: 000157.SZ
+2023-08-29 13:13:29.807 | INFO     | __main__:<module>:136 - Date: 2023-08-02
+2023-08-29 13:13:30.032 | INFO     | __main__:<module>:149 - Using past feature: ['2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28']
+2023-08-29 13:16:42.776 | INFO     | __main__:signal_update:66 - Dtype: torch.float64
+2023-08-29 13:16:42.776 | INFO     | __main__:signal_update:67 - Size: torch.Size([1, 1, 100, 179])

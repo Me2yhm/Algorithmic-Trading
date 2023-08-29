@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
-from ..base import AlgorithmicStrategy, possession, signal
-from .modelType import modelType, Model_reverse
+
+from ..base import AlgorithmicStrategy, possession
+from .modelType import modelType
+from .ReverseMomentum import Model_reverse
 from ..OrderMaster.OrderBook import OrderBook
 
 
@@ -94,7 +96,7 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
                 total - money
             ) / self.possessions[self.date]["volume"]
 
-    def stratgy_update(self) -> float:
+    def strategy_update(self) -> float:
         """
         根据返回的信号计算胜率、赔率、换手率等——可以流式？
         """
@@ -124,10 +126,12 @@ class reverse_strategy(momentumStratgy):
     """
     反转因子模型
     """
-    
+
     def model_update(self, model: Model_reverse):
-        return model.model_update(self.ticks,self.orderbook) 
-    def signal_update(self,index_dict):
+        return model.model_update(self.ticks, self.price_list, self.timeStamp)
+
+    def signal_update(self, index_dict):
         pass
-    def stratgy_update(self):
+
+    def strategy_update(self):
         pass
