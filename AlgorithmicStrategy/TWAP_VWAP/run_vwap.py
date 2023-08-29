@@ -58,11 +58,8 @@ class VWAP(AlgorithmicStrategy):
             if tmp["trade"]:
                 if self.queue.size == 100:
                     df = self.queue.to_df()
-                    # df.to_csv("raw.csv")
                     df_normalized = self.normer.fit_transform_for_dataframe(df)
-                    # df_normalized.to_csv("norm.csv")
-                    # exit(0)
-                    temp_data = t.tensor(df_normalized.values[np.newaxis, np.newaxis, 1:-1, :], dtype=t.double)
+                    temp_data = t.tensor(df_normalized.values[np.newaxis, np.newaxis, :, 1:-1], dtype=t.double)
                     self.logger.info(f"Dtype: {temp_data.dtype}")
                     self.logger.info(f"Size: {temp_data.size()}")
                     vol_percent_pred = self.model(
