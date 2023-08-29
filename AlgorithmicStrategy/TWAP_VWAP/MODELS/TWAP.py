@@ -13,7 +13,6 @@ class TWAP(AlgorithmicStrategy):
         trade_volume: float,
         time_interval: float,
         time_limit: float,
-        symbol: str,  # 股票代码
         direction: Literal["BUY", "SELL"],  # 买卖方向
         commission: float = 0.00015,
         stamp_duty: float = 0.001,
@@ -25,7 +24,7 @@ class TWAP(AlgorithmicStrategy):
         self.tick = tick
         self.ob = orderbook
         self.signal = {
-            "symbol": symbol,
+            "symbol": self.tick.ticker,
             "direction": direction,
             "price": None,
             "volume": None

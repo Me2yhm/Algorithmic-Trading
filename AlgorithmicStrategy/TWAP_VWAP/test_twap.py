@@ -12,7 +12,7 @@ if __name__ == "__main__":
         tick = DataSet(data_path=tick_file, ticker="SZ")
         ob = OrderBook(data_api=tick)
 
-        twap = TWAP(ob,tick,2400,6000,2500, "000157.SZ", "BUY")
+        twap = TWAP(ob,tick,2400,6000,2500,"BUY")
         twap.get_time_dict()
         twap.get_trade_times()
         for i in range(20230703093003000,20230703145700000):

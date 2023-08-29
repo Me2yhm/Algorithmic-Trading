@@ -30,7 +30,7 @@ def evaluate(ocet: OCET):
     loss_global = []
     true_vwaps = []
     pred_vwaps = []
-    for file in tqdm(test_files):
+    for file in tqdm(train_files):
         if file not in joye_data:
             joye_data.push(file)
         tick = DataSet(file, ticker="000157.SZ")
@@ -154,7 +154,7 @@ if __name__ == "__main__":
         mlp_dim=200,
     )
 
-    newest_model = model_save_path / "18.ocet"
+    newest_model = model_save_path / "19.ocet"
     # para_dict = t.load(newest_model, map_location=device)
     para_dict = t.load(newest_model, map_location=t.device("cpu"))
     ocet.load_state_dict(para_dict["model_state_dict"])
