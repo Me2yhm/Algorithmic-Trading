@@ -216,6 +216,7 @@ class Info:
                         - self.mean_new**2
                         + 1 / period * (self.last_volume**2 - self.first_volume**2)
                     )
+                    print(self.var)
                     self.std = math.sqrt(self.var)
                     self.dict[i] = self.std / self.mean_new
                     self.mean_old = self.mean_new
@@ -350,7 +351,7 @@ class Factor2:
 class Model_reverse(modelType):
     def __init__(
         self,
-        delta_stream=30000000,
+        delta_stream=90000000,
         std_period=10,
         hurst_period=128,
         k=6,
@@ -482,8 +483,14 @@ class Model_reverse(modelType):
                     self._cal_hurst(i)
             except KeyError:
                 print("there were no price yet")
+        if (
+            self.factor1.factor1_dict == {}
+            or self.factor2.factor2_dict == {}
+            or self.hurst.hurst_dict == {}
+        ):
+            return
         return {
-            "factor1": self.factor1.factor1_dict,
-            "factor2": self.factor2.factor2_dict,
-            "hurst": self.hurst.hurst_dict,
+            "factor1": self.factor1.factor1_dict[len(self.factor1.factor1_dict) - 1],
+            "factor2": self.factor2.factor2_dict[len(self.factor2.factor2_dict) - 1],
+            "hurst": self.hurst.hurst_dict[len(self.hurst.hurst_dict) - 1],
         }

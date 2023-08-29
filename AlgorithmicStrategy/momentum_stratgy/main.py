@@ -128,7 +128,9 @@ class reverse_strategy(momentumStratgy):
     """
 
     def model_update(self, model: Model_reverse):
-        return model.model_update(self.ticks, self.price_list, self.timeStamp)
+        index = model.model_update(self.ticks, self.price_list, self.timeStamp)
+        if index is not None:
+            self.model_indicator.append(index)
 
     def signal_update(self, index_dict):
         pass
