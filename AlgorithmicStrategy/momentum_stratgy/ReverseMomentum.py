@@ -199,7 +199,7 @@ class Info:
                     ]  # 存入第一个volume 用于增量计算
                     data_values = list(self.stream.values())  # 将字典的值转换为列表
                     self.std = np.std(data_values)
-                    self.var = self.std**2  # 初始化：第一个方差
+                    self.var = self.std**2 * fix  # 初始化：第一个方差
                     self.mean_new = self.mean_old = np.mean(data_values)
                     if self.mean_new != 0:
                         self.dict[i] = self.std / self.mean_new
@@ -216,7 +216,6 @@ class Info:
                         - self.mean_new**2
                         + 1 / period * (self.last_volume**2 - self.first_volume**2)
                     )
-                    print(self.var)
                     self.std = math.sqrt(self.var)
                     self.dict[i] = self.std / self.mean_new
                     self.mean_old = self.mean_new
