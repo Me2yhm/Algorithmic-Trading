@@ -50,6 +50,7 @@ def evaluate(ocet: OCET):
                 )
                 if time_search is not None:
                     X = t.tensor(X, device=device, dtype=t.float32)
+                    logger.info(X.size())
                     pred_frac = ocet(X)
 
                     _, price = llob.batch(llob_file, ts)

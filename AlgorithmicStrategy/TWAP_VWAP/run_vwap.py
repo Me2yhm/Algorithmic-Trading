@@ -4,7 +4,10 @@ from pathlib import Path
 from typing import Literal, cast
 
 import numpy as np
+import pandas as pd
 import torch as t
+
+
 
 from AlgorithmicStrategy import (
     DataSet,
@@ -55,9 +58,15 @@ class VWAP(AlgorithmicStrategy):
             if tmp["trade"]:
                 if self.queue.size == 100:
                     df = self.queue.to_df()
+                    # df.to_csv("raw.csv")
                     df_normalized = self.normer.fit_transform_for_dataframe(df)
+                    # df_normalized.to_csv("norm.csv")
+                    # exit(0)
+                    temp_data = t.tensor(df_normalized.values[np.newaxis, np.newaxis, 1:-1, :], dtype=t.double)
+                    self.logger.info(f"Dtype: {temp_data.dtype}")
+                    self.logger.info(f"Size: {temp_data.size()}")
                     vol_percent_pred = self.model(
-                        t.tensor(df_normalized.values[:, 1:][np.newaxis, np.newaxis, :, :])
+                        temp_data
                     )
                     self.logger.info(f"Pred volume: {vol_percent_pred}")
 
@@ -68,7 +77,7 @@ class VWAP(AlgorithmicStrategy):
                     timestamp_prev=self.writer.get_prev_timestamp(self.timeStamp),
                 )
                 self.writer.csvwriter.writerow(newest_data)
-                self.queue.push(newest_data)
+                self.queue.push(pd.DataFrame([newest_data], columns=self.writer.columns))
 
         pass
 
@@ -135,7 +144,7 @@ if __name__ == "__main__":
             if len(past_files) == 0:
                 continue
             standard.read_files(past_files)
-            standard.generate_hist_feature(past_files, train=False)
+            standard.generate_hist_feature(past_files)
             standard.fit(standard.hist_df)
             logger.info(f"Using past feature: {[_.stem for _ in past_files]}")
 
@@ -163,8 +172,13 @@ if __name__ == "__main__":
             for timestamp in range(
                 tick.file_date_num + total_begin, tick.file_date_num + end
             ):
-                trader.timeStamp = timestamp
-                trader.signal_update()
-                if trader.trade:
-                    trader.strategy_update()
+                datas = trader.tick.next_batch(until=timestamp)
+                if datas:
+                    trader.update_orderbook(datas)
+                try:
+                    trader.signal_update()
+                    if trader.trade:
+                        trader.strategy_update()
+                except IndexError:
+                    continue
             break

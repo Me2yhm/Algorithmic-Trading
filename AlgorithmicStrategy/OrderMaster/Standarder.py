@@ -6,6 +6,10 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
+import warnings
+
+warnings.filterwarnings("ignore")
+
 
 class Standarder:
     def __init__(self, file_folder: Path, limits: int = 5, **kwargs):
@@ -52,13 +56,15 @@ class Standarder:
 
     def get_past_files(self, file: Path):
         file_date = datetime.strptime(file.stem, "%Y-%m-%d")
-        file_arr = np.array([datetime.strptime(x.stem, "%Y-%m-%d") for x in self.filenames])
+        file_arr = np.array(
+            [datetime.strptime(x.stem, "%Y-%m-%d") for x in self.filenames]
+        )
         file_arr = file_arr[file_arr < file_date]
         idx = len(file_arr)
         if idx <= self.limits:
             return self.filenames[:idx]
         else:
-            return self.filenames[idx - self.limits:idx]
+            return self.filenames[idx - self.limits : idx]
 
         # idx = self.filenames.index(file)
         # if self.limits is not None:
@@ -69,31 +75,28 @@ class Standarder:
         # else:
         #     return self.filenames[:idx]
 
-    def generate_hist_feature(self, filenames: list[Path], train:bool = True):
+    def generate_hist_feature(self, filenames: list[Path]):
         hist_feature = cast(pd.DataFrame, 0)
         for file in filenames:
             df = self.dfs[file]
-            if train:
-                hist_feature += df.loc[:, ["VWAP", "volume_range"]]
+            hist_feature += df.loc[:, ["VWAP", "volume_range"]]
 
-        if train:
-            df_volume = hist_feature.copy()
-            df_volume["volume_percentage"] = (
-                df_volume["volume_range"] / df_volume["volume_range"].sum()
-            )
-            df_volume["timestamp"] = df["timestamp"]
-            df_volume_percentage = df_volume[["timestamp", "volume_percentage"]]
+        df_volume = hist_feature.copy()
+        df_volume["volume_percentage"] = (
+            df_volume["volume_range"] / df_volume["volume_range"].sum()
+        )
+        df_volume["timestamp"] = df["timestamp"]
+        df_volume_percentage = df_volume[["timestamp", "volume_percentage"]]
 
+        hist_feature = hist_feature.rename(
+            columns={"VWAP": "VWAP_hist", "volume_range": "volume_range_hist"}
+        )
+        hist_feature /= len(self.filenames)
 
-            hist_feature = hist_feature.rename(
-                columns={"VWAP": "VWAP_hist", "volume_range": "volume_range_hist"}
-            )
-            hist_feature /= len(self.filenames)
-
-            hist_feature = (hist_feature - hist_feature.mean()) / hist_feature.std()
-            hist_feature["volume_percentage"] = df_volume_percentage["volume_percentage"]
-            self.hist_feature = hist_feature
-            self.df_volume_percentage = df_volume_percentage
+        hist_feature = (hist_feature - hist_feature.mean()) / hist_feature.std()
+        hist_feature["volume_percentage"] = df_volume_percentage["volume_percentage"]
+        self.hist_feature = hist_feature
+        self.df_volume_percentage = df_volume_percentage
 
         self.hist_df = pd.concat(
             [self.dfs[s] for s in filenames], axis=0, ignore_index=True
@@ -126,7 +129,7 @@ class Standarder:
 
         return res
 
-    def transform(self, data: pd.DataFrame, train:bool = True):
+    def transform(self, data: pd.DataFrame, train: bool = True):
         df_volume = data[["volume_range"]].copy()
         df_volume["volume_range"] /= df_volume["volume_range"].sum()
         df_volume = df_volume.rename(columns={"volume_range": "volume_percent_today"})
@@ -148,9 +151,16 @@ class Standarder:
                 [df_consts, df_cont, df_dis, self.hist_feature, df_volume], axis=1
             )
         else:
-            df_normalized = pd.concat(
-                [df_consts, df_cont, df_dis], axis=1
-            )
+
+            times = df_consts['timestamp'].values
+            time_stamp = data['timestamp'].values[-1]
+            nearest_time_idx = len(times[time_stamp > times])
+            # self.hist_feature.to_csv('hist.csv')
+            # print(nearest_time_idx)
+            hist_feature = self.hist_feature.iloc[nearest_time_idx - 100: nearest_time_idx, :].reset_index(drop=True)
+            # hist_feature.to_csv('hist.csv')
+            # exit(0)
+            df_normalized = pd.concat([df_consts, df_cont, df_dis, hist_feature], axis=1)
         return self.insert_columns(df_normalized)
 
     def insert_columns(self, df: pd.DataFrame):
