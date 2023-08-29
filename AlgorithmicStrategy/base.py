@@ -139,10 +139,10 @@ class AlgorithmicStrategy(ABC):
         for line in lines:
             if line["oid"] == 0 and (line["oidb"] != 0) and (line["oids"] != 0):
                 self.current_price = line["price"]
-                if self.newday:
-                    self.price_list[self.date] = {self.timeStamp: self.current_price}
-                else:
-                    self.price_list[self.date][self.timeStamp] = self.current_price
+        if self.newday:
+            self.price_list[self.date] = {self.timeStamp: self.current_price}
+        else:
+            self.price_list[self.date][self.timeStamp] = self.current_price
 
     # 存在一个问题, 当前的处理逻辑可能导致最后10ms的tick数据无法被撮合到盘口
     def update_orderbook(self, lines: List[OrderTick]) -> None:
