@@ -7,6 +7,7 @@ name = "pip_conf_index_global"
 pandas = "*"
 loguru = "*"
 matplotlib = "*"
+tqdm = "*"
 
 [dev-packages]
 
