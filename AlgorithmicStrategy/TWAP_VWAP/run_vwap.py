@@ -59,13 +59,15 @@ class VWAP(AlgorithmicStrategy):
                 if self.queue.size == 100:
                     df = self.queue.to_df()
                     df_normalized = self.normer.fit_transform_for_dataframe(df)
-                    temp_data = t.tensor(df_normalized.values[np.newaxis, np.newaxis, :, 1:-1], dtype=t.double)
-                    self.logger.info(f"Dtype: {temp_data.dtype}")
-                    self.logger.info(f"Size: {temp_data.size()}")
+                    # df_normalized.to_csv("norm.csv")
+                    # exit(0)
+                    temp_data = t.tensor(df_normalized.values[np.newaxis, np.newaxis, :, 1:-1], dtype=t.float32)
+                    # self.logger.info(f"Dtype: {temp_data.dtype}")
+                    # self.logger.info(f"Size: {temp_data.size()}")
                     vol_percent_pred = self.model(
                         temp_data
                     )
-                    self.logger.info(f"Pred volume: {vol_percent_pred}")
+                    self.logger.info(f"{self.timeStamp} Pred volume: {vol_percent_pred}")
 
             if tmp["update"]:
                 newest_data = self.writer.collect_data_by_timestamp(
@@ -153,6 +155,10 @@ if __name__ == "__main__":
                 update_interval=3000,
                 update_limits=(0, 0),
             )
+            # for ts, sig in trade_time:
+            #     if sig['trade']:
+            #         print(ts)
+            #         exit(0)
             trader = VWAP(
                 orderbook=ob,
                 tick=tick,
@@ -172,6 +178,8 @@ if __name__ == "__main__":
                 datas = trader.tick.next_batch(until=timestamp)
                 if datas:
                     trader.update_orderbook(datas)
+                    # print(trader.orderbook.last_snapshot)
+                trader.timeStamp = timestamp
                 try:
                     trader.signal_update()
                     if trader.trade:

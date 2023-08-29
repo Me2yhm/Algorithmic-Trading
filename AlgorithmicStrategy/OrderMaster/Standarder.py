@@ -154,7 +154,7 @@ class Standarder:
 
             times = df_consts['timestamp'].values
             time_stamp = data['timestamp'].values[-1]
-            nearest_time_idx = len(times[time_stamp > times])
+            nearest_time_idx = len(times[time_stamp >= times])
             # self.hist_feature.to_csv('hist.csv')
             # print(nearest_time_idx)
             hist_feature = self.hist_feature.iloc[nearest_time_idx - 100: nearest_time_idx, :].reset_index(drop=True)
