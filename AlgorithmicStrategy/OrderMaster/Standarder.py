@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 
 class Standarder:
-    def __init__(self, file_folder: Path, train: bool, limits: int = 5, **kwargs):
+    def __init__(self, file_folder: Path, limits: int = 5, **kwargs):
         self.df_volume_percentage = None
         self.hist_df = None
         self.hist_feature = None
@@ -28,47 +28,73 @@ class Standarder:
         self.dfs: dict[Path, pd.DataFrame] = dict()
         self.all_data: pd.DataFrame = None
 
-        self.train: bool = train
-
     def fresh_files(self):
         self.filenames: list[Path] = list(self.file_folder.glob("*.csv"))
+        self.sort_files()
+
+    def sort_files(self):
         self.filenames.sort(key=lambda x: datetime.strptime(x.stem, "%Y-%m-%d"))
 
-    def read_files(self):
-        self.dfs: dict[Path, pd.DataFrame] = {k: pd.read_csv(k) for k in self.filenames}
+    def add_file(self, file: Path):
+        self.filenames.append(file)
+        self.sort_files()
+        self.dfs[file] = pd.read_csv(file)
+
+    def read_file(self, file: Path):
+        if file not in self.dfs:
+            self.dfs[file] = pd.read_csv(file)
+
+    def read_files(self, files: list[Path] = None):
+        if files is None:
+            files = self.filenames
+        for file in files:
+            self.read_file(file)
 
     def get_past_files(self, file: Path):
-        idx = self.filenames.index(file)
-        if self.limits is not None:
-            if idx < self.limits:
-                return self.filenames[:idx]
-            else:
-                return self.filenames[idx - self.limits : idx]
-        else:
+        file_date = datetime.strptime(file.stem, "%Y-%m-%d")
+        file_arr = np.array([datetime.strptime(x.stem, "%Y-%m-%d") for x in self.filenames])
+        file_arr = file_arr[file_arr < file_date]
+        idx = len(file_arr)
+        if idx <= self.limits:
             return self.filenames[:idx]
+        else:
+            return self.filenames[idx - self.limits:idx]
 
-    def generate_hist_feature(self, filenames: list[Path]):
+        # idx = self.filenames.index(file)
+        # if self.limits is not None:
+        #     if idx < self.limits:
+        #         return self.filenames[:idx]
+        #     else:
+        #         return self.filenames[idx - self.limits : idx]
+        # else:
+        #     return self.filenames[:idx]
+
+    def generate_hist_feature(self, filenames: list[Path], train:bool = True):
         hist_feature = cast(pd.DataFrame, 0)
         for file in filenames:
             df = self.dfs[file]
-            hist_feature += df.loc[:, ["VWAP", "volume_range"]]
+            if train:
+                hist_feature += df.loc[:, ["VWAP", "volume_range"]]
 
-        df_volume = hist_feature.copy()
-        df_volume["volume_percentage"] = (
-            df_volume["volume_range"] / df_volume["volume_range"].sum()
-        )
-        df_volume["timestamp"] = df["timestamp"]
-        df_volume_percentage = df_volume[['timestamp', 'volume_percentage']]
+        if train:
+            df_volume = hist_feature.copy()
+            df_volume["volume_percentage"] = (
+                df_volume["volume_range"] / df_volume["volume_range"].sum()
+            )
+            df_volume["timestamp"] = df["timestamp"]
+            df_volume_percentage = df_volume[["timestamp", "volume_percentage"]]
 
-        hist_feature = hist_feature.rename(
-            columns={"VWAP": "VWAP_hist", "volume_range": "volume_range_hist"}
-        )
-        hist_feature /= len(self.filenames)
 
-        hist_feature = (hist_feature - hist_feature.mean()) / hist_feature.std()
-        hist_feature["volume_percentage"] = df_volume_percentage["volume_percentage"]
-        self.hist_feature = hist_feature
-        self.df_volume_percentage = df_volume_percentage
+            hist_feature = hist_feature.rename(
+                columns={"VWAP": "VWAP_hist", "volume_range": "volume_range_hist"}
+            )
+            hist_feature /= len(self.filenames)
+
+            hist_feature = (hist_feature - hist_feature.mean()) / hist_feature.std()
+            hist_feature["volume_percentage"] = df_volume_percentage["volume_percentage"]
+            self.hist_feature = hist_feature
+            self.df_volume_percentage = df_volume_percentage
+
         self.hist_df = pd.concat(
             [self.dfs[s] for s in filenames], axis=0, ignore_index=True
         )
@@ -100,10 +126,9 @@ class Standarder:
 
         return res
 
-    def transform(self, data: pd.DataFrame):
-
-        df_volume = data[['volume_range']].copy()
-        df_volume['volume_range'] /= df_volume['volume_range'].sum()
+    def transform(self, data: pd.DataFrame, train:bool = True):
+        df_volume = data[["volume_range"]].copy()
+        df_volume["volume_range"] /= df_volume["volume_range"].sum()
         df_volume = df_volume.rename(columns={"volume_range": "volume_percent_today"})
         df_consts = data[self.const_var]
         df_cont = (data[self.continuous_var] - self.con_param_mean) / self.con_param_std
@@ -118,9 +143,14 @@ class Standarder:
         df_dis[(df_dis >= l3)] = 3
         df_dis = df_dis.replace(map_dict)
         df_dis = pd.get_dummies(df_dis, columns=df_dis.columns, dtype=int)
-        df_normalized = pd.concat(
-            [df_consts, df_cont, df_dis, self.hist_feature, df_volume], axis=1
-        )
+        if train:
+            df_normalized = pd.concat(
+                [df_consts, df_cont, df_dis, self.hist_feature, df_volume], axis=1
+            )
+        else:
+            df_normalized = pd.concat(
+                [df_consts, df_cont, df_dis], axis=1
+            )
         return self.insert_columns(df_normalized)
 
     def insert_columns(self, df: pd.DataFrame):
@@ -130,9 +160,9 @@ class Standarder:
                 df.insert(index, self.total_columns[index], 0)
         return df
 
-    def fit_transform(
+    def fit_transform_for_files(
         self,
-        datas: Union[Path, list[Path], pd.DataFrame] = None,
+        datas: Union[Path, list[Path]] = None,
         output: Path = None,
         label: Path = None,
     ):
@@ -147,22 +177,22 @@ class Standarder:
         if label is not None and not label.exists():
             label.mkdir(parents=True, exist_ok=True)
 
-        if isinstance(datas, list):
-            for file in tqdm(datas):
-                past_filenames = self.get_past_files(file)
-                if len(past_filenames) == 0:
-                    continue
-                self.generate_hist_feature(past_filenames)
-                self.fit(self.hist_df)
-                df_normalized = self.transform(self.dfs[file])
-                if output is not None:
-                    df_normalized.to_csv(output / file.name, index=False)
+        for file in tqdm(datas):
+            past_filenames = self.get_past_files(file)
+            if len(past_filenames) == 0:
+                continue
+            self.generate_hist_feature(past_filenames)
+            self.fit(self.hist_df)
+            df_normalized = self.transform(self.dfs[file])
+            if output is not None:
+                df_normalized.to_csv(output / file.name, index=False)
 
-                if label is not None:
-                    self.df_volume_percentage.to_csv(label / file.name, index=False)
-        else:
-            df_normalized = self.transform(datas)
-            return df_normalized
+            if label is not None:
+                self.df_volume_percentage.to_csv(label / file.name, index=False)
+
+    def fit_transform_for_dataframe(self, data: pd.DataFrame):
+        df_normalized = self.transform(data, train=False)
+        return df_normalized
 
     def add_new_files(self, path: Path):
         self.filenames.append(path)

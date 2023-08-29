@@ -16,5 +16,5 @@ if not norm_data_folder.exists():
 standard = Standarder(file_folder=raw_data_folder, train=True)
 standard.fresh_files()
 standard.read_files()
-standard.fit_transform(output=norm_data_folder)
+standard.fit_transform_for_files(output=norm_data_folder)
 

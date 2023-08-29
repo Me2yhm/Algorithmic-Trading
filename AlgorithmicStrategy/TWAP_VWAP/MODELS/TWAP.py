@@ -83,6 +83,6 @@ class TWAP(AlgorithmicStrategy):
             else:
                 self.trade = False
 
-    def stratgy_update(self):
+    def strategy_update(self):
         self.vwap = self.money_traded / self.volume_traded
         self.delta_vwap = self.vwap - self.vwap_market

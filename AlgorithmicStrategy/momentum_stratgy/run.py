@@ -1,8 +1,6 @@
 import logging
 from pathlib import Path
 from typing import Union
-from pathlib import Path
-
 from .main import momentumStratgy, reverse_strategy
 from .modelType import modelType
 from .ReverseMomentum import Model_reverse

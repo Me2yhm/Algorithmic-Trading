@@ -12,6 +12,7 @@ if __name__ == "__main__":
         tick = DataSet(data_path=tick_file, ticker="SZ")
         ob = OrderBook(data_api=tick)
 
+
         twap = TWAP(ob,tick,2400,6000,2500, "000157.SZ", "BUY")
         twap.get_time_dict()
         twap.get_trade_times()
@@ -19,7 +20,8 @@ if __name__ == "__main__":
             twap.timeStamp = i
             twap.signal_update()
             if twap.trade:
-                twap.stratgy_update()
+                twap.strategy_update()
                 print(twap.signal)
                 print(twap.ts_list)
                 print(twap.delta_vwap)
+
