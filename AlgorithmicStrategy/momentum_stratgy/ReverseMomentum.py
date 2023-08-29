@@ -201,12 +201,15 @@ class Info:
                     self.std = np.std(data_values)
                     self.var = self.std**2  # 初始化：第一个方差
                     self.mean_new = self.mean_old = np.mean(data_values)
-                    self.dict[i] = self.std / self.mean_new
+                    if self.mean_new != 0:
+                        self.dict[i] = self.std / self.mean_new
+                    else:
+                        self.dict[i] = 0
                 else:
                     # 增量法计算标准差
                     self.last_volume = self.stream[i]
                     self.mean_new = self.mean_old + (
-                        (self.last_volume - self.first_volume) / (period - 1)
+                        (self.last_volume - self.first_volume) / period
                     )  # 无偏估计
                     self.var = self.var + fix * (
                         self.mean_old**2
@@ -386,7 +389,7 @@ class Model_reverse(modelType):
         one_Tick = Tick(one_tick, delta=self.delta)  # 初始化tick对象
         T_tick = T(one_Tick)  # 计算tick的周期
         T_tick.cal_T()
-        print("tick周期:", one_Tick.T)
+        # print("tick周期:", one_Tick.T)
         self.period_now = one_Tick.T  # 用最新一单tick的周期作为当前周期
         self.TD.append(one_Tick)  # 将这单tick添加到TD中
         self.period_start = T_tick.start
@@ -465,17 +468,20 @@ class Model_reverse(modelType):
                 + "092500000"
             )
             openqu = pd.to_datetime(opentime, format="%Y%m%d%H%M%S%f")
-            self._cal_pricedict(price_dict_all, date_today, openqu)
-            if self.TD.max_T_dict == self.TD.old_T_dict:
-                return
-            for i in range(self.TD.old_T_dict, self.TD.max_T_dict):
-                self._cal_turnover(i)
-                self._cal_ret(i)
-                self._cal_info(i)
-                # 计算反转因子和hurst
-                self._cal_factor1(i)
-                self._cal_factor2(i)
-                self._cal_hurst(i)
+            try:
+                self._cal_pricedict(price_dict_all, date_today, openqu)
+                if self.TD.max_T_dict == self.TD.old_T_dict:
+                    return
+                for i in range(self.TD.old_T_dict, self.TD.max_T_dict):
+                    self._cal_turnover(i)
+                    self._cal_ret(i)
+                    self._cal_info(i)
+                    # 计算反转因子和hurst
+                    self._cal_factor1(i)
+                    self._cal_factor2(i)
+                    self._cal_hurst(i)
+            except KeyError:
+                print("there were no price yet")
         return {
             "factor1": self.factor1.factor1_dict,
             "factor2": self.factor2.factor2_dict,
