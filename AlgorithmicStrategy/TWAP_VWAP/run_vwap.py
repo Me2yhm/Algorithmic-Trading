@@ -8,11 +8,12 @@ import pandas as pd
 import torch as t
 
 
-
 from AlgorithmicStrategy import (
     DataSet,
     OrderBook,
     AlgorithmicStrategy,
+    signal,
+    possession,
     LimitedQueue,
     Writer,
     Standarder,
@@ -26,7 +27,7 @@ class VWAP(AlgorithmicStrategy):
         self,
         orderbook: OrderBook,
         tick: DataSet,
-        trade_volume: float,
+        trade_volume: int,
         queue: LimitedQueue,
         writer: Writer,
         normer: Standarder,
@@ -49,8 +50,12 @@ class VWAP(AlgorithmicStrategy):
         self.model = model
         self.logger = logger
 
+        self.key_map = {"BUY": "ask", "SELL": "bid"}
+
     def model_update(self) -> None:
-        pass
+        self.writer.file.close()
+        self.normer.fit_transform_for_files(self.writer.filename, output=simu_folder / "NORM")
+        self.model.train()
 
     def signal_update(self) -> None:
         tmp: dict = self.trade_time.get(self.timeStamp, None)
@@ -59,15 +64,49 @@ class VWAP(AlgorithmicStrategy):
                 if self.queue.size == 100:
                     df = self.queue.to_df()
                     df_normalized = self.normer.fit_transform_for_dataframe(df)
-                    # df_normalized.to_csv("norm.csv")
-                    # exit(0)
-                    temp_data = t.tensor(df_normalized.values[np.newaxis, np.newaxis, :, 1:-1], dtype=t.float32)
-                    # self.logger.info(f"Dtype: {temp_data.dtype}")
-                    # self.logger.info(f"Size: {temp_data.size()}")
-                    vol_percent_pred = self.model(
-                        temp_data
+                    temp_data = t.tensor(
+                        df_normalized.values[np.newaxis, np.newaxis, :, 1:-1],
+                        dtype=t.float32,
                     )
-                    self.logger.info(f"{self.timeStamp} Pred volume: {vol_percent_pred}")
+                    vol_percent_pred = self.model(temp_data)
+                    price = list(
+                        self.orderbook.last_snapshot[
+                            self.key_map[self.direction]
+                        ].keys()
+                    )[0]
+                    self.logger.info(
+                        f"{self.timeStamp} Pred volume%: {float(vol_percent_pred)} at Price {price}"
+                    )
+                    real_vol = int(float(vol_percent_pred) * self.trade_volume)
+                    self.logger.info(f"(Real:{real_vol})")
+                    if float(vol_percent_pred) != 0:
+                        sig = signal(
+                            timestamp=self.timeStamp,
+                            symbol=self.tick.ticker,
+                            direction=self.direction,
+                            price=price,
+                            volume=real_vol,
+                        )
+                        self.signals[self.date].append(sig)
+
+                        self.logger.info(sig)
+
+                        if self.date not in self.possessions:
+                            self.possessions[self.date] = possession(
+                                code=self.tick.ticker,
+                                volume=real_vol,
+                                averagePrice=price,
+                                cost=0,
+                            )
+                        else:
+                            poss = self.possessions[self.date]
+                            poss["averagePrice"] = (
+                                poss["volume"] * poss["averagePrice"] + real_vol * price
+                            ) / (poss["volume"] + real_vol)
+                            poss["volume"] = poss["volume"] + real_vol
+                            self.possessions[self.date] = poss
+
+                        self.logger.info(self.possessions[self.date])
 
             if tmp["update"]:
                 newest_data = self.writer.collect_data_by_timestamp(
@@ -76,9 +115,9 @@ class VWAP(AlgorithmicStrategy):
                     timestamp_prev=self.writer.get_prev_timestamp(self.timeStamp),
                 )
                 self.writer.csvwriter.writerow(newest_data)
-                self.queue.push(pd.DataFrame([newest_data], columns=self.writer.columns))
-
-        pass
+                self.queue.push(
+                    pd.DataFrame([newest_data], columns=self.writer.columns)
+                )
 
     def strategy_update(self) -> None:
         pass
@@ -126,7 +165,7 @@ if __name__ == "__main__":
     trade_begin = 9_30_03_000
     end = 14_57_00_000
 
-    direction = cast("BUY", Literal["BUY", "SELL"])
+    direction = "BUY"
 
     trade_volume = 2000
 
@@ -135,9 +174,8 @@ if __name__ == "__main__":
             logger.info(f"Date: {tick_file.stem}")
             tick = DataSet(tick_file, ticker=ticker)
             ob = OrderBook(data_api=tick)
-            writer = Writer(
-                filename=simu_folder / "RAW" / tick_file.name, rollback=3000
-            )
+            raw_file = simu_folder / "RAW" / tick_file.name
+            writer = Writer(filename=raw_file, rollback=3000)
 
             past_files = standard.get_past_files(tick_file)
             if len(past_files) == 0:
@@ -155,10 +193,6 @@ if __name__ == "__main__":
                 update_interval=3000,
                 update_limits=(0, 0),
             )
-            # for ts, sig in trade_time:
-            #     if sig['trade']:
-            #         print(ts)
-            #         exit(0)
             trader = VWAP(
                 orderbook=ob,
                 tick=tick,
@@ -169,7 +203,7 @@ if __name__ == "__main__":
                 trade_volume=trade_volume,
                 trade_time=trade_time,
                 model=ocet,
-                logger=logger
+                logger=logger,
             )
 
             for timestamp in range(
@@ -186,4 +220,5 @@ if __name__ == "__main__":
                         trader.strategy_update()
                 except IndexError:
                     continue
+            trader.model_update()
             break
