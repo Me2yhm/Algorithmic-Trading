@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
+import numpy as np
 
 from ..base import AlgorithmicStrategy, possession
 from .modelType import modelType
@@ -131,6 +132,11 @@ class reverse_strategy(momentumStratgy):
         index = model.model_update(self.ticks, self.price_list, self.timeStamp)
         if index is not None:
             self.model_indicator.append(index)
+        # 让model_indecator的长度和price_list长度保持一致，方便后续给数据做标注
+        else:
+            self.model_indicator.append(
+                {"factor1": np.nan, "factor2": np.nan, "hurst": np.nan}
+            )
 
     def signal_update(self, index_dict):
         pass
