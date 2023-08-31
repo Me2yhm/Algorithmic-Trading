@@ -1,10 +1,16 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
 
+<<<<<<< HEAD
 from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
 from ..base import AlgorithmicStrategy, possession, signal
 from .modelType import modelType, Model_reverse
 from .modelType import 
+=======
+from ..base import AlgorithmicStrategy, possession
+from .modelType import modelType
+from .ReverseMomentum import Model_reverse
+>>>>>>> 07a00246cd0fdc05c49602bca829b8b9657cfcd2
 from ..OrderMaster.OrderBook import OrderBook
 
 
@@ -32,12 +38,12 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
     def __init__(
         self,
         orderbook: OrderBook,
-        commision: float = 0.00015,
+        commission: float = 0.00015,
         stamp_duty: float = 0.001,
         transfer_fee: float = 0.00002,
         pre_close: float = 0.0,
     ) -> None:
-        super().__init__(orderbook, commision, stamp_duty, transfer_fee, pre_close)
+        super().__init__(orderbook, commission, stamp_duty, transfer_fee, pre_close)
         self.model_indicator = []
         self.win_times = {}
         self.win_rate = {}
@@ -97,7 +103,7 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
                 total - money
             ) / self.possessions[self.date]["volume"]
 
-    def stratgy_update(self) -> float:
+    def strategy_update(self) -> float:
         """
         根据返回的信号计算胜率、赔率、换手率等——可以流式？
         """
@@ -127,11 +133,16 @@ class reverse_strategy(momentumStratgy):
     """
     反转因子模型
     """
-    
+
     def model_update(self, model: Model_reverse):
-        return model.model_update(self.ticks,self.orderbook) 
-    def signal_update(self,index_dict):
+        return model.model_update(self.ticks, self.price_list, self.timeStamp)
+
+    def signal_update(self, index_dict):
         pass
+
+    def strategy_update(self):
+        pass
+<<<<<<< HEAD
     def stratgy_update(self):
         pass
     
@@ -139,3 +150,5 @@ class UmrStrategy(momentumStratgy):
     """umr因子"""
     def model_update(self, model: type[modelType] | modelType) -> None:
         return super().model_update(model)
+=======
+>>>>>>> 07a00246cd0fdc05c49602bca829b8b9657cfcd2

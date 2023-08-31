@@ -2,6 +2,7 @@ from typing import Literal
 
 from torch import nn, Tensor
 import torch as t
+from .log import logger
 
 
 class MultiTaskLoss:
@@ -52,5 +53,5 @@ class MultiTaskLoss:
             + self.eta * vwap_loss
             + self.gamma * volume_percent_penalty
         )
-        # print(vwap_loss,VWAP_ML,VWAP_market,volume_percent_penalty)
+        logger.info(f'vwap_ml={VWAP_ML.item()},vwap_loss={vwap_loss.item()},volume_traded={sum_volume_percent.item()}')
         return total_loss

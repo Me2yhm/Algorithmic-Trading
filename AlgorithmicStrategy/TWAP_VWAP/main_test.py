@@ -1,22 +1,25 @@
-import argparse
+import sys
 import sys
 import warnings
 from argparse import ArgumentParser
 from pathlib import Path
 
-import numpy as np
 import torch as t
-from matplotlib import pyplot as plt
-from torch import optim, nn
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from AlgorithmicStrategy import DataSet, OrderBook, TradeTime
+from AlgorithmicStrategy import DataSet, TradeTime
 
-from MODELS import JoyeLOB, OCET, LittleOB, MultiTaskLoss
+from MODELS import (
+    JoyeLOB,
+    OCET,
+    LittleOB,
+    MultiTaskLoss,
+    logger,
+    log_eval,
+    setup_seed,
+)
 
-from log import logger, log_eval, log_train
-from utils import setup_seed, plotter, save_model
 from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
@@ -27,7 +30,7 @@ def evaluate(ocet: OCET):
     loss_global = []
     true_vwaps = []
     pred_vwaps = []
-    for file in tqdm(train_files):
+    for file in tqdm(test_files):
         if file not in joye_data:
             joye_data.push(file)
         tick = DataSet(file, ticker="000157.SZ")
@@ -46,7 +49,8 @@ def evaluate(ocet: OCET):
                     file, timestamp=ts
                 )
                 if time_search is not None:
-                    X = t.tensor(X, device=device, dtype=t.float32)
+                    X = t.tensor(X, dtype=t.float32)
+                    # logger.info(X.size())
                     pred_frac = ocet(X)
 
                     _, price = llob.batch(llob_file, ts)
@@ -56,6 +60,13 @@ def evaluate(ocet: OCET):
                     hist_trade_volume_fracs.append(volume_hist)
                     pred_trade_volume_fracs.append(pred_frac)
                     true_trade_volume_fracs.append(volume_today)
+                    if sum(pred_trade_volume_fracs) > 1:
+                        pred_trade_volume_fracs[-1] = pred_trade_volume_fracs[-1] - (
+                            sum(pred_trade_volume_fracs) - 1
+                        )
+                        break
+                    if sum(pred_trade_volume_fracs) == 1:
+                        break
 
         market_vwap = llob.get_VWAP(llob_file)
         true_vwaps.append(market_vwap)
@@ -67,16 +78,16 @@ def evaluate(ocet: OCET):
             _, final_price = llob.batch(llob_file, tick.file_date_num + 14_57_00_000)
             additional_vwap = rest * final_price
 
-        trade_price = t.cuda.FloatTensor(trade_price)
+        trade_price = t.Tensor(trade_price)
         pred_vwap = t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
         pred_vwaps.append(pred_vwap.item())
 
-        hist_trade_volume_fracs = t.cuda.FloatTensor(hist_trade_volume_fracs)
+        hist_trade_volume_fracs = t.Tensor(hist_trade_volume_fracs)
         hist_trade_volume_fracs = hist_trade_volume_fracs / t.sum(
             hist_trade_volume_fracs
         )
 
-        true_trade_volume_fracs = t.cuda.FloatTensor(true_trade_volume_fracs)
+        true_trade_volume_fracs = t.Tensor(true_trade_volume_fracs)
         true_trade_volume_fracs = true_trade_volume_fracs / t.sum(
             true_trade_volume_fracs
         )
@@ -144,14 +155,15 @@ if __name__ == "__main__":
         mlp_dim=200,
     )
 
-
-    newest_model = model_save_path / "3.ocet"
-    para_dict = t.load(newest_model, map_location=device)
+    newest_model = model_save_path / "18.ocet"
+    # para_dict = t.load(newest_model, map_location=device)
+    para_dict = t.load(newest_model, map_location=t.device("cpu"))
     ocet.load_state_dict(para_dict["model_state_dict"])
-    ocet.to(device=device)
-    ocet.eval()
+    # ocet.to(device='cpu')
+    # with t.no_grad():
+    #     ocet.eval()
 
-    # optimizer = optim.Adam(ocet.parameters(), lr=0.001, weight_decay=0.0005)
+    # optimizer = optim.Adam(ocet.parameters(), lr=0.0001, weight_decay=0.0005)
 
     """
     Scripts begin

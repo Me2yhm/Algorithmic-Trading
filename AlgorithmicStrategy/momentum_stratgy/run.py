@@ -1,10 +1,19 @@
+import logging
 from pathlib import Path
 from typing import Union
-
 from .main import momentumStratgy, reverse_strategy
-from .modelType import modelType, Model_reverse
-from ..OrderMaster.DataManager import DataStream, DataSet
+from .modelType import modelType
+from .ReverseMomentum import Model_reverse
+from ..OrderMaster.DataManager import DataSet
 from ..OrderMaster.OrderBook import OrderBook
+
+parent_path = Path(__file__).parent
+logging.basicConfig(
+    filename=Path.joinpath(parent_path, "reverse.log"),
+    level=logging.INFO,
+    format="%(asctime)s-%(message)s",
+)
+
 
 def run(
     datestr: str,
@@ -24,25 +33,20 @@ def run(
             stratgy.update_orderbook(tick_data)
             if stratgy.new_timeStamp is False:
                 continue
-            print(stratgy.date)
-            print(stratgy.model_update(model=model))
-            # stratgy.signal_update()
-            # stratgy.stratgy_update()
+            logging.info(stratgy.model_update(model=model))
         except StopIteration:
             break
     # 确保最后一行tick数据也被更新
     if stratgy.new_timeStamp is False:
         print(stratgy.date)
         stratgy.model_update(model=model)
-        # stratgy.signal_update()
-        # stratgy.stratgy_update()
-    # print(stratgy.win_rate[datestr])
 
 
 if __name__ == "__main__":
     model = Model_reverse()
-    run(datestr='2023-07-17',
-    symbol='601012.SH',
-    stratgy_type=reverse_strategy,
-    model=model)
-    
+    run(
+        datestr="2023-07-17",
+        symbol="601012.SH",
+        stratgy_type=reverse_strategy,
+        model=model,
+    )
