@@ -197,7 +197,9 @@ class ConsequentLayer(torch.nn.Module):
     def __init__(self, d_in, d_rule, d_out):
         super(ConsequentLayer, self).__init__()
         c_shape = torch.Size([d_rule, d_out, d_in + 1])
-        self._coeff = torch.zeros(c_shape, dtype=dtype, requires_grad=True)
+        self._coeff = torch.zeros(c_shape, dtype=dtype, requires_grad=True).to(
+            dtype=torch.float64
+        )
 
     @property
     def coeff(self):
@@ -219,7 +221,7 @@ class ConsequentLayer(torch.nn.Module):
         ), "Coeff shape should be {}, but is actually {}".format(
             self.coeff.shape, new_coeff.shape
         )
-        self._coeff = new_coeff
+        self._coeff = new_coeff.to(dtype=torch.float64)
 
     def fit_coeff(self, x: torch.Tensor, weights: torch.Tensor, y_actual: torch.Tensor):
         """
@@ -243,7 +245,7 @@ class ConsequentLayer(torch.nn.Module):
         # Use gels to do LSE, then pick out the solution rows:
         try:
             # 没有torck.gels这个函数
-            coeff_2d, _ = torch.lstsq(y_actual_2d, weighted_x_2d)
+            coeff_2d, *_ = torch.linalg.lstsq(y_actual_2d, weighted_x_2d)
             print("coeff_2d ", coeff_2d)
         except RuntimeError as e:
             print("Internal error in gels", e)
@@ -251,7 +253,11 @@ class ConsequentLayer(torch.nn.Module):
             raise e
         coeff_2d = coeff_2d[0 : weighted_x_2d.shape[1]]
         # Reshape to 3D tensor: divide by rules, n_in+1, then swap last 2 dims
-        self.coeff = coeff_2d.view(weights.shape[1], x.shape[1] + 1, -1).transpose(1, 2)
+        self.coeff = (
+            coeff_2d.view(weights.shape[1], x.shape[1] + 1, -1)
+            .transpose(1, 2)
+            .to(dtype=torch.float64)
+        )
         # coeff dim is thus: n_rules * n_out * (n_in+1)
 
     def forward(self, x):
@@ -262,7 +268,10 @@ class ConsequentLayer(torch.nn.Module):
               y.shape: n_cases * n_out * n_rules
         """
         # Append 1 to each list of input vals, for the constant term:
-        x_plus = torch.cat([x, torch.ones(x.shape[0], 1)], dim=1)
+        x_plus = torch.cat([x, torch.ones(x.shape[0], 1)], dim=1).to(
+            dtype=torch.float64
+        )
+        print(x_plus.dtype, self.coeff.dtype)
         # Need to switch dimansion for the multipy, then switch back:
         y_pred = torch.matmul(self.coeff, x_plus.t())
         return y_pred.transpose(0, 2)  # swaps cases and rules
@@ -401,8 +410,8 @@ class AnfisNet(torch.nn.Module):
         print("模糊化后的形状:", self.fuzzified.shape)
         self.raw_weights = self.layer["rules"](self.fuzzified)
         print("weight的形状:", self.raw_weights.shape)
-        self.weights = F.normalize(self.raw_weights, p=1, dim=1)
-        self.rule_tsk = self.layer["consequent"](x)
+        self.weights = F.normalize(self.raw_weights, p=1, dim=1).to(dtype=torch.float64)
+        self.rule_tsk = self.layer["consequent"](x).to(dtype=torch.float64)
         print("rule_tsk:", self.rule_tsk.shape)
         # y_pred = self.layer['weighted_sum'](self.weights, self.rule_tsk)
         y_pred = torch.bmm(self.rule_tsk, self.weights.unsqueeze(2))
