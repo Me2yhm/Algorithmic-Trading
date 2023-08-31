@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
+
+from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
 from ..base import AlgorithmicStrategy, possession, signal
 from .modelType import modelType, Model_reverse
+from .modelType import 
 from ..OrderMaster.OrderBook import OrderBook
 
 
@@ -131,3 +134,8 @@ class reverse_strategy(momentumStratgy):
         pass
     def stratgy_update(self):
         pass
+    
+class UmrStrategy(momentumStratgy):
+    """umr因子"""
+    def model_update(self, model: type[modelType] | modelType) -> None:
+        return super().model_update(model)
