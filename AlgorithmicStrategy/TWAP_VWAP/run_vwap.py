@@ -1,3 +1,4 @@
+from argparse import ArgumentParser
 from datetime import datetime
 from datetime import datetime
 from pathlib import Path
@@ -6,7 +7,7 @@ from typing import Literal, cast
 import numpy as np
 import pandas as pd
 import torch as t
-
+from torch import optim
 
 from AlgorithmicStrategy import (
     DataSet,
@@ -19,7 +20,8 @@ from AlgorithmicStrategy import (
     Standarder,
     TradeTime,
 )
-from MODELS import logger, OCET
+from AlgorithmicStrategy.AlgorithmicStrategy.TWAP_VWAP import save_model
+from MODELS import logger, OCET, setup_seed, MultiTaskLoss, JoyeLOB, LittleOB
 
 
 class VWAP(AlgorithmicStrategy):
@@ -35,6 +37,7 @@ class VWAP(AlgorithmicStrategy):
         trade_time,
         model: OCET,
         logger,
+            args,
         **kwargs,
     ):
         super().__init__(orderbook=orderbook, **kwargs)
@@ -49,14 +52,103 @@ class VWAP(AlgorithmicStrategy):
         self.trade_time: dict[int, dict] = dict(trade_time)
         self.model = model
         self.logger = logger
+        self.args = args
 
         self.key_map = {"BUY": "ask", "SELL": "bid"}
 
     def model_update(self) -> None:
         self.writer.file.close()
-        self.normer.fit_transform_for_files(self.writer.filename, output=simu_folder / "NORM")
+        self.normer.fit_transform_for_files(
+            self.writer.filename, output=simu_folder / "NORM"
+        )
+        train_files = train_folder.glob("*.csv")
+        self.generate_LLOB_by_ORDERBOOK()
         self.model.train()
+        for epc in range(self.args.epochs):
+            loss_log = []
+            for file in train_files:
+                if file not in joye_data:
+                    joye_data.push(file)
+                tick = DataSet(file, ticker="000157.SZ")
+                llob_file = little_lob_folder / file.name
+                if llob_file not in llob:
+                    llob.push(llob_file)
+                tt = TradeTime(begin=9_30_00_000, end=14_57_00_000, tick=tick)
+                pred_trade_volume_fracs = []
+                true_trade_volume_fracs = []
+                hist_trade_volume_fracs = []
+                trade_price = []
+                for ts, action in tt.generate_signals():
+                    if action["trade"]:
+                        time_search, X, volume_hist, volume_today = joye_data.batch(
+                            file, timestamp=ts
+                        )
+                        if time_search is not None:
+                            X = t.tensor(X, dtype=t.float32)
+                            pred_frac = ocet(X)
 
+                            _, price = llob.batch(llob_file, ts)
+
+                            trade_price.append(price)
+
+                            hist_trade_volume_fracs.append(volume_hist)
+                            pred_trade_volume_fracs.append(pred_frac)
+                            true_trade_volume_fracs.append(volume_today)
+
+                market_vwap = llob.get_VWAP(llob_file)
+                pred_trade_volume_fracs = t.squeeze(t.stack(pred_trade_volume_fracs))
+                trade_price = t.Tensor(trade_price)
+
+                if t.sum(pred_trade_volume_fracs) < 1:
+                    additional_vwap = 0
+                    rest = 1 - t.sum(pred_trade_volume_fracs)
+                    _, final_price = llob.batch(
+                        llob_file, tick.file_date_num + 14_57_00_000
+                    )
+                    additional_vwap = rest * final_price
+                    pred_vwap = (
+                            t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
+                    )
+
+                if t.sum(pred_trade_volume_fracs) > 1:
+                    pred_vwap = t.sum(
+                        pred_trade_volume_fracs
+                        * trade_price
+                        / t.sum(pred_trade_volume_fracs).item()
+                    )
+
+                if t.sum(pred_trade_volume_fracs) == 1:
+                    pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
+
+                hist_trade_volume_fracs = t.Tensor(hist_trade_volume_fracs)
+                hist_trade_volume_fracs = hist_trade_volume_fracs / t.sum(
+                    hist_trade_volume_fracs
+                )
+
+                true_trade_volume_fracs = t.Tensor(true_trade_volume_fracs)
+                true_trade_volume_fracs = true_trade_volume_fracs / t.sum(
+                    true_trade_volume_fracs
+                )
+
+                loss = loss_func.calculate_loss(
+                    pred_trade_volume_fracs,
+                    true_trade_volume_fracs,
+                    hist_trade_volume_fracs,
+                    market_vwap,
+                    pred_vwap,
+                )
+                optimizer.zero_grad()
+                loss.backward()
+                loss_log.append(loss.item())
+
+            save_model(
+                model=ocet,
+                optimizer=optimizer,
+                epoch=epc,
+                loss=float(np.mean(loss_log)),
+                path=model_save_path / f"{epc}.ocet",
+            )
+    @t.no_grad()
     def signal_update(self) -> None:
         tmp: dict = self.trade_time.get(self.timeStamp, None)
         if tmp is not None:
@@ -122,6 +214,9 @@ class VWAP(AlgorithmicStrategy):
     def strategy_update(self) -> None:
         pass
 
+    def generate_LLOB_by_ORDERBOOK(self):
+        pass
+
 
 def get_newest_model(path: Path, suffix: str = "ocet"):
     files = list(path.glob(f"*.{suffix}"))
@@ -130,6 +225,15 @@ def get_newest_model(path: Path, suffix: str = "ocet"):
 
 
 if __name__ == "__main__":
+    parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
+    parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
+    parser.add_argument("-e", "--epoch", type=int, default=20)
+    parser.add_argument("--dataset", type=str, default="./DATA/ML")
+    parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
+    args = parser.parse_args()
+
+    setup_seed(args.seed)
+
     model_save_path: Path = Path().cwd() / "MODEL_SAVE"
     newest_model_path = get_newest_model(model_save_path)
     logger.info(f"Using: {newest_model_path.name}")
@@ -140,6 +244,9 @@ if __name__ == "__main__":
 
     simu_folder = Path().cwd() / "REAL"
     logger.info(f"Simulating folder: {simu_folder}")
+    train_folder = simu_folder / "NORM"
+    train_files = list(train_folder.glob("*.csv"))
+    little_lob_folder = simu_folder / "LLOB"
 
     ticker = "000157.SZ"
     logger.info(f"Simulating: {ticker}")
@@ -155,17 +262,23 @@ if __name__ == "__main__":
 
     para_dict = t.load(newest_model_path, map_location=t.device("cpu"))
     ocet.load_state_dict(para_dict["model_state_dict"])
+    optimizer = optim.Adam(ocet.parameters(), lr=0.0001, weight_decay=0.0005)
+    optimizer.load_state_dict(para_dict["optimizer_state_dict"])
 
     lq = LimitedQueue(max_size=100)
     standard = Standarder(file_folder=simu_folder / "RAW", train=False, limits=5)
     standard.fresh_files()
 
+    direction = "BUY"
+    joye_data = JoyeLOB(window=100)
+    llob = LittleOB(direction=direction)
+    loss_func = MultiTaskLoss()
+
+
     # 交易时间起始
     total_begin = 9_15_00_000
     trade_begin = 9_30_03_000
     end = 14_57_00_000
-
-    direction = "BUY"
 
     trade_volume = 2000
 
@@ -204,6 +317,7 @@ if __name__ == "__main__":
                 trade_time=trade_time,
                 model=ocet,
                 logger=logger,
+                args=args
             )
 
             for timestamp in range(
