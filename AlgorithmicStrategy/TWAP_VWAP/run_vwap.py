@@ -2,6 +2,8 @@ from datetime import datetime
 from datetime import datetime
 from pathlib import Path
 from typing import Literal, cast
+import sys
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 import numpy as np
 import pandas as pd
@@ -91,7 +93,7 @@ def get_newest_model(path: Path, suffix: str = "ocet"):
 
 
 if __name__ == "__main__":
-    model_save_path: Path = Path().cwd() / "MODEL_SAVE"
+    model_save_path: Path = Path().cwd() / "MODEL_SAVE_1"
     newest_model_path = get_newest_model(model_save_path)
     logger.info(f"Using: {newest_model_path.name}")
 
@@ -131,7 +133,7 @@ if __name__ == "__main__":
     trade_volume = 2000
 
     with t.no_grad():
-        for tick_file in tick_files[-2:]:
+        for tick_file in tick_files[-4:]:
             logger.info(f"Date: {tick_file.stem}")
             tick = DataSet(tick_file, ticker=ticker)
             ob = OrderBook(data_api=tick)

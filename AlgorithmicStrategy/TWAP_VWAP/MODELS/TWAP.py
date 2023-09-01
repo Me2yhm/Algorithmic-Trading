@@ -35,7 +35,7 @@ class TWAP(AlgorithmicStrategy):
         self.money_traded: float = 0.0
         self.vwap: float
         self.vwap_market: float
-        self.delta_vwap: float
+        self.vwap_loss: float
         self.trade_num: float
         self.trade_volume: float = trade_volume
         self.time_interval: float = time_interval
@@ -84,4 +84,4 @@ class TWAP(AlgorithmicStrategy):
 
     def strategy_update(self):
         self.vwap = self.money_traded / self.volume_traded
-        self.delta_vwap = self.vwap - self.vwap_market
+        self.vwap_loss = self.vwap - self.vwap_market
