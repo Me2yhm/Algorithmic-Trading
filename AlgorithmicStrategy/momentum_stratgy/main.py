@@ -1,9 +1,16 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
 
+<<<<<<< HEAD
+from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
+from ..base import AlgorithmicStrategy, possession, signal
+from .modelType import modelType, Model_reverse
+from .modelType import 
+=======
 from ..base import AlgorithmicStrategy, possession
 from .modelType import modelType
 from .ReverseMomentum import Model_reverse
+>>>>>>> 07a00246cd0fdc05c49602bca829b8b9657cfcd2
 from ..OrderMaster.OrderBook import OrderBook
 
 
@@ -135,3 +142,13 @@ class reverse_strategy(momentumStratgy):
 
     def strategy_update(self):
         pass
+<<<<<<< HEAD
+    def stratgy_update(self):
+        pass
+    
+class UmrStrategy(momentumStratgy):
+    """umr因子"""
+    def model_update(self, model: type[modelType] | modelType) -> None:
+        return super().model_update(model)
+=======
+>>>>>>> 07a00246cd0fdc05c49602bca829b8b9657cfcd2

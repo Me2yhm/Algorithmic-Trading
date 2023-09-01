@@ -157,6 +157,7 @@ class AlgorithmicStrategy(ABC):
         self.date = get_date(self.timeStamp)
         self.record_price(lines)
         if self.newday:
+            self.signals[self.date] = []
             self.ticks[self.date] = {self.timeStamp: lines}
         else:
             if self.new_timeStamp:

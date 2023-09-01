@@ -1,3 +1,3 @@
 
-from .base import AlgorithmicStrategy
+from .base import *
 from .OrderMaster import *

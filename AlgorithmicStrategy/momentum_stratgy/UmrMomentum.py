@@ -274,7 +274,7 @@ class UMR():
    
 class UMRMonmentum(modelType):
     
-    def __init__(self, Risk_d = 5, Umr_m = 20, H = 10, delta_stream = 40000000, whole = 294e10) -> None:
+    def __init__(self, Risk_d = 5, Umr_m = 20, H = 20, delta_stream = 40000000, whole = 294e10) -> None:
         #一开始初始化的时候先把这些实例化，然后每次update就更新这里的属性
         self.TD = StreamDict()#tickdict
         self.MktD = StreamDict()#mktdict
