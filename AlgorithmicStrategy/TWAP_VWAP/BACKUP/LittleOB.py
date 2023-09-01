@@ -28,7 +28,7 @@ class LlobWriter:
         data_list = []
         for ts, values in self.little_ob.items():
             data_list.append([ts] + [values.get(key, '') for key in self.columns[1:]])
-        with open(str(self.file_name)+'.csv', mode='w', newline='') as file:
+        with open(str(self.file_name), mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(self.columns) 
             writer.writerows(data_list)
@@ -38,15 +38,15 @@ class LlobWriter:
 
 
 if __name__ == "__main__":
-    tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
+    tick_folder = Path.cwd() / "./DATA/000157.SZ/tick/gtja/"
+    print(tick_folder)
     tick_files = list(tick_folder.glob("*.csv"))
     ticker = "000157.SZ"
-    file_name = 'llob'
 
     for tick_file in tqdm(tick_files):
         tick = DataSet(tick_file, ticker=ticker)
         ob = OrderBook(data_api=tick)
-        llob = LlobWriter(tick,ob,Path().cwd()/file_name)
+        llob = LlobWriter(tick,ob,Path().cwd()/'./DATA/ML/LittleOB'/tick_file.name)
         ob.update()
 
         llob.write_llob()
