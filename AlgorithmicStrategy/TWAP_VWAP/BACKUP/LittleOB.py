@@ -1,10 +1,10 @@
 import sys
 from pathlib import Path
-sys.path.append(str(Path(__file__).parent.parent.parent))
+sys.path.append(str(Path(__file__).parent.parent.parent.parent))
 from AlgorithmicStrategy import OrderBook,DataSet
 import csv
 from collections import OrderedDict
-
+from tqdm import tqdm
 class LlobWriter:
 
     def __init__(self,tick:DataSet,orderbook:OrderBook,file_name:Path):
@@ -34,3 +34,19 @@ class LlobWriter:
             writer.writerows(data_list)
 
 
+
+
+
+if __name__ == "__main__":
+    tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
+    tick_files = list(tick_folder.glob("*.csv"))
+    ticker = "000157.SZ"
+    file_name = 'llob'
+
+    for tick_file in tqdm(tick_files):
+        tick = DataSet(tick_file, ticker=ticker)
+        ob = OrderBook(data_api=tick)
+        llob = LlobWriter(tick,ob,Path().cwd()/file_name)
+        ob.update()
+
+        llob.write_llob()
