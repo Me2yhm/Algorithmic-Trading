@@ -5,7 +5,7 @@ from .utils import get_date
 from .OrderMaster.OrderBook import OrderBook, OrderTick
 
 
-class deal(TypedDict):
+class Deal(TypedDict):
     timestamp: int
     symbol: str
     direction: str
@@ -13,7 +13,7 @@ class deal(TypedDict):
     volume: int
 
 
-class signal(TypedDict):
+class Signal(TypedDict):
     timestamp: int
     symbol: str
     direction: str
@@ -21,7 +21,7 @@ class signal(TypedDict):
     volume: int
 
 
-class possession(TypedDict):
+class Possession(TypedDict):
     code: str
     volume: int
     averagePrice: float
@@ -57,13 +57,13 @@ class AlgorithmicStrategy(ABC):
 
     orderbook: OrderBook
     ticks: Dict[str, Dict[int, List[OrderTick]]]
-    signals: Dict[str, List[signal]]
+    signals: Dict[str, List[Signal]]
     _timeStamp: int
     _date: str
     new_timeStamp: bool
     newday: bool
-    deals: Dict[str, List[deal]]
-    possessions: Dict[str, possession]
+    deals: Dict[str, List[Deal]]
+    possessions: Dict[str, Possession]
     commission: float
     stamp_duty: float
     transfer_fee: float
@@ -72,16 +72,19 @@ class AlgorithmicStrategy(ABC):
     current_price: float
     price_list: Dict[str, Dict[int, float]]
     lines: List[OrderTick]
+    symbol: str
 
     def __init__(
         self,
         orderbook: OrderBook,
+        symbol: str,
         commission: float = 0.00015,
         stamp_duty: float = 0.001,
         transfer_fee: float = 0.00002,
         pre_close: float = 0.0,
     ) -> None:
         self.orderbook = orderbook
+        self.symbol = symbol
         self.ticks = {}
         self.signals = {}
         self._timeStamp = 0
