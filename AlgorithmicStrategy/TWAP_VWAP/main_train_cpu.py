@@ -58,7 +58,7 @@ def show_total_order_number(ob: OrderBook):
 if __name__ == "__main__":
     parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
-    parser.add_argument("-e", "--epoch", type=int, default=20)
+    parser.add_argument("-e", "--epoch", type=int, default=1000)
     parser.add_argument("--dataset", type=str, default="./DATA/ML")
     parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
     args = parser.parse_args()
@@ -100,12 +100,12 @@ if __name__ == "__main__":
         dim_head=25,
         mlp_dim=200,
     )
-    # newest_model = model_save_path / "3.ocet"
+    # newest_model = model_save_path / "599.ocet"
     # para_dict = t.load(newest_model, map_location=device)
     # ocet.load_state_dict(para_dict["model_state_dict"])
     # ocet.to(device=device)
 
-    optimizer = optim.Adam(ocet.parameters(), lr=0.0001, weight_decay=0.0005)
+    optimizer = optim.Adam(ocet.parameters(), lr=0.02, weight_decay=0.0005)
     # optimizer.load_state_dict(para_dict["optimizer_state_dict"])
 
     # logger.info(f"Model = {str(ocet)}")
@@ -133,7 +133,7 @@ if __name__ == "__main__":
             hist_trade_volume_fracs = []
             trade_price = []
 
-            for ts, action in tt.generate_signals():
+            for ts, action in tt.generate_signals(**{"trade_interval":30000,"trade_limits":(-10000, 10000)}):
                 if action["trade"]:
                     time_search, X, volume_hist, volume_today = joye_data.batch(
                         file, timestamp=ts
@@ -149,11 +149,31 @@ if __name__ == "__main__":
                         hist_trade_volume_fracs.append(volume_hist)
                         pred_trade_volume_fracs.append(pred_frac)
                         true_trade_volume_fracs.append(volume_today)
+                    if sum(pred_trade_volume_fracs) > 1:
+                        pred_trade_volume_fracs[-1] = pred_trade_volume_fracs[-1] - (
+                            sum(pred_trade_volume_fracs) - 1
+                        )
+                        print(ts)
+                        break
+                    if sum(pred_trade_volume_fracs) == 1:
+                        print(ts)
+                        break
 
             market_vwap = llob.get_VWAP(llob_file)
             true_vwaps.append(market_vwap)
+
+
+            # #传统vwap
+            # hist_vwap = (
+            # sum((hist_trade_volume_fracs / sum(hist_trade_volume_fracs))
+            # *trade_price) )
+            # logger.info(f'date={file.stem},vwap_hist={hist_vwap},vwap_loss={hist_vwap-market_vwap}')
+
+
+            
             pred_trade_volume_fracs = t.squeeze(t.stack(pred_trade_volume_fracs))
             trade_price = t.Tensor(trade_price)
+            pred_vwap = (t.sum(pred_trade_volume_fracs * trade_price))
 
             if t.sum(pred_trade_volume_fracs) < 1:
                 additional_vwap = 0
@@ -166,19 +186,8 @@ if __name__ == "__main__":
                     t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
                 )
 
-            if t.sum(pred_trade_volume_fracs) > 1:
-                pred_vwap = t.sum(
-                    pred_trade_volume_fracs
-                    * trade_price
-                    / t.sum(pred_trade_volume_fracs).item()
-                )
-
-            if t.sum(pred_trade_volume_fracs) == 1:
-                pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
 
             # trade_price = t.cuda.FloatTensor(trade_price)
-            # trade_price = t.Tensor(trade_price)
-            # pred_vwap = t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
             pred_vwaps.append(pred_vwap.item())
 
             # hist_trade_volume_fracs = t.cuda.FloatTensor(hist_trade_volume_fracs)
@@ -207,13 +216,14 @@ if __name__ == "__main__":
             log_train(epoch=epc, epochs=args.epoch, file=file.stem, loss=loss.item())
 
         loss_global.extend(loss_log)
-
-        save_model(
-            model=ocet,
-            optimizer=optimizer,
-            epoch=epc,
-            loss=float(np.mean(loss_log)),
-            path=model_save_path / f"{epc}.ocet",
-        )
+        
+        if not epc % 50:
+            save_model(
+                model=ocet,
+                optimizer=optimizer,
+                epoch=epc,
+                loss=float(np.mean(loss_log)),
+                path=model_save_path / f"{epc}.ocet",
+            )
     # plotter(loss_global, ylabel='loss')
     # plotter(loss_global, ylabel='VWAP')

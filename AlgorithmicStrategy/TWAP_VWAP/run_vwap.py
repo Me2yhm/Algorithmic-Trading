@@ -3,6 +3,8 @@ from datetime import datetime
 from datetime import datetime
 from pathlib import Path
 from typing import Literal, cast
+import sys
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 import numpy as np
 import pandas as pd
@@ -171,7 +173,7 @@ class VWAP(AlgorithmicStrategy):
                     )
                     real_vol = int(float(vol_percent_pred) * self.trade_volume)
                     self.logger.info(f"(Real:{real_vol})")
-                    if float(vol_percent_pred) != 0:
+                    if float(vol_percent_pred) != 0 and real_vol != 0:
                         sig = signal(
                             timestamp=self.timeStamp,
                             symbol=self.tick.ticker,
@@ -225,6 +227,7 @@ def get_newest_model(path: Path, suffix: str = "ocet"):
 
 
 if __name__ == "__main__":
+
     parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
     parser.add_argument("-e", "--epoch", type=int, default=20)
@@ -272,7 +275,7 @@ if __name__ == "__main__":
     direction = "BUY"
     joye_data = JoyeLOB(window=100)
     llob = LittleOB(direction=direction)
-    loss_func = MultiTaskLoss()
+    loss_func = MultiTaskLoss(alpha=0.5, beta=0.5)
 
 
     # 交易时间起始
@@ -283,7 +286,7 @@ if __name__ == "__main__":
     trade_volume = 2000
 
     with t.no_grad():
-        for tick_file in tick_files[-2:]:
+        for tick_file in tick_files[-4:]:
             logger.info(f"Date: {tick_file.stem}")
             tick = DataSet(tick_file, ticker=ticker)
             ob = OrderBook(data_api=tick)

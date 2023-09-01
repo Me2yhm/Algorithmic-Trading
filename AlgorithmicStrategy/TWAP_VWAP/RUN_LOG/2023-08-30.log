@@ -1,0 +1,946 @@
+2023-08-30 13:50:31.453 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-30 13:50:31.453 | INFO     | __main__:<module>:69 - Set device: cpu
+2023-08-30 13:50:31.475 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-30 13:50:31.477 | INFO     | __main__:<module>:80 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 13:50:42.260 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.674021244049072,vwap_loss=0.0009427070617675781,volume_traded=442.53265380859375
+2023-08-30 13:50:50.724 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-13, Loss: 110.43289947509766
+2023-08-30 13:51:01.228 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.9091410636901855,vwap_loss=0.024667739868164062,volume_traded=377.9846496582031
+2023-08-30 13:51:13.112 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-14, Loss: 94.29190063476562
+2023-08-30 13:51:25.499 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.986997604370117,vwap_loss=0.007280826568603516,volume_traded=302.47723388671875
+2023-08-30 13:51:37.267 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-17, Loss: 75.40099334716797
+2023-08-30 13:51:49.383 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.042874336242676,vwap_loss=0.004805564880371094,volume_traded=257.6404724121094
+2023-08-30 13:52:01.463 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-18, Loss: 64.18666076660156
+2023-08-30 13:52:01.477 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\0.ocet
+2023-08-30 13:52:11.452 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.673142433166504,vwap_loss=6.389617919921875e-05,volume_traded=213.953857421875
+2023-08-30 13:52:24.049 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-13, Loss: 53.26030349731445
+2023-08-30 13:52:35.115 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.905020236968994,vwap_loss=0.020546913146972656,volume_traded=183.03335571289062
+2023-08-30 13:52:48.333 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-14, Loss: 45.53033447265625
+2023-08-30 13:52:59.383 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.983348369598389,vwap_loss=0.003631591796875,volume_traded=137.24661254882812
+2023-08-30 13:53:11.641 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-17, Loss: 34.074825286865234
+2023-08-30 13:53:23.515 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.040664196014404,vwap_loss=0.0025954246520996094,volume_traded=112.35881042480469
+2023-08-30 13:53:35.930 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-18, Loss: 27.850187301635742
+2023-08-30 13:53:35.941 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\1.ocet
+2023-08-30 13:53:46.916 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.672227382659912,vwap_loss=-0.0008511543273925781,volume_traded=98.68771362304688
+2023-08-30 13:53:59.567 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-13, Loss: 24.430809020996094
+2023-08-30 13:54:10.812 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.902482986450195,vwap_loss=0.018009662628173828,volume_traded=83.96006774902344
+2023-08-30 13:54:25.568 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-14, Loss: 20.75139045715332
+2023-08-30 13:54:36.816 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.9800004959106445,vwap_loss=0.0002837181091308594,volume_traded=62.83190155029297
+2023-08-30 13:54:49.398 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-17, Loss: 15.463271141052246
+2023-08-30 13:55:01.048 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.040119171142578,vwap_loss=0.0020503997802734375,volume_traded=50.274139404296875
+2023-08-30 13:55:14.352 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-18, Loss: 12.322685241699219
+2023-08-30 13:55:14.362 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\2.ocet
+2023-08-30 13:55:24.528 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.669863700866699,vwap_loss=-0.0032148361206054688,volume_traded=47.701873779296875
+2023-08-30 13:55:37.777 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-13, Loss: 11.67903995513916
+2023-08-30 13:55:49.570 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.90278959274292,vwap_loss=0.018316268920898438,volume_traded=39.62754821777344
+2023-08-30 13:56:03.886 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-14, Loss: 9.6644287109375
+2023-08-30 13:56:15.726 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.980403423309326,vwap_loss=0.0006866455078125,volume_traded=30.144123077392578
+2023-08-30 13:56:29.253 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-17, Loss: 7.288369655609131
+2023-08-30 13:56:41.009 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.040350914001465,vwap_loss=0.0022821426391601562,volume_traded=20.86264991760254
+2023-08-30 13:56:54.670 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-18, Loss: 4.967529773712158
+2023-08-30 13:56:54.681 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\3.ocet
+2023-08-30 13:57:04.829 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.668840408325195,vwap_loss=-0.004238128662109375,volume_traded=22.75102996826172
+2023-08-30 13:57:18.022 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-13, Loss: 5.438599109649658
+2023-08-30 13:57:29.866 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.896044731140137,vwap_loss=0.011571407318115234,volume_traded=17.146461486816406
+2023-08-30 13:57:44.129 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-14, Loss: 4.040612697601318
+2023-08-30 13:57:55.579 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.980271339416504,vwap_loss=0.0005545616149902344,volume_traded=15.426631927490234
+2023-08-30 13:58:08.989 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-17, Loss: 3.6077754497528076
+2023-08-30 13:58:20.748 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.045769691467285,vwap_loss=0.007700920104980469,volume_traded=11.478591918945312
+2023-08-30 13:58:34.042 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-18, Loss: 2.6222846508026123
+2023-08-30 13:58:34.042 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\4.ocet
+2023-08-30 13:58:44.797 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.666921615600586,vwap_loss=-0.00615692138671875,volume_traded=15.040358543395996
+2023-08-30 13:58:58.488 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-13, Loss: 3.5098040103912354
+2023-08-30 13:59:09.767 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.908585548400879,vwap_loss=0.024112224578857422,volume_traded=9.723892211914062
+2023-08-30 13:59:24.597 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-14, Loss: 2.1875100135803223
+2023-08-30 13:59:36.149 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.969179153442383,vwap_loss=-0.01053762435913086,volume_traded=9.596368789672852
+2023-08-30 13:59:50.611 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-17, Loss: 2.1469907760620117
+2023-08-30 14:00:03.029 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.030909061431885,vwap_loss=-0.007159709930419922,volume_traded=3.561257839202881
+2023-08-30 14:00:16.613 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-18, Loss: 0.6387098431587219
+2023-08-30 14:00:16.613 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\5.ocet
+2023-08-30 14:00:26.820 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.669158458709717,vwap_loss=-0.003920078277587891,volume_traded=7.164606094360352
+2023-08-30 14:00:39.967 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-13, Loss: 1.5405735969543457
+2023-08-30 14:00:51.183 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.899493217468262,vwap_loss=0.015019893646240234,volume_traded=4.293455600738525
+2023-08-30 14:01:05.339 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-14, Loss: 0.8272987604141235
+2023-08-30 14:01:17.136 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.968655109405518,vwap_loss=-0.011061668395996094,volume_traded=4.93729829788208
+2023-08-30 14:01:31.875 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-17, Loss: 0.9818212985992432
+2023-08-30 14:01:44.256 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.043204307556152,vwap_loss=0.005135536193847656,volume_traded=2.602529525756836
+2023-08-30 14:01:57.882 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-18, Loss: 0.4020499289035797
+2023-08-30 14:01:57.898 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\6.ocet
+2023-08-30 14:02:08.358 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.666608810424805,vwap_loss=-0.0064697265625,volume_traded=4.190019130706787
+2023-08-30 14:02:21.823 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-13, Loss: 0.796142578125
+2023-08-30 14:02:33.532 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.920075416564941,vwap_loss=0.03560209274291992,volume_traded=2.9386744499206543
+2023-08-30 14:02:48.411 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-14, Loss: 0.49372950196266174
+2023-08-30 14:03:00.129 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.965025424957275,vwap_loss=-0.014691352844238281,volume_traded=3.689878225326538
+2023-08-30 14:03:14.095 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-17, Loss: 0.6689659357070923
+2023-08-30 14:03:26.588 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.031922817230225,vwap_loss=-0.006145954132080078,volume_traded=1.4574494361877441
+2023-08-30 14:03:40.593 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-18, Loss: 0.1128850132226944
+2023-08-30 14:03:40.604 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\7.ocet
+2023-08-30 14:03:50.815 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.662398338317871,vwap_loss=-0.010680198669433594,volume_traded=4.546804428100586
+2023-08-30 14:04:03.726 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-13, Loss: 0.8843779563903809
+2023-08-30 14:04:14.891 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.905578136444092,vwap_loss=0.021104812622070312,volume_traded=0.905937671661377
+2023-08-30 14:04:28.824 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-14, Loss: 0.028814980760216713
+2023-08-30 14:04:40.101 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.993286609649658,vwap_loss=0.013569831848144531,volume_traded=1.7393378019332886
+2023-08-30 14:04:54.503 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-17, Loss: 0.18829216063022614
+2023-08-30 14:05:07.550 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.056154251098633,vwap_loss=0.018085479736328125,volume_traded=0.8970353603363037
+2023-08-30 14:05:23.354 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-18, Loss: 0.030325893312692642
+2023-08-30 14:05:23.364 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\8.ocet
+2023-08-30 14:05:33.937 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.664454460144043,vwap_loss=-0.008624076843261719,volume_traded=2.143594980239868
+2023-08-30 14:05:49.297 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-13, Loss: 0.2838788330554962
+2023-08-30 14:06:02.845 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.922260284423828,vwap_loss=0.03778696060180664,volume_traded=0.6946796774864197
+2023-08-30 14:06:20.339 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-14, Loss: 0.0858217403292656
+2023-08-30 14:06:31.743 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.984669208526611,vwap_loss=0.004952430725097656,volume_traded=0.6721329689025879
+2023-08-30 14:06:44.909 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-17, Loss: 0.08322740346193314
+2023-08-30 14:06:57.075 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.052008628845215,vwap_loss=0.013939857482910156,volume_traded=0.47804468870162964
+2023-08-30 14:07:11.046 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-18, Loss: 0.13399311900138855
+2023-08-30 14:07:11.057 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\9.ocet
+2023-08-30 14:07:21.927 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.684224605560303,vwap_loss=0.011146068572998047,volume_traded=0.23815308511257172
+2023-08-30 14:07:35.569 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-13, Loss: 0.19325296580791473
+2023-08-30 14:07:47.246 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.920660972595215,vwap_loss=0.03618764877319336,volume_traded=0.44552645087242126
+2023-08-30 14:08:02.357 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-14, Loss: 0.14768315851688385
+2023-08-30 14:08:14.092 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.008270740509033,vwap_loss=0.02855396270751953,volume_traded=0.4618918299674988
+2023-08-30 14:08:27.089 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-17, Loss: 0.14167934656143188
+2023-08-30 14:08:38.811 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.066413402557373,vwap_loss=0.02834463119506836,volume_traded=0.2773427665233612
+2023-08-30 14:08:51.842 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-18, Loss: 0.18776094913482666
+2023-08-30 14:08:51.853 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\10.ocet
+2023-08-30 14:09:02.600 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.665207862854004,vwap_loss=-0.007870674133300781,volume_traded=0.6965311765670776
+2023-08-30 14:09:16.058 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-13, Loss: 0.07394106686115265
+2023-08-30 14:09:27.613 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.91218900680542,vwap_loss=0.027715682983398438,volume_traded=0.21644161641597748
+2023-08-30 14:09:41.841 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-14, Loss: 0.20282334089279175
+2023-08-30 14:09:53.162 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.010485649108887,vwap_loss=0.030768871307373047,volume_traded=0.2537747025489807
+2023-08-30 14:10:06.283 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-17, Loss: 0.1942547857761383
+2023-08-30 14:10:18.276 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.06163215637207,vwap_loss=0.023563385009765625,volume_traded=0.4936562776565552
+2023-08-30 14:10:31.972 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-18, Loss: 0.13250009715557098
+2023-08-30 14:10:31.984 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\11.ocet
+2023-08-30 14:10:42.633 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.679463863372803,vwap_loss=0.006385326385498047,volume_traded=0.3512001037597656
+2023-08-30 14:10:56.151 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-13, Loss: 0.16380801796913147
+2023-08-30 14:11:08.282 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.931705951690674,vwap_loss=0.047232627868652344,volume_traded=0.6286944150924683
+2023-08-30 14:11:22.973 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-14, Loss: 0.10467284917831421
+2023-08-30 14:11:34.866 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.014105796813965,vwap_loss=0.03438901901245117,volume_traded=0.3091405928134918
+2023-08-30 14:14:08.202 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-30 14:14:08.204 | INFO     | __main__:<module>:69 - Set device: cpu
+2023-08-30 14:14:08.206 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-30 14:14:08.207 | INFO     | __main__:<module>:80 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 14:14:47.351 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-30 14:14:47.351 | INFO     | __main__:<module>:69 - Set device: cpu
+2023-08-30 14:14:47.351 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-30 14:14:47.351 | INFO     | __main__:<module>:80 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 14:14:54.554 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=2753.42626953125,vwap_loss=2746.7138671875,volume_traded=410.01739501953125
+2023-08-30 14:15:03.224 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-04, Loss: 1373.44384765625
+2023-08-30 14:15:11.740 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=2530.156005859375,vwap_loss=2523.46142578125,volume_traded=377.7872619628906
+2023-08-30 14:15:23.411 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-05, Loss: 1261.8125
+2023-08-30 14:15:32.088 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=1806.6143798828125,vwap_loss=1799.9632568359375,volume_traded=271.39422607421875
+2023-08-30 14:15:43.993 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-06, Loss: 900.037841796875
+2023-08-30 14:15:52.839 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=1576.5831298828125,vwap_loss=1569.8819580078125,volume_traded=235.8223419189453
+2023-08-30 14:16:04.959 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-07, Loss: 784.9872436523438
+2023-08-30 14:16:14.399 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=1233.1510009765625,vwap_loss=1226.48828125,volume_traded=185.08489990234375
+2023-08-30 14:16:27.456 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-10, Loss: 613.2809448242188
+2023-08-30 14:16:37.581 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=1225.7076416015625,vwap_loss=1219.0201416015625,volume_traded=183.29965209960938
+2023-08-30 14:16:50.505 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-11, Loss: 609.5449829101562
+2023-08-30 14:17:01.082 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=1075.720703125,vwap_loss=1069.019287109375,volume_traded=160.40797424316406
+2023-08-30 14:17:14.587 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-12, Loss: 534.5386352539062
+2023-08-30 14:17:25.846 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=847.1073608398438,vwap_loss=840.4342651367188,volume_traded=126.9489517211914
+2023-08-30 14:17:39.778 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-13, Loss: 420.24041748046875
+2023-08-30 14:17:52.490 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=771.5501098632812,vwap_loss=764.6656494140625,volume_traded=111.75735473632812
+2023-08-30 14:18:07.525 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-14, Loss: 382.35211181640625
+2023-08-30 14:18:19.182 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=596.9142456054688,vwap_loss=589.9345092773438,volume_traded=85.45924377441406
+2023-08-30 14:18:31.752 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-17, Loss: 294.9815368652344
+2023-08-30 14:18:43.746 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=399.94000244140625,vwap_loss=392.9019470214844,volume_traded=56.81941223144531
+2023-08-30 14:18:56.577 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-18, Loss: 196.4596710205078
+2023-08-30 14:19:08.946 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=391.362060546875,vwap_loss=384.2866516113281,volume_traded=55.30147171020508
+2023-08-30 14:19:22.357 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-19, Loss: 192.1528778076172
+2023-08-30 14:19:34.935 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=375.15985107421875,vwap_loss=368.1131591796875,volume_traded=53.240867614746094
+2023-08-30 14:19:47.786 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-20, Loss: 184.06600952148438
+2023-08-30 14:20:02.969 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=256.6160583496094,vwap_loss=249.9756317138672,volume_traded=38.642879486083984
+2023-08-30 14:20:15.189 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-21, Loss: 124.99420928955078
+2023-08-30 14:20:30.500 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=260.50982666015625,vwap_loss=253.91590881347656,volume_traded=39.492950439453125
+2023-08-30 14:20:43.684 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-24, Loss: 126.9637680053711
+2023-08-30 14:20:58.722 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=293.55419921875,vwap_loss=286.7179260253906,volume_traded=42.859134674072266
+2023-08-30 14:21:11.347 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-25, Loss: 143.3663787841797
+2023-08-30 14:21:26.883 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=248.9257354736328,vwap_loss=242.14431762695312,volume_traded=36.65675354003906
+2023-08-30 14:21:39.987 | INFO     | MODELS.log:log_train:26 - Epoch: 0/20,file 2023-07-26, Loss: 121.07849884033203
+2023-08-30 14:21:39.998 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\0.ocet
+2023-08-30 14:21:49.449 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=106.25865173339844,vwap_loss=99.5461654663086,volume_traded=15.808883666992188
+2023-08-30 14:22:01.976 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-04, Loss: 49.775394439697266
+2023-08-30 14:22:10.718 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=66.82608795166016,vwap_loss=60.13154983520508,volume_traded=9.974727630615234
+2023-08-30 14:22:23.516 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-05, Loss: 30.066926956176758
+2023-08-30 14:22:32.468 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=87.25822448730469,vwap_loss=80.60710906982422,volume_traded=13.106843948364258
+2023-08-30 14:22:45.638 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-06, Loss: 40.305606842041016
+2023-08-30 14:22:55.548 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=55.67279052734375,vwap_loss=48.9715690612793,volume_traded=8.305294036865234
+2023-08-30 14:23:08.895 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-07, Loss: 24.48700523376465
+2023-08-30 14:23:18.688 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=55.66619110107422,vwap_loss=49.00352096557617,volume_traded=8.355544090270996
+2023-08-30 14:23:33.235 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-10, Loss: 24.502948760986328
+2023-08-30 14:23:43.633 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=64.46623992919922,vwap_loss=57.77878189086914,volume_traded=9.649930000305176
+2023-08-30 14:23:58.111 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-11, Loss: 28.89072036743164
+2023-08-30 14:24:09.171 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=62.20600128173828,vwap_loss=55.50459671020508,volume_traded=9.268513679504395
+2023-08-30 14:24:23.595 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-12, Loss: 27.753501892089844
+2023-08-30 14:24:35.905 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=58.37767791748047,vwap_loss=51.70459747314453,volume_traded=8.753840446472168
+2023-08-30 14:24:51.502 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-13, Loss: 25.853303909301758
+2023-08-30 14:25:03.807 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=46.345603942871094,vwap_loss=39.46113204956055,volume_traded=6.712959289550781
+2023-08-30 14:25:19.535 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-14, Loss: 19.73121452331543
+2023-08-30 14:25:31.183 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=36.29423522949219,vwap_loss=29.314517974853516,volume_traded=5.204118728637695
+2023-08-30 14:25:45.143 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-17, Loss: 14.657806396484375
+2023-08-30 14:25:57.033 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=23.35224151611328,vwap_loss=16.314172744750977,volume_traded=3.3159573078155518
+2023-08-30 14:26:11.081 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-18, Loss: 8.157402992248535
+2023-08-30 14:26:23.167 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=27.504053115844727,vwap_loss=20.428632736206055,volume_traded=3.886892795562744
+2023-08-30 14:26:37.096 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-19, Loss: 10.214689254760742
+2023-08-30 14:26:49.621 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=35.8958854675293,vwap_loss=28.849206924438477,volume_traded=5.111804485321045
+2023-08-30 14:27:03.828 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-20, Loss: 14.425182342529297
+2023-08-30 14:27:17.065 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=37.612464904785156,vwap_loss=30.97203826904297,volume_traded=5.664254188537598
+2023-08-30 14:27:30.742 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-21, Loss: 15.486711502075195
+2023-08-30 14:27:43.817 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=34.82367706298828,vwap_loss=28.22976303100586,volume_traded=5.276451587677002
+2023-08-30 14:27:58.487 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-24, Loss: 14.115606307983398
+2023-08-30 14:28:11.762 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=36.54901123046875,vwap_loss=29.712730407714844,volume_traded=5.339851379394531
+2023-08-30 14:28:25.409 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-25, Loss: 14.856844902038574
+2023-08-30 14:28:39.004 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=44.98170852661133,vwap_loss=38.20029067993164,volume_traded=6.6246232986450195
+2023-08-30 14:28:52.474 | INFO     | MODELS.log:log_train:26 - Epoch: 1/20,file 2023-07-26, Loss: 19.101030349731445
+2023-08-30 14:28:52.485 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\1.ocet
+2023-08-30 14:29:01.207 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=15.689462661743164,vwap_loss=8.97697925567627,volume_traded=2.3368453979492188
+2023-08-30 14:29:14.318 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-04, Loss: 4.488735675811768
+2023-08-30 14:29:23.436 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.9011077880859375,vwap_loss=0.20657110214233398,volume_traded=1.0299993753433228
+2023-08-30 14:29:37.271 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-05, Loss: 0.10337509214878082
+2023-08-30 14:29:46.283 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=20.73617172241211,vwap_loss=14.085058212280273,volume_traded=3.1195597648620605
+2023-08-30 14:29:59.370 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-06, Loss: 7.042961597442627
+2023-08-30 14:30:08.850 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=8.918785095214844,vwap_loss=2.217562198638916,volume_traded=1.3317406177520752
+2023-08-30 14:30:23.129 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-07, Loss: 1.108962893486023
+2023-08-30 14:30:33.203 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=11.9154052734375,vwap_loss=5.2527337074279785,volume_traded=1.7901240587234497
+2023-08-30 14:30:47.306 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-10, Loss: 2.6266772747039795
+2023-08-30 14:30:57.325 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=10.51411247253418,vwap_loss=3.8266549110412598,volume_traded=1.5743424892425537
+2023-08-30 14:31:11.083 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-11, Loss: 1.9135020971298218
+2023-08-30 14:31:21.302 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=20.943500518798828,vwap_loss=14.242097854614258,volume_traded=3.117197275161743
+2023-08-30 14:31:35.170 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-12, Loss: 7.121551513671875
+2023-08-30 14:31:47.503 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=10.542850494384766,vwap_loss=3.869771957397461,volume_traded=1.5826427936553955
+2023-08-30 14:32:02.370 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-13, Loss: 1.9350886344909668
+2023-08-30 14:32:14.495 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.5435152053833,vwap_loss=2.6590418815612793,volume_traded=1.3781993389129639
+2023-08-30 14:32:29.454 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-14, Loss: 1.32962965965271
+2023-08-30 14:32:41.159 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.999601364135742,vwap_loss=0.019884586334228516,volume_traded=0.7070611715316772
+2023-08-30 14:32:55.347 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-17, Loss: 0.009985783137381077
+2023-08-30 14:33:07.144 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.074467182159424,vwap_loss=0.03639841079711914,volume_traded=0.9419503211975098
+2023-08-30 14:33:20.815 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-18, Loss: 0.018294280394911766
+2023-08-30 14:33:32.836 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.467411518096924,vwap_loss=0.39199161529541016,volume_traded=1.0560821294784546
+2023-08-30 14:33:47.899 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-19, Loss: 0.19606009125709534
+2023-08-30 14:34:08.620 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=10.530767440795898,vwap_loss=3.484088897705078,volume_traded=1.499488353729248
+2023-08-30 14:34:25.059 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-20, Loss: 1.7421449422836304
+2023-08-30 14:34:38.966 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=14.151395797729492,vwap_loss=7.510969161987305,volume_traded=2.1325957775115967
+2023-08-30 14:34:55.004 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-21, Loss: 3.7557430267333984
+2023-08-30 14:35:13.227 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=21.13146209716797,vwap_loss=14.537549018859863,volume_traded=3.204547166824341
+2023-08-30 14:35:32.935 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-24, Loss: 7.269200801849365
+2023-08-30 14:35:50.363 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=22.7951602935791,vwap_loss=15.958880424499512,volume_traded=3.3303894996643066
+2023-08-30 14:36:07.368 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-25, Loss: 7.979804515838623
+2023-08-30 14:36:24.927 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=19.897069931030273,vwap_loss=13.115652084350586,volume_traded=2.9278674125671387
+2023-08-30 14:36:44.922 | INFO     | MODELS.log:log_train:26 - Epoch: 2/20,file 2023-07-26, Loss: 6.5581440925598145
+2023-08-30 14:36:44.935 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\2.ocet
+2023-08-30 14:36:56.386 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.841556072235107,vwap_loss=0.1290726661682129,volume_traded=1.0185869932174683
+2023-08-30 14:37:13.014 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-04, Loss: 0.06463655084371567
+2023-08-30 14:37:23.892 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.680055141448975,vwap_loss=-0.014481544494628906,volume_traded=0.0027668774127960205
+2023-08-30 14:37:40.463 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-05, Loss: -0.007236727047711611
+2023-08-30 14:37:50.061 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=10.085314750671387,vwap_loss=3.4342007637023926,volume_traded=1.516892433166504
+2023-08-30 14:38:08.359 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-06, Loss: 1.7172904014587402
+2023-08-30 14:38:20.112 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.681957244873047,vwap_loss=-0.01926565170288086,volume_traded=0.972029447555542
+2023-08-30 14:38:36.926 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-07, Loss: -0.009541421197354794
+2023-08-30 14:38:47.867 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.283294677734375,vwap_loss=2.6206231117248535,volume_traded=1.3947699069976807
+2023-08-30 14:39:05.501 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-10, Loss: 1.3105545043945312
+2023-08-30 14:39:18.093 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=8.875885009765625,vwap_loss=2.188427448272705,volume_traded=1.3282217979431152
+2023-08-30 14:39:34.506 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-11, Loss: 1.0943644046783447
+2023-08-30 14:39:47.377 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=8.17878532409668,vwap_loss=1.4773821830749512,volume_traded=1.2099430561065674
+2023-08-30 14:40:03.608 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-12, Loss: 0.738945484161377
+2023-08-30 14:40:17.684 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=14.464021682739258,vwap_loss=7.790943145751953,volume_traded=2.1722941398620605
+2023-08-30 14:40:35.296 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-13, Loss: 3.895775556564331
+2023-08-30 14:40:49.838 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.923464775085449,vwap_loss=0.038991451263427734,volume_traded=0.6261963844299316
+2023-08-30 14:41:07.679 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-14, Loss: 0.019544849172234535
+2023-08-30 14:41:20.790 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.003859519958496,vwap_loss=0.024142742156982422,volume_traded=0.5249099731445312
+2023-08-30 14:41:35.766 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-17, Loss: 0.012098975479602814
+2023-08-30 14:41:48.335 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.059999465942383,vwap_loss=0.021930694580078125,volume_traded=0.24331484735012054
+2023-08-30 14:42:02.816 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-18, Loss: 0.010981865227222443
+2023-08-30 14:42:15.631 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.075079441070557,vwap_loss=-0.00034046173095703125,volume_traded=0.828601062297821
+2023-08-30 14:42:30.088 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-19, Loss: -0.0001058752677636221
+2023-08-30 14:42:42.866 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=8.3530855178833,vwap_loss=1.3064069747924805,volume_traded=1.1895159482955933
+2023-08-30 14:42:58.579 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-20, Loss: 0.6534032821655273
+2023-08-30 14:43:13.779 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.035490036010742,vwap_loss=2.3950634002685547,volume_traded=1.364588737487793
+2023-08-30 14:43:30.170 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-21, Loss: 1.19769287109375
+2023-08-30 14:43:47.276 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=11.224595069885254,vwap_loss=4.630681991577148,volume_traded=1.7027878761291504
+2023-08-30 14:44:04.715 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-24, Loss: 2.3155765533447266
+2023-08-30 14:44:22.214 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=13.262267112731934,vwap_loss=6.425987243652344,volume_traded=1.9364780187606812
+2023-08-30 14:44:39.974 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-25, Loss: 3.2131428718566895
+2023-08-30 14:44:56.461 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=16.5052433013916,vwap_loss=9.723825454711914,volume_traded=2.4362001419067383
+2023-08-30 14:45:14.156 | INFO     | MODELS.log:log_train:26 - Epoch: 3/20,file 2023-07-26, Loss: 4.8621602058410645
+2023-08-30 14:45:14.167 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\3.ocet
+2023-08-30 14:45:25.524 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.717703819274902,vwap_loss=0.0052204132080078125,volume_traded=0.8627465963363647
+2023-08-30 14:45:42.388 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-04, Loss: 0.0026905613485723734
+2023-08-30 14:45:52.199 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6842780113220215,vwap_loss=-0.010258674621582031,volume_traded=0.13577772676944733
+2023-08-30 14:46:06.762 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-05, Loss: -0.0051213279366493225
+2023-08-30 14:46:16.265 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.646485328674316,vwap_loss=-0.004628658294677734,volume_traded=0.5152972340583801
+2023-08-30 14:46:30.024 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-06, Loss: -0.0022486138623207808
+2023-08-30 14:46:39.785 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.687920570373535,vwap_loss=-0.013302326202392578,volume_traded=0.8837156295776367
+2023-08-30 14:46:54.823 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-07, Loss: -0.006513247732073069
+2023-08-30 14:47:06.079 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.650881767272949,vwap_loss=-0.011789798736572266,volume_traded=0.19966456294059753
+2023-08-30 14:47:23.812 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-10, Loss: -0.00588332349434495
+2023-08-30 14:47:34.953 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.707900047302246,vwap_loss=0.020442485809326172,volume_traded=0.8183281421661377
+2023-08-30 14:47:49.919 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-11, Loss: 0.010312349535524845
+2023-08-30 14:48:01.444 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.735408782958984,vwap_loss=0.03400564193725586,volume_traded=0.8906430006027222
+2023-08-30 14:48:16.220 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-12, Loss: 0.01711292378604412
+2023-08-30 14:48:27.959 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=8.096643447875977,vwap_loss=1.4235649108886719,volume_traded=1.2163797616958618
+2023-08-30 14:48:46.930 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-13, Loss: 0.7119467258453369
+2023-08-30 14:49:01.849 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.919074058532715,vwap_loss=0.03460073471069336,volume_traded=0.5916585922241211
+2023-08-30 14:49:20.595 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-14, Loss: 0.017338676378130913
+2023-08-30 14:49:32.522 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.0015411376953125,vwap_loss=0.021824359893798828,volume_traded=0.5271453857421875
+2023-08-30 14:49:45.944 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-17, Loss: 0.010942516848444939
+2023-08-30 14:49:58.807 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.0565290451049805,vwap_loss=0.01846027374267578,volume_traded=0.5461829900741577
+2023-08-30 14:50:13.129 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-18, Loss: 0.009272491559386253
+2023-08-30 14:50:26.412 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.075921535491943,vwap_loss=0.0005016326904296875,volume_traded=0.41476762294769287
+2023-08-30 14:50:40.630 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-19, Loss: 0.0002724644145928323
+2023-08-30 14:50:53.334 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.024726390838623,vwap_loss=-0.021952152252197266,volume_traded=0.9126412868499756
+2023-08-30 14:51:07.172 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-20, Loss: -0.010810671374201775
+2023-08-30 14:51:21.042 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.393635749816895,vwap_loss=2.753209114074707,volume_traded=1.4179366827011108
+2023-08-30 14:51:35.690 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-21, Loss: 1.3767344951629639
+2023-08-30 14:51:50.241 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=13.454010009765625,vwap_loss=6.8600969314575195,volume_traded=2.040472984313965
+2023-08-30 14:52:07.278 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-24, Loss: 3.4303030967712402
+2023-08-30 14:52:22.450 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=10.643791198730469,vwap_loss=3.807511329650879,volume_traded=1.5551486015319824
+2023-08-30 14:52:38.619 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-25, Loss: 1.9038565158843994
+2023-08-30 14:52:54.241 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.787641525268555,vwap_loss=3.006223201751709,volume_traded=1.4394640922546387
+2023-08-30 14:53:11.567 | INFO     | MODELS.log:log_train:26 - Epoch: 4/20,file 2023-07-26, Loss: 1.5032553672790527
+2023-08-30 14:53:11.579 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\4.ocet
+2023-08-30 14:53:22.190 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.711658477783203,vwap_loss=-0.0008249282836914062,volume_traded=0.18523484468460083
+2023-08-30 14:53:38.616 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-04, Loss: -0.00039721070788800716
+2023-08-30 14:53:47.887 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.689775466918945,vwap_loss=-0.004761219024658203,volume_traded=0.3469065725803375
+2023-08-30 14:54:01.643 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-05, Loss: -0.0023591406643390656
+2023-08-30 14:54:11.034 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.639742374420166,vwap_loss=-0.011371612548828125,volume_traded=0.9229543805122375
+2023-08-30 14:54:25.260 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-06, Loss: -0.005572934169322252
+2023-08-30 14:54:34.741 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6911091804504395,vwap_loss=-0.010113716125488281,volume_traded=0.5220091938972473
+2023-08-30 14:54:48.198 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-07, Loss: -0.004985656589269638
+2023-08-30 14:54:58.728 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.651002883911133,vwap_loss=-0.011668682098388672,volume_traded=0.5717382431030273
+2023-08-30 14:55:13.681 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-10, Loss: -0.005712477490305901
+2023-08-30 14:55:24.510 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.708245277404785,vwap_loss=0.020787715911865234,volume_traded=0.48937299847602844
+2023-08-30 14:55:39.298 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-11, Loss: 0.010432790033519268
+2023-08-30 14:55:50.556 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.335051536560059,vwap_loss=2.63364839553833,volume_traded=1.3826426267623901
+2023-08-30 14:56:08.929 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-12, Loss: 1.3170439004898071
+2023-08-30 14:56:22.566 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.521651268005371,vwap_loss=2.8485727310180664,volume_traded=1.430176854133606
+2023-08-30 14:56:40.776 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-13, Loss: 1.4244561195373535
+2023-08-30 14:56:55.511 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.927342414855957,vwap_loss=0.04286909103393555,volume_traded=0.3671237826347351
+2023-08-30 14:57:13.931 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-14, Loss: 0.021495738998055458
+2023-08-30 14:57:25.988 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.015322685241699,vwap_loss=0.03560590744018555,volume_traded=0.33282554149627686
+2023-08-30 14:57:40.556 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-17, Loss: 0.017816491425037384
+2023-08-30 14:57:52.823 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.059999942779541,vwap_loss=0.021931171417236328,volume_traded=0.14060723781585693
+2023-08-30 14:58:06.820 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-18, Loss: 0.010974161326885223
+2023-08-30 14:58:19.183 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.079822540283203,vwap_loss=0.004402637481689453,volume_traded=0.1663450300693512
+2023-08-30 14:58:33.853 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-19, Loss: 0.0022095220629125834
+2023-08-30 14:58:46.513 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.02701473236084,vwap_loss=-0.01966381072998047,volume_traded=0.7393926382064819
+2023-08-30 14:59:00.683 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-20, Loss: -0.009699531830847263
+2023-08-30 14:59:14.100 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.565871238708496,vwap_loss=0.9254446029663086,volume_traded=1.1415154933929443
+2023-08-30 14:59:29.290 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-21, Loss: 0.4628252387046814
+2023-08-30 14:59:43.402 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.601140975952148,vwap_loss=0.007227897644042969,volume_traded=0.40250253677368164
+2023-08-30 14:59:59.350 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-24, Loss: 0.0036340178921818733
+2023-08-30 15:00:13.061 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.144909858703613,vwap_loss=2.3086299896240234,volume_traded=1.334924340248108
+2023-08-30 15:00:27.685 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-25, Loss: 1.1544350385665894
+2023-08-30 15:00:41.672 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.4914398193359375,vwap_loss=0.7100214958190918,volume_traded=1.0998367071151733
+2023-08-30 15:00:57.300 | INFO     | MODELS.log:log_train:26 - Epoch: 5/20,file 2023-07-26, Loss: 0.35507410764694214
+2023-08-30 15:00:57.316 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\5.ocet
+2023-08-30 15:01:12.713 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.709246635437012,vwap_loss=-0.0032367706298828125,volume_traded=0.36030375957489014
+2023-08-30 15:01:27.971 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-04, Loss: -0.001582905650138855
+2023-08-30 15:01:37.453 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.684732913970947,vwap_loss=-0.00980377197265625,volume_traded=0.12118743360042572
+2023-08-30 15:01:50.979 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-05, Loss: -0.004892904777079821
+2023-08-30 15:02:00.720 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.642716407775879,vwap_loss=-0.008397579193115234,volume_traded=0.9536190032958984
+2023-08-30 15:02:14.882 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-06, Loss: -0.004097988363355398
+2023-08-30 15:02:24.764 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.69782829284668,vwap_loss=-0.003394603729248047,volume_traded=0.40054166316986084
+2023-08-30 15:02:38.648 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-07, Loss: -0.0016364364419132471
+2023-08-30 15:02:49.123 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.652703762054443,vwap_loss=-0.009967803955078125,volume_traded=0.1935790777206421
+2023-08-30 15:03:03.513 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-10, Loss: -0.0049718404188752174
+2023-08-30 15:03:14.254 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.710509300231934,vwap_loss=0.023051738739013672,volume_traded=0.5643004179000854
+2023-08-30 15:03:28.268 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-11, Loss: 0.01157728023827076
+2023-08-30 15:03:40.185 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.722812175750732,vwap_loss=0.021409034729003906,volume_traded=0.8063721656799316
+2023-08-30 15:03:55.018 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-12, Loss: 0.010833540000021458
+2023-08-30 15:04:07.035 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.657528400421143,vwap_loss=-0.01555013656616211,volume_traded=0.98021000623703
+2023-08-30 15:04:22.112 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-13, Loss: -0.007681907154619694
+2023-08-30 15:04:35.362 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.922128677368164,vwap_loss=0.03765535354614258,volume_traded=0.42801034450531006
+2023-08-30 15:04:51.897 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-14, Loss: 0.01888352632522583
+2023-08-30 15:05:04.708 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.008066654205322,vwap_loss=0.028349876403808594,volume_traded=0.1764959692955017
+2023-08-30 15:05:18.439 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-17, Loss: 0.014181923121213913
+2023-08-30 15:05:31.224 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.064322471618652,vwap_loss=0.026253700256347656,volume_traded=0.308655321598053
+2023-08-30 15:05:45.033 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-18, Loss: 0.013153904117643833
+2023-08-30 15:05:57.849 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.076333045959473,vwap_loss=0.0009131431579589844,volume_traded=0.4907948672771454
+2023-08-30 15:06:12.428 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-19, Loss: 0.0004926309920847416
+2023-08-30 15:06:25.296 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.984716415405273,vwap_loss=-0.061962127685546875,volume_traded=0.4346252381801605
+2023-08-30 15:06:39.131 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-20, Loss: -0.030939381569623947
+2023-08-30 15:06:52.454 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=8.619853019714355,vwap_loss=1.979426383972168,volume_traded=1.3004870414733887
+2023-08-30 15:07:06.656 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-21, Loss: 0.9898338317871094
+2023-08-30 15:07:22.401 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.599869251251221,vwap_loss=0.005956172943115234,volume_traded=0.5669487714767456
+2023-08-30 15:07:38.452 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-24, Loss: 0.00300738587975502
+2023-08-30 15:07:51.977 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.904205799102783,vwap_loss=0.06792593002319336,volume_traded=1.0079158544540405
+2023-08-30 15:08:07.106 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-25, Loss: 0.034045133739709854
+2023-08-30 15:08:21.858 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=10.759178161621094,vwap_loss=3.977759838104248,volume_traded=1.5865404605865479
+2023-08-30 15:08:37.343 | INFO     | MODELS.log:log_train:26 - Epoch: 6/20,file 2023-07-26, Loss: 1.989023208618164
+2023-08-30 15:08:37.360 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\6.ocet
+2023-08-30 15:08:47.509 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.714344024658203,vwap_loss=0.0018606185913085938,volume_traded=0.6449658870697021
+2023-08-30 15:09:02.134 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-04, Loss: 0.0009843591833487153
+2023-08-30 15:09:11.706 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.684092044830322,vwap_loss=-0.01044464111328125,volume_traded=0.10231267660856247
+2023-08-30 15:09:24.806 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-05, Loss: -0.005214382894337177
+2023-08-30 15:09:34.176 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.651655673980713,vwap_loss=0.00054168701171875,volume_traded=0.27813953161239624
+2023-08-30 15:09:48.038 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-06, Loss: 0.0003086671349592507
+2023-08-30 15:09:58.011 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.695038318634033,vwap_loss=-0.006184577941894531,volume_traded=0.9318097829818726
+2023-08-30 15:10:12.233 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-07, Loss: -0.0029767740052193403
+2023-08-30 15:10:22.576 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.65035343170166,vwap_loss=-0.012318134307861328,volume_traded=0.08463139086961746
+2023-08-30 15:10:37.091 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-10, Loss: -0.006155575159937143
+2023-08-30 15:10:49.909 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.716331958770752,vwap_loss=0.02887439727783203,volume_traded=0.48448556661605835
+2023-08-30 15:11:04.998 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-11, Loss: 0.014482458122074604
+2023-08-30 15:11:17.121 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.153661727905273,vwap_loss=0.4522585868835449,volume_traded=1.0643730163574219
+2023-08-30 15:11:35.241 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-12, Loss: 0.22629381716251373
+2023-08-30 15:11:56.554 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.669330596923828,vwap_loss=-0.0037479400634765625,volume_traded=0.592420220375061
+2023-08-30 15:12:15.588 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-13, Loss: -0.0018071006052196026
+2023-08-30 15:12:28.481 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.924172878265381,vwap_loss=0.039699554443359375,volume_traded=0.23746371269226074
+2023-08-30 15:12:45.403 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-14, Loss: 0.019869262352585793
+2023-08-30 15:12:58.752 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.00560998916626,vwap_loss=0.025893211364746094,volume_traded=0.07407984137535095
+2023-08-30 15:13:13.338 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-17, Loss: 0.012949978932738304
+2023-08-30 15:13:26.501 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.0580925941467285,vwap_loss=0.020023822784423828,volume_traded=0.4386146664619446
+2023-08-30 15:13:40.613 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-18, Loss: 0.010040507651865482
+2023-08-30 15:13:53.635 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.078031539916992,vwap_loss=0.0026116371154785156,volume_traded=0.3080676198005676
+2023-08-30 15:14:09.290 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-19, Loss: 0.0013178540393710136
+2023-08-30 15:14:22.919 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.988483905792236,vwap_loss=-0.058194637298583984,volume_traded=0.35952654480934143
+2023-08-30 15:14:37.641 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-20, Loss: -0.02906259521842003
+2023-08-30 15:14:51.381 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=8.14410400390625,vwap_loss=1.5036773681640625,volume_traded=1.2289962768554688
+2023-08-30 15:15:06.788 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-21, Loss: 0.7519365549087524
+2023-08-30 15:15:22.203 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.609355926513672,vwap_loss=0.015442848205566406,volume_traded=0.21781879663467407
+2023-08-30 15:15:39.876 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-24, Loss: 0.007736378349363804
+2023-08-30 15:15:53.588 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=8.551137924194336,vwap_loss=1.714858055114746,volume_traded=1.2489302158355713
+2023-08-30 15:16:07.926 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-25, Loss: 0.8575085997581482
+2023-08-30 15:16:23.425 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.791679859161377,vwap_loss=0.01026153564453125,volume_traded=0.7789890766143799
+2023-08-30 15:16:39.549 | INFO     | MODELS.log:log_train:26 - Epoch: 7/20,file 2023-07-26, Loss: 0.005185707472264767
+2023-08-30 15:16:39.559 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\7.ocet
+2023-08-30 15:16:48.646 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.710599899291992,vwap_loss=-0.0018835067749023438,volume_traded=0.2446155548095703
+2023-08-30 15:17:01.750 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-04, Loss: -0.0009199848282150924
+2023-08-30 15:17:11.938 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.68080997467041,vwap_loss=-0.01372671127319336,volume_traded=0.08097325265407562
+2023-08-30 15:17:27.204 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-05, Loss: -0.006857646629214287
+2023-08-30 15:17:37.344 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.64643669128418,vwap_loss=-0.004677295684814453,volume_traded=0.8730050325393677
+2023-08-30 15:17:51.273 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-06, Loss: -0.0022444315254688263
+2023-08-30 15:18:01.380 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.692966461181641,vwap_loss=-0.00825643539428711,volume_traded=0.9151516556739807
+2023-08-30 15:18:15.571 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-07, Loss: -0.004024276044219732
+2023-08-30 15:18:26.663 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.651532173156738,vwap_loss=-0.011139392852783203,volume_traded=0.6302857398986816
+2023-08-30 15:18:41.873 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-10, Loss: -0.005464212968945503
+2023-08-30 15:18:53.165 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.732053279876709,vwap_loss=0.04459571838378906,volume_traded=0.31522974371910095
+2023-08-30 15:19:08.083 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-11, Loss: 0.022335363551974297
+2023-08-30 15:19:19.864 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.753349781036377,vwap_loss=0.05194664001464844,volume_traded=0.9418932795524597
+2023-08-30 15:19:35.205 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-12, Loss: 0.026127126067876816
+2023-08-30 15:19:48.172 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.205465793609619,vwap_loss=0.5323872566223145,volume_traded=1.0825082063674927
+2023-08-30 15:20:07.032 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-13, Loss: 0.2663406729698181
+2023-08-30 15:20:21.899 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.929879188537598,vwap_loss=0.04540586471557617,volume_traded=0.5670733451843262
+2023-08-30 15:20:40.607 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-14, Loss: 0.02276683785021305
+2023-08-30 15:20:52.460 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.006516456604004,vwap_loss=0.026799678802490234,volume_traded=0.043544940650463104
+2023-08-30 15:21:06.039 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-17, Loss: 0.013402708806097507
+2023-08-30 15:21:18.626 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.061312198638916,vwap_loss=0.023243427276611328,volume_traded=0.1292247474193573
+2023-08-30 15:21:33.271 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-18, Loss: 0.011627325788140297
+2023-08-30 15:21:45.891 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.077885150909424,vwap_loss=0.0024652481079101562,volume_traded=0.282529354095459
+2023-08-30 15:22:00.276 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-19, Loss: 0.0012431147042661905
+2023-08-30 15:22:13.299 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.983800888061523,vwap_loss=-0.06287765502929688,volume_traded=0.3730911612510681
+2023-08-30 15:22:26.721 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-20, Loss: -0.0314038023352623
+2023-08-30 15:22:39.965 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.626431465148926,vwap_loss=-0.013995170593261719,volume_traded=0.6067591905593872
+2023-08-30 15:22:53.925 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-21, Loss: -0.006954792886972427
+2023-08-30 15:23:07.557 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.599363327026367,vwap_loss=0.005450248718261719,volume_traded=0.8735591173171997
+2023-08-30 15:23:22.259 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-24, Loss: 0.00283690239302814
+2023-08-30 15:23:36.153 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.860646724700928,vwap_loss=0.02436685562133789,volume_traded=0.3868476152420044
+2023-08-30 15:23:50.354 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-25, Loss: 0.012211178429424763
+2023-08-30 15:24:04.622 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.156004905700684,vwap_loss=0.3745865821838379,volume_traded=1.0575737953186035
+2023-08-30 15:24:20.538 | INFO     | MODELS.log:log_train:26 - Epoch: 8/20,file 2023-07-26, Loss: 0.18738223612308502
+2023-08-30 15:24:20.554 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\8.ocet
+2023-08-30 15:24:30.738 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.7120513916015625,vwap_loss=-0.00043201446533203125,volume_traded=0.20514234900474548
+2023-08-30 15:24:48.218 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-04, Loss: -0.00019108771812170744
+2023-08-30 15:24:58.006 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.684668064117432,vwap_loss=-0.009868621826171875,volume_traded=0.17703118920326233
+2023-08-30 15:25:12.245 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-05, Loss: -0.004925916437059641
+2023-08-30 15:25:22.122 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.646477222442627,vwap_loss=-0.0046367645263671875,volume_traded=0.7065939903259277
+2023-08-30 15:25:37.283 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-06, Loss: -0.002244496950879693
+2023-08-30 15:25:47.433 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6963677406311035,vwap_loss=-0.004855155944824219,volume_traded=0.38364002108573914
+2023-08-30 15:26:01.441 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-07, Loss: -0.002378829289227724
+2023-08-30 15:26:12.182 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.650298118591309,vwap_loss=-0.01237344741821289,volume_traded=0.492026686668396
+2023-08-30 15:26:27.267 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-10, Loss: -0.006090767215937376
+2023-08-30 15:26:37.867 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.712889194488525,vwap_loss=0.02543163299560547,volume_traded=0.3952813744544983
+2023-08-30 15:26:51.953 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-11, Loss: 0.01273992657661438
+2023-08-30 15:27:03.577 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.738075256347656,vwap_loss=0.036672115325927734,volume_traded=0.8012003898620605
+2023-08-30 15:27:18.301 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-12, Loss: 0.01847423054277897
+2023-08-30 15:27:29.796 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.670245170593262,vwap_loss=-0.0028333663940429688,volume_traded=0.5683304071426392
+2023-08-30 15:27:44.181 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-13, Loss: -0.001359589397907257
+2023-08-30 15:27:56.531 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.931689262390137,vwap_loss=0.047215938568115234,volume_traded=0.6107080578804016
+2023-08-30 15:28:12.038 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-14, Loss: 0.02367023564875126
+2023-08-30 15:28:23.868 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.002729415893555,vwap_loss=0.023012638092041016,volume_traded=0.18159440159797668
+2023-08-30 15:28:38.837 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-17, Loss: 0.011515027843415737
+2023-08-30 15:28:51.412 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.063789367675781,vwap_loss=0.025720596313476562,volume_traded=0.18946589529514313
+2023-08-30 15:29:05.556 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-18, Loss: 0.012878749519586563
+2023-08-30 15:29:17.841 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.077961444854736,vwap_loss=0.0025415420532226562,volume_traded=0.2685532569885254
+2023-08-30 15:29:31.351 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-19, Loss: 0.0012804572470486164
+2023-08-30 15:29:44.089 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.983597755432129,vwap_loss=-0.0630807876586914,volume_traded=0.11992647498846054
+2023-08-30 15:29:58.039 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-20, Loss: -0.03153102099895477
+2023-08-30 15:30:11.124 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6224365234375,vwap_loss=-0.0179901123046875,volume_traded=0.4857836067676544
+2023-08-30 15:30:24.569 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-21, Loss: -0.008961593732237816
+2023-08-30 15:30:38.052 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.55190372467041,vwap_loss=0.9579906463623047,volume_traded=1.1453907489776611
+2023-08-30 15:30:53.336 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-24, Loss: 0.4791207015514374
+2023-08-30 15:31:08.593 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.855093955993652,vwap_loss=0.0188140869140625,volume_traded=0.6260334253311157
+2023-08-30 15:31:25.195 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-25, Loss: 0.009440543130040169
+2023-08-30 15:31:39.608 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=10.409306526184082,vwap_loss=3.6278882026672363,volume_traded=1.5382897853851318
+2023-08-30 15:31:54.431 | INFO     | MODELS.log:log_train:26 - Epoch: 9/20,file 2023-07-26, Loss: 1.8140994310379028
+2023-08-30 15:31:54.451 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\9.ocet
+2023-08-30 15:32:04.364 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.710805892944336,vwap_loss=-0.0016775131225585938,volume_traded=0.24881547689437866
+2023-08-30 15:32:21.227 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-04, Loss: -0.0008189953514374793
+2023-08-30 15:32:32.047 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.683006763458252,vwap_loss=-0.011529922485351562,volume_traded=0.08557164669036865
+2023-08-30 15:32:45.483 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-05, Loss: -0.005759598221629858
+2023-08-30 15:32:56.323 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6502156257629395,vwap_loss=-0.0008983612060546875,volume_traded=0.5393555760383606
+2023-08-30 15:33:09.712 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-06, Loss: -0.0003908823127858341
+2023-08-30 15:33:20.185 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.717311859130859,vwap_loss=0.01608896255493164,volume_traded=0.47978687286376953
+2023-08-30 15:33:33.868 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-07, Loss: 0.008092888630926609
+2023-08-30 15:33:44.901 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.655444145202637,vwap_loss=-0.007227420806884766,volume_traded=0.32875242829322815
+2023-08-30 15:33:59.099 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-10, Loss: -0.0035845288075506687
+2023-08-30 15:34:10.624 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.720394611358643,vwap_loss=0.032937049865722656,volume_traded=0.3243406414985657
+2023-08-30 15:34:25.296 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-11, Loss: 0.016489462926983833
+2023-08-30 15:34:37.407 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.714028835296631,vwap_loss=0.012625694274902344,volume_traded=0.8902526497840881
+2023-08-30 15:34:51.624 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-12, Loss: 0.006441115401685238
+2023-08-30 15:35:04.318 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.673696517944336,vwap_loss=0.00061798095703125,volume_traded=0.543445885181427
+2023-08-30 15:35:19.211 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-13, Loss: 0.00034382607555016875
+2023-08-30 15:35:32.655 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.933008193969727,vwap_loss=0.04853487014770508,volume_traded=0.5376648902893066
+2023-08-30 15:35:47.934 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-14, Loss: 0.024326376616954803
+2023-08-30 15:36:01.895 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.007905006408691,vwap_loss=0.028188228607177734,volume_traded=0.052172258496284485
+2023-08-30 15:36:16.805 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-17, Loss: 0.014096765778958797
+2023-08-30 15:36:29.136 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.064728736877441,vwap_loss=0.02665996551513672,volume_traded=0.288223534822464
+2023-08-30 15:36:43.162 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-18, Loss: 0.013349110260605812
+2023-08-30 15:36:55.680 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.076729774475098,vwap_loss=0.0013098716735839844,volume_traded=0.41301217675209045
+2023-08-30 15:37:09.634 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-19, Loss: 0.0006781775155104697
+2023-08-30 15:37:22.463 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.023446083068848,vwap_loss=-0.023232460021972656,volume_traded=0.543074905872345
+2023-08-30 15:37:36.837 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-20, Loss: -0.011516944505274296
+2023-08-30 15:37:50.143 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.6942057609558105,vwap_loss=1.053779125213623,volume_traded=1.1613178253173828
+2023-08-30 15:38:05.596 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-21, Loss: 0.5269750356674194
+2023-08-30 15:38:19.881 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.595547676086426,vwap_loss=0.0016345977783203125,volume_traded=0.6755629181861877
+2023-08-30 15:38:35.982 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-24, Loss: 0.0008642268949188292
+2023-08-30 15:38:49.489 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.859638214111328,vwap_loss=0.02335834503173828,volume_traded=0.5426535606384277
+2023-08-30 15:39:03.060 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-25, Loss: 0.011712954379618168
+2023-08-30 15:39:17.208 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.754847049713135,vwap_loss=-0.026571273803710938,volume_traded=0.6095799207687378
+2023-08-30 15:39:31.179 | INFO     | MODELS.log:log_train:26 - Epoch: 10/20,file 2023-07-26, Loss: -0.013225321657955647
+2023-08-30 15:39:31.195 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\10.ocet
+2023-08-30 15:39:40.181 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.712619781494141,vwap_loss=0.00013637542724609375,volume_traded=0.2620212733745575
+2023-08-30 15:39:54.515 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-04, Loss: 9.044457692652941e-05
+2023-08-30 15:40:03.716 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.680518627166748,vwap_loss=-0.014018058776855469,volume_traded=0.05083274841308594
+2023-08-30 15:40:17.446 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-05, Loss: -0.007005137391388416
+2023-08-30 15:40:26.941 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.64699649810791,vwap_loss=-0.004117488861083984,volume_traded=0.6501336693763733
+2023-08-30 15:40:40.918 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-06, Loss: -0.0019917229656130075
+2023-08-30 15:40:50.887 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.697342872619629,vwap_loss=-0.003880023956298828,volume_traded=0.6339423656463623
+2023-08-30 15:41:05.081 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-07, Loss: -0.001864750636741519
+2023-08-30 15:41:16.051 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.651096343994141,vwap_loss=-0.01157522201538086,volume_traded=0.5507663488388062
+2023-08-30 15:41:31.107 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-10, Loss: -0.005693711806088686
+2023-08-30 15:41:42.434 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.714323997497559,vwap_loss=0.026866436004638672,volume_traded=0.4686571955680847
+2023-08-30 15:41:57.664 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-11, Loss: 0.013474764302372932
+2023-08-30 15:42:09.045 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.687110900878906,vwap_loss=-0.014292240142822266,volume_traded=0.44679123163223267
+2023-08-30 15:42:23.827 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-12, Loss: -0.0070638228207826614
+2023-08-30 15:42:37.526 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.198675155639648,vwap_loss=0.5255966186523438,volume_traded=1.0818331241607666
+2023-08-30 15:42:56.448 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-13, Loss: 0.26293036341667175
+2023-08-30 15:43:11.272 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.920064926147461,vwap_loss=0.03559160232543945,volume_traded=0.09604885429143906
+2023-08-30 15:43:29.738 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-14, Loss: 0.0178008284419775
+2023-08-30 15:43:41.661 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.9998016357421875,vwap_loss=0.020084857940673828,volume_traded=0.13117966055870056
+2023-08-30 15:43:55.439 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-17, Loss: 0.010049662552773952
+2023-08-30 15:44:07.644 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.055426597595215,vwap_loss=0.017357826232910156,volume_traded=0.14555880427360535
+2023-08-30 15:44:21.672 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-18, Loss: 0.008683668449521065
+2023-08-30 15:44:34.175 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.078209400177002,vwap_loss=0.0027894973754882812,volume_traded=0.17809203267097473
+2023-08-30 15:44:48.471 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-19, Loss: 0.0014016308123245835
+2023-08-30 15:45:01.067 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.989004135131836,vwap_loss=-0.057674407958984375,volume_traded=0.41210001707077026
+2023-08-30 15:45:14.489 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-20, Loss: -0.028803789988160133
+2023-08-30 15:45:27.662 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.62030553817749,vwap_loss=-0.020121097564697266,volume_traded=0.4230384826660156
+2023-08-30 15:45:42.431 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-21, Loss: -0.010026847012341022
+2023-08-30 15:45:55.954 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.593265056610107,vwap_loss=-0.0006480216979980469,volume_traded=0.8320295214653015
+2023-08-30 15:46:10.482 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-24, Loss: -0.00022164804977364838
+2023-08-30 15:46:24.289 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.852027416229248,vwap_loss=0.015747547149658203,volume_traded=0.7441206574440002
+2023-08-30 15:46:38.743 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-25, Loss: 0.007913094945251942
+2023-08-30 15:46:53.053 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.753692626953125,vwap_loss=-0.027725696563720703,volume_traded=0.3153727054595947
+2023-08-30 15:47:07.550 | INFO     | MODELS.log:log_train:26 - Epoch: 11/20,file 2023-07-26, Loss: -0.013817866332828999
+2023-08-30 15:47:07.560 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\11.ocet
+2023-08-30 15:47:16.899 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.71132755279541,vwap_loss=-0.001155853271484375,volume_traded=0.44188281893730164
+2023-08-30 15:47:30.940 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-04, Loss: -0.0005467705777846277
+2023-08-30 15:47:40.226 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6802167892456055,vwap_loss=-0.014319896697998047,volume_traded=0.02166718989610672
+2023-08-30 15:47:54.816 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-05, Loss: -0.007156516890972853
+2023-08-30 15:48:04.972 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6506733894348145,vwap_loss=-0.0004405975341796875,volume_traded=0.4663092792034149
+2023-08-30 15:48:19.619 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-06, Loss: -0.00016939875786192715
+2023-08-30 15:48:29.613 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.698955535888672,vwap_loss=-0.0022673606872558594,volume_traded=0.49096766114234924
+2023-08-30 15:48:44.618 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-07, Loss: -0.001080880407243967
+2023-08-30 15:48:56.199 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.650934219360352,vwap_loss=-0.011737346649169922,volume_traded=0.5348959565162659
+2023-08-30 15:49:11.383 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-10, Loss: -0.005777446553111076
+2023-08-30 15:49:22.315 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.730966567993164,vwap_loss=0.04350900650024414,volume_traded=0.09033269435167313
+2023-08-30 15:49:38.225 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-11, Loss: 0.021762819960713387
+2023-08-30 15:49:51.430 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.707209587097168,vwap_loss=0.005806446075439453,volume_traded=0.7532861232757568
+2023-08-30 15:50:07.909 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-12, Loss: 0.0029962314292788506
+2023-08-30 15:50:20.552 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.661276817321777,vwap_loss=-0.011801719665527344,volume_traded=0.8768798112869263
+2023-08-30 15:50:36.148 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-13, Loss: -0.005819153506308794
+2023-08-30 15:50:48.897 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.925406455993652,vwap_loss=0.04093313217163086,volume_traded=0.31208327412605286
+2023-08-30 15:51:05.196 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-14, Loss: 0.020507927983999252
+2023-08-30 15:51:17.058 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.002491474151611,vwap_loss=0.022774696350097656,volume_traded=0.10147178173065186
+2023-08-30 15:51:31.084 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-17, Loss: 0.011393403634428978
+2023-08-30 15:51:43.350 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.059071063995361,vwap_loss=0.02100229263305664,volume_traded=0.2736034393310547
+2023-08-30 15:51:57.513 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-18, Loss: 0.010520091280341148
+2023-08-30 15:52:10.727 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.078800201416016,vwap_loss=0.003380298614501953,volume_traded=0.19575908780097961
+2023-08-30 15:52:25.760 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-19, Loss: 0.0016962283989414573
+2023-08-30 15:52:38.905 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.980000019073486,vwap_loss=-0.06667852401733398,volume_traded=0.0
+2023-08-30 15:52:53.171 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-20, Loss: -0.03333659470081329
+2023-08-30 15:53:06.311 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.624852180480957,vwap_loss=-0.015574455261230469,volume_traded=0.5644450187683105
+2023-08-30 15:53:20.734 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-21, Loss: -0.007756776642054319
+2023-08-30 15:53:34.455 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.601629257202148,vwap_loss=0.007716178894042969,volume_traded=0.5128316879272461
+2023-08-30 15:53:49.595 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-24, Loss: 0.003898076945915818
+2023-08-30 15:54:04.173 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.858916282653809,vwap_loss=0.02263641357421875,volume_traded=0.529239296913147
+2023-08-30 15:54:19.419 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-25, Loss: 0.011346550658345222
+2023-08-30 15:54:33.841 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=9.324824333190918,vwap_loss=2.5434060096740723,volume_traded=1.3773717880249023
+2023-08-30 15:54:48.368 | INFO     | MODELS.log:log_train:26 - Epoch: 12/20,file 2023-07-26, Loss: 1.2718241214752197
+2023-08-30 15:54:48.386 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\12.ocet
+2023-08-30 15:54:58.703 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.710604190826416,vwap_loss=-0.0018792152404785156,volume_traded=0.060449570417404175
+2023-08-30 15:55:14.891 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-04, Loss: -0.0009319871896877885
+2023-08-30 15:55:23.773 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6828508377075195,vwap_loss=-0.011685848236083984,volume_traded=0.10214145481586456
+2023-08-30 15:55:36.681 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-05, Loss: -0.005836314521729946
+2023-08-30 15:55:46.620 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.65206241607666,vwap_loss=0.0009484291076660156,volume_traded=0.4398530125617981
+2023-08-30 15:56:01.202 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-06, Loss: 0.0005088284960947931
+2023-08-30 15:56:13.021 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.699443340301514,vwap_loss=-0.0017795562744140625,volume_traded=0.5951035618782043
+2023-08-30 15:56:28.574 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-07, Loss: -0.0008180174045264721
+2023-08-30 15:56:44.390 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.654961109161377,vwap_loss=-0.007710456848144531,volume_traded=0.7314862608909607
+2023-08-30 15:57:01.056 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-10, Loss: -0.0037474711425602436
+2023-08-30 15:57:13.601 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.732256889343262,vwap_loss=0.0447993278503418,volume_traded=0.07743218541145325
+2023-08-30 15:57:29.135 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-11, Loss: 0.02240624465048313
+2023-08-30 15:57:41.224 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.699155807495117,vwap_loss=-0.002247333526611328,volume_traded=0.5181748867034912
+2023-08-30 15:57:57.747 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-12, Loss: -0.0010414916323497891
+2023-08-30 15:58:13.515 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.675870895385742,vwap_loss=0.0027923583984375,volume_traded=0.4709497094154358
+2023-08-30 15:58:28.995 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-13, Loss: 0.001424686168320477
+2023-08-30 15:58:43.774 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.925461769104004,vwap_loss=0.04098844528198242,volume_traded=0.2438468337059021
+2023-08-30 15:58:59.331 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-14, Loss: 0.02051045000553131
+2023-08-30 15:59:12.548 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.001043319702148,vwap_loss=0.021326541900634766,volume_traded=0.1346549689769745
+2023-08-30 15:59:26.773 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-17, Loss: 0.010669589973986149
+2023-08-30 15:59:40.863 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.059999942779541,vwap_loss=0.021931171417236328,volume_traded=0.0
+2023-08-30 15:59:55.949 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-18, Loss: 0.010967643931508064
+2023-08-30 16:00:10.567 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.0762529373168945,vwap_loss=0.0008330345153808594,volume_traded=0.2762848436832428
+2023-08-30 16:00:25.259 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-19, Loss: 0.00043461189488880336
+2023-08-30 16:00:39.373 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.98820686340332,vwap_loss=-0.0584716796875,volume_traded=0.3954402506351471
+2023-08-30 16:00:53.499 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-20, Loss: -0.029204385355114937
+2023-08-30 16:01:08.456 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.624717712402344,vwap_loss=-0.01570892333984375,volume_traded=0.18963214755058289
+2023-08-30 16:01:22.278 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-21, Loss: -0.00784485973417759
+2023-08-30 16:01:36.360 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.606533050537109,vwap_loss=0.012619972229003906,volume_traded=0.47609707713127136
+2023-08-30 16:01:51.431 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-24, Loss: 0.006343536078929901
+2023-08-30 16:02:06.679 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.854626655578613,vwap_loss=0.018346786499023438,volume_traded=0.5830713510513306
+2023-08-30 16:02:21.376 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-25, Loss: 0.009199809283018112
+2023-08-30 16:02:36.418 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.773545265197754,vwap_loss=-0.007873058319091797,volume_traded=0.9194009900093079
+2023-08-30 16:02:51.374 | INFO     | MODELS.log:log_train:26 - Epoch: 13/20,file 2023-07-26, Loss: -0.0038645523600280285
+2023-08-30 16:02:51.385 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\13.ocet
+2023-08-30 16:03:01.359 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.711840629577637,vwap_loss=-0.0006427764892578125,volume_traded=0.184065580368042
+2023-08-30 16:03:17.232 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-04, Loss: -0.0002998581330757588
+2023-08-30 16:03:27.410 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.680575370788574,vwap_loss=-0.013961315155029297,volume_traded=0.05752599239349365
+2023-08-30 16:03:42.130 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-05, Loss: -0.006976798642426729
+2023-08-30 16:03:52.543 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.654825687408447,vwap_loss=0.003711700439453125,volume_traded=0.40745481848716736
+2023-08-30 16:04:06.815 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-06, Loss: 0.0018948568031191826
+2023-08-30 16:04:17.725 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.700018405914307,vwap_loss=-0.0012044906616210938,volume_traded=0.7168453335762024
+2023-08-30 16:04:32.910 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-07, Loss: -0.0005257303128018975
+2023-08-30 16:04:43.415 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.650851249694824,vwap_loss=-0.011820316314697266,volume_traded=0.5218384861946106
+2023-08-30 16:04:57.786 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-10, Loss: -0.005821437109261751
+2023-08-30 16:05:09.243 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.718533515930176,vwap_loss=0.03107595443725586,volume_traded=0.5379019975662231
+2023-08-30 16:05:24.504 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-11, Loss: 0.015584397129714489
+2023-08-30 16:05:37.132 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.745957851409912,vwap_loss=0.044554710388183594,volume_traded=0.8548082113265991
+2023-08-30 16:05:52.877 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-12, Loss: 0.02240627259016037
+2023-08-30 16:06:05.738 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.667109489440918,vwap_loss=-0.005969047546386719,volume_traded=0.5722520351409912
+2023-08-30 16:06:20.837 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-13, Loss: -0.002907936694100499
+2023-08-30 16:06:33.829 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.9272871017456055,vwap_loss=0.042813777923583984,volume_traded=0.3524743914604187
+2023-08-30 16:06:49.381 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-14, Loss: 0.02144898660480976
+2023-08-30 16:07:01.909 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.002541542053223,vwap_loss=0.022824764251708984,volume_traded=0.09323000907897949
+2023-08-30 16:07:17.414 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-17, Loss: 0.011418433859944344
+2023-08-30 16:07:29.810 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.05576229095459,vwap_loss=0.017693519592285156,volume_traded=0.08276043832302094
+2023-08-30 16:07:45.292 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-18, Loss: 0.008851240389049053
+2023-08-30 16:07:58.495 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.076567649841309,vwap_loss=0.0011477470397949219,volume_traded=0.3792257010936737
+2023-08-30 16:08:14.256 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-19, Loss: 0.0005939324619248509
+2023-08-30 16:08:27.545 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.985084056854248,vwap_loss=-0.061594486236572266,volume_traded=0.06355085968971252
+2023-08-30 16:08:42.176 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-20, Loss: -0.030792227014899254
+2023-08-30 16:08:55.835 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.623591423034668,vwap_loss=-0.01683521270751953,volume_traded=0.3062123656272888
+2023-08-30 16:09:11.267 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-21, Loss: -0.008398819714784622
+2023-08-30 16:09:25.196 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.592839241027832,vwap_loss=-0.0010738372802734375,volume_traded=0.7358720302581787
+2023-08-30 16:09:41.102 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-24, Loss: -0.0004401299811434001
+2023-08-30 16:09:55.859 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.854351043701172,vwap_loss=0.01807117462158203,volume_traded=0.6370697021484375
+2023-08-30 16:10:11.321 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-25, Loss: 0.009073285385966301
+2023-08-30 16:10:26.434 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.770141124725342,vwap_loss=-0.011277198791503906,volume_traded=0.8016582727432251
+2023-08-30 16:10:41.028 | INFO     | MODELS.log:log_train:26 - Epoch: 14/20,file 2023-07-26, Loss: -0.005573572590947151
+2023-08-30 16:10:41.038 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\14.ocet
+2023-08-30 16:10:50.485 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.712663650512695,vwap_loss=0.00018024444580078125,volume_traded=0.26638883352279663
+2023-08-30 16:11:04.749 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-04, Loss: 0.00011114006338175386
+2023-08-30 16:11:14.381 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6805596351623535,vwap_loss=-0.01397705078125,volume_traded=0.056005001068115234
+2023-08-30 16:11:28.719 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-05, Loss: -0.006985411513596773
+2023-08-30 16:11:38.524 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.644487380981445,vwap_loss=-0.006626605987548828,volume_traded=0.6735311150550842
+2023-08-30 16:11:53.263 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-06, Loss: -0.0032399415504187346
+2023-08-30 16:12:03.084 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.720000267028809,vwap_loss=0.01877737045288086,volume_traded=0.387515664100647
+2023-08-30 16:12:17.570 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-07, Loss: 0.009427675046026707
+2023-08-30 16:12:28.578 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.65400505065918,vwap_loss=-0.008666515350341797,volume_traded=0.6363502740859985
+2023-08-30 16:12:45.193 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-10, Loss: -0.004231439437717199
+2023-08-30 16:12:58.420 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.73344612121582,vwap_loss=0.04598855972290039,volume_traded=0.16690486669540405
+2023-08-30 16:13:14.147 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-11, Loss: 0.023006217554211617
+2023-08-30 16:13:26.496 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.596602439880371,vwap_loss=0.8951992988586426,volume_traded=1.1269583702087402
+2023-08-30 16:13:43.247 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-12, Loss: 0.4477604925632477
+2023-08-30 16:13:58.167 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.665318489074707,vwap_loss=-0.007760047912597656,volume_traded=0.7104026079177856
+2023-08-30 16:14:17.070 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-13, Loss: -0.0037974738515913486
+2023-08-30 16:14:30.273 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.929898738861084,vwap_loss=0.0454254150390625,volume_traded=0.48684877157211304
+2023-08-30 16:14:46.913 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-14, Loss: 0.02276509627699852
+2023-08-30 16:14:59.405 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.003028869628906,vwap_loss=0.023312091827392578,volume_traded=0.10525348782539368
+2023-08-30 16:15:13.848 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-17, Loss: 0.011661793105304241
+2023-08-30 16:15:26.692 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.06065559387207,vwap_loss=0.022586822509765625,volume_traded=0.07252611219882965
+2023-08-30 16:15:41.315 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-18, Loss: 0.01129732746630907
+2023-08-30 16:15:54.423 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.078248977661133,vwap_loss=0.0028290748596191406,volume_traded=0.17503878474235535
+2023-08-30 16:16:09.052 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-19, Loss: 0.001430358039215207
+2023-08-30 16:16:22.401 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.987820148468018,vwap_loss=-0.058858394622802734,volume_traded=0.1580403745174408
+2023-08-30 16:16:37.526 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-20, Loss: -0.02942024916410446
+2023-08-30 16:16:51.325 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6215620040893555,vwap_loss=-0.01886463165283203,volume_traded=0.5694307088851929
+2023-08-30 16:17:05.969 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-21, Loss: -0.009401616640388966
+2023-08-30 16:17:20.154 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.60189151763916,vwap_loss=0.007978439331054688,volume_traded=0.6427336931228638
+2023-08-30 16:17:35.043 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-24, Loss: 0.004079022444784641
+2023-08-30 16:17:49.359 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.859106063842773,vwap_loss=0.022826194763183594,volume_traded=0.4151276648044586
+2023-08-30 16:18:04.156 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-25, Loss: 0.011435950174927711
+2023-08-30 16:18:18.647 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.77145528793335,vwap_loss=-0.009963035583496094,volume_traded=0.8511447310447693
+2023-08-30 16:18:33.104 | INFO     | MODELS.log:log_train:26 - Epoch: 15/20,file 2023-07-26, Loss: -0.004913966171443462
+2023-08-30 16:18:33.115 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\15.ocet
+2023-08-30 16:18:42.954 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.709075927734375,vwap_loss=-0.0034074783325195312,volume_traded=0.19658422470092773
+2023-08-30 16:18:57.295 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-04, Loss: -0.0016891969135031104
+2023-08-30 16:19:07.000 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.679999828338623,vwap_loss=-0.014536857604980469,volume_traded=0.0
+2023-08-30 16:19:21.571 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-05, Loss: -0.007265059277415276
+2023-08-30 16:19:31.240 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6575422286987305,vwap_loss=0.006428241729736328,volume_traded=0.26306217908859253
+2023-08-30 16:19:45.514 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-06, Loss: 0.003236172255128622
+2023-08-30 16:19:55.564 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.702384948730469,vwap_loss=0.0011620521545410156,volume_traded=0.5438773036003113
+2023-08-30 16:20:09.503 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-07, Loss: 0.0006484015611931682
+2023-08-30 16:20:20.134 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.65084171295166,vwap_loss=-0.011829853057861328,volume_traded=0.08418195694684982
+2023-08-30 16:20:34.483 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-10, Loss: -0.005908350460231304
+2023-08-30 16:20:45.625 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.736598968505859,vwap_loss=0.04914140701293945,volume_traded=0.045448556542396545
+2023-08-30 16:21:00.251 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-11, Loss: 0.02457442134618759
+2023-08-30 16:21:12.022 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.68498420715332,vwap_loss=-0.016418933868408203,volume_traded=0.3241202235221863
+2023-08-30 16:21:27.096 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-12, Loss: -0.00816156342625618
+2023-08-30 16:21:39.409 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.678631782531738,vwap_loss=0.005553245544433594,volume_traded=0.3789510428905487
+2023-08-30 16:21:54.348 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-13, Loss: 0.0028025940991938114
+2023-08-30 16:22:07.104 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.9190568923950195,vwap_loss=0.03458356857299805,volume_traded=0.030557669699192047
+2023-08-30 16:22:23.425 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-14, Loss: 0.017294999212026596
+2023-08-30 16:22:35.770 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.001607894897461,vwap_loss=0.021891117095947266,volume_traded=0.12065442651510239
+2023-08-30 16:22:50.465 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-17, Loss: 0.010951101779937744
+2023-08-30 16:23:03.321 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.064151287078857,vwap_loss=0.026082515716552734,volume_traded=0.20758351683616638
+2023-08-30 16:23:18.467 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-18, Loss: 0.013058019801974297
+2023-08-30 16:23:31.167 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.07783842086792,vwap_loss=0.00241851806640625,volume_traded=0.31025612354278564
+2023-08-30 16:23:46.147 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-19, Loss: 0.0012273922329768538
+2023-08-30 16:23:59.262 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.9828338623046875,vwap_loss=-0.06384468078613281,volume_traded=0.3222130239009857
+2023-08-30 16:24:13.766 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-20, Loss: -0.03189385309815407
+2023-08-30 16:24:27.163 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.621295928955078,vwap_loss=-0.019130706787109375,volume_traded=0.5055004358291626
+2023-08-30 16:24:41.247 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-21, Loss: -0.009532680734992027
+2023-08-30 16:24:55.010 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.592813491821289,vwap_loss=-0.0010995864868164062,volume_traded=0.850391685962677
+2023-08-30 16:25:10.426 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-24, Loss: -0.0004482121439650655
+2023-08-30 16:25:24.794 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.861841201782227,vwap_loss=0.02556133270263672,volume_traded=0.44255098700523376
+2023-08-30 16:25:39.150 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-25, Loss: 0.012803292833268642
+2023-08-30 16:25:53.835 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.765642166137695,vwap_loss=-0.01577615737915039,volume_traded=0.47637298703193665
+2023-08-30 16:26:08.307 | INFO     | MODELS.log:log_train:26 - Epoch: 16/20,file 2023-07-26, Loss: -0.007852026261389256
+2023-08-30 16:26:08.319 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\16.ocet
+2023-08-30 16:26:17.418 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.710000038146973,vwap_loss=-0.002483367919921875,volume_traded=0.14414241909980774
+2023-08-30 16:26:31.764 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-04, Loss: -0.0012268159771338105
+2023-08-30 16:26:41.530 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.680187225341797,vwap_loss=-0.01434946060180664,volume_traded=0.01876695454120636
+2023-08-30 16:26:56.265 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-05, Loss: -0.0071708811447024345
+2023-08-30 16:27:06.185 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6575493812561035,vwap_loss=0.006435394287109375,volume_traded=0.25933900475502014
+2023-08-30 16:27:20.733 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-06, Loss: 0.0032378891482949257
+2023-08-30 16:27:30.922 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.718047618865967,vwap_loss=0.016824722290039062,volume_traded=0.027883149683475494
+2023-08-30 16:27:45.434 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-07, Loss: 0.008415642194449902
+2023-08-30 16:27:57.397 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.650840759277344,vwap_loss=-0.011830806732177734,volume_traded=0.08404738456010818
+2023-08-30 16:28:14.269 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-10, Loss: -0.005908382125198841
+2023-08-30 16:28:25.658 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.711427688598633,vwap_loss=0.02397012710571289,volume_traded=0.6043524742126465
+2023-08-30 16:28:41.219 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-11, Loss: 0.01203099824488163
+2023-08-30 16:28:53.666 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.7396745681762695,vwap_loss=0.038271427154541016,volume_traded=0.8055520057678223
+2023-08-30 16:29:09.726 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-12, Loss: 0.019252058118581772
+2023-08-30 16:29:22.325 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6808342933654785,vwap_loss=0.007755756378173828,volume_traded=0.30551666021347046
+2023-08-30 16:29:38.449 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-13, Loss: 0.00390752125531435
+2023-08-30 16:29:51.743 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.926193714141846,vwap_loss=0.04172039031982422,volume_traded=0.21235622465610504
+2023-08-30 16:30:07.936 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-14, Loss: 0.02087434008717537
+2023-08-30 16:30:20.406 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.008786678314209,vwap_loss=0.029069900512695312,volume_traded=0.030586518347263336
+2023-08-30 16:30:34.526 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-17, Loss: 0.014537337236106396
+2023-08-30 16:30:47.146 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.056118965148926,vwap_loss=0.018050193786621094,volume_traded=0.11668679118156433
+2023-08-30 16:31:01.795 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-18, Loss: 0.00902983546257019
+2023-08-30 16:31:14.499 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.078259468078613,vwap_loss=0.0028395652770996094,volume_traded=0.2277955412864685
+2023-08-30 16:31:28.560 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-19, Loss: 0.0014361577341333032
+2023-08-30 16:31:41.579 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.016282081604004,vwap_loss=-0.030396461486816406,volume_traded=0.6810569763183594
+2023-08-30 16:31:55.858 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-20, Loss: -0.015084817074239254
+2023-08-30 16:32:10.368 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.621512413024902,vwap_loss=-0.018914222717285156,volume_traded=0.3613337576389313
+2023-08-30 16:32:24.964 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-21, Loss: -0.009436102584004402
+2023-08-30 16:32:38.591 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.59714412689209,vwap_loss=0.003231048583984375,volume_traded=0.6675592660903931
+2023-08-30 16:32:53.233 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-24, Loss: 0.0017093648202717304
+2023-08-30 16:33:07.796 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.854630470275879,vwap_loss=0.018350601196289062,volume_traded=0.6309269666671753
+2023-08-30 16:33:21.742 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-25, Loss: 0.009210449643433094
+2023-08-30 16:33:36.136 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.772459983825684,vwap_loss=-0.00895833969116211,volume_traded=0.9647148847579956
+2023-08-30 16:33:50.254 | INFO     | MODELS.log:log_train:26 - Epoch: 17/20,file 2023-07-26, Loss: -0.004401254002004862
+2023-08-30 16:33:50.263 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\17.ocet
+2023-08-30 16:33:59.311 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.710275173187256,vwap_loss=-0.002208232879638672,volume_traded=0.17160406708717346
+2023-08-30 16:34:12.638 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-04, Loss: -0.001090110163204372
+2023-08-30 16:34:22.120 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.680185317993164,vwap_loss=-0.014351367950439453,volume_traded=0.01853199303150177
+2023-08-30 16:34:36.731 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-05, Loss: -0.007172382436692715
+2023-08-30 16:34:47.051 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.650940418243408,vwap_loss=-0.0001735687255859375,volume_traded=0.34984761476516724
+2023-08-30 16:35:01.522 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-06, Loss: -4.9598049372434616e-05
+2023-08-30 16:35:12.161 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.700340270996094,vwap_loss=-0.0008826255798339844,volume_traded=0.32275688648223877
+2023-08-30 16:35:27.323 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-07, Loss: -0.00040068404632620513
+2023-08-30 16:35:39.171 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6547651290893555,vwap_loss=-0.007906436920166016,volume_traded=0.2803015410900116
+2023-08-30 16:35:55.398 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-10, Loss: -0.003930267412215471
+2023-08-30 16:36:07.319 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.720830917358398,vwap_loss=0.033373355865478516,volume_traded=0.5081674456596375
+2023-08-30 16:36:22.531 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-11, Loss: 0.016730649396777153
+2023-08-30 16:36:33.577 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.659939765930176,vwap_loss=-0.041463375091552734,volume_traded=0.3640580177307129
+2023-08-30 16:36:48.311 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-12, Loss: -0.0206941869109869
+2023-08-30 16:37:01.482 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.677323341369629,vwap_loss=0.004244804382324219,volume_traded=0.42256107926368713
+2023-08-30 16:37:17.180 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-13, Loss: 0.002150614047423005
+2023-08-30 16:37:29.611 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.923967361450195,vwap_loss=0.03949403762817383,volume_traded=0.18792204558849335
+2023-08-30 16:37:46.025 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-14, Loss: 0.01976090297102928
+2023-08-30 16:37:58.557 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.01033353805542,vwap_loss=0.03061676025390625,volume_traded=0.011110007762908936
+2023-08-30 16:38:13.943 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-17, Loss: 0.01531058456748724
+2023-08-30 16:38:27.645 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.059999942779541,vwap_loss=0.021931171417236328,volume_traded=0.040128953754901886
+2023-08-30 16:38:43.217 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-18, Loss: 0.01096913032233715
+2023-08-30 16:38:56.291 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.079578876495361,vwap_loss=0.004158973693847656,volume_traded=0.13599637150764465
+2023-08-30 16:39:12.858 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-19, Loss: 0.0020838910713791847
+2023-08-30 16:39:27.914 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.02385139465332,vwap_loss=-0.0228271484375,volume_traded=0.8344224691390991
+2023-08-30 16:39:43.278 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-20, Loss: -0.01129476074129343
+2023-08-30 16:39:58.258 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.620217323303223,vwap_loss=-0.020209312438964844,volume_traded=0.6481057405471802
+2023-08-30 16:40:14.464 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-21, Loss: -0.010059845633804798
+2023-08-30 16:40:29.607 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.5977959632873535,vwap_loss=0.003882884979248047,volume_traded=0.5121769905090332
+2023-08-30 16:40:46.985 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-24, Loss: 0.002011207165196538
+2023-08-30 16:41:02.483 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.857918739318848,vwap_loss=0.021638870239257812,volume_traded=0.47298604249954224
+2023-08-30 16:41:17.932 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-25, Loss: 0.010848276317119598
+2023-08-30 16:41:33.367 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.76694393157959,vwap_loss=-0.01447439193725586,volume_traded=0.357604056596756
+2023-08-30 16:41:48.251 | INFO     | MODELS.log:log_train:26 - Epoch: 18/20,file 2023-07-26, Loss: -0.007214488461613655
+2023-08-30 16:41:48.260 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\18.ocet
+2023-08-30 16:41:57.890 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.710790634155273,vwap_loss=-0.0016927719116210938,volume_traded=0.22324559092521667
+2023-08-30 16:42:12.685 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-04, Loss: -0.0008294540457427502
+2023-08-30 16:42:23.769 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.680520057678223,vwap_loss=-0.01401662826538086,volume_traded=0.051993608474731445
+2023-08-30 16:42:38.637 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-05, Loss: -0.007005199324339628
+2023-08-30 16:42:48.984 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.652072906494141,vwap_loss=0.0009589195251464844,volume_traded=0.397989422082901
+2023-08-30 16:43:04.332 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-06, Loss: 0.0005230053211562335
+2023-08-30 16:43:14.772 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.702396392822266,vwap_loss=0.0011734962463378906,volume_traded=0.29338759183883667
+2023-08-30 16:43:30.611 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-07, Loss: 0.0006272754981182516
+2023-08-30 16:43:42.054 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.654764175415039,vwap_loss=-0.007907390594482422,volume_traded=0.2802329659461975
+2023-08-30 16:43:58.019 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-10, Loss: -0.003930667415261269
+2023-08-30 16:44:10.137 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.726008415222168,vwap_loss=0.03855085372924805,volume_traded=0.2479652315378189
+2023-08-30 16:44:25.445 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-11, Loss: 0.01929020881652832
+2023-08-30 16:44:38.342 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6919708251953125,vwap_loss=-0.009432315826416016,volume_traded=0.6730312705039978
+2023-08-30 16:44:53.953 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-12, Loss: -0.004617671482264996
+2023-08-30 16:45:06.282 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6737494468688965,vwap_loss=0.0006709098815917969,volume_traded=0.43021178245544434
+2023-08-30 16:45:22.278 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-13, Loss: 0.00039172242395579815
+2023-08-30 16:45:35.178 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.9258856773376465,vwap_loss=0.041412353515625,volume_traded=0.2942676842212677
+2023-08-30 16:45:51.541 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-14, Loss: 0.020745405927300453
+2023-08-30 16:46:03.959 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.010333061218262,vwap_loss=0.030616283416748047,volume_traded=0.011079460382461548
+2023-08-30 16:46:18.740 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-17, Loss: 0.015310256741940975
+2023-08-30 16:46:31.473 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.055473804473877,vwap_loss=0.017405033111572266,volume_traded=0.08541548252105713
+2023-08-30 16:46:46.692 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-18, Loss: 0.00870727188885212
+2023-08-30 16:46:59.694 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.078138828277588,vwap_loss=0.0027189254760742188,volume_traded=0.1869335025548935
+2023-08-30 16:47:15.448 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-19, Loss: 0.0013652282068505883
+2023-08-30 16:47:28.908 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.987560272216797,vwap_loss=-0.05911827087402344,volume_traded=0.15323209762573242
+2023-08-30 16:47:43.416 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-20, Loss: -0.029552007094025612
+2023-08-30 16:47:58.298 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.621514320373535,vwap_loss=-0.018912315368652344,volume_traded=0.6143807768821716
+2023-08-30 16:48:13.856 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-21, Loss: -0.009418920613825321
+2023-08-30 16:48:29.475 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.5903096199035645,vwap_loss=-0.0036034584045410156,volume_traded=0.8462082147598267
+2023-08-30 16:48:45.848 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-24, Loss: -0.0017023867694661021
+2023-08-30 16:49:00.705 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.86221981048584,vwap_loss=0.02593994140625,volume_traded=0.3605166971683502
+2023-08-30 16:49:15.990 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-25, Loss: 0.012988911010324955
+2023-08-30 16:49:32.832 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.768841743469238,vwap_loss=-0.012576580047607422,volume_traded=0.6141661405563354
+2023-08-30 16:49:48.240 | INFO     | MODELS.log:log_train:26 - Epoch: 19/20,file 2023-07-26, Loss: -0.006248833611607552
+2023-08-30 16:49:48.251 | INFO     | MODELS.utils:save_model:34 - Saved model to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1\19.ocet
+2023-08-30 16:54:27.236 | INFO     | __main__:<module>:119 - ================Starting================
+2023-08-30 16:54:27.237 | INFO     | __main__:<module>:122 - Set device: cpu
+2023-08-30 16:54:27.240 | INFO     | __main__:<module>:125 - Set seed: 2333
+2023-08-30 16:54:27.242 | INFO     | __main__:<module>:133 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 16:54:51.371 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.742897033691406,vwap_loss=-0.007236480712890625,volume_traded=0.6562088131904602
+2023-08-30 16:54:51.372 | INFO     | MODELS.log:log_eval:16 - file 2023-07-27, Loss: -0.0035809900145977736
+2023-08-30 16:55:14.712 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.823437213897705,vwap_loss=0.0014309883117675781,volume_traded=1.0
+2023-08-30 16:55:14.714 | INFO     | MODELS.log:log_eval:16 - file 2023-07-28, Loss: 0.0008518463000655174
+2023-08-30 16:55:39.181 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.939542770385742,vwap_loss=-0.002067089080810547,volume_traded=0.03167340159416199
+2023-08-30 16:55:39.182 | INFO     | MODELS.log:log_eval:16 - file 2023-08-02, Loss: -0.0010319118155166507
+2023-08-30 16:56:03.227 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.943355083465576,vwap_loss=0.02608966827392578,volume_traded=0.1328945755958557
+2023-08-30 16:56:03.229 | INFO     | MODELS.log:log_eval:16 - file 2023-08-03, Loss: 0.013051160611212254
+2023-08-30 16:56:35.997 | INFO     | __main__:<module>:119 - ================Starting================
+2023-08-30 16:56:35.999 | INFO     | __main__:<module>:122 - Set device: cpu
+2023-08-30 16:56:36.001 | INFO     | __main__:<module>:125 - Set seed: 2333
+2023-08-30 16:56:36.003 | INFO     | __main__:<module>:133 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 16:57:00.462 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.742892742156982,vwap_loss=-0.007240772247314453,volume_traded=0.6560989618301392
+2023-08-30 16:57:00.463 | INFO     | MODELS.log:log_eval:16 - file 2023-07-27, Loss: -0.003583145560696721
+2023-08-30 16:57:23.221 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.823433876037598,vwap_loss=0.0014276504516601562,volume_traded=1.0000001192092896
+2023-08-30 16:57:23.222 | INFO     | MODELS.log:log_eval:16 - file 2023-07-28, Loss: 0.0008501902921125293
+2023-08-30 16:57:48.167 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.939542293548584,vwap_loss=-0.00206756591796875,volume_traded=0.031706199049949646
+2023-08-30 16:57:48.168 | INFO     | MODELS.log:log_eval:16 - file 2023-08-02, Loss: -0.001032149768434465
+2023-08-30 16:58:13.244 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.943356513977051,vwap_loss=0.02609109878540039,volume_traded=0.13287153840065002
+2023-08-30 16:58:13.245 | INFO     | MODELS.log:log_eval:16 - file 2023-08-03, Loss: 0.013051869347691536
+2023-08-30 17:03:23.151 | INFO     | __main__:<module>:119 - ================Starting================
+2023-08-30 17:03:23.151 | INFO     | __main__:<module>:122 - Set device: cpu
+2023-08-30 17:03:23.151 | INFO     | __main__:<module>:125 - Set seed: 2333
+2023-08-30 17:03:23.166 | INFO     | __main__:<module>:133 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 17:03:41.065 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.711804389953613,vwap_loss=-0.00067901611328125,volume_traded=0.18042507767677307
+2023-08-30 17:03:41.065 | INFO     | MODELS.log:log_eval:16 - file 2023-07-04, Loss: -0.0003182738437317312
+2023-08-30 17:03:58.841 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.680515289306641,vwap_loss=-0.01402139663696289,volume_traded=0.05152660608291626
+2023-08-30 17:03:58.843 | INFO     | MODELS.log:log_eval:16 - file 2023-07-05, Loss: -0.007007295731455088
+2023-08-30 17:04:17.080 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.653319835662842,vwap_loss=0.0022058486938476562,volume_traded=0.47228366136550903
+2023-08-30 17:04:17.080 | INFO     | MODELS.log:log_eval:16 - file 2023-07-06, Loss: 0.001151970005594194
+2023-08-30 17:04:35.114 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.7198967933654785,vwap_loss=0.01867389678955078,volume_traded=0.001468658447265625
+2023-08-30 17:04:35.114 | INFO     | MODELS.log:log_eval:16 - file 2023-07-07, Loss: 0.00934058427810669
+2023-08-30 17:04:53.773 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6508402824401855,vwap_loss=-0.011831283569335938,volume_traded=0.5159753561019897
+2023-08-30 17:04:53.773 | INFO     | MODELS.log:log_eval:16 - file 2023-07-10, Loss: -0.005828484892845154
+2023-08-30 17:05:12.833 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.725289344787598,vwap_loss=0.037831783294677734,volume_traded=0.35805797576904297
+2023-08-30 17:05:12.835 | INFO     | MODELS.log:log_eval:16 - file 2023-07-11, Loss: 0.018950873985886574
+2023-08-30 17:05:32.027 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6920976638793945,vwap_loss=-0.009305477142333984,volume_traded=0.587063193321228
+2023-08-30 17:05:32.029 | INFO     | MODELS.log:log_eval:16 - file 2023-07-12, Loss: -0.004576583858579397
+2023-08-30 17:05:50.884 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.689220428466797,vwap_loss=0.016141891479492188,volume_traded=0.0259687602519989
+2023-08-30 17:05:50.885 | INFO     | MODELS.log:log_eval:16 - file 2023-07-13, Loss: 0.008075075224041939
+2023-08-30 17:06:12.327 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.926172256469727,vwap_loss=0.04169893264770508,volume_traded=0.21220368146896362
+2023-08-30 17:06:12.327 | INFO     | MODELS.log:log_eval:16 - file 2023-07-14, Loss: 0.0208644550293684
+2023-08-30 17:06:33.960 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.010331630706787,vwap_loss=0.030614852905273438,volume_traded=0.01124727725982666
+2023-08-30 17:06:33.961 | INFO     | MODELS.log:log_eval:16 - file 2023-07-17, Loss: 0.015309738926589489
+2023-08-30 17:06:55.336 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.059999942779541,vwap_loss=0.021931171417236328,volume_traded=0.040132537484169006
+2023-08-30 17:06:55.337 | INFO     | MODELS.log:log_eval:16 - file 2023-07-18, Loss: 0.010968707501888275
+2023-08-30 17:07:17.227 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.079578399658203,vwap_loss=0.004158496856689453,volume_traded=0.08232679963111877
+2023-08-30 17:07:17.227 | INFO     | MODELS.log:log_eval:16 - file 2023-07-19, Loss: 0.002083015628159046
+2023-08-30 17:07:39.470 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.023792743682861,vwap_loss=-0.022885799407958984,volume_traded=0.8336094617843628
+2023-08-30 17:07:39.470 | INFO     | MODELS.log:log_eval:16 - file 2023-07-20, Loss: -0.011325194500386715
+2023-08-30 17:08:01.895 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.617985725402832,vwap_loss=-0.02244091033935547,volume_traded=0.753838062286377
+2023-08-30 17:08:01.896 | INFO     | MODELS.log:log_eval:16 - file 2023-07-21, Loss: -0.011172372847795486
+2023-08-30 17:08:24.945 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.598785400390625,vwap_loss=0.004872322082519531,volume_traded=0.3930489420890808
+2023-08-30 17:08:24.947 | INFO     | MODELS.log:log_eval:16 - file 2023-07-24, Loss: 0.0024700697977095842
+2023-08-30 17:08:48.242 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.858364105224609,vwap_loss=0.02208423614501953,volume_traded=0.5432366728782654
+2023-08-30 17:08:48.242 | INFO     | MODELS.log:log_eval:16 - file 2023-07-25, Loss: 0.011068028397858143
+2023-08-30 17:09:10.607 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.7682108879089355,vwap_loss=-0.013207435607910156,volume_traded=1.0
+2023-08-30 17:09:10.607 | INFO     | MODELS.log:log_eval:16 - file 2023-07-26, Loss: -0.006520280614495277
+2023-08-30 17:16:08.283 | INFO     | __main__:<module>:119 - ================Starting================
+2023-08-30 17:16:08.283 | INFO     | __main__:<module>:122 - Set device: cpu
+2023-08-30 17:16:08.298 | INFO     | __main__:<module>:125 - Set seed: 2333
+2023-08-30 17:16:08.298 | INFO     | __main__:<module>:133 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 17:16:26.203 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.711833953857422,vwap_loss=-0.0006494522094726562,volume_traded=0.18335075676441193
+2023-08-30 17:16:26.203 | INFO     | MODELS.log:log_eval:16 - file 2023-07-04, Loss: -0.0003030331281479448
+2023-08-30 17:16:44.390 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.68056058883667,vwap_loss=-0.013976097106933594,volume_traded=0.05604530870914459
+2023-08-30 17:16:44.390 | INFO     | MODELS.log:log_eval:16 - file 2023-07-05, Loss: -0.00698454724624753
+2023-08-30 17:17:03.062 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6532440185546875,vwap_loss=0.0021300315856933594,volume_traded=0.48439112305641174
+2023-08-30 17:17:03.062 | INFO     | MODELS.log:log_eval:16 - file 2023-07-06, Loss: 0.0011148861376568675
+2023-08-30 17:17:21.445 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.7197160720825195,vwap_loss=0.018493175506591797,volume_traded=0.004047967493534088
+2023-08-30 17:17:21.445 | INFO     | MODELS.log:log_eval:16 - file 2023-07-07, Loss: 0.009250224567949772
+2023-08-30 17:17:40.043 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.650848388671875,vwap_loss=-0.011823177337646484,volume_traded=0.5210161209106445
+2023-08-30 17:17:40.043 | INFO     | MODELS.log:log_eval:16 - file 2023-07-10, Loss: -0.005822786595672369
+2023-08-30 17:17:58.667 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.725270748138428,vwap_loss=0.03781318664550781,volume_traded=0.35962340235710144
+2023-08-30 17:17:58.668 | INFO     | MODELS.log:log_eval:16 - file 2023-07-11, Loss: 0.01894202083349228
+2023-08-30 17:18:17.540 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.695736885070801,vwap_loss=-0.005666255950927734,volume_traded=0.631745457649231
+2023-08-30 17:18:17.556 | INFO     | MODELS.log:log_eval:16 - file 2023-07-12, Loss: -0.00274631823413074
+2023-08-30 17:18:36.298 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.689160346984863,vwap_loss=0.016081809997558594,volume_traded=0.027996383607387543
+2023-08-30 17:18:36.299 | INFO     | MODELS.log:log_eval:16 - file 2023-07-13, Loss: 0.008045081980526447
+2023-08-30 17:18:56.987 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.926154136657715,vwap_loss=0.04168081283569336,volume_traded=0.21555472910404205
+2023-08-30 17:18:56.987 | INFO     | MODELS.log:log_eval:16 - file 2023-07-14, Loss: 0.020855573937296867
+2023-08-30 17:19:18.144 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.010420322418213,vwap_loss=0.03070354461669922,volume_traded=0.013996236026287079
+2023-08-30 17:19:18.145 | INFO     | MODELS.log:log_eval:16 - file 2023-07-17, Loss: 0.015354115515947342
+2023-08-30 17:19:39.789 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.059999465942383,vwap_loss=0.021930694580078125,volume_traded=0.03968974947929382
+2023-08-30 17:19:39.789 | INFO     | MODELS.log:log_eval:16 - file 2023-07-18, Loss: 0.01096845418214798
+2023-08-30 17:20:01.337 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.079581260681152,vwap_loss=0.004161357879638672,volume_traded=0.08436964452266693
+2023-08-30 17:20:01.337 | INFO     | MODELS.log:log_eval:16 - file 2023-07-19, Loss: 0.0020845187827944756
+2023-08-30 17:20:23.274 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.024408340454102,vwap_loss=-0.02227020263671875,volume_traded=0.8469453454017639
+2023-08-30 17:20:23.274 | INFO     | MODELS.log:log_eval:16 - file 2023-07-20, Loss: -0.011015561409294605
+2023-08-30 17:20:45.839 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.618001461029053,vwap_loss=-0.022425174713134766,volume_traded=0.7672789692878723
+2023-08-30 17:20:45.855 | INFO     | MODELS.log:log_eval:16 - file 2023-07-21, Loss: -0.011163207702338696
+2023-08-30 17:21:09.455 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.598492622375488,vwap_loss=0.0045795440673828125,volume_traded=0.39996370673179626
+2023-08-30 17:21:09.456 | INFO     | MODELS.log:log_eval:16 - file 2023-07-24, Loss: 0.002323951805010438
+2023-08-30 17:21:31.666 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.858125686645508,vwap_loss=0.02184581756591797,volume_traded=0.5568474531173706
+2023-08-30 17:21:31.668 | INFO     | MODELS.log:log_eval:16 - file 2023-07-25, Loss: 0.010949617251753807
+2023-08-30 17:21:53.779 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.769142150878906,vwap_loss=-0.012276172637939453,volume_traded=0.9999999403953552
+2023-08-30 17:21:53.780 | INFO     | MODELS.log:log_eval:16 - file 2023-07-26, Loss: -0.0060545471496880054
+2023-08-30 17:26:00.485 | INFO     | __main__:<module>:119 - ================Starting================
+2023-08-30 17:26:00.486 | INFO     | __main__:<module>:122 - Set device: cpu
+2023-08-30 17:26:00.489 | INFO     | __main__:<module>:125 - Set seed: 2333
+2023-08-30 17:26:00.491 | INFO     | __main__:<module>:133 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 17:26:24.643 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.743168830871582,vwap_loss=-0.006964683532714844,volume_traded=0.6662719249725342
+2023-08-30 17:26:24.643 | INFO     | MODELS.log:log_eval:16 - file 2023-07-27, Loss: -0.003443982684984803
+2023-08-30 17:26:48.489 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.823193073272705,vwap_loss=0.0011868476867675781,volume_traded=0.9999998807907104
+2023-08-30 17:26:48.491 | INFO     | MODELS.log:log_eval:16 - file 2023-07-28, Loss: 0.0007304507889784873
+2023-08-30 17:27:13.515 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.939511299133301,vwap_loss=-0.002098560333251953,volume_traded=0.035334885120391846
+2023-08-30 17:27:13.515 | INFO     | MODELS.log:log_eval:16 - file 2023-08-02, Loss: -0.0010475978488102555
+2023-08-30 17:27:39.111 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.942846298217773,vwap_loss=0.025580883026123047,volume_traded=0.1430695503950119
+2023-08-30 17:27:39.111 | INFO     | MODELS.log:log_eval:16 - file 2023-08-03, Loss: 0.012797423638403416
+2023-08-30 17:35:50.948 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-30 17:35:50.948 | INFO     | __main__:<module>:69 - Set device: cpu
+2023-08-30 17:35:50.948 | INFO     | __main__:<module>:72 - Set seed: 2333
+2023-08-30 17:35:50.948 | INFO     | __main__:<module>:80 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 17:36:17.437 | INFO     | __main__:<module>:66 - ================Starting================
+2023-08-30 17:36:17.437 | INFO     | __main__:<module>:69 - Set device: cpu
+2023-08-30 17:36:17.448 | INFO     | __main__:<module>:72 - Set seed: 123456
+2023-08-30 17:36:17.448 | INFO     | __main__:<module>:80 - Saving model parameters to D:\ALGTRADING\Algorithmic-Trading\AlgorithmicStrategy\TWAP_VWAP\MODEL_SAVE_1
+2023-08-30 17:36:26.481 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=2289.55419921875,vwap_loss=2282.841796875,volume_traded=340.9723205566406

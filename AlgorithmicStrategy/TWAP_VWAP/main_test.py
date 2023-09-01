@@ -1,5 +1,4 @@
 import sys
-import sys
 import warnings
 from argparse import ArgumentParser
 from pathlib import Path
@@ -114,7 +113,7 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
     parser.add_argument("-e", "--epoch", type=int, default=20)
     parser.add_argument("--dataset", type=str, default="./DATA/ML")
-    parser.add_argument("--model-save", type=str, default="./MODEL_SAVE")
+    parser.add_argument("--model-save", type=str, default="./MODEL_SAVE_1")
     args = parser.parse_args()
 
     logger.info("Starting".center(40, "="))
@@ -155,7 +154,7 @@ if __name__ == "__main__":
         mlp_dim=200,
     )
 
-    newest_model = model_save_path / "18.ocet"
+    newest_model = model_save_path / "500.ocet"
     # para_dict = t.load(newest_model, map_location=device)
     para_dict = t.load(newest_model, map_location=t.device("cpu"))
     ocet.load_state_dict(para_dict["model_state_dict"])
