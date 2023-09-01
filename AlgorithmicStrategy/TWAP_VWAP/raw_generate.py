@@ -9,7 +9,7 @@ from AlgorithmicStrategy import (
     TradeTime
 )
 
-tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
+tick_folder = Path.cwd() / "DATA/000157"
 tick_files = list(tick_folder.glob("*.csv"))
 
 raw_data_folder = Path.cwd() / "DATA/ML/RAW"
@@ -19,9 +19,9 @@ if not raw_data_folder.exists():
     raw_data_folder.mkdir(parents=True, exist_ok=True)
 
 
-for tick_file in tqdm(tick_files):
+for tick_file in tqdm(tick_files[41:]):
     tick = DataSet(data_path=tick_file, ticker="SZ")
-    tt = TradeTime(begin=9_30_00_000, end=145700000, tick=tick)
+    tt = TradeTime(begin=9_30_06_000, end=145700000, tick=tick)
     time_dict = tt.generate_signals()
     writer = Writer(filename=raw_data_folder / tick_file.name)
     ob = OrderBook(data_api=tick)
