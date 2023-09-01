@@ -3,16 +3,16 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from AlgorithmicStrategy import OrderBook,DataSet
 import csv
-from tqdm import tqdm
 from collections import OrderedDict
 
-class LittleOB:
+class LlobWriter:
 
-    def __init__(self,tick:DataSet,orderbook:OrderBook):
+    def __init__(self,tick:DataSet,orderbook:OrderBook,file_name:Path):
         self.tick = tick
         self.ob = orderbook
         self.columns = ['Timestamp', 'ask1', 'bid1', 'VWAP']
         self.little_ob = OrderedDict()
+        self.file_name = file_name
     
 
     def write_llob(self):
@@ -28,7 +28,7 @@ class LittleOB:
         data_list = []
         for ts, values in self.little_ob.items():
             data_list.append([ts] + [values.get(key, '') for key in self.columns[1:]])
-        with open(csv_folder.joinpath(tick_file.name.replace('.csv','littleob')+'.csv'), mode='w', newline='') as file:
+        with open(str(self.file_name)+'.csv', mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(self.columns) 
             writer.writerows(data_list)
