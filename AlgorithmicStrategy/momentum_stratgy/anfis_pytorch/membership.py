@@ -7,7 +7,7 @@
 
 import torch
 
-from anfis import AnfisNet
+from .anfis import AnfisNet
 
 
 def _mk_param(val):
