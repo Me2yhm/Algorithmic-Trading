@@ -115,9 +115,20 @@ class VWAP(AlgorithmicStrategy):
                             pred_trade_volume_fracs.append(pred_frac)
                             true_trade_volume_fracs.append(volume_today)
 
+                        if sum(pred_trade_volume_fracs) > 1:
+                            pred_trade_volume_fracs[-1] = pred_trade_volume_fracs[-1] - (
+                                    sum(pred_trade_volume_fracs) - 1
+                            )
+                            logger.warning(f"交易未到尾盘，提前终止：{ts}; 原因：交易量达到")
+                            break
+                        if sum(pred_trade_volume_fracs) == 1:
+                            logger.warning(f"交易未到尾盘，提前终止：{ts}; 原因：交易量达到")
+                            break
+
                 market_vwap = llob.get_VWAP(llob_file)
                 pred_trade_volume_fracs = t.squeeze(t.stack(pred_trade_volume_fracs))
                 trade_price = t.Tensor(trade_price)
+                pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
 
                 if t.sum(pred_trade_volume_fracs) < 1:
                     rest = 1 - t.sum(pred_trade_volume_fracs)
@@ -125,9 +136,7 @@ class VWAP(AlgorithmicStrategy):
                         llob_file, tick.file_date_num + 14_57_00_000
                     )
                     additional_vwap = rest * final_price
-                    pred_vwap = (
-                        t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
-                    )
+                    pred_vwap = pred_vwap + additional_vwap
 
                 if t.sum(pred_trade_volume_fracs) > 1:
                     pred_vwap = t.sum(
@@ -161,7 +170,10 @@ class VWAP(AlgorithmicStrategy):
                 loss.backward()
                 loss_log.append(loss.item())
                 log_train(
-                    epoch=epc, epochs=args.epoch + init_epoch, file=file.stem, loss=loss.item()
+                    epoch=epc,
+                    epochs=args.epoch + init_epoch,
+                    file=file.stem,
+                    loss=loss.item(),
                 )
 
             save_model(
@@ -169,7 +181,7 @@ class VWAP(AlgorithmicStrategy):
                 optimizer=optimizer,
                 epoch=epc,
                 loss=float(np.mean(loss_log)),
-                path=model_save_path / f"{epc}.ocet",
+                path=simu_folder / "MODEL_SAVE" / f"{epc}.ocet",
             )
 
     @t.no_grad()

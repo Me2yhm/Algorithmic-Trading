@@ -173,7 +173,7 @@ if __name__ == "__main__":
             
             pred_trade_volume_fracs = t.squeeze(t.stack(pred_trade_volume_fracs))
             trade_price = t.Tensor(trade_price)
-            pred_vwap = (t.sum(pred_trade_volume_fracs * trade_price))
+            pred_vwap = t.sum(pred_trade_volume_fracs * trade_price)
 
             if t.sum(pred_trade_volume_fracs) < 1:
                 additional_vwap = 0
