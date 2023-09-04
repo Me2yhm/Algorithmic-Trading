@@ -1,0 +1,89 @@
+2023-09-04 09:42:19.611 | INFO     | __main__:<module>:247 - Using: 20.ocet
+2023-09-04 09:42:19.612 | INFO     | __main__:<module>:254 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-04 09:42:19.613 | INFO     | __main__:<module>:260 - Simulating: 000157.SZ
+2023-09-04 09:42:19.660 | INFO     | __main__:<module>:294 - Date: 2023-07-27
+2023-09-04 09:42:19.998 | INFO     | __main__:<module>:309 - Using past feature: ['2023-07-20', '2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26']
+2023-09-04 09:42:34.365 | INFO     | __main__:signal_update:180 - 20230727094003498 Pred trade volume: 591 at Price 6.79
+2023-09-04 09:42:34.365 | INFO     | __main__:signal_update:192 - {'timestamp': 20230727094003498, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.79, 'volume': 591}
+2023-09-04 09:42:34.366 | INFO     | __main__:signal_update:209 - {'code': '000157.SZ', 'volume': 591, 'averagePrice': 6.79, 'cost': 0}
+2023-09-04 09:42:38.223 | INFO     | __main__:signal_update:180 - 20230727094248876 Pred trade volume: 248 at Price 6.78
+2023-09-04 09:42:38.224 | INFO     | __main__:signal_update:192 - {'timestamp': 20230727094248876, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 248}
+2023-09-04 09:42:38.224 | INFO     | __main__:signal_update:209 - {'code': '000157.SZ', 'volume': 839, 'averagePrice': 6.787044100119189, 'cost': 0}
+2023-09-04 09:42:48.404 | INFO     | __main__:signal_update:180 - 20230727094949426 Pred trade volume: 600 at Price 6.77
+2023-09-04 09:42:48.404 | INFO     | __main__:signal_update:192 - {'timestamp': 20230727094949426, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 600}
+2023-09-04 09:42:48.404 | INFO     | __main__:signal_update:209 - {'code': '000157.SZ', 'volume': 1439, 'averagePrice': 6.77993745656706, 'cost': 0}
+2023-09-04 09:42:48.874 | INFO     | __main__:signal_update:180 - 20230727095007257 Pred trade volume: 248 at Price 6.77
+2023-09-04 09:42:48.874 | INFO     | __main__:signal_update:192 - {'timestamp': 20230727095007257, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 248}
+2023-09-04 09:42:48.874 | INFO     | __main__:signal_update:209 - {'code': '000157.SZ', 'volume': 1687, 'averagePrice': 6.778476585655008, 'cost': 0}
+2023-09-04 09:43:26.874 | INFO     | __main__:signal_update:180 - 20230727100937685 Pred trade volume: 600 at Price 6.77
+2023-09-04 09:43:26.874 | INFO     | __main__:signal_update:192 - {'timestamp': 20230727100937685, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 600}
+2023-09-04 09:43:26.875 | INFO     | __main__:signal_update:209 - {'code': '000157.SZ', 'volume': 2287, 'averagePrice': 6.776252732837778, 'cost': 0}
+2023-09-04 09:51:36.030 | INFO     | __main__:<module>:260 - Using: 20.ocet
+2023-09-04 09:51:36.031 | INFO     | __main__:<module>:267 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-04 09:51:36.031 | INFO     | __main__:<module>:273 - Simulating: 000157.SZ
+2023-09-04 09:51:36.052 | INFO     | __main__:<module>:307 - Date: 2023-07-27
+2023-09-04 09:51:36.323 | INFO     | __main__:<module>:322 - Using past feature: ['2023-07-20', '2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26']
+2023-09-04 09:51:49.913 | INFO     | __main__:signal_update:190 - {'timestamp': 20230727094003498, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.79, 'volume': 591}
+2023-09-04 09:51:49.913 | INFO     | __main__:signal_update:214 - 20230727094003498 Pred trade volume: 591 at Price 6.79, rest volume 1409
+2023-09-04 09:51:53.869 | INFO     | __main__:signal_update:190 - {'timestamp': 20230727094248876, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 248}
+2023-09-04 09:51:53.869 | INFO     | __main__:signal_update:214 - 20230727094248876 Pred trade volume: 248 at Price 6.78, rest volume 1161
+2023-09-04 09:52:03.411 | INFO     | __main__:signal_update:190 - {'timestamp': 20230727094949426, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 600}
+2023-09-04 09:52:03.412 | INFO     | __main__:signal_update:214 - 20230727094949426 Pred trade volume: 600 at Price 6.77, rest volume 561
+2023-09-04 09:52:03.900 | INFO     | __main__:signal_update:190 - {'timestamp': 20230727095007257, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 248}
+2023-09-04 09:52:03.901 | INFO     | __main__:signal_update:214 - 20230727095007257 Pred trade volume: 248 at Price 6.77, rest volume 313
+2023-09-04 09:52:41.328 | INFO     | __main__:signal_update:190 - {'timestamp': 20230727100937685, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 600}
+2023-09-04 09:52:41.328 | INFO     | __main__:signal_update:214 - 20230727100937685 Pred trade volume: 313 at Price 6.77, rest volume 0
+2023-09-04 09:59:38.324 | INFO     | __main__:<module>:270 - Using: 20.ocet
+2023-09-04 09:59:38.324 | INFO     | __main__:<module>:277 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-04 09:59:38.325 | INFO     | __main__:<module>:283 - Simulating: 000157.SZ
+2023-09-04 09:59:38.345 | INFO     | __main__:<module>:317 - Date: 2023-07-27
+2023-09-04 09:59:38.604 | INFO     | __main__:<module>:332 - Using past feature: ['2023-07-20', '2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26']
+2023-09-04 09:59:52.515 | INFO     | __main__:signal_update:199 - {'timestamp': 20230727094003498, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.79, 'volume': 591}
+2023-09-04 09:59:52.516 | INFO     | __main__:signal_update:226 - 20230727094003498 Pred trade volume: 591 at Price 6.79, rest volume 1409
+2023-09-04 09:59:56.268 | INFO     | __main__:signal_update:199 - {'timestamp': 20230727094248876, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 248}
+2023-09-04 09:59:56.268 | INFO     | __main__:signal_update:226 - 20230727094248876 Pred trade volume: 248 at Price 6.78, rest volume 1161
+2023-09-04 10:00:05.769 | INFO     | __main__:signal_update:199 - {'timestamp': 20230727094949426, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 600}
+2023-09-04 10:00:05.769 | INFO     | __main__:signal_update:226 - 20230727094949426 Pred trade volume: 600 at Price 6.77, rest volume 561
+2023-09-04 10:00:06.241 | INFO     | __main__:signal_update:199 - {'timestamp': 20230727095007257, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 248}
+2023-09-04 10:00:06.242 | INFO     | __main__:signal_update:226 - 20230727095007257 Pred trade volume: 248 at Price 6.77, rest volume 313
+2023-09-04 10:00:44.520 | INFO     | __main__:signal_update:199 - {'timestamp': 20230727100937685, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 600}
+2023-09-04 10:00:44.520 | INFO     | __main__:signal_update:226 - 20230727100937685 Pred trade volume: 313 at Price 6.77, rest volume 0
+2023-09-04 10:00:44.521 | INFO     | __main__:model_update:71 - 关闭2023-07-27 00:00:00Writer
+2023-09-04 10:00:44.531 | INFO     | __main__:model_update:73 - 将2023-07-27 00:00:00Raw文件加入归一化模块
+2023-09-04 10:00:44.871 | INFO     | __main__:model_update:77 - 生成2023-07-27 00:00:00NORM文件
+2023-09-04 10:02:15.415 | INFO     | __main__:<module>:271 - Using: 20.ocet
+2023-09-04 10:02:15.415 | INFO     | __main__:<module>:278 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-04 10:02:15.416 | INFO     | __main__:<module>:284 - Simulating: 000157.SZ
+2023-09-04 10:02:15.434 | INFO     | __main__:<module>:318 - Date: 2023-07-27
+2023-09-04 10:02:15.687 | INFO     | __main__:<module>:333 - Using past feature: ['2023-07-20', '2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26']
+2023-09-04 10:02:29.227 | INFO     | __main__:signal_update:200 - {'timestamp': 20230727094003498, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.79, 'volume': 591}
+2023-09-04 10:02:29.227 | INFO     | __main__:signal_update:227 - 20230727094003498 Pred trade volume: 591 at Price 6.79, rest volume 1409
+2023-09-04 10:02:32.965 | INFO     | __main__:signal_update:200 - {'timestamp': 20230727094248876, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 248}
+2023-09-04 10:02:32.965 | INFO     | __main__:signal_update:227 - 20230727094248876 Pred trade volume: 248 at Price 6.78, rest volume 1161
+2023-09-04 10:02:42.510 | INFO     | __main__:signal_update:200 - {'timestamp': 20230727094949426, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 600}
+2023-09-04 10:02:42.510 | INFO     | __main__:signal_update:227 - 20230727094949426 Pred trade volume: 600 at Price 6.77, rest volume 561
+2023-09-04 10:02:42.990 | INFO     | __main__:signal_update:200 - {'timestamp': 20230727095007257, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 248}
+2023-09-04 10:02:42.990 | INFO     | __main__:signal_update:227 - 20230727095007257 Pred trade volume: 248 at Price 6.77, rest volume 313
+2023-09-04 10:03:20.769 | INFO     | __main__:signal_update:200 - {'timestamp': 20230727100937685, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 600}
+2023-09-04 10:03:20.769 | INFO     | __main__:signal_update:227 - 20230727100937685 Pred trade volume: 313 at Price 6.77, rest volume 0
+2023-09-04 10:03:20.769 | INFO     | __main__:model_update:72 - 关闭2023-07-27 00:00:00Writer
+2023-09-04 10:03:20.783 | INFO     | __main__:model_update:74 - 将2023-07-27 00:00:00Raw文件加入归一化模块
+2023-09-04 10:03:21.126 | INFO     | __main__:model_update:78 - 生成2023-07-27 00:00:00NORM文件
+2023-09-04 10:03:21.206 | INFO     | __main__:model_update:81 - 生成2023-07-27 00:00:00LLOB文件
+2023-09-04 10:03:21.206 | INFO     | __main__:model_update:83 - 模型进入训练模式
+2023-09-04 10:03:21.206 | ERROR    | __main__:<module>:374 - An error has been caught in function '<module>', process 'MainProcess' (3288), thread 'MainThread' (18044):
+Traceback (most recent call last):
+
+> File "D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\run_vwap.py", line 374, in <module>
+    trader.model_update()
+    │      └ <function VWAP.model_update at 0x000002CE46D3C280>
+    └ <__main__.VWAP object at 0x000002CE46E06E80>
+
+  File "D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\run_vwap.py", line 86, in model_update
+    for epc in range(init_epoch, init_epoch + self.args.epochs):
+                     │           │            │    └ Namespace(seed=2333, epoch=20, dataset='./DATA/ML', model_save='./MODEL_SAVE')
+                     │           │            └ <__main__.VWAP object at 0x000002CE46E06E80>
+                     │           └ 20
+                     └ 20
+
+AttributeError: 'Namespace' object has no attribute 'epochs'

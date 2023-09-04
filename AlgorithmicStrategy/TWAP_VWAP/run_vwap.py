@@ -1,10 +1,7 @@
 from argparse import ArgumentParser
 from datetime import datetime
-from datetime import datetime
 from pathlib import Path
-from typing import Literal, cast
-import sys
-sys.path.append(str(Path(__file__).parent.parent.parent))
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -21,9 +18,18 @@ from AlgorithmicStrategy import (
     Writer,
     Standarder,
     TradeTime,
+    LLobWriter,
 )
-from AlgorithmicStrategy.AlgorithmicStrategy.TWAP_VWAP import save_model
-from MODELS import logger, OCET, setup_seed, MultiTaskLoss, JoyeLOB, LittleOB
+from MODELS import (
+    logger,
+    log_train,
+    OCET,
+    setup_seed,
+    MultiTaskLoss,
+    JoyeLOB,
+    LittleOB,
+    save_model,
+)
 
 
 class VWAP(AlgorithmicStrategy):
@@ -39,10 +45,12 @@ class VWAP(AlgorithmicStrategy):
         trade_time,
         model: OCET,
         logger,
-            args,
+        args,
+        littleob: LLobWriter,
         **kwargs,
     ):
         super().__init__(orderbook=orderbook, **kwargs)
+        self.end_trade = False
         self.normer = normer
         self.writer = writer
         self.queue = queue
@@ -55,18 +63,28 @@ class VWAP(AlgorithmicStrategy):
         self.model = model
         self.logger = logger
         self.args = args
+        self.littleob = littleob
 
         self.key_map = {"BUY": "ask", "SELL": "bid"}
 
+    @logger.catch()
     def model_update(self) -> None:
         self.writer.file.close()
+        self.logger.info(f"关闭{self.tick.file_date}Writer")
+        self.normer.add_file(self.writer.filename)
+        self.logger.info(f"将{self.tick.file_date}Raw文件加入归一化模块")
         self.normer.fit_transform_for_files(
             self.writer.filename, output=simu_folder / "NORM"
         )
+        self.logger.info(f"生成{self.tick.file_date}NORM文件")
         train_files = train_folder.glob("*.csv")
         self.generate_LLOB_by_ORDERBOOK()
+        self.logger.info(f"生成{self.tick.file_date}LLOB文件")
         self.model.train()
-        for epc in range(self.args.epochs):
+        self.logger.info(f"模型进入训练模式")
+        global newest_model_path
+        init_epoch = int(newest_model_path.stem)
+        for epc in range(init_epoch, init_epoch + self.args.epoch):
             loss_log = []
             for file in train_files:
                 if file not in joye_data:
@@ -102,14 +120,13 @@ class VWAP(AlgorithmicStrategy):
                 trade_price = t.Tensor(trade_price)
 
                 if t.sum(pred_trade_volume_fracs) < 1:
-                    additional_vwap = 0
                     rest = 1 - t.sum(pred_trade_volume_fracs)
                     _, final_price = llob.batch(
                         llob_file, tick.file_date_num + 14_57_00_000
                     )
                     additional_vwap = rest * final_price
                     pred_vwap = (
-                            t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
+                        t.sum(pred_trade_volume_fracs * trade_price) + additional_vwap
                     )
 
                 if t.sum(pred_trade_volume_fracs) > 1:
@@ -142,6 +159,7 @@ class VWAP(AlgorithmicStrategy):
                 optimizer.zero_grad()
                 loss.backward()
                 loss_log.append(loss.item())
+                log_train(epoch=epc, epochs=args.epoch, file=file.stem, loss=loss.item())
 
             save_model(
                 model=ocet,
@@ -150,6 +168,7 @@ class VWAP(AlgorithmicStrategy):
                 loss=float(np.mean(loss_log)),
                 path=model_save_path / f"{epc}.ocet",
             )
+
     @t.no_grad()
     def signal_update(self) -> None:
         tmp: dict = self.trade_time.get(self.timeStamp, None)
@@ -168,39 +187,52 @@ class VWAP(AlgorithmicStrategy):
                             self.key_map[self.direction]
                         ].keys()
                     )[0]
-                    self.logger.info(
-                        f"{self.timeStamp} Pred volume%: {float(vol_percent_pred)} at Price {price}"
+                    pred_trade_abs_volume = int(
+                        float(vol_percent_pred) * self.trade_volume
                     )
-                    real_vol = int(float(vol_percent_pred) * self.trade_volume)
-                    self.logger.info(f"(Real:{real_vol})")
-                    if float(vol_percent_pred) != 0 and real_vol != 0:
+                    if pred_trade_abs_volume != 0:
                         sig = signal(
                             timestamp=self.timeStamp,
                             symbol=self.tick.ticker,
                             direction=self.direction,
                             price=price,
-                            volume=real_vol,
+                            volume=pred_trade_abs_volume,
                         )
                         self.signals[self.date].append(sig)
-
                         self.logger.info(sig)
 
                         if self.date not in self.possessions:
                             self.possessions[self.date] = possession(
                                 code=self.tick.ticker,
-                                volume=real_vol,
+                                volume=pred_trade_abs_volume,
                                 averagePrice=price,
                                 cost=0,
                             )
                         else:
                             poss = self.possessions[self.date]
+
+                            temp_volume = poss["volume"] + pred_trade_abs_volume
+                            if temp_volume >= self.trade_volume:
+                                pred_trade_abs_volume = (
+                                    self.trade_volume - poss["volume"]
+                                )
+
                             poss["averagePrice"] = (
-                                poss["volume"] * poss["averagePrice"] + real_vol * price
-                            ) / (poss["volume"] + real_vol)
-                            poss["volume"] = poss["volume"] + real_vol
+                                poss["volume"] * poss["averagePrice"]
+                                + pred_trade_abs_volume * price
+                            ) / (poss["volume"] + pred_trade_abs_volume)
+                            poss["volume"] = poss["volume"] + pred_trade_abs_volume
+
                             self.possessions[self.date] = poss
 
-                        self.logger.info(self.possessions[self.date])
+                        # self.logger.info(self.possessions[self.date])
+                        self.logger.info(
+                            f"{self.timeStamp} Pred trade volume: {pred_trade_abs_volume} at Price {price}, "
+                            f"rest volume {self.trade_volume - self.possessions[self.date]['volume']}"
+                        )
+
+                        if self.possessions[self.date]["volume"] >= self.trade_volume:
+                            self.end_trade = True
 
             if tmp["update"]:
                 newest_data = self.writer.collect_data_by_timestamp(
@@ -217,7 +249,7 @@ class VWAP(AlgorithmicStrategy):
         pass
 
     def generate_LLOB_by_ORDERBOOK(self):
-        pass
+        self.littleob.write_llob()
 
 
 def get_newest_model(path: Path, suffix: str = "ocet"):
@@ -227,7 +259,6 @@ def get_newest_model(path: Path, suffix: str = "ocet"):
 
 
 if __name__ == "__main__":
-
     parser = ArgumentParser(description="Arguments for the strategy", add_help=True)
     parser.add_argument("-s", "--seed", type=int, default=2333, help="set random seed")
     parser.add_argument("-e", "--epoch", type=int, default=20)
@@ -277,7 +308,6 @@ if __name__ == "__main__":
     llob = LittleOB(direction=direction)
     loss_func = MultiTaskLoss(alpha=0.5, beta=0.5)
 
-
     # 交易时间起始
     total_begin = 9_15_00_000
     trade_begin = 9_30_03_000
@@ -292,6 +322,9 @@ if __name__ == "__main__":
             ob = OrderBook(data_api=tick)
             raw_file = simu_folder / "RAW" / tick_file.name
             writer = Writer(filename=raw_file, rollback=3000)
+            llob_writer = LLobWriter(
+                tick=tick, orderbook=ob, file_name=simu_folder / "LLOB" / tick_file.name
+            )
 
             past_files = standard.get_past_files(tick_file)
             if len(past_files) == 0:
@@ -320,12 +353,15 @@ if __name__ == "__main__":
                 trade_time=trade_time,
                 model=ocet,
                 logger=logger,
-                args=args
+                args=args,
+                littleob=llob_writer,
             )
 
             for timestamp in range(
                 tick.file_date_num + total_begin, tick.file_date_num + end
             ):
+                if trader.end_trade:
+                    break
                 datas = trader.tick.next_batch(until=timestamp)
                 if datas:
                     trader.update_orderbook(datas)

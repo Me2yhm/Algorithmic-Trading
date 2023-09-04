@@ -1,4 +1,0 @@
-2023-07-27 12:34:32.922 | INFO     | __main__:<module>:17 - ================Starting================
-2023-07-27 12:34:34.368 | INFO     | __main__:<module>:27 - Set device: cuda(0)
-2023-07-27 12:34:34.368 | INFO     | __main__:<module>:28 - Set device: cuda:0
-2023-07-27 12:34:34.371 | INFO     | __main__:<module>:31 - Set seed: 2333
