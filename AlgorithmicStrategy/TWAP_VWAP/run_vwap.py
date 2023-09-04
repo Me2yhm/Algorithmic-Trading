@@ -156,10 +156,13 @@ class VWAP(AlgorithmicStrategy):
                     market_vwap,
                     pred_vwap,
                 )
+                loss.requires_grad = True
                 optimizer.zero_grad()
                 loss.backward()
                 loss_log.append(loss.item())
-                log_train(epoch=epc, epochs=args.epoch, file=file.stem, loss=loss.item())
+                log_train(
+                    epoch=epc, epochs=args.epoch + init_epoch, file=file.stem, loss=loss.item()
+                )
 
             save_model(
                 model=ocet,
@@ -373,5 +376,28 @@ if __name__ == "__main__":
                         trader.strategy_update()
                 except IndexError:
                     continue
+            if trader.possessions[trader.date]["volume"] < trader.trade_volume:
+                rest = trader.trade_volume - trader.possessions[trader.date]["volume"]
+                final_price, _ = trader.orderbook.search_snapshot(
+                    trader.tick.file_date_num + 14_57_00_000
+                )[trader.key_map[trader.direction]].items()[0]
+                sig = signal(
+                    timestamp=trader.tick.file_date_num + 14_57_00_000,
+                    symbol=tick.ticker,
+                    direction=direction,
+                    price=final_price,
+                    volume=rest,
+                )
+                trader.signals[trader.date].append(sig)
+            trade_volume_vector = np.array(
+                [i["volume"] for i in trader.signals[trader.date]]
+            )
+            trade_price_vector = np.array(
+                [i["price"] for i in trader.signals[trader.date]]
+            )
+            pred_trade_vwap = np.sum(trade_price_vector * trade_volume_vector) / np.sum(
+                trade_volume_vector
+            )
+            logger.info(f"FINAL VWAP: {pred_trade_vwap:.2f}")
             trader.model_update()
             break
