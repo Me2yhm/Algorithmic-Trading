@@ -168,12 +168,13 @@ class anfisModel(modelType):
     def __init__(self, num_mfs: int = 2, num_out: int = 1) -> None:
         self.test_count = 0
         self.train_count = 0
+        self.train_window = 1600
+        self.test_window = 400
         self.train_data = [deque(maxlen=self.train_window) for i in range(3)]
         self.num_mfs = num_mfs
         self.num_out = num_out
         self.buyed_volume = 0
-        self.train_window = 1600
-        self.test_window = 400
+
         pass
 
     @property
