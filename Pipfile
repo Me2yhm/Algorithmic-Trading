@@ -4,6 +4,10 @@ verify_ssl = true
 name = "pip_conf_index_global"
 
 [packages]
+pandas = "*"
+loguru = "*"
+matplotlib = "*"
+tqdm = "*"
 
 [dev-packages]
 

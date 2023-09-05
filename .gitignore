@@ -1,3 +1,4 @@
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -9,7 +10,7 @@ __pycache__/
 # draft
 /**/*draft.py
 /**/*draft.ipynb
-
+/AlgorithmicStrategy/TWAP_VWAP/TEST/test_book.ipynb
 
 # env
 /env.h
@@ -67,7 +68,7 @@ cover/
 *.pot
 
 # Django stuff:
-*.log
+#*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -149,3 +150,8 @@ dmypy.json
 cython_debug/
 
 .ruff_cache
+/AlgorithmicStrategy/AlkaidOrderBook.py
+/.idea/
+/.vscode/
+!/AlgorithmicStrategy/TWAP_VWAP/TEST/test_book.ipynb
+!/AlgorithmicStrategy/TWAP_VWAP/TEST/test_book.ipynb
