@@ -10,7 +10,7 @@ __pycache__/
 # draft
 /**/*draft.py
 /**/*draft.ipynb
-
+/AlgorithmicStrategy/TWAP_VWAP/TEST/test_book.ipynb
 
 # env
 /env.h
@@ -153,3 +153,5 @@ cython_debug/
 /AlgorithmicStrategy/AlkaidOrderBook.py
 /.idea/
 /.vscode/
+!/AlgorithmicStrategy/TWAP_VWAP/TEST/test_book.ipynb
+!/AlgorithmicStrategy/TWAP_VWAP/TEST/test_book.ipynb
