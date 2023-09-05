@@ -159,6 +159,7 @@ class AlgorithmicStrategy(ABC):
         self.timeStamp = lines[-1]["time"]
 
         if self.newday:
+            self.signals[self.date] = []
             self.ticks[self.date] = {self.timeStamp: lines}
         else:
             if self.new_timeStamp:

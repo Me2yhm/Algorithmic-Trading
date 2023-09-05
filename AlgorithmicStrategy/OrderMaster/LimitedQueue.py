@@ -6,6 +6,7 @@ class LimitedQueue:
     def __init__(self, max_size):
         self.max_size = max_size
         self.queue = deque()
+        self.columns = None
 
     @property
     def size(self):
@@ -16,14 +17,12 @@ class LimitedQueue:
         if self.size >= self.max_size:
             self.queue.popleft()  # 移除最老的元素
             self.queue.append(item)
-
         else:
             self.queue.append(item)
-            if self.size == self.max_size:
-                self.df = pd.concat(self.queue, ignore_index=True, axis=1)
 
     def to_df(self):
         return pd.concat(self.queue, ignore_index=True)
+        # return pd.DataFrame(self.queue)
 
     @property
     def items(self):

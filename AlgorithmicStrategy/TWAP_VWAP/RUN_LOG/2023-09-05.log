@@ -1,0 +1,292 @@
+2023-09-05 09:07:51.242 | INFO     | __main__:<module>:294 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-05 09:07:51.243 | INFO     | __main__:<module>:301 - Using: 615.ocet
+2023-09-05 09:07:51.243 | INFO     | __main__:<module>:304 - Simulating: 000157.SZ
+2023-09-05 09:07:51.289 | INFO     | __main__:<module>:339 - Date: 2023-07-27
+2023-09-05 09:07:51.550 | INFO     | __main__:<module>:354 - Using past feature: ['2023-07-20', '2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26']
+2023-09-05 09:08:10.978 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094309086, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 131}
+2023-09-05 09:08:10.979 | INFO     | __main__:signal_update:247 - 20230727094309086 Pred trade volume: 131 at Price 6.78, rest volume 1869
+2023-09-05 09:08:11.110 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094317035, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 82}
+2023-09-05 09:08:11.110 | INFO     | __main__:signal_update:247 - 20230727094317035 Pred trade volume: 82 at Price 6.78, rest volume 1787
+2023-09-05 09:08:11.206 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094319349, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 183}
+2023-09-05 09:08:11.207 | INFO     | __main__:signal_update:247 - 20230727094319349 Pred trade volume: 183 at Price 6.78, rest volume 1604
+2023-09-05 09:08:17.058 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094730703, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 34}
+2023-09-05 09:08:17.058 | INFO     | __main__:signal_update:247 - 20230727094730703 Pred trade volume: 34 at Price 6.77, rest volume 1570
+2023-09-05 09:08:17.175 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094736853, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 289}
+2023-09-05 09:08:17.175 | INFO     | __main__:signal_update:247 - 20230727094736853 Pred trade volume: 289 at Price 6.77, rest volume 1281
+2023-09-05 09:08:17.358 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094747424, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 239}
+2023-09-05 09:08:17.358 | INFO     | __main__:signal_update:247 - 20230727094747424 Pred trade volume: 239 at Price 6.77, rest volume 1042
+2023-09-05 09:08:17.455 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094751164, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 137}
+2023-09-05 09:08:17.455 | INFO     | __main__:signal_update:247 - 20230727094751164 Pred trade volume: 137 at Price 6.77, rest volume 905
+2023-09-05 09:08:17.574 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094759083, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 196}
+2023-09-05 09:08:17.575 | INFO     | __main__:signal_update:247 - 20230727094759083 Pred trade volume: 196 at Price 6.77, rest volume 709
+2023-09-05 09:08:17.823 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094802740, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 98}
+2023-09-05 09:08:17.824 | INFO     | __main__:signal_update:247 - 20230727094802740 Pred trade volume: 98 at Price 6.77, rest volume 611
+2023-09-05 09:08:17.940 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094806773, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 39}
+2023-09-05 09:08:17.940 | INFO     | __main__:signal_update:247 - 20230727094806773 Pred trade volume: 39 at Price 6.77, rest volume 572
+2023-09-05 09:08:32.957 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727095945412, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.76, 'volume': 120}
+2023-09-05 09:08:32.957 | INFO     | __main__:signal_update:247 - 20230727095945412 Pred trade volume: 120 at Price 6.76, rest volume 452
+2023-09-05 09:08:33.154 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727095956274, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.76, 'volume': 193}
+2023-09-05 09:08:33.154 | INFO     | __main__:signal_update:247 - 20230727095956274 Pred trade volume: 193 at Price 6.76, rest volume 259
+2023-09-05 09:08:44.510 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727100004357, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.76, 'volume': 330}
+2023-09-05 09:08:44.510 | INFO     | __main__:signal_update:247 - 20230727100004357 Pred trade volume: 259 at Price 6.76, rest volume 0
+2023-09-05 09:08:44.511 | INFO     | __main__:<module>:417 - FINAL VWAP: 6.77
+2023-09-05 09:08:44.511 | INFO     | __main__:<module>:421 - MARKET VWAP: 6.77
+2023-09-05 09:08:44.511 | INFO     | __main__:<module>:426 - WIN: True
+2023-09-05 09:08:44.511 | INFO     | __main__:model_update:76 - 关闭2023-07-27 00:00:00Writer
+2023-09-05 09:08:44.520 | INFO     | __main__:model_update:78 - 将2023-07-27 00:00:00Raw文件加入归一化模块
+2023-09-05 09:08:44.803 | INFO     | __main__:model_update:82 - 生成2023-07-27 00:00:00NORM文件
+2023-09-05 09:08:44.859 | INFO     | __main__:model_update:85 - 生成2023-07-27 00:00:00LLOB文件
+2023-09-05 09:08:44.860 | INFO     | __main__:model_update:87 - 模型进入训练模式
+2023-09-05 09:08:45.548 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230704095125255; 原因：交易量达到
+2023-09-05 09:08:45.549 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.7303900718688965,vwap_loss=0.017906665802001953,volume_traded=0.9999998807907104
+2023-09-05 09:08:46.793 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-04, Loss: 0.006603923160582781
+2023-09-05 09:08:47.196 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230705094033914; 原因：交易量达到
+2023-09-05 09:08:47.198 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.685160160064697,vwap_loss=-0.00937652587890625,volume_traded=0.9999993443489075
+2023-09-05 09:08:47.198 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-05, Loss: -0.0015901665901765227
+2023-09-05 09:08:47.625 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230706094034156; 原因：交易量达到
+2023-09-05 09:08:47.626 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.649762153625488,vwap_loss=-0.0013518333435058594,volume_traded=1.0000001192092896
+2023-09-05 09:08:47.626 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-06, Loss: 0.0006581976194866002
+2023-09-05 09:08:48.226 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230707094311964; 原因：交易量达到
+2023-09-05 09:08:48.227 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.630068302154541,vwap_loss=-0.07115459442138672,volume_traded=0.9999999403953552
+2023-09-05 09:08:48.228 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-07, Loss: -0.022754915058612823
+2023-09-05 09:08:49.973 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230710101740600; 原因：交易量达到
+2023-09-05 09:08:49.975 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.671192169189453,vwap_loss=0.00852060317993164,volume_traded=0.9999957084655762
+2023-09-05 09:08:49.975 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-10, Loss: 0.0029330537654459476
+2023-09-05 09:08:50.654 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230711094729215; 原因：交易量达到
+2023-09-05 09:08:50.656 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.6418046951293945,vwap_loss=-0.04565286636352539,volume_traded=0.9999993443489075
+2023-09-05 09:08:50.656 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-11, Loss: -0.014827216975390911
+2023-09-05 09:08:51.373 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230712094755173; 原因：交易量达到
+2023-09-05 09:08:51.375 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.731047630310059,vwap_loss=0.029644489288330078,volume_traded=0.9999992847442627
+2023-09-05 09:08:51.375 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-12, Loss: 0.010334604419767857
+2023-09-05 09:08:53.564 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230713102229043; 原因：交易量达到
+2023-09-05 09:08:53.566 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.651187896728516,vwap_loss=-0.021890640258789062,volume_traded=0.9999997019767761
+2023-09-05 09:08:53.566 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-13, Loss: -0.0072077056393027306
+2023-09-05 09:08:54.163 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230714094119415; 原因：交易量达到
+2023-09-05 09:08:54.164 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.769803524017334,vwap_loss=-0.1146697998046875,volume_traded=1.0
+2023-09-05 09:08:54.164 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-14, Loss: -0.03737388923764229
+2023-09-05 09:08:54.628 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230717093708154; 原因：交易量达到
+2023-09-05 09:08:54.630 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.910177230834961,vwap_loss=-0.06953954696655273,volume_traded=0.9999998807907104
+2023-09-05 09:08:54.631 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-17, Loss: -0.019240014255046844
+2023-09-05 09:08:55.450 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230718094437465; 原因：交易量达到
+2023-09-05 09:08:55.453 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.934760570526123,vwap_loss=-0.10330820083618164,volume_traded=0.9999999403953552
+2023-09-05 09:08:55.454 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-18, Loss: -0.03349669277667999
+2023-09-05 09:08:56.457 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230719094823113; 原因：交易量达到
+2023-09-05 09:08:56.458 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.060399055480957,vwap_loss=-0.01502084732055664,volume_traded=1.000000238418579
+2023-09-05 09:08:56.459 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-19, Loss: -0.004360474646091461
+2023-09-05 09:08:57.763 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230720095403988; 原因：交易量达到
+2023-09-05 09:08:57.764 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=7.07029914855957,vwap_loss=0.02362060546875,volume_traded=1.0
+2023-09-05 09:08:57.765 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-20, Loss: 0.008238044567406178
+2023-09-05 09:08:58.380 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230721093841387; 原因：交易量达到
+2023-09-05 09:08:58.381 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.617260456085205,vwap_loss=-0.023166179656982422,volume_traded=1.0
+2023-09-05 09:08:58.382 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-21, Loss: -0.005257195793092251
+2023-09-05 09:08:59.825 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230724095422257; 原因：交易量达到
+2023-09-05 09:08:59.826 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.570476531982422,vwap_loss=-0.023436546325683594,volume_traded=1.0
+2023-09-05 09:08:59.826 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-24, Loss: -0.007494540419429541
+2023-09-05 09:09:00.536 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230725093928943; 原因：交易量达到
+2023-09-05 09:09:00.538 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.746774196624756,vwap_loss=-0.08950567245483398,volume_traded=1.000000238418579
+2023-09-05 09:09:00.538 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-25, Loss: -0.028109319508075714
+2023-09-05 09:09:01.581 | WARNING  | __main__:model_update:125 - 交易未到尾盘，提前终止：20230726094501313; 原因：交易量达到
+2023-09-05 09:09:01.584 | INFO     | MODELS.multi_task_loss:calculate_loss:56 - vwap_ml=6.840696811676025,vwap_loss=0.05927848815917969,volume_traded=0.9999998807907104
+2023-09-05 09:09:01.584 | INFO     | MODELS.log:log_train:26 - Epoch: 615/635,file 2023-07-26, Loss: 0.020345548167824745
+2023-09-05 09:09:01.604 | ERROR    | __main__:<module>:427 - An error has been caught in function '<module>', process 'MainProcess' (15632), thread 'MainThread' (14692):
+Traceback (most recent call last):
+
+> File "D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\run_vwap.py", line 427, in <module>
+    trader.model_update()
+    │      └ <function VWAP.model_update at 0x00000200EF220430>
+    └ <__main__.VWAP object at 0x00000200EF2ACEE0>
+
+  File "D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\run_vwap.py", line 94, in model_update
+    joye_data.push(file)
+    │         │    └ WindowsPath('D:/Fudan/Work/JoyE_work/AlgorithmicStrategy/AlgorithmicStrategy/TWAP_VWAP/REAL/NORM/2023-07-27.csv')
+    │         └ <function JoyeLOB.push at 0x00000200EC4E53A0>
+    └ <MODELS.data_load.JoyeLOB object at 0x00000200EF29E1F0>
+
+  File "D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\MODELS\data_load.py", line 33, in push
+    data: np.ndarray = np.loadtxt(file, delimiter=",", skiprows=1)
+          │  │         │  │       └ WindowsPath('D:/Fudan/Work/JoyE_work/AlgorithmicStrategy/AlgorithmicStrategy/TWAP_VWAP/REAL/NORM/2023-07-27.csv')
+          │  │         │  └ <function loadtxt at 0x00000200DF879160>
+          │  │         └ <module 'numpy' from 'C:\\Users\\Alkaid\\miniconda3\\envs\\mytorch\\lib\\site-packages\\numpy\\__init__.py'>
+          │  └ <class 'numpy.ndarray'>
+          └ <module 'numpy' from 'C:\\Users\\Alkaid\\miniconda3\\envs\\mytorch\\lib\\site-packages\\numpy\\__init__.py'>
+
+  File "C:\Users\Alkaid\miniconda3\envs\mytorch\lib\site-packages\numpy\lib\npyio.py", line 1301, in loadtxt
+    arr = _read(fname, dtype=dtype, comment=comment, delimiter=delimiter,
+          │     │            │              │                  └ ','
+          │     │            │              └ ['#']
+          │     │            └ <class 'float'>
+          │     └ WindowsPath('D:/Fudan/Work/JoyE_work/AlgorithmicStrategy/AlgorithmicStrategy/TWAP_VWAP/REAL/NORM/2023-07-27.csv')
+          └ <function _read at 0x00000200DF879040>
+
+  File "C:\Users\Alkaid\miniconda3\envs\mytorch\lib\site-packages\numpy\lib\npyio.py", line 979, in _read
+    arr = _load_from_filelike(
+          └ <built-in function _load_from_filelike>
+
+ValueError: could not convert string '' to float64 at row 601, column 1.
+2023-09-05 09:13:41.284 | INFO     | __main__:<module>:294 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-05 09:13:41.285 | INFO     | __main__:<module>:301 - Using: 615.ocet
+2023-09-05 09:13:41.285 | INFO     | __main__:<module>:304 - Simulating: 000157.SZ
+2023-09-05 09:13:41.309 | INFO     | __main__:<module>:339 - Date: 2023-07-27
+2023-09-05 09:13:41.565 | INFO     | __main__:<module>:354 - Using past feature: ['2023-07-20', '2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26']
+2023-09-05 09:13:58.392 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094309086, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 131}
+2023-09-05 09:13:58.393 | INFO     | __main__:signal_update:247 - 20230727094309086 Pred trade volume: 131 at Price 6.78, rest volume 1869
+2023-09-05 09:13:58.509 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094317035, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 82}
+2023-09-05 09:13:58.509 | INFO     | __main__:signal_update:247 - 20230727094317035 Pred trade volume: 82 at Price 6.78, rest volume 1787
+2023-09-05 09:13:58.594 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094319349, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.78, 'volume': 183}
+2023-09-05 09:13:58.594 | INFO     | __main__:signal_update:247 - 20230727094319349 Pred trade volume: 183 at Price 6.78, rest volume 1604
+2023-09-05 09:14:04.046 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094730703, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 34}
+2023-09-05 09:14:04.047 | INFO     | __main__:signal_update:247 - 20230727094730703 Pred trade volume: 34 at Price 6.77, rest volume 1570
+2023-09-05 09:14:04.157 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094736853, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 289}
+2023-09-05 09:14:04.157 | INFO     | __main__:signal_update:247 - 20230727094736853 Pred trade volume: 289 at Price 6.77, rest volume 1281
+2023-09-05 09:14:04.285 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094747424, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 239}
+2023-09-05 09:14:04.285 | INFO     | __main__:signal_update:247 - 20230727094747424 Pred trade volume: 239 at Price 6.77, rest volume 1042
+2023-09-05 09:14:04.371 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094751164, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 137}
+2023-09-05 09:14:04.371 | INFO     | __main__:signal_update:247 - 20230727094751164 Pred trade volume: 137 at Price 6.77, rest volume 905
+2023-09-05 09:14:04.493 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094759083, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 196}
+2023-09-05 09:14:04.493 | INFO     | __main__:signal_update:247 - 20230727094759083 Pred trade volume: 196 at Price 6.77, rest volume 709
+2023-09-05 09:14:04.723 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094802740, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 98}
+2023-09-05 09:14:04.723 | INFO     | __main__:signal_update:247 - 20230727094802740 Pred trade volume: 98 at Price 6.77, rest volume 611
+2023-09-05 09:14:04.815 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727094806773, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.77, 'volume': 39}
+2023-09-05 09:14:04.815 | INFO     | __main__:signal_update:247 - 20230727094806773 Pred trade volume: 39 at Price 6.77, rest volume 572
+2023-09-05 09:14:18.898 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727095945412, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.76, 'volume': 120}
+2023-09-05 09:14:18.898 | INFO     | __main__:signal_update:247 - 20230727095945412 Pred trade volume: 120 at Price 6.76, rest volume 452
+2023-09-05 09:14:19.075 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727095956274, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.76, 'volume': 193}
+2023-09-05 09:14:19.075 | INFO     | __main__:signal_update:247 - 20230727095956274 Pred trade volume: 193 at Price 6.76, rest volume 259
+2023-09-05 09:14:29.798 | INFO     | __main__:signal_update:220 - {'timestamp': 20230727100004357, 'symbol': '000157.SZ', 'direction': 'BUY', 'price': 6.76, 'volume': 330}
+2023-09-05 09:14:29.798 | INFO     | __main__:signal_update:247 - 20230727100004357 Pred trade volume: 259 at Price 6.76, rest volume 0
+2023-09-05 09:17:23.808 | INFO     | __main__:<module>:415 - FINAL VWAP: 6.77
+2023-09-05 09:17:23.808 | INFO     | __main__:<module>:419 - MARKET VWAP: 6.75
+2023-09-05 09:17:23.808 | INFO     | __main__:<module>:424 - WIN: False
+2023-09-05 09:20:17.790 | INFO     | __main__:<module>:295 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-05 09:20:17.790 | INFO     | __main__:<module>:302 - Using: 615.ocet
+2023-09-05 09:20:17.790 | INFO     | __main__:<module>:305 - Simulating: 000157.SZ
+2023-09-05 09:20:17.808 | INFO     | __main__:<module>:340 - Date: 2023-07-27
+2023-09-05 09:20:18.076 | INFO     | __main__:<module>:355 - Using past feature: ['2023-07-20', '2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26']
+2023-09-05 09:20:35.353 | INFO     | __main__:signal_update:247 - 20230727094309086 Pred trade volume: 131 at Price 6.78, rest volume 1869
+2023-09-05 09:20:35.473 | INFO     | __main__:signal_update:247 - 20230727094317035 Pred trade volume: 82 at Price 6.78, rest volume 1787
+2023-09-05 09:20:35.558 | INFO     | __main__:signal_update:247 - 20230727094319349 Pred trade volume: 183 at Price 6.78, rest volume 1604
+2023-09-05 09:20:41.611 | INFO     | __main__:signal_update:247 - 20230727094730703 Pred trade volume: 34 at Price 6.77, rest volume 1570
+2023-09-05 09:20:41.741 | INFO     | __main__:signal_update:247 - 20230727094736853 Pred trade volume: 289 at Price 6.77, rest volume 1281
+2023-09-05 09:20:41.874 | INFO     | __main__:signal_update:247 - 20230727094747424 Pred trade volume: 239 at Price 6.77, rest volume 1042
+2023-09-05 09:20:41.996 | INFO     | __main__:signal_update:247 - 20230727094751164 Pred trade volume: 137 at Price 6.77, rest volume 905
+2023-09-05 09:20:42.132 | INFO     | __main__:signal_update:247 - 20230727094759083 Pred trade volume: 196 at Price 6.77, rest volume 709
+2023-09-05 09:20:42.373 | INFO     | __main__:signal_update:247 - 20230727094802740 Pred trade volume: 98 at Price 6.77, rest volume 611
+2023-09-05 09:20:42.483 | INFO     | __main__:signal_update:247 - 20230727094806773 Pred trade volume: 39 at Price 6.77, rest volume 572
+2023-09-05 09:20:57.989 | INFO     | __main__:signal_update:247 - 20230727095945412 Pred trade volume: 120 at Price 6.76, rest volume 452
+2023-09-05 09:20:58.178 | INFO     | __main__:signal_update:247 - 20230727095956274 Pred trade volume: 193 at Price 6.76, rest volume 259
+2023-09-05 09:21:09.384 | INFO     | __main__:signal_update:247 - 20230727100004357 Pred trade volume: 259 at Price 6.76, rest volume 0
+2023-09-05 09:21:09.384 | WARNING  | __main__:signal_update:254 - 交易结束, 行情将持续更新直至今日收盘
+2023-09-05 09:21:09.384 | INFO     | __main__:<module>:418 - FINAL VWAP: 6.77
+2023-09-05 09:21:09.384 | INFO     | __main__:<module>:422 - MARKET VWAP: 6.77
+2023-09-05 09:21:09.384 | INFO     | __main__:<module>:427 - WIN: True
+2023-09-05 09:21:09.384 | INFO     | __main__:<module>:431 - WIN RATE: 100.00
+2023-09-05 09:23:28.505 | INFO     | __main__:<module>:295 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-05 09:23:28.505 | INFO     | __main__:<module>:302 - Using: 615.ocet
+2023-09-05 09:23:28.506 | INFO     | __main__:<module>:305 - Simulating: 000157.SZ
+2023-09-05 09:23:28.524 | INFO     | __main__:<module>:340 - Date: 2023-07-27
+2023-09-05 09:23:28.768 | INFO     | __main__:<module>:355 - Using past feature: ['2023-07-20', '2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26']
+2023-09-05 09:23:46.103 | INFO     | __main__:signal_update:247 - 20230727094309086 Pred trade volume: 131 at Price 6.78, rest volume 1869
+2023-09-05 09:23:46.232 | INFO     | __main__:signal_update:247 - 20230727094317035 Pred trade volume: 82 at Price 6.78, rest volume 1787
+2023-09-05 09:23:46.320 | INFO     | __main__:signal_update:247 - 20230727094319349 Pred trade volume: 183 at Price 6.78, rest volume 1604
+2023-09-05 09:23:51.631 | INFO     | __main__:signal_update:247 - 20230727094730703 Pred trade volume: 34 at Price 6.77, rest volume 1570
+2023-09-05 09:23:51.745 | INFO     | __main__:signal_update:247 - 20230727094736853 Pred trade volume: 289 at Price 6.77, rest volume 1281
+2023-09-05 09:23:51.893 | INFO     | __main__:signal_update:247 - 20230727094747424 Pred trade volume: 239 at Price 6.77, rest volume 1042
+2023-09-05 09:23:51.981 | INFO     | __main__:signal_update:247 - 20230727094751164 Pred trade volume: 137 at Price 6.77, rest volume 905
+2023-09-05 09:23:52.092 | INFO     | __main__:signal_update:247 - 20230727094759083 Pred trade volume: 196 at Price 6.77, rest volume 709
+2023-09-05 09:23:52.301 | INFO     | __main__:signal_update:247 - 20230727094802740 Pred trade volume: 98 at Price 6.77, rest volume 611
+2023-09-05 09:23:52.397 | INFO     | __main__:signal_update:247 - 20230727094806773 Pred trade volume: 39 at Price 6.77, rest volume 572
+2023-09-05 09:24:07.030 | INFO     | __main__:signal_update:247 - 20230727095945412 Pred trade volume: 120 at Price 6.76, rest volume 452
+2023-09-05 09:24:07.255 | INFO     | __main__:signal_update:247 - 20230727095956274 Pred trade volume: 193 at Price 6.76, rest volume 259
+2023-09-05 09:24:18.234 | INFO     | __main__:signal_update:247 - 20230727100004357 Pred trade volume: 259 at Price 6.76, rest volume 0
+2023-09-05 09:24:18.234 | WARNING  | __main__:signal_update:254 - 交易结束, 行情将持续更新直至今日收盘
+2023-09-05 09:27:08.896 | INFO     | __main__:<module>:418 - FINAL VWAP: 6.77
+2023-09-05 09:27:08.896 | INFO     | __main__:<module>:422 - MARKET VWAP: 6.75
+2023-09-05 09:27:08.896 | INFO     | __main__:<module>:427 - WIN: False
+2023-09-05 09:27:08.897 | INFO     | __main__:<module>:340 - Date: 2023-07-28
+2023-09-05 09:27:08.982 | INFO     | __main__:<module>:355 - Using past feature: ['2023-07-21', '2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27']
+2023-09-05 09:27:20.119 | INFO     | __main__:signal_update:247 - 20230728093833650 Pred trade volume: 6 at Price 6.72, rest volume 1994
+2023-09-05 09:27:20.319 | INFO     | __main__:signal_update:247 - 20230728093842616 Pred trade volume: 34 at Price 6.72, rest volume 1960
+2023-09-05 09:27:20.659 | INFO     | __main__:signal_update:247 - 20230728093858185 Pred trade volume: 60 at Price 6.72, rest volume 1900
+2023-09-05 09:27:32.289 | INFO     | __main__:signal_update:247 - 20230728094750251 Pred trade volume: 62 at Price 6.75, rest volume 1838
+2023-09-05 09:27:32.396 | INFO     | __main__:signal_update:247 - 20230728094757641 Pred trade volume: 255 at Price 6.75, rest volume 1583
+2023-09-05 09:27:32.932 | INFO     | __main__:signal_update:247 - 20230728094814961 Pred trade volume: 200 at Price 6.75, rest volume 1383
+2023-09-05 09:27:33.024 | INFO     | __main__:signal_update:247 - 20230728094820259 Pred trade volume: 303 at Price 6.75, rest volume 1080
+2023-09-05 09:27:33.121 | INFO     | __main__:signal_update:247 - 20230728094826937 Pred trade volume: 59 at Price 6.75, rest volume 1021
+2023-09-05 09:27:33.208 | INFO     | __main__:signal_update:247 - 20230728094832713 Pred trade volume: 576 at Price 6.75, rest volume 445
+2023-09-05 09:27:38.242 | INFO     | __main__:signal_update:247 - 20230728095239731 Pred trade volume: 45 at Price 6.74, rest volume 400
+2023-09-05 09:27:38.584 | INFO     | __main__:signal_update:247 - 20230728095255062 Pred trade volume: 400 at Price 6.74, rest volume 0
+2023-09-05 09:27:38.584 | WARNING  | __main__:signal_update:254 - 交易结束, 行情将持续更新直至今日收盘
+2023-09-05 09:30:49.939 | INFO     | __main__:<module>:418 - FINAL VWAP: 6.75
+2023-09-05 09:30:49.940 | INFO     | __main__:<module>:422 - MARKET VWAP: 6.82
+2023-09-05 09:30:49.940 | INFO     | __main__:<module>:427 - WIN: True
+2023-09-05 09:30:49.940 | INFO     | __main__:<module>:430 - WIN RATE: 50.00
+2023-09-05 09:34:31.260 | INFO     | __main__:<module>:295 - Simulating folder: D:\Fudan\Work\JoyE_work\AlgorithmicStrategy\AlgorithmicStrategy\TWAP_VWAP\REAL
+2023-09-05 09:34:31.261 | INFO     | __main__:<module>:302 - Using: 615.ocet
+2023-09-05 09:34:31.262 | INFO     | __main__:<module>:305 - Simulating: 000157.SZ
+2023-09-05 09:34:31.283 | INFO     | __main__:<module>:340 - Date: 2023-07-19
+2023-09-05 09:34:31.559 | INFO     | __main__:<module>:355 - Using past feature: ['2023-07-12', '2023-07-13', '2023-07-14', '2023-07-17', '2023-07-18']
+2023-09-05 09:34:56.790 | INFO     | __main__:signal_update:247 - 20230719094747424 Pred trade volume: 1 at Price 7.06, rest volume 1999
+2023-09-05 09:34:56.884 | INFO     | __main__:signal_update:247 - 20230719094751164 Pred trade volume: 109 at Price 7.06, rest volume 1890
+2023-09-05 09:34:57.024 | INFO     | __main__:signal_update:247 - 20230719094759083 Pred trade volume: 299 at Price 7.06, rest volume 1591
+2023-09-05 09:34:57.258 | INFO     | __main__:signal_update:247 - 20230719094802740 Pred trade volume: 415 at Price 7.06, rest volume 1176
+2023-09-05 09:34:57.353 | INFO     | __main__:signal_update:247 - 20230719094806773 Pred trade volume: 268 at Price 7.06, rest volume 908
+2023-09-05 09:34:57.465 | INFO     | __main__:signal_update:247 - 20230719094813956 Pred trade volume: 423 at Price 7.06, rest volume 485
+2023-09-05 09:34:57.585 | INFO     | __main__:signal_update:247 - 20230719094821442 Pred trade volume: 485 at Price 7.06, rest volume 0
+2023-09-05 09:34:57.585 | WARNING  | __main__:signal_update:254 - 交易结束, 行情将持续更新直至今日收盘
+2023-09-05 09:38:18.222 | INFO     | __main__:<module>:418 - FINAL VWAP: 7.06
+2023-09-05 09:38:18.222 | INFO     | __main__:<module>:422 - MARKET VWAP: 7.08
+2023-09-05 09:38:18.222 | INFO     | __main__:<module>:427 - WIN: True
+2023-09-05 09:38:18.222 | INFO     | __main__:<module>:340 - Date: 2023-07-20
+2023-09-05 09:38:18.308 | INFO     | __main__:<module>:355 - Using past feature: ['2023-07-13', '2023-07-14', '2023-07-17', '2023-07-18', '2023-07-19']
+2023-09-05 09:38:41.867 | INFO     | __main__:signal_update:247 - 20230720094716045 Pred trade volume: 89 at Price 7.08, rest volume 1911
+2023-09-05 09:38:42.057 | INFO     | __main__:signal_update:247 - 20230720094726007 Pred trade volume: 64 at Price 7.08, rest volume 1847
+2023-09-05 09:38:42.270 | INFO     | __main__:signal_update:247 - 20230720094737167 Pred trade volume: 41 at Price 7.08, rest volume 1806
+2023-09-05 09:38:45.900 | INFO     | __main__:signal_update:247 - 20230720095001038 Pred trade volume: 262 at Price 7.07, rest volume 1544
+2023-09-05 09:38:46.152 | INFO     | __main__:signal_update:247 - 20230720095015121 Pred trade volume: 326 at Price 7.07, rest volume 1218
+2023-09-05 09:38:46.361 | INFO     | __main__:signal_update:247 - 20230720095018674 Pred trade volume: 179 at Price 7.07, rest volume 1039
+2023-09-05 09:38:50.491 | INFO     | __main__:signal_update:247 - 20230720095325771 Pred trade volume: 5 at Price 7.07, rest volume 1034
+2023-09-05 09:38:50.589 | INFO     | __main__:signal_update:247 - 20230720095332383 Pred trade volume: 211 at Price 7.07, rest volume 823
+2023-09-05 09:38:50.770 | INFO     | __main__:signal_update:247 - 20230720095341172 Pred trade volume: 330 at Price 7.07, rest volume 493
+2023-09-05 09:38:50.888 | INFO     | __main__:signal_update:247 - 20230720095347239 Pred trade volume: 462 at Price 7.07, rest volume 31
+2023-09-05 09:38:50.972 | INFO     | __main__:signal_update:247 - 20230720095348983 Pred trade volume: 31 at Price 7.07, rest volume 0
+2023-09-05 09:38:50.972 | WARNING  | __main__:signal_update:254 - 交易结束, 行情将持续更新直至今日收盘
+2023-09-05 09:42:15.518 | INFO     | __main__:<module>:418 - FINAL VWAP: 7.07
+2023-09-05 09:42:15.518 | INFO     | __main__:<module>:422 - MARKET VWAP: 7.05
+2023-09-05 09:42:15.518 | INFO     | __main__:<module>:427 - WIN: False
+2023-09-05 09:42:15.518 | INFO     | __main__:<module>:340 - Date: 2023-07-21
+2023-09-05 09:42:15.602 | INFO     | __main__:<module>:355 - Using past feature: ['2023-07-14', '2023-07-17', '2023-07-18', '2023-07-19', '2023-07-20']
+2023-09-05 09:42:28.755 | INFO     | __main__:signal_update:247 - 20230721093804436 Pred trade volume: 99 at Price 6.62, rest volume 1901
+2023-09-05 09:42:28.851 | INFO     | __main__:signal_update:247 - 20230721093807118 Pred trade volume: 65 at Price 6.62, rest volume 1836
+2023-09-05 09:42:29.002 | INFO     | __main__:signal_update:247 - 20230721093815403 Pred trade volume: 402 at Price 6.62, rest volume 1434
+2023-09-05 09:42:29.123 | INFO     | __main__:signal_update:247 - 20230721093822109 Pred trade volume: 239 at Price 6.62, rest volume 1195
+2023-09-05 09:42:29.228 | INFO     | __main__:signal_update:247 - 20230721093827565 Pred trade volume: 170 at Price 6.62, rest volume 1025
+2023-09-05 09:42:29.370 | INFO     | __main__:signal_update:247 - 20230721093834731 Pred trade volume: 309 at Price 6.61, rest volume 716
+2023-09-05 09:42:29.479 | INFO     | __main__:signal_update:247 - 20230721093841190 Pred trade volume: 508 at Price 6.61, rest volume 208
+2023-09-05 09:42:29.596 | INFO     | __main__:signal_update:247 - 20230721093846254 Pred trade volume: 208 at Price 6.62, rest volume 0
+2023-09-05 09:42:29.597 | WARNING  | __main__:signal_update:254 - 交易结束, 行情将持续更新直至今日收盘
+2023-09-05 09:46:04.500 | INFO     | __main__:<module>:418 - FINAL VWAP: 6.62
+2023-09-05 09:46:04.501 | INFO     | __main__:<module>:422 - MARKET VWAP: 6.64
+2023-09-05 09:46:04.501 | INFO     | __main__:<module>:427 - WIN: True
+2023-09-05 09:46:04.501 | INFO     | __main__:<module>:340 - Date: 2023-07-24
+2023-09-05 09:46:04.599 | INFO     | __main__:<module>:355 - Using past feature: ['2023-07-17', '2023-07-18', '2023-07-19', '2023-07-20', '2023-07-21']
+2023-09-05 09:46:35.532 | INFO     | __main__:signal_update:247 - 20230724095355783 Pred trade volume: 228 at Price 6.57, rest volume 1772
+2023-09-05 09:46:35.756 | INFO     | __main__:signal_update:247 - 20230724095400789 Pred trade volume: 381 at Price 6.57, rest volume 1391
+2023-09-05 09:46:35.880 | INFO     | __main__:signal_update:247 - 20230724095407927 Pred trade volume: 410 at Price 6.57, rest volume 981
+2023-09-05 09:46:35.995 | INFO     | __main__:signal_update:247 - 20230724095413883 Pred trade volume: 408 at Price 6.57, rest volume 573
+2023-09-05 09:46:36.112 | INFO     | __main__:signal_update:247 - 20230724095420618 Pred trade volume: 323 at Price 6.57, rest volume 250
+2023-09-05 09:46:36.242 | INFO     | __main__:signal_update:247 - 20230724095428049 Pred trade volume: 220 at Price 6.57, rest volume 30
+2023-09-05 09:46:36.351 | INFO     | __main__:signal_update:247 - 20230724095432910 Pred trade volume: 30 at Price 6.57, rest volume 0
+2023-09-05 09:46:36.351 | WARNING  | __main__:signal_update:254 - 交易结束, 行情将持续更新直至今日收盘
+2023-09-05 09:49:47.959 | INFO     | __main__:<module>:418 - FINAL VWAP: 6.57
+2023-09-05 09:49:47.960 | INFO     | __main__:<module>:422 - MARKET VWAP: 6.59
+2023-09-05 09:49:47.960 | INFO     | __main__:<module>:427 - WIN: True
+2023-09-05 09:49:47.960 | INFO     | __main__:<module>:340 - Date: 2023-07-25
+2023-09-05 09:49:48.053 | INFO     | __main__:<module>:355 - Using past feature: ['2023-07-18', '2023-07-19', '2023-07-20', '2023-07-21', '2023-07-24']
+2023-09-05 09:50:01.058 | INFO     | __main__:signal_update:247 - 20230725093839045 Pred trade volume: 432 at Price 6.74, rest volume 1568
+2023-09-05 09:50:01.158 | INFO     | __main__:signal_update:247 - 20230725093843915 Pred trade volume: 446 at Price 6.74, rest volume 1122
+2023-09-05 09:50:01.292 | INFO     | __main__:signal_update:247 - 20230725093851161 Pred trade volume: 39 at Price 6.74, rest volume 1083
+2023-09-05 09:50:01.691 | INFO     | __main__:signal_update:247 - 20230725093904150 Pred trade volume: 11 at Price 6.74, rest volume 1072
+2023-09-05 09:50:01.919 | INFO     | __main__:signal_update:247 - 20230725093909855 Pred trade volume: 471 at Price 6.75, rest volume 601
+2023-09-05 09:50:02.095 | INFO     | __main__:signal_update:247 - 20230725093916831 Pred trade volume: 405 at Price 6.75, rest volume 196
+2023-09-05 09:50:02.235 | INFO     | __main__:signal_update:247 - 20230725093922910 Pred trade volume: 196 at Price 6.75, rest volume 0
+2023-09-05 09:50:02.235 | WARNING  | __main__:signal_update:254 - 交易结束, 行情将持续更新直至今日收盘
