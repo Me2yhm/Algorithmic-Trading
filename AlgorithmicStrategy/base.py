@@ -157,8 +157,7 @@ class AlgorithmicStrategy(ABC):
         except AssertionError:
             raise ValueError("lines need the same timestamp")
         self.timeStamp = lines[-1]["time"]
-        self.date = get_date(self.timeStamp)
-        self.record_price(lines)
+
         if self.newday:
             self.ticks[self.date] = {self.timeStamp: lines}
         else:
@@ -173,6 +172,8 @@ class AlgorithmicStrategy(ABC):
                 self.new_timeStamp = False
                 return
             self.orderbook.single_update(self.lines)
+            self.date = get_date(self.timeStamp)
+            self.record_price(self.lines)
             self.lines = []
         self.lines.extend(lines)
 
