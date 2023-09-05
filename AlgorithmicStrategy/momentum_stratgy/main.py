@@ -6,7 +6,6 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Union
 from collections import deque
 
-<<<<<<< HEAD
 
 import torch
 from torch.utils.data import TensorDataset, DataLoader
@@ -16,18 +15,8 @@ from .anfis_pytorch.membership import make_anfis
 from .anfis_pytorch.experimental import train_anfis
 from .anfis_pytorch.anfis import AnfisNet
 from ..base import AlgorithmicStrategy, Possession, Signal, Deal
-=======
-<<<<<<< HEAD
-from AlgorithmicStrategy.momentum_stratgy.modelType import modelType
-from ..base import AlgorithmicStrategy, possession, signal
-from .modelType import modelType, Model_reverse
-from .modelType import 
-=======
-from ..base import AlgorithmicStrategy, possession
->>>>>>> 3664cec8d7c2fcd1a0019785c13808690064b5f9
 from .modelType import modelType
 from .ReverseMomentum import Model_reverse
->>>>>>> 07a00246cd0fdc05c49602bca829b8b9657cfcd2
 from ..OrderMaster.OrderBook import OrderBook
 
 parent_path = Path(__file__).parent
@@ -291,7 +280,6 @@ class reverse_strategy(momentumStratgy):
                 indicators.update(zip(indicators.keys(), indicator_values))
                 self.model_indicator.append(indicators)
 
-<<<<<<< HEAD
     def signal_update(self):
         if self.newday:
             self.anfis_model = anfisModel()
@@ -313,20 +301,3 @@ class reverse_strategy(momentumStratgy):
                 logging.info("generate a signal")
             else:
                 self.has_signal = False
-=======
-    def signal_update(self, index_dict):
-        pass
-
-    def strategy_update(self):
-        pass
-<<<<<<< HEAD
-    def stratgy_update(self):
-        pass
-    
-class UmrStrategy(momentumStratgy):
-    """umr因子"""
-    def model_update(self, model: type[modelType] | modelType) -> None:
-        return super().model_update(model)
-=======
->>>>>>> 07a00246cd0fdc05c49602bca829b8b9657cfcd2
->>>>>>> 3664cec8d7c2fcd1a0019785c13808690064b5f9
