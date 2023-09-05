@@ -1,7 +1,11 @@
+import logging
+import numpy as np
+
+from pathlib import Path
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
 from collections import deque
-import numpy as np
+
 
 import torch
 from torch.utils.data import TensorDataset, DataLoader
@@ -14,6 +18,13 @@ from ..base import AlgorithmicStrategy, Possession, Signal, Deal
 from .modelType import modelType
 from .ReverseMomentum import Model_reverse
 from ..OrderMaster.OrderBook import OrderBook
+
+parent_path = Path(__file__).parent
+logging.basicConfig(
+    filename=Path.joinpath(parent_path, "reverse.log"),
+    level=logging.INFO,
+    format="%(asctime)s-%(message)s",
+)
 
 
 class momentumStratgy(AlgorithmicStrategy, ABC):
@@ -76,28 +87,27 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
         if self.has_signal:
             deal: Deal = self.signals[self.date][-1]
             self.deals[self.date].append(deal)
+            logging.info("generate a deal")
 
     def update_poccession(self) -> None:
-        deal = self.deals[self.date][-1]
-        money = deal["volume"] * deal["price"]
-        buy_commission = self.buy_cost * money
-        sell_commission = self.sell_cost * money
-
         if self.newday:
             single_possession: Possession = {
-                "code": deal["symbol"],
+                "code": self.symbol,
                 "averagePrice": 0.0,
                 "cost": 0.0,
                 "volume": 0,
             }
             self.possessions[self.date] = single_possession
             total = 0
-        else:
+        if self.has_signal:
+            deal = self.deals[self.date][-1]
+            money = deal["volume"] * deal["price"]
+            buy_commission = self.buy_cost * money
+            sell_commission = self.sell_cost * money
             total = (
                 self.possessions[self.date]["volume"]
                 * self.possessions[self.date]["averagePrice"]
             )
-        if self.has_signal:
             if deal["direction"] == "B":
                 self.possessions[self.date]["volume"] += deal["volume"]
                 self.possessions[self.date]["cost"] += money + buy_commission
@@ -110,6 +120,7 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
                 self.possessions[self.date]["averagePrice"] = (
                     total - money
                 ) / self.possessions[self.date]["volume"]
+            logging.info("update the poccession")
 
     def strategy_update(self) -> float:
         """
@@ -118,22 +129,25 @@ class momentumStratgy(AlgorithmicStrategy, ABC):
         self.signal_update()
         self.update_deal()
         self.update_poccession()
-        single_poccession = self.possessions[self.date]
-        average_cost = single_poccession["cost"] / single_poccession["volume"]
-        one_signal = self.signals[self.date][-1]
-        buy_cost = one_signal["price"] + self.buy_cost
-        sell_cost = one_signal["price"] - self.sell_cost
+
         if self.newday:
             self.win_times[self.date] = []
             self.win_rate[self.date] = 0
         if self.has_signal:
+            single_poccession = self.possessions[self.date]
+            average_cost = single_poccession["cost"] / single_poccession["volume"]
+            one_signal = self.signals[self.date][-1]
+            buy_cost = one_signal["price"] + self.buy_cost
+            sell_cost = one_signal["price"] - self.sell_cost
             if (one_signal["direction"] == "B") and (buy_cost < average_cost):
                 self.win_times[self.date].append(1)
             elif (one_signal["direction"] == "S") and (sell_cost > average_cost):
                 self.win_times[self.date].append(1)
             else:
                 self.win_times[self.date].append(0)
-            self.win_rate[self.date] = sum(self.win_times) / len(self.win_times)
+            self.win_rate[self.date] = sum(self.win_times[self.date]) / len(
+                self.win_times[self.date]
+            )
         return self.win_rate[self.date]
 
 
@@ -194,7 +208,7 @@ class anfisModel(modelType):
 
     def pred(self, x: int, total_volum: int = 100000):
         output = self.model(x)
-        if self.buyed_volume < total_volum and output >= 0.2:
+        if self.buyed_volume < total_volum and output >= 0.4:
             max_volum = int(total_volum * 0.25) + 1
             buy_volum = int(output * max_volum)
             self.buyed_volume = min(self.buyed_volume + buy_volum, total_volum)
@@ -202,26 +216,48 @@ class anfisModel(modelType):
         else:
             return False, 0
 
-    def model_update(self, lines):
+    def model_update(self, lines: list) -> (bool, int):
+        if any(line is None for line in lines):
+            return False, 0
         self.train_count += 1
         for i in range(3):
             self.train_data[i].append(lines[i])
         if self.has_model == 1:
             self.test_count += 1
+            if all(
+                [
+                    self.train_data[2][i] == self.train_data[2][0]
+                    for i in range(len(self.train_data[2]))
+                ]
+            ):
+                self.test_count = 0
+                return False, 0
             dataset = self.make_data()
             if self.can_train:
-                *x, y = dataset.dataset.tensors
+                x, y = dataset.dataset.tensors
+                if any(torch.all(x == x[0], dim=0)):
+                    self.test_count -= 100
+                    self.train_count -= 200
+                    return False, 0
                 self.make_model(x)
+                logging.info(f"train model with input x: \n {x},{x.size()}")
                 self.train_model()
                 return False, 0
             else:
                 x = torch.tensor(lines[:2]).unsqueeze(0)
-                self.pred(x)
+                logging.info(f"predict with {x}")
+                isbuy, volume = self.pred(x)
+                return isbuy, volume
         elif self.has_model == 0:
             dataset = self.make_data()
-            *x, y = dataset.dataset.tensors
+            x, y = dataset.dataset.tensors
+            if torch.all(x == 0):
+                self.train_count = 0
+                return False, 0
             self.make_model(x)
+            logging.info(f"train model with input x: \n {x}")
             self.train_model()
+            logging.info("model initiates successfully")
             return False, 0
         else:
             return False, 0
@@ -232,25 +268,36 @@ class reverse_strategy(momentumStratgy):
     反转因子模型
     """
 
-    def model_update(self, model: Model_reverse):
-        index = model.model_update(self.ticks, self.price_list, self.timeStamp)
-        if index is not None:
-            self.model_indicator.append(index)
+    anfis_model: anfisModel
 
-    def signal_update(self, anfis_model: anfisModel):
-        line = list(self.model_indicator[-1].values()[:2]).append(self.current_price)
-        is_buy, volume = anfis_model.model_update(line)
+    def model_update(self, model: Model_reverse):
+        indicators = model.model_update(self.ticks, self.price_list, self.timeStamp)
+        if indicators is not None:
+            if all([indi is not None for indi in indicators.values()]):
+                indicator_values = [
+                    v * 100000 for v in indicators.values()
+                ]  # 因子值太小，为了结果显著，放大1000
+                indicators.update(zip(indicators.keys(), indicator_values))
+                self.model_indicator.append(indicators)
+
+    def signal_update(self):
         if self.newday:
+            self.anfis_model = anfisModel()
             self.signals[self.date] = []
-        if is_buy:
-            signal: Signal = {
-                "timestamp": self.timeStamp,
-                "symbol": self.symbol,
-                "direction": "buy",
-                "price": self.current_price,
-                "volume": volume,
-            }
-            self.signals[self.date].append(signal)
-            self.has_signal = True
-        else:
-            self.has_signal = False
+        if self.model_indicator and self.current_price > 0:
+            line = list(self.model_indicator[-1].values())[:2]
+            line.append(self.current_price)
+            is_buy, volume = self.anfis_model.model_update(line)
+            if is_buy:
+                signal: Signal = {
+                    "timestamp": self.timeStamp,
+                    "symbol": self.symbol,
+                    "direction": "buy",
+                    "price": self.current_price,
+                    "volume": volume,
+                }
+                self.signals[self.date].append(signal)
+                self.has_signal = True
+                logging.info("generate a signal")
+            else:
+                self.has_signal = False

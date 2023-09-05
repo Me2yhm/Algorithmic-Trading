@@ -3,6 +3,7 @@ import csv
 from pathlib import Path
 from typing import Union, Iterable, Any
 
+from .utils import write_to_csv
 from .main import momentumStratgy, reverse_strategy
 from .modelType import modelType
 from .ReverseMomentum import Model_reverse
@@ -17,12 +18,6 @@ logging.basicConfig(
 )
 
 
-def write_to_csv(line: Iterable[Any], filepath: str):
-    with open(filepath, mode="+a", encoding="utf_8", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerow(line)
-
-
 def run(
     datestr: str,
     symbol: str,
@@ -33,10 +28,10 @@ def run(
     tick_path = (
         Path(__file__).parent.parent / f"./datas/{symbol}/tick/gtja/{datestr}.csv"
     )
-    file_path = Path(__file__).parent / "./index_90.csv"
+    file_path = Path(__file__).parent / "./strategy_result.csv"
     data_api = DataSet(tick_path, date_column="time", ticker=symbol)
     orderbook = OrderBook(data_api)
-    stratgy = stratgy_type(orderbook)
+    stratgy = stratgy_type(orderbook, symbol)
     while True:
         try:
             tick_data = data_api.fresh(1)
@@ -44,19 +39,19 @@ def run(
             if stratgy.new_timeStamp is False:
                 continue
             stratgy.model_update(model=model)
-            if len(stratgy.model_indicator) > 1:
-                data = list(stratgy.model_indicator[-1].values())
-                if all(data):
-                    write_to_csv(data, filepath=file_path)
-                    logging.info("write a new line")
-                pass
+            win_rate = stratgy.strategy_update()
+            data = [stratgy.timeStamp, stratgy.current_price, win_rate]
+            if all(data):
+                write_to_csv(data, filepath=file_path)
+                logging.info("write a new line")
         except StopIteration:
             break
     # 确保最后一行tick数据也被更新
     if stratgy.new_timeStamp is False:
         print(stratgy.date)
         stratgy.model_update(model=model)
-        data = list(stratgy.model_indicator[-1].values())
+        win_rate = stratgy.strategy_update()
+        data = [stratgy.timeStamp, stratgy.current_price, win_rate]
         if all(data):
             write_to_csv(data, filepath=file_path)
             logging.info("write the last line")
@@ -65,8 +60,8 @@ def run(
 if __name__ == "__main__":
     model = Model_reverse()
     run(
-        datestr="2023-07-17",
-        symbol="601012.SH",
+        datestr="2023-07-26",
+        symbol="601155.SH",
         stratgy_type=reverse_strategy,
         model=model,
         record_index=True,

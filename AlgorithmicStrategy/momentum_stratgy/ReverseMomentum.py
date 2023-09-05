@@ -198,8 +198,8 @@ class Info:
                         i - period + 1
                     ]  # 存入第一个volume 用于增量计算
                     data_values = list(self.stream.values())  # 将字典的值转换为列表
-                    self.std = np.std(data_values)
-                    self.var = self.std**2 * fix  # 初始化：第一个方差
+                    self.std = np.std(data_values, ddof=1)
+                    self.var = self.std**2  # 初始化：第一个方差
                     self.mean_new = self.mean_old = np.mean(data_values)
                     if self.mean_new != 0:
                         self.dict[i] = self.std / self.mean_new
@@ -211,12 +211,22 @@ class Info:
                     self.mean_new = self.mean_old + (
                         (self.last_volume - self.first_volume) / period
                     )  # 无偏估计
-                    self.var = self.var + fix * (
-                        self.mean_old**2
-                        - self.mean_new**2
-                        + 1 / period * (self.last_volume**2 - self.first_volume**2)
-                    )
-                    self.std = math.sqrt(self.var)
+                    volume_list = [self.stream[t] for t in range(i - period + 1, i + 1)]
+                    # 当volume_list元素全为0时会出现self.var<0的情况，为什么？
+                    try:
+                        self.var = self.var + fix * (
+                            self.mean_old**2
+                            - self.mean_new**2
+                            + 1
+                            / period
+                            * (self.last_volume**2 - self.first_volume**2)
+                        )
+                        self.std = math.sqrt(self.var)
+                    except ValueError:
+                        print(f"volume_list{volume_list}")
+                        var = np.var(volume_list, ddof=1)
+                        self.var = var
+                        self.std = math.sqrt(self.var)
                     self.dict[i] = self.std / self.mean_new
                     self.mean_old = self.mean_new
                     # 更改first_volume为本次第一个周期的volume

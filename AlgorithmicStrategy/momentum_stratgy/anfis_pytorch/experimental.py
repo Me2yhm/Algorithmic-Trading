@@ -149,7 +149,9 @@ def train_anfis_with(
         for x, y_actual in data:
             y_pred = model(x)
             # Compute and print loss
-            loss = criterion(y_pred, y_actual)
+            loss = criterion(
+                y_pred.to(dtype=torch.float), y_actual.to(dtype=torch.float)
+            )
             # Zero gradients, perform a backward pass, and update the weights.
             optimizer.zero_grad()
             loss.backward()
