@@ -32,14 +32,9 @@ def make_model(data, num_mfs, num_out):
 
 
 if __name__ == "__main__":
-    # file_path = r"AlgorithmicStrategy\momentum_stratgy\anfis-pytorch\index_marked.csv"
-    # file_path = r"E:\workspace\Algorithmic-Trading\AlgorithmicStrategy\momentum_stratgy\factor_result.csv"
-    # data = make_train_data(file_path=file_path)
-    # x, _ = data.dataset.tensors
-    x = torch.stack([torch.linspace(67, 67, 80), torch.linspace(23, 37, 80)], dim=1)
-    y = torch.rand(80)
-    td = TensorDataset(x, y)
-    data = DataLoader(td, batch_size=1024, shuffle=True)
+    file_path = r"AlgorithmicStrategy\momentum_stratgy\anfis-pytorch\index_marked.csv"
+    data = make_train_data(file_path=file_path)
+    x, _ = data.dataset.tensors
     model = make_model(x, num_mfs=2, num_out=1)
     train_anfis(model=model, data=data)
     test_anfis(model=model, data=data, show_plots=True)
