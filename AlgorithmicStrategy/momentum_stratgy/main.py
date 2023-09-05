@@ -168,24 +168,26 @@ class anfisModel(modelType):
     def __init__(self, num_mfs: int = 2, num_out: int = 1) -> None:
         self.test_count = 0
         self.train_count = 0
-        self.train_data = [deque(maxlen=800) for i in range(3)]
+        self.train_data = [deque(maxlen=self.train_window) for i in range(3)]
         self.num_mfs = num_mfs
         self.num_out = num_out
         self.buyed_volume = 0
+        self.train_window = 1600
+        self.test_window = 400
         pass
 
     @property
     def has_model(self) -> bool:
-        if self.train_count < 800:
+        if self.train_count < self.train_window:
             return -1
-        elif self.train_count == 800:
+        elif self.train_count == self.train_window:
             return 0
         else:
             return 1
 
     @property
     def can_train(self) -> bool:
-        if self.test_count < 200:
+        if self.test_count < self.test_window:
             return False
         else:
             return True
@@ -236,8 +238,8 @@ class anfisModel(modelType):
             if self.can_train:
                 x, y = dataset.dataset.tensors
                 if any(torch.all(x == x[0], dim=0)):
-                    self.test_count -= 100
-                    self.train_count -= 200
+                    self.test_count -= self.test_window / 2
+                    self.train_count -= self.test_window
                     return False, 0
                 self.make_model(x)
                 logging.info(f"train model with input x: \n {x},{x.size()}")
