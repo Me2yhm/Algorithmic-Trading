@@ -9,7 +9,7 @@ from .log import logger
 import matplotlib.pyplot as plt
 from typing import Sequence, Union
 
-plt.style.use("seaborn-pastel")
+plt.style.use("ggplot")
 
 
 def setup_seed(seed: int):
@@ -21,7 +21,12 @@ def setup_seed(seed: int):
 
 
 def save_model(
-    model: nn.Module, optimizer: optim.Optimizer, epoch: int, loss: float, path: Path, **kwargs
+    model: nn.Module,
+    optimizer: optim.Optimizer,
+    epoch: int,
+    loss: float,
+    path: Path,
+    **kwargs,
 ):
     save_dict = {
         "epoch": epoch,
