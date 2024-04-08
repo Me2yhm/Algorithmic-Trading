@@ -12,8 +12,8 @@ from AlgorithmicStrategy import (
     DataSet,
     OrderBook,
     AlgorithmicStrategy,
-    signal,
-    possession,
+    Signal,
+    Possession,
     LimitedQueue,
     Writer,
     Standarder,
@@ -47,7 +47,7 @@ class VWAP(AlgorithmicStrategy):
         logger,
         args,
         littleob: LLobWriter,
-        model_train: bool= False,
+        model_train: bool = False,
         **kwargs,
     ):
         super().__init__(orderbook=orderbook, **kwargs)
@@ -119,13 +119,17 @@ class VWAP(AlgorithmicStrategy):
                             true_trade_volume_fracs.append(volume_today)
 
                         if sum(pred_trade_volume_fracs) > 1:
-                            pred_trade_volume_fracs[-1] = pred_trade_volume_fracs[-1] - (
-                                    sum(pred_trade_volume_fracs) - 1
+                            pred_trade_volume_fracs[-1] = pred_trade_volume_fracs[
+                                -1
+                            ] - (sum(pred_trade_volume_fracs) - 1)
+                            logger.warning(
+                                f"交易未到尾盘，提前终止：{ts}; 原因：交易量达到"
                             )
-                            logger.warning(f"交易未到尾盘，提前终止：{ts}; 原因：交易量达到")
                             break
                         if sum(pred_trade_volume_fracs) == 1:
-                            logger.warning(f"交易未到尾盘，提前终止：{ts}; 原因：交易量达到")
+                            logger.warning(
+                                f"交易未到尾盘，提前终止：{ts}; 原因：交易量达到"
+                            )
                             break
 
                 market_vwap = llob.get_VWAP(llob_file)
@@ -209,7 +213,7 @@ class VWAP(AlgorithmicStrategy):
                         float(vol_percent_pred) * self.trade_volume
                     )
                     if pred_trade_abs_volume != 0:
-                        sig = signal(
+                        sig = Signal(
                             timestamp=self.timeStamp,
                             symbol=self.tick.ticker,
                             direction=self.direction,
@@ -220,7 +224,7 @@ class VWAP(AlgorithmicStrategy):
                         # self.logger.info(sig)
 
                         if self.date not in self.possessions:
-                            self.possessions[self.date] = possession(
+                            self.possessions[self.date] = Possession(
                                 code=self.tick.ticker,
                                 volume=pred_trade_abs_volume,
                                 averagePrice=price,
@@ -287,11 +291,13 @@ if __name__ == "__main__":
 
     setup_seed(args.seed)
 
-    tick_folder = Path.cwd() / "../datas/000157.SZ/tick/gtja/"
+    cwd = Path(__file__).parent
+
+    tick_folder = cwd / "../datas/000157.SZ/tick/gtja/"
     tick_files = list(tick_folder.glob("*.csv"))
     tick_files.sort(key=lambda x: datetime.strptime(x.stem, "%Y-%m-%d"))
 
-    simu_folder = Path().cwd() / "REAL"
+    simu_folder = cwd / "REAL"
     logger.info(f"Simulating folder: {simu_folder}")
     train_folder = simu_folder / "NORM"
     train_files = list(train_folder.glob("*.csv"))
@@ -375,6 +381,7 @@ if __name__ == "__main__":
                 logger=logger,
                 args=args,
                 littleob=llob_writer,
+                symbol=ticker,
             )
 
             for timestamp in range(
@@ -398,7 +405,7 @@ if __name__ == "__main__":
                 final_price, _ = trader.orderbook.search_snapshot(
                     trader.tick.file_date_num + 14_57_00_000
                 )[trader.key_map[trader.direction]].items()[0]
-                sig = signal(
+                sig = Signal(
                     timestamp=trader.tick.file_date_num + 14_57_00_000,
                     symbol=tick.ticker,
                     direction=direction,
@@ -415,11 +422,9 @@ if __name__ == "__main__":
             pred_trade_vwap = np.sum(trade_price_vector * trade_volume_vector) / np.sum(
                 trade_volume_vector
             )
-            logger.info(f"FINAL VWAP: {pred_trade_vwap:.2f}")
-            market_trade_vwap = list(
-                        ob.last_snapshot["total_trade"].values()
-                    )[2]
-            logger.info(f"MARKET VWAP: {market_trade_vwap:.2f}")
+            logger.info(f"FINAL VWAP: {pred_trade_vwap:.4f}")
+            market_trade_vwap = list(ob.last_snapshot["total_trade"].values())[2]
+            logger.info(f"MARKET VWAP: {market_trade_vwap:.4f}")
             if direction == "BUY":
                 win_flag = pred_trade_vwap < market_trade_vwap
             else:
@@ -427,4 +432,4 @@ if __name__ == "__main__":
             logger.info(f"WIN: {win_flag}")
             trader.model_update()
             win_stats.append(win_flag)
-        logger.info(f"WIN RATE: {np.mean(win_stats) * 100:.2f}")
+        logger.info(f"WIN RATE: {np.mean(win_stats) * 100:.4f}")
