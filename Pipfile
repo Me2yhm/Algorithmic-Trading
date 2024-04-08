@@ -9,8 +9,10 @@ loguru = "*"
 matplotlib = "*"
 tqdm = "*"
 einops = "*"
+imblearn = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.11"
