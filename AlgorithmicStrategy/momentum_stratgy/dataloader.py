@@ -118,14 +118,20 @@ def make_seq_dataset(data: pd.DataFrame, seq_len: int) -> TensorDataset:
 def split_train_dataset(dataset: TensorDataset, split_index: int) -> TensorDataset:
     train_dataset = dataset[:split_index]
     x, y = train_dataset
-    seq_len = x.size(1)
-    input_dim = x.size(2)
-    x = x.view(x.size(0), -1).numpy()
-    y = y.numpy()
+    channels = x.size(1)
+    seq_len = x.size(2)
+    input_dim = x.size(3)
+    dat = x.view(x.size(0), -1)
+    dat = torch.cat([dat, y], dim=1).numpy()
+    y1 = y[:, 0].numpy()
     ros = SMOTE(k_neighbors=2)
-    x, y = ros.fit_resample(x, y)
-    x = torch.tensor(x, dtype=torch.float32).view(-1, seq_len, input_dim)
-    y = torch.tensor(y, dtype=torch.float32)
+    dat, y1 = ros.fit_resample(dat, y1)
+    y2 = dat[:, -1].astype(int)
+    dat, y2 = ros.fit_resample(dat, y2)
+    x = dat[:, :-2]
+    y = dat[:, -2:]
+    x = torch.tensor(x, dtype=torch.float32).view(-1, channels, seq_len, input_dim)
+    y = torch.tensor(y, dtype=torch.float32).view(-1, 2)
     train_dataset = TensorDataset(x, y)
     return train_dataset
 
@@ -159,30 +165,6 @@ def price_dataset(data: pd.DataFrame, seq_len: int) -> TensorDataset:
     return pri_dataset
 
 
-def price_train_loader(
-    data: pd.DataFrame,
-    seq_len: int,
-    split_index: int,
-    batch_size: int,
-    shuffle: bool = True,
-) -> DataLoader:
-    pri_dataset = price_dataset(data, seq_len)
-    split_price_train = split_train_dataset(pri_dataset, split_index)
-    return make_dataloader(split_price_train, batch_size, shuffle)
-
-
-def price_testloader(
-    data: pd.DataFrame,
-    seq_len: int,
-    split_index: int,
-    batch_size: int,
-    shuffle: bool = True,
-) -> DataLoader:
-    pri_dataset = price_dataset(data, seq_len)
-    split_price_test = split_test_dataset(pri_dataset, split_index)
-    return make_dataloader(split_price_test, batch_size, shuffle)
-
-
 def volume_dataset(data: pd.DataFrame, seq_len: int) -> TensorDataset:
     vol_dat = get_volume_dat(data)
     vol_ind = add_indi(vol_dat, indicators)
@@ -199,28 +181,15 @@ def volume_dataset(data: pd.DataFrame, seq_len: int) -> TensorDataset:
     return vol_dataset
 
 
-def volume_train_loader(
-    data: pd.DataFrame,
-    seq_len: int,
-    split_index: int,
-    batch_size: int,
-    shuffle: bool = True,
-) -> DataLoader:
+def get_dataset(data: pd.DataFrame, seq_len: int) -> TensorDataset:
+    pri_dataset = price_dataset(data, seq_len)
     vol_dataset = volume_dataset(data, seq_len)
-    split_volume_train = split_train_dataset(vol_dataset, split_index)
-    return make_dataloader(split_volume_train, batch_size, shuffle)
-
-
-def volume_testloader(
-    data: pd.DataFrame,
-    seq_len: int,
-    split_index: int,
-    batch_size: int,
-    shuffle: bool = True,
-) -> DataLoader:
-    vol_dataset = volume_dataset(data, seq_len)
-    split_volume_test = split_test_dataset(vol_dataset, split_index)
-    return make_dataloader(split_volume_test, batch_size, shuffle)
+    price_x, price_y = pri_dataset.tensors
+    volume_x, volume_y = vol_dataset.tensors
+    data_x = torch.stack([price_x, volume_x], dim=1)
+    data_y = torch.stack([price_y, volume_y], dim=1)
+    dataset = TensorDataset(data_x, data_y)
+    return dataset
 
 
 def train_loader(
@@ -230,13 +199,6 @@ def train_loader(
     batch_size: int,
     shuffle: bool = True,
 ):
-    pri_dataset = price_dataset(data, seq_len)
-    split_price_train = split_train_dataset(pri_dataset, split_index)
-    vol_dataset = volume_dataset(data, seq_len)
-    split_volume_train = split_train_dataset(vol_dataset, split_index)
-    price_x, price_y = split_price_train.tensors
-    volume_x, volume_y = split_volume_train.tensors
-    data_x = torch.stack([price_x.squeeze(1), volume_x], dim=1)
-    data_y = torch.stack([price_y, volume_y], dim=1)
-    dataset = TensorDataset(data_x, data_y)
-    return make_dataloader(dataset, batch_size, shuffle)
+    dataset = get_dataset(data, seq_len)
+    split_dataset = split_train_dataset(dataset, split_index)
+    return make_dataloader(split_dataset, batch_size, shuffle)
