@@ -22,15 +22,15 @@ indicators = ["sma60", "sma120", "rsi"]
 
 def tag_zs(zs: float) -> list:
     if zs >= 1.5:
-        return 2
+        return 4
     elif 0.5 <= zs < 1.5:
-        return 1
+        return 3
     elif -0.3 < zs < 0.3:
-        return 0
+        return 2
     elif -1.5 < zs <= -0.3:
-        return -1
+        return 1
     else:
-        return -2
+        return 0
 
 
 def make_seqs(seq_len: int, data: Iterable) -> torch.Tensor:
