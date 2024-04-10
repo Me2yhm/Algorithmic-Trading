@@ -10,6 +10,7 @@ matplotlib = "*"
 tqdm = "*"
 einops = "*"
 imblearn = "*"
+skorch = "*"
 
 [dev-packages]
 ipykernel = "*"

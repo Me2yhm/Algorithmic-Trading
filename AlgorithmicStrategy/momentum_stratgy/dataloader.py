@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import torch
 from torch.utils.data import DataLoader, TensorDataset
-from imblearn.over_sampling import SMOTE
+from imblearn.over_sampling import RandomOverSampler
 
 import sys
 
@@ -88,7 +88,7 @@ def data_to_zscore(dat: pd.DataFrame, nodiff: list[str] | str = "all") -> pd.Dat
                 data.loc[:, col] = cal_zscore(data.loc[:, col].values)
                 continue
             data.loc[:, col] = cal_zscore(data.loc[:, col].diff().values)
-    return data.iloc[1:].reset_index(drop=True)
+    return data.iloc[1:, 1:].reset_index(drop=True)
 
 
 def target_data(data: pd.Series, period: int = 20) -> list:
@@ -124,9 +124,9 @@ def split_train_dataset(dataset: TensorDataset, split_index: int) -> TensorDatas
     dat = x.view(x.size(0), -1)
     dat = torch.cat([dat, y], dim=1).numpy()
     y1 = y[:, 0].numpy()
-    ros = SMOTE(k_neighbors=2)
+    ros = RandomOverSampler()
     dat, y1 = ros.fit_resample(dat, y1)
-    y2 = dat[:, -1].astype(int)
+    y2 = dat[:, -1]
     dat, y2 = ros.fit_resample(dat, y2)
     x = dat[:, :-2]
     y = dat[:, -2:]
