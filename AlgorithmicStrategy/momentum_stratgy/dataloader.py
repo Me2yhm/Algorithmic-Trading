@@ -97,8 +97,12 @@ def target_data(data: pd.Series, period: int = 20) -> list:
     return target
 
 
+# def mark_target(target: list):
+#     return list(map(tag_zs, target))
+
+
 def mark_target(target: list):
-    return list(map(tag_zs, target))
+    return target
 
 
 def get_target(dat: pd.Series, period: int = 20) -> list:
@@ -115,25 +119,25 @@ def make_seq_dataset(data: pd.DataFrame, seq_len: int) -> TensorDataset:
     return dataset
 
 
-def split_train_dataset(dataset: TensorDataset, split_index: int) -> TensorDataset:
-    train_dataset = dataset[:split_index]
-    x, y = train_dataset
-    channels = x.size(1)
-    seq_len = x.size(2)
-    input_dim = x.size(3)
-    dat = x.view(x.size(0), -1)
-    dat = torch.cat([dat, y], dim=1).numpy()
-    y1 = y[:, 0].numpy()
-    ros = RandomOverSampler()
-    dat, y1 = ros.fit_resample(dat, y1)
-    y2 = dat[:, -1]
-    dat, y2 = ros.fit_resample(dat, y2)
-    x = dat[:, :-2]
-    y = dat[:, -2:]
-    x = torch.tensor(x, dtype=torch.float32).view(-1, channels, seq_len, input_dim)
-    y = torch.tensor(y, dtype=torch.float32).view(-1, 2)
-    train_dataset = TensorDataset(x, y)
-    return train_dataset
+# def split_train_dataset(dataset: TensorDataset, split_index: int) -> TensorDataset:
+#     train_dataset = dataset[:split_index]
+#     x, y = train_dataset
+#     channels = x.size(1)
+#     seq_len = x.size(2)
+#     input_dim = x.size(3)
+#     dat = x.view(x.size(0), -1)
+#     dat = torch.cat([dat, y], dim=1).numpy()
+#     y1 = y[:, 0].numpy()
+#     ros = RandomOverSampler()
+#     dat, y1 = ros.fit_resample(dat, y1)
+#     y2 = dat[:, -1]
+#     dat, y2 = ros.fit_resample(dat, y2)
+#     x = dat[:, :-2]
+#     y = dat[:, -2:]
+#     x = torch.tensor(x, dtype=torch.float32).view(-1, channels, seq_len, input_dim)
+#     y = torch.tensor(y, dtype=torch.float32).view(-1, 2)
+#     train_dataset = TensorDataset(x, y)
+#     return train_dataset
 
 
 def split_test_dataset(dataset: TensorDataset, split_index: int) -> TensorDataset:
@@ -202,3 +206,10 @@ def train_loader(
     dataset = get_dataset(data, seq_len)
     split_dataset = split_train_dataset(dataset, split_index)
     return make_dataloader(split_dataset, batch_size, shuffle)
+
+
+def split_train_dataset(dataset: TensorDataset, split_index: int) -> TensorDataset:
+    train_dataset = dataset[:split_index]
+    x, y = train_dataset
+    train_dataset = TensorDataset(x, y)
+    return train_dataset
