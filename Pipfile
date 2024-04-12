@@ -11,8 +11,10 @@ tqdm = "*"
 skorch = "*"
 scikit-learn = "*"
 imblearn = "*"
+torch = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.11"
