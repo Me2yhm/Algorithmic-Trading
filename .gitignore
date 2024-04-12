@@ -8,6 +8,7 @@ __pycache__/
 *.so
 
 # draft
+/**/*draft*
 /**/*draft.py
 /**/*draft.ipynb
 /AlgorithmicStrategy/TWAP_VWAP/TEST/test_book.ipynb
