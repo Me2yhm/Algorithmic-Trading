@@ -8,6 +8,9 @@ pandas = "*"
 loguru = "*"
 matplotlib = "*"
 tqdm = "*"
+skorch = "*"
+scikit-learn = "*"
+imblearn = "*"
 
 [dev-packages]
 
