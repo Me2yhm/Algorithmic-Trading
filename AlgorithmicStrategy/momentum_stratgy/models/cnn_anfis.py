@@ -1,3 +1,4 @@
+import skorch
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
@@ -5,6 +6,7 @@ from torch.optim.optimizer import Optimizer
 import torch.nn.functional as F
 from sklearn.decomposition import PCA
 import sys
+import numpy as np
 
 
 sys.path.append("e:\\workspace\\Algorithmic-Trading\\")
@@ -18,14 +20,21 @@ from AlgorithmicStrategy.momentum_stratgy.anfis_pytorch.experimental import (
 )
 
 
-class convFeature(nn.Module):
-    def __init__(self, num_classes, input_dim, seq_len):
-        super(convFeature, self).__init__()
+def get_zscore(pcg: list):
+    pcg = np.where(np.isinf(pcg), 0, pcg)
+    zscores = [(pcg[i] - np.mean(pcg)) / np.std(pcg) for i in range(len(pcg))]
+    return zscores
 
+
+class convFeature(nn.Module):
+
+    def __init__(self, num_classes, input_dim, seq_len):
+
+        super(convFeature, self).__init__()
         # 加载预训练的VGG16模型
         self.input_dim = input_dim
         self.seq_len = seq_len
-        L = (seq_len // 16) * (input_dim // 16) * 128
+
         self.cnn = nn.Sequential(
             nn.Conv2d(
                 in_channels=2,
@@ -46,27 +55,75 @@ class convFeature(nn.Module):
             ),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Conv2d(
-                in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1
-            ),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Flatten(),
-            nn.Linear(L, 4096),
-            nn.Linear(4096, 4096),
         )
 
         # 全连接层
-        self.fc = nn.Linear(4096, num_classes)
-        # self.soft = nn.Softmax(dim=1)
+        self.pca = PCA(n_components=num_classes)
+        self.num_cls = num_classes
+
+    def cal_zscore(self, pcg):
+        zscores = [get_zscore(pcg[:, i]) for i in range(self.num_cls)]
+        return torch.tensor(zscores).T
 
     def forward(self, x):
-        # 提取图像特征
-        with torch.no_grad():
-            features = self.cnn(x)
-        output = self.fc(features)
-        # output = self.soft(output)
 
+        # 提取图像特征
+
+        with torch.no_grad():
+
+            features = self.cnn(x)
+
+        features_pca = self.pca.fit_transform(features.numpy())
+        output = torch.tensor(features_pca, dtype=float)
+
+        return output
+
+
+class normalize(nn.Module):
+    def __init__(self, num_class: int):
+        super(normalize, self).__init__()
+        self.num_class = num_class
+
+    def cal_zscore(self, x):
+        if torch.all(torch.eq(x, torch.zeros_like(x))):
+            return x
+        mean = x.mean(dim=0)
+        std = x.std(dim=0)
+        return (x - mean) / std
+
+    def tag_zs(self, x) -> list:
+        con = [
+            x >= 1.5,
+            (x < 1.5) & (x >= 0.5),
+            (x < 0.5) & (x >= -0.5),
+            (x < -0.5) & (x >= -1.5),
+            x < 1.5,
+        ]
+        vals = [
+            torch.tensor(4.0, requires_grad=True),
+            torch.tensor(3.0, requires_grad=True),
+            torch.tensor(2.0, requires_grad=True),
+            torch.tensor(1.0, requires_grad=True),
+            torch.tensor(0.0, requires_grad=True),
+        ]
+        x = torch.where(
+            con[0],
+            vals[0],
+            torch.where(
+                con[1],
+                vals[1],
+                torch.where(
+                    con[2],
+                    vals[2],
+                    torch.where(con[3], vals[3], vals[4]),
+                ),
+            ),
+        )
+        return x
+
+    def forward(self, x):
+        output = self.cal_zscore(x)
         return output
 
 
@@ -87,76 +144,29 @@ def make_anfis(num_in: int, num_mfs=5, num_out=1, hybrid=False):
     return model
 
 
-def train_anfis_with(
-    model: torch.nn.Module,
-    data: DataLoader,
-    optimizer: Optimizer,
-    criterion: torch.nn.MSELoss,
-    epochs=500,
-    show_plots=False,
-):
-    """
-    Train the given model using the given (x,y) data.
-    """
-    errors = []  # Keep a list of these for plotting afterwards
-    # optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
-    print(
-        "### Training for {} epochs, training size = {} cases".format(
-            epochs, data.dataset.tensors[0].shape[0]
-        )
+def make_model(input_dim: int, seq_len: int):
+    feat = convFeature(2, input_dim, seq_len)
+    models = make_anfis(2, 5, 2)
+    norm = normalize(2)
+    model = nn.Sequential(feat, models, norm)
+    return model
+
+
+def train_model(datalader, model):
+    X, y = datalader.dataset.tensors
+    net = skorch.NeuralNet(
+        model,
+        max_epochs=20,
+        train_split=None,
+        criterion=torch.nn.MSELoss,
+        # criterion__reduction="sum",
+        optimizer=torch.optim.SGD,
+        optimizer__lr=1e-4,
+        optimizer__momentum=0.99,
     )
-    for t in range(epochs):
-        # Process each mini-batch in turn:
-        for x, y_actual in data:
-            y_pred = model(x)
-            # Compute and print loss
-            loss = criterion(
-                y_pred.to(dtype=torch.float), y_actual.to(dtype=torch.float)
-            )
-            # Zero gradients, perform a backward pass, and update the weights.
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-        # Epoch ending, so now fit the coefficients based on all data:
-        x, y_actual = data.dataset.tensors
-        with torch.no_grad():
-            model[1].fit_coeff(x, y_actual)
-        # Get the error rate for the whole batch:
-        y_pred = model(x)
-        mse, rmse, perc_loss = calc_error(y_pred, y_actual)
-        errors.append(perc_loss)
-        # Print some progress information as the net is trained:
-        if epochs < 30 or t % 10 == 0:
-            print(model)
-            print(
-                "epoch {:4d}: MSE={:.5f}, RMSE={:.5f} ={:.2f}%".format(
-                    t, mse, rmse, perc_loss
-                )
-            )
-    # End of training, so graph the results:
-    if show_plots:
-        plotErrors(errors)
-        y_actual = data.dataset.tensors[1]
-        y_pred = model(data.dataset.tensors[0])
-        plotResults(y_actual, y_pred)
+    net.fit(X, y)
+    return model
 
 
 if __name__ == "__main__":
-    import warnings
-
-    import pandas as pd
-
-    warnings.filterwarnings("ignore", category=FutureWarning)
-
-    indicators = ["sma60", "sma120", "rsi"]
-    data_path = r"E:\workspace\Algorithmic-Trading\AlgorithmicStrategy\datas\000333.SZ\snapshot\gtja\2023-08-03.csv"
-    data = pd.read_csv(data_path)
-    data = data[data["time"] >= 93000000].reset_index(drop=True)
-    data.iloc[:, 1:] = data.iloc[:, 1:].astype(float)
-    feat = convFeature(2, 45, 60)
-    models = make_anfis(2, 5, 2, hybrid=False)
-    model = nn.Sequential(feat, models)
-    datalader = train_loader(data, 60, -500, 64)
-    optimizer = torch.optim.SGD(model.parameters(), lr=1e-4, momentum=0.99)
-    criterion = torch.nn.MSELoss(reduction="sum")
-    train_anfis_with(model, datalader, optimizer, criterion)
+    pass
