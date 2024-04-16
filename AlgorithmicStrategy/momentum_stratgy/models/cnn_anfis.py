@@ -34,7 +34,7 @@ class convFeature(nn.Module):
         # 加载预训练的VGG16模型
         self.input_dim = input_dim
         self.seq_len = seq_len
-
+        L = 64 * (seq_len // 8) * (input_dim // 8)
         self.cnn = nn.Sequential(
             nn.Conv2d(
                 in_channels=2,
@@ -56,10 +56,13 @@ class convFeature(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Flatten(),
+            nn.Linear(L, 1024),
+            nn.Linear(1024, 1024),
         )
 
         # 全连接层
         self.pca = PCA(n_components=num_classes)
+        self.fc = nn.Linear(1024, num_classes)
         self.num_cls = num_classes
 
     def cal_zscore(self, pcg):
@@ -74,8 +77,9 @@ class convFeature(nn.Module):
 
             features = self.cnn(x)
 
-        features_pca = self.pca.fit_transform(features.numpy())
-        output = torch.tensor(features_pca, dtype=float)
+        # features_pca = self.pca.fit_transform(features.numpy())
+        # output = torch.tensor(features_pca, dtype=float)
+        output = self.fc(features)
 
         return output
 
@@ -147,8 +151,8 @@ def make_anfis(num_in: int, num_mfs=5, num_out=1, hybrid=False):
 def make_model(input_dim: int, seq_len: int):
     feat = convFeature(2, input_dim, seq_len)
     models = make_anfis(2, 5, 2)
-    norm = normalize(2)
-    model = nn.Sequential(feat, models, norm)
+    # norm = normalize(2)
+    model = nn.Sequential(feat, models)
     return model
 
 
@@ -165,7 +169,8 @@ def train_model(datalader, model):
         optimizer__momentum=0.99,
     )
     net.fit(X, y)
-    return model
+    # return model
+    return net
 
 
 if __name__ == "__main__":
