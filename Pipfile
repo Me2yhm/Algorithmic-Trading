@@ -11,6 +11,8 @@ tqdm = "*"
 einops = "*"
 imblearn = "*"
 skorch = "*"
+tushare = "*"
+chinese-calendar = "*"
 
 [dev-packages]
 ipykernel = "*"

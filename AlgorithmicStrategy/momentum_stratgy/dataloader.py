@@ -91,7 +91,7 @@ def data_to_zscore(dat: pd.DataFrame, nodiff: list[str] | str = "all") -> pd.Dat
     return data.iloc[1:, 1:].reset_index(drop=True)
 
 
-def target_data(data: pd.Series, period: int = 60) -> list:
+def target_data(data: pd.Series, period: int = 20) -> list:
     target = data.diff(periods=period).dropna()
     target = cal_zscore(target.values)
     return target

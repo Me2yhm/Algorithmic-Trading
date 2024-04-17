@@ -156,16 +156,16 @@ def make_model(input_dim: int, seq_len: int):
     return model
 
 
-def train_model(datalader, model):
+def train_model(datalader, model, epoch=700, lr=5e-3):
     X, y = datalader.dataset.tensors
     net = skorch.NeuralNet(
         model,
-        max_epochs=20,
+        max_epochs=epoch,
         train_split=None,
         criterion=torch.nn.MSELoss,
         # criterion__reduction="sum",
         optimizer=torch.optim.SGD,
-        optimizer__lr=1e-4,
+        optimizer__lr=lr,
         optimizer__momentum=0.99,
     )
     net.fit(X, y)
