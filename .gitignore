@@ -7,6 +7,11 @@ __pycache__/
 # C extensions
 *.so
 
+# cache
+/**/*.csv
+/**/*.pth
+/**/*.pkl
+
 # draft
 /**/*draft.py
 /**/*draft.ipynb

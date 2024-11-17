@@ -9,7 +9,7 @@ import sys
 import numpy as np
 
 
-sys.path.append("e:\\workspace\\Algorithmic-Trading\\")
+sys.path.append("..\\..\\..\\")
 from AlgorithmicStrategy.momentum_stratgy.anfis_pytorch.anfis import AnfisNet
 from AlgorithmicStrategy.momentum_stratgy.anfis_pytorch.membership import make_gauss_mfs
 from AlgorithmicStrategy.momentum_stratgy.dataloader import train_loader

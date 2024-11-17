@@ -13,6 +13,10 @@ imblearn = "*"
 skorch = "*"
 tushare = "*"
 chinese-calendar = "*"
+torch = "*"
+torchvision = "*"
+torchaudio = "*"
+ta-lib = "*"
 
 [dev-packages]
 ipykernel = "*"
